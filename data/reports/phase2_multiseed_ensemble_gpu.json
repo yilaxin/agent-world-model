@@ -1,0 +1,543 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-08-08T15:01:57.816110+00:00",
+  "experiment": "proposal_33_multiseed_ensemble",
+  "device": "cuda",
+  "run_count": 5,
+  "ensemble_size": 3,
+  "runs": [
+    {
+      "tag": "risk_balanced_b",
+      "seed": 101,
+      "checkpoint": "artifacts/phase2/multiseed/world_model_risk_balanced_b_seed101.pt",
+      "training_report": "data/reports/phase2_multiseed/training_risk_balanced_b_seed101.json",
+      "best_epoch": 28,
+      "selection_score": 0.8117994273677199,
+      "validation": {
+        "state_delta_f1": 0.9934287776449171,
+        "task_signal_f1": 0.9702707191496429,
+        "risk_f1": 0.9346811417599056,
+        "risk_auroc": 0.9973611230141531,
+        "risk_ece": 0.01772116005448814,
+        "risk_brier": 0.010424770909511697,
+        "risk_nll": 0.044270439391574844,
+        "risk_aurc": 0.003019957983193277,
+        "latent_cosine": 0.9835428963689243,
+        "progress_mae": 0.06816979001551703,
+        "reward_mae": 0.07391286936555323
+      },
+      "test": {
+        "state_delta_f1": 0.9875391770296229,
+        "task_signal_f1": 0.9869920338812141,
+        "risk_f1": 0.9273284534837931,
+        "risk_auroc": 0.9939478764047724,
+        "risk_ece": 0.018337540507365385,
+        "risk_brier": 0.011946093844505502,
+        "risk_nll": 0.05024610899087907,
+        "risk_aurc": 0.003599696445146885,
+        "latent_cosine": 0.9811699031626137,
+        "progress_mae": 0.06519500282048435,
+        "reward_mae": 0.06950381408907949
+      }
+    },
+    {
+      "tag": "base_a",
+      "seed": 17,
+      "checkpoint": "artifacts/phase2/multiseed/world_model_base_a_seed17.pt",
+      "training_report": "data/reports/phase2_multiseed/training_base_a_seed17.json",
+      "best_epoch": 36,
+      "selection_score": 0.8058238770822655,
+      "validation": {
+        "state_delta_f1": 0.9892490493272578,
+        "task_signal_f1": 0.9748148148148148,
+        "risk_f1": 0.9184195904963833,
+        "risk_auroc": 0.9967852425273032,
+        "risk_ece": 0.026033398781791447,
+        "risk_brier": 0.012152508414916417,
+        "risk_nll": 0.05326841966294799,
+        "risk_aurc": 0.003720238095238095,
+        "latent_cosine": 0.9796483147294581,
+        "progress_mae": 0.06823575922080177,
+        "reward_mae": 0.06893784530526899
+      },
+      "test": {
+        "state_delta_f1": 0.9907741224775926,
+        "task_signal_f1": 0.9734989648033127,
+        "risk_f1": 0.8773768915222161,
+        "risk_auroc": 0.9934231392158858,
+        "risk_ece": 0.026375205542802368,
+        "risk_brier": 0.014479310799642313,
+        "risk_nll": 0.06004149011290043,
+        "risk_aurc": 0.0048945084167482,
+        "latent_cosine": 0.9769989745130817,
+        "progress_mae": 0.06157035418592801,
+        "reward_mae": 0.06468642783241997
+      }
+    },
+    {
+      "tag": "base_b",
+      "seed": 42,
+      "checkpoint": "artifacts/phase2/multiseed/world_model_base_b_seed42.pt",
+      "training_report": "data/reports/phase2_multiseed/training_base_b_seed42.json",
+      "best_epoch": 35,
+      "selection_score": 0.8057559238105255,
+      "validation": {
+        "state_delta_f1": 0.9902742657070608,
+        "task_signal_f1": 0.9702707191496429,
+        "risk_f1": 0.9218653745022913,
+        "risk_auroc": 0.9961863231627136,
+        "risk_ece": 0.0292346860693337,
+        "risk_brier": 0.012879434454593244,
+        "risk_nll": 0.057986848825222516,
+        "risk_aurc": 0.003588935574229692,
+        "latent_cosine": 0.9797477290159514,
+        "progress_mae": 0.07046765399262912,
+        "reward_mae": 0.06855987114660912
+      },
+      "test": {
+        "state_delta_f1": 0.9886710730559312,
+        "task_signal_f1": 0.9772844074416692,
+        "risk_f1": 0.9074198522959818,
+        "risk_auroc": 0.9935761517272639,
+        "risk_ece": 0.026586341272887847,
+        "risk_brier": 0.014266293584378618,
+        "risk_nll": 0.06170712910138469,
+        "risk_aurc": 0.004044993853641403,
+        "latent_cosine": 0.9763326617120539,
+        "progress_mae": 0.06118803210118537,
+        "reward_mae": 0.061993239221192195
+      }
+    },
+    {
+      "tag": "risk_balanced_a",
+      "seed": 29,
+      "checkpoint": "artifacts/phase2/multiseed/world_model_risk_balanced_a_seed29.pt",
+      "training_report": "data/reports/phase2_multiseed/training_risk_balanced_a_seed29.json",
+      "best_epoch": 35,
+      "selection_score": 0.8022251081761876,
+      "validation": {
+        "state_delta_f1": 0.9841553262676377,
+        "task_signal_f1": 0.967967967967968,
+        "risk_f1": 0.9150279228624977,
+        "risk_auroc": 0.9954785305858882,
+        "risk_ece": 0.024068384829363163,
+        "risk_brier": 0.013999733735813489,
+        "risk_nll": 0.05820966393983125,
+        "risk_aurc": 0.004376750700280112,
+        "latent_cosine": 0.9818093248275148,
+        "progress_mae": 0.07733351242471244,
+        "reward_mae": 0.07411624299276214
+      },
+      "test": {
+        "state_delta_f1": 0.9883139257321959,
+        "task_signal_f1": 0.9772844074416692,
+        "risk_f1": 0.8824158477069391,
+        "risk_auroc": 0.9934276625935954,
+        "risk_ece": 0.024613776534021685,
+        "risk_brier": 0.015371582368022402,
+        "risk_nll": 0.06145663888495641,
+        "risk_aurc": 0.0052585860866511125,
+        "latent_cosine": 0.9788643316157813,
+        "progress_mae": 0.07437497635822457,
+        "reward_mae": 0.06990488386827123
+      }
+    },
+    {
+      "tag": "regularized",
+      "seed": 73,
+      "checkpoint": "artifacts/phase2/multiseed/world_model_regularized_seed73.pt",
+      "training_report": "data/reports/phase2_multiseed/training_regularized_seed73.json",
+      "best_epoch": 40,
+      "selection_score": 0.7989683717629742,
+      "validation": {
+        "state_delta_f1": 0.983757173695572,
+        "task_signal_f1": 0.9661976386867217,
+        "risk_f1": 0.9051594018106662,
+        "risk_auroc": 0.9970680016296602,
+        "risk_ece": 0.032952527722710415,
+        "risk_brier": 0.012378808149282826,
+        "risk_nll": 0.05790490355460074,
+        "risk_aurc": 0.004245448179271708,
+        "latent_cosine": 0.9822967679811125,
+        "progress_mae": 0.06480205012762819,
+        "reward_mae": 0.0675914235039769
+      },
+      "test": {
+        "state_delta_f1": 0.988720970756899,
+        "task_signal_f1": 0.9822526973883231,
+        "risk_f1": 0.8939377824506869,
+        "risk_auroc": 0.9913548656421878,
+        "risk_ece": 0.028285254910983854,
+        "risk_brier": 0.015204370455063409,
+        "risk_nll": 0.06614354963798406,
+        "risk_aurc": 0.005056007124758536,
+        "latent_cosine": 0.9798497544908986,
+        "progress_mae": 0.0666339634204818,
+        "reward_mae": 0.06857870291187018
+      }
+    }
+  ],
+  "run_stability": {
+    "validation": {
+      "state_delta_f1": {
+        "mean": 0.9881729185284891,
+        "std": 0.0037104614946547017,
+        "minimum": 0.983757173695572,
+        "maximum": 0.9934287776449171
+      },
+      "task_signal_f1": {
+        "mean": 0.9699043719537581,
+        "std": 0.002893800322645156,
+        "minimum": 0.9661976386867217,
+        "maximum": 0.9748148148148148
+      },
+      "risk_f1": {
+        "mean": 0.9190306862863489,
+        "std": 0.009610206032219421,
+        "minimum": 0.9051594018106662,
+        "maximum": 0.9346811417599056
+      },
+      "risk_auroc": {
+        "mean": 0.9965758441839437,
+        "std": 0.0006720942221457755,
+        "minimum": 0.9954785305858882,
+        "maximum": 0.9973611230141531
+      },
+      "risk_ece": {
+        "mean": 0.026002031491537375,
+        "std": 0.005120005049936404,
+        "minimum": 0.01772116005448814,
+        "maximum": 0.032952527722710415
+      },
+      "risk_brier": {
+        "mean": 0.012367051132823534,
+        "std": 0.0011616202840554304,
+        "minimum": 0.010424770909511697,
+        "maximum": 0.013999733735813489
+      },
+      "risk_nll": {
+        "mean": 0.05432805507483547,
+        "std": 0.005357722735905252,
+        "minimum": 0.044270439391574844,
+        "maximum": 0.05820966393983125
+      },
+      "risk_aurc": {
+        "mean": 0.0037902661064425766,
+        "std": 0.00048784575606067136,
+        "minimum": 0.003019957983193277,
+        "maximum": 0.004376750700280112
+      },
+      "latent_cosine": {
+        "mean": 0.9814090065845923,
+        "std": 0.0015074308987976823,
+        "minimum": 0.9796483147294581,
+        "maximum": 0.9835428963689243
+      },
+      "progress_mae": {
+        "mean": 0.06980175315625771,
+        "std": 0.004178121412188546,
+        "minimum": 0.06480205012762819,
+        "maximum": 0.07733351242471244
+      },
+      "reward_mae": {
+        "mean": 0.07062365046283407,
+        "std": 0.0028040216830647197,
+        "minimum": 0.0675914235039769,
+        "maximum": 0.07411624299276214
+      }
+    },
+    "test": {
+      "state_delta_f1": {
+        "mean": 0.9888038538104483,
+        "std": 0.0010719977455093059,
+        "minimum": 0.9875391770296229,
+        "maximum": 0.9907741224775926
+      },
+      "task_signal_f1": {
+        "mean": 0.9794625021912378,
+        "std": 0.004680406143948906,
+        "minimum": 0.9734989648033127,
+        "maximum": 0.9869920338812141
+      },
+      "risk_f1": {
+        "mean": 0.8976957654919234,
+        "std": 0.018072681180429814,
+        "minimum": 0.8773768915222161,
+        "maximum": 0.9273284534837931
+      },
+      "risk_auroc": {
+        "mean": 0.993145939116741,
+        "std": 0.0009156788200906566,
+        "minimum": 0.9913548656421878,
+        "maximum": 0.9939478764047724
+      },
+      "risk_ece": {
+        "mean": 0.024839623753612226,
+        "std": 0.0034528104814428363,
+        "minimum": 0.018337540507365385,
+        "maximum": 0.028285254910983854
+      },
+      "risk_brier": {
+        "mean": 0.014253530210322449,
+        "std": 0.0012271544449564621,
+        "minimum": 0.011946093844505502,
+        "maximum": 0.015371582368022402
+      },
+      "risk_nll": {
+        "mean": 0.05991898334562094,
+        "std": 0.005251410886993711,
+        "minimum": 0.05024610899087907,
+        "maximum": 0.06614354963798406
+      },
+      "risk_aurc": {
+        "mean": 0.004570758385389227,
+        "std": 0.0006376169701503998,
+        "minimum": 0.003599696445146885,
+        "maximum": 0.0052585860866511125
+      },
+      "latent_cosine": {
+        "mean": 0.9786431250988858,
+        "std": 0.0017849911152055188,
+        "minimum": 0.9763326617120539,
+        "maximum": 0.9811699031626137
+      },
+      "progress_mae": {
+        "mean": 0.06579246577726082,
+        "std": 0.004769729634007904,
+        "minimum": 0.06118803210118537,
+        "maximum": 0.07437497635822457
+      },
+      "reward_mae": {
+        "mean": 0.06693341358456661,
+        "std": 0.0030853796875577742,
+        "minimum": 0.061993239221192195,
+        "maximum": 0.06990488386827123
+      }
+    }
+  },
+  "selected_members": [
+    {
+      "tag": "risk_balanced_b",
+      "seed": 101,
+      "checkpoint": "artifacts/phase2/multiseed/world_model_risk_balanced_b_seed101.pt",
+      "selection_score": 0.8117994273677199
+    },
+    {
+      "tag": "base_a",
+      "seed": 17,
+      "checkpoint": "artifacts/phase2/multiseed/world_model_base_a_seed17.pt",
+      "selection_score": 0.8058238770822655
+    },
+    {
+      "tag": "base_b",
+      "seed": 42,
+      "checkpoint": "artifacts/phase2/multiseed/world_model_base_b_seed42.pt",
+      "selection_score": 0.8057559238105255
+    }
+  ],
+  "temperatures": {
+    "state_delta": [
+      0.5,
+      0.5,
+      1.350000023841858,
+      1.399999976158142,
+      0.5
+    ],
+    "task_signal": [
+      0.5,
+      0.550000011920929
+    ],
+    "risk": [
+      0.7250000238418579,
+      0.5,
+      0.5,
+      0.625
+    ]
+  },
+  "calibration_comparison": {
+    "risk_ece_before": 0.024870638066968542,
+    "risk_ece_after": 0.009143327175840491,
+    "risk_brier_before": 0.011143933767440953,
+    "risk_brier_after": 0.010382608751210155
+  },
+  "validation_acceptance": {
+    "passed": true,
+    "checks": {
+      "state_delta.macro_f1_supported": {
+        "actual": 0.9913389134860874,
+        "operator": ">=",
+        "target": 0.6,
+        "passed": true
+      },
+      "task_signal.macro_f1_supported": {
+        "actual": 0.97255291005291,
+        "operator": ">=",
+        "target": 0.6,
+        "passed": true
+      },
+      "risk.macro_f1_supported": {
+        "actual": 0.9333639323394777,
+        "operator": ">=",
+        "target": 0.5,
+        "passed": true
+      },
+      "risk.macro_auroc_supported": {
+        "actual": 0.9970959467060547,
+        "operator": ">=",
+        "target": 0.7,
+        "passed": true
+      },
+      "latent.cosine_similarity": {
+        "actual": 0.9820620546571347,
+        "operator": ">=",
+        "target": 0.6,
+        "passed": true
+      },
+      "progress.mae": {
+        "actual": 0.06172177129666068,
+        "operator": "<=",
+        "target": 0.25,
+        "passed": true
+      },
+      "reward.mae": {
+        "actual": 0.06320494031459922,
+        "operator": "<=",
+        "target": 0.25,
+        "passed": true
+      },
+      "state_delta.macro_ece": {
+        "actual": 0.002846504890911284,
+        "operator": "<=",
+        "target": 0.15,
+        "passed": true
+      },
+      "task_signal.macro_ece": {
+        "actual": 0.005228019366569841,
+        "operator": "<=",
+        "target": 0.15,
+        "passed": true
+      },
+      "risk.macro_ece": {
+        "actual": 0.009143327175840491,
+        "operator": "<=",
+        "target": 0.15,
+        "passed": true
+      },
+      "risk.macro_nll": {
+        "actual": 0.03629398237950213,
+        "operator": "<=",
+        "target": 0.35,
+        "passed": true
+      },
+      "risk.macro_aurc": {
+        "actual": 0.0031512605042016808,
+        "operator": "<=",
+        "target": 0.1,
+        "passed": true
+      }
+    }
+  },
+  "test_acceptance": {
+    "passed": true,
+    "checks": {
+      "state_delta.macro_f1_supported": {
+        "actual": 0.9914420464128432,
+        "operator": ">=",
+        "target": 0.6,
+        "passed": true
+      },
+      "task_signal.macro_f1_supported": {
+        "actual": 0.9845997973657548,
+        "operator": ">=",
+        "target": 0.6,
+        "passed": true
+      },
+      "risk.macro_f1_supported": {
+        "actual": 0.9049269748031042,
+        "operator": ">=",
+        "target": 0.5,
+        "passed": true
+      },
+      "risk.macro_auroc_supported": {
+        "actual": 0.994163941985019,
+        "operator": ">=",
+        "target": 0.7,
+        "passed": true
+      },
+      "latent.cosine_similarity": {
+        "actual": 0.9794600252966279,
+        "operator": ">=",
+        "target": 0.6,
+        "passed": true
+      },
+      "progress.mae": {
+        "actual": 0.054278651277084825,
+        "operator": "<=",
+        "target": 0.25,
+        "passed": true
+      },
+      "reward.mae": {
+        "actual": 0.056424112886777296,
+        "operator": "<=",
+        "target": 0.25,
+        "passed": true
+      },
+      "state_delta.macro_ece": {
+        "actual": 0.003188662338392191,
+        "operator": "<=",
+        "target": 0.15,
+        "passed": true
+      },
+      "task_signal.macro_ece": {
+        "actual": 0.004983357464399886,
+        "operator": "<=",
+        "target": 0.15,
+        "passed": true
+      },
+      "risk.macro_ece": {
+        "actual": 0.010402208962886506,
+        "operator": "<=",
+        "target": 0.15,
+        "passed": true
+      },
+      "risk.macro_nll": {
+        "actual": 0.04403959223620425,
+        "operator": "<=",
+        "target": 0.35,
+        "passed": true
+      },
+      "risk.macro_aurc": {
+        "actual": 0.003883495145631068,
+        "operator": "<=",
+        "target": 0.1,
+        "passed": true
+      }
+    }
+  },
+  "ensemble_validation": {
+    "state_delta_f1": 0.9913389134860874,
+    "task_signal_f1": 0.97255291005291,
+    "risk_f1": 0.9333639323394777,
+    "risk_auroc": 0.9970959467060547,
+    "risk_ece": 0.009143327175840491,
+    "risk_brier": 0.010382608751210155,
+    "risk_nll": 0.03629398237950213,
+    "risk_aurc": 0.0031512605042016808,
+    "latent_cosine": 0.9820620546571347,
+    "progress_mae": 0.06172177129666068,
+    "reward_mae": 0.06320494031459922
+  },
+  "ensemble_test": {
+    "state_delta_f1": 0.9914420464128432,
+    "task_signal_f1": 0.9845997973657548,
+    "risk_f1": 0.9049269748031042,
+    "risk_auroc": 0.994163941985019,
+    "risk_ece": 0.010402208962886506,
+    "risk_brier": 0.012099607899833716,
+    "risk_nll": 0.04403959223620425,
+    "risk_aurc": 0.003883495145631068,
+    "latent_cosine": 0.9794600252966279,
+    "progress_mae": 0.054278651277084825,
+    "reward_mae": 0.056424112886777296
+  }
+}

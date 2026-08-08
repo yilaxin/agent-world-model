@@ -1,0 +1,13 @@
+{
+  "success": true,
+  "action_types": [
+    "input",
+    "scroll",
+    "click",
+    "back"
+  ],
+  "trajectory_path": "/home/filp/agent_world_model/data/trajectories/20260806T010101Z_browsergym_openended_seed0_fb1b65cb.jsonl",
+  "returned_to_start": true,
+  "visited_page": "phase1_second.html",
+  "report_path": "/home/filp/agent_world_model/data/reports/phase1_actions_latest.json"
+}

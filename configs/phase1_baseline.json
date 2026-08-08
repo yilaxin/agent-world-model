@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "baseline_name": "reactive_rules_v1",
+  "state_encoder": {
+    "name": "structured_text_feature_hash_v1",
+    "dimensions": 512,
+    "recent_action_count": 5,
+    "mode": "cpu_only"
+  },
+  "runtime": {
+    "headless": true,
+    "store_screenshot_pixels": false
+  },
+  "tasks": {
+    "miniwob": {
+      "env_id": "browsergym/miniwob.click-test",
+      "seed": 0,
+      "max_steps": 3
+    },
+    "webarena": {
+      "env_id": "browsergym/webarena.27",
+      "seed": 0,
+      "max_steps": 2,
+      "direct_answer": "0",
+      "evaluator": "official WebArena task evaluator"
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "headless": true,
+  "max_steps": 3,
+  "safe_exploration_rate": 0.2,
+  "minimum_transitions": 500,
+  "seeds": [
+    0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
+    10, 11, 12, 13, 14, 15, 16, 17, 18, 19
+  ],
+  "tasks": [
+    "browsergym/miniwob.click-button",
+    "browsergym/miniwob.click-link",
+    "browsergym/miniwob.click-option",
+    "browsergym/miniwob.click-test",
+    "browsergym/miniwob.click-test-2",
+    "browsergym/miniwob.click-collapsible",
+    "browsergym/miniwob.click-collapsible-2",
+    "browsergym/miniwob.click-dialog",
+    "browsergym/miniwob.click-dialog-2",
+    "browsergym/miniwob.click-tab",
+    "browsergym/miniwob.click-tab-2-easy",
+    "browsergym/miniwob.click-widget",
+    "browsergym/miniwob.click-checkboxes",
+    "browsergym/miniwob.click-checkboxes-soft",
+    "browsergym/miniwob.enter-text",
+    "browsergym/miniwob.enter-text-2",
+    "browsergym/miniwob.enter-text-dynamic",
+    "browsergym/miniwob.focus-text",
+    "browsergym/miniwob.focus-text-2",
+    "browsergym/miniwob.enter-password",
+    "browsergym/miniwob.choose-list",
+    "browsergym/miniwob.sign-agreement",
+    "browsergym/miniwob.search-engine",
+    "browsergym/miniwob.login-user",
+    "browsergym/miniwob.click-menu",
+    "browsergym/miniwob.click-menu-2",
+    "browsergym/miniwob.click-scroll-list",
+    "browsergym/miniwob.scroll-text",
+    "browsergym/miniwob.scroll-text-2",
+    "browsergym/miniwob.click-color"
+  ]
+}

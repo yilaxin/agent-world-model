@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-08-08T12:12:47.922651+00:00",
+  "checks": {
+    "adb_executable": null,
+    "connected_devices": [],
+    "ANDROID_HOME_set": false,
+    "android_world_package": false,
+    "grpc_package": false
+  },
+  "adb_error": "",
+  "adapter_implemented": true,
+  "runtime_ready": false,
+  "blockers": [
+    "adb executable not found",
+    "no running Android emulator/device",
+    "android_world Python package not installed"
+  ]
+}

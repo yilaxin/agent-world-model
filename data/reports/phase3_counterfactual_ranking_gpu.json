@@ -1,0 +1,790 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-08-08T15:03:47.208344+00:00",
+  "ensemble_manifest": "artifacts/phase2/world_model_ensemble_p1.json",
+  "single_checkpoint": "/root/autodl-tmp/agent_world_model_phase2/artifacts/phase2/multiseed/world_model_risk_balanced_b_seed101.pt",
+  "actual_utility_definition": "2*success + progress + 0.5*reward - invalid - 0.75*stall - deviation - 2*severe_failure",
+  "results": {
+    "validation": {
+      "selected_single": {
+        "observed_pair_count": 13,
+        "informative_pair_count": 10,
+        "tied_outcome_pair_count": 3,
+        "state_mismatch_count": 0,
+        "pairwise_accuracy": 0.9,
+        "pairwise_accuracy_95ci": [
+          0.7,
+          1.0
+        ],
+        "rank_flip_rate": 0.09999999999999998,
+        "mean_decision_regret": 0.55,
+        "ndcg_at_2": 0.9630929753571458,
+        "examples": [
+          {
+            "pair_id": "cf-click-checkboxes-seed1008",
+            "actions": [
+              "click(\"27\", \"left\")",
+              "click(\"36\", \"left\")"
+            ],
+            "actual_utility": [
+              0.0,
+              -2.0
+            ],
+            "predicted_scores": [
+              0.01410956121981144,
+              -0.1915336400270462
+            ],
+            "correct": true
+          },
+          {
+            "pair_id": "cf-click-dialog-2-seed1001",
+            "actions": [
+              "click(\"28\", \"left\")",
+              "click(\"27\", \"left\")"
+            ],
+            "actual_utility": [
+              3.5,
+              -2.0
+            ],
+            "predicted_scores": [
+              2.6873764991760254,
+              1.438380479812622
+            ],
+            "correct": true
+          },
+          {
+            "pair_id": "cf-click-link-seed1002",
+            "actions": [
+              "scroll(0, 600)",
+              "click(\"phase2-counterfactual-missing-target\", \"left\")"
+            ],
+            "actual_utility": [
+              -0.75,
+              -2.75
+            ],
+            "predicted_scores": [
+              -0.33306464552879333,
+              -1.720719575881958
+            ],
+            "correct": true
+          },
+          {
+            "pair_id": "cf-click-link-seed1003",
+            "actions": [
+              "scroll(0, 600)",
+              "click(\"phase2-counterfactual-missing-target\", \"left\")"
+            ],
+            "actual_utility": [
+              -0.75,
+              -2.75
+            ],
+            "predicted_scores": [
+              -0.34971100091934204,
+              -1.6712925434112549
+            ],
+            "correct": true
+          },
+          {
+            "pair_id": "cf-click-link-seed1004",
+            "actions": [
+              "scroll(0, 600)",
+              "click(\"phase2-counterfactual-missing-target\", \"left\")"
+            ],
+            "actual_utility": [
+              -0.75,
+              -2.75
+            ],
+            "predicted_scores": [
+              -0.37258046865463257,
+              -1.6229950189590454
+            ],
+            "correct": true
+          },
+          {
+            "pair_id": "cf-click-link-seed1006",
+            "actions": [
+              "scroll(0, 600)",
+              "click(\"phase2-counterfactual-missing-target\", \"left\")"
+            ],
+            "actual_utility": [
+              -0.75,
+              -2.75
+            ],
+            "predicted_scores": [
+              -0.3652993440628052,
+              -1.722756028175354
+            ],
+            "correct": true
+          },
+          {
+            "pair_id": "cf-click-link-seed1009",
+            "actions": [
+              "scroll(0, 600)",
+              "click(\"phase2-counterfactual-missing-target\", \"left\")"
+            ],
+            "actual_utility": [
+              -0.75,
+              -2.75
+            ],
+            "predicted_scores": [
+              -0.36317625641822815,
+              -1.5449968576431274
+            ],
+            "correct": true
+          },
+          {
+            "pair_id": "cf-click-test-2-seed1009",
+            "actions": [
+              "click(\"13\", \"left\")",
+              "click(\"14\", \"left\")"
+            ],
+            "actual_utility": [
+              3.5,
+              -2.0
+            ],
+            "predicted_scores": [
+              1.7498599290847778,
+              -0.33010971546173096
+            ],
+            "correct": true
+          },
+          {
+            "pair_id": "cf-click-widget-seed1005",
+            "actions": [
+              "click(\"19\", \"left\")",
+              "click(\"24\", \"left\")"
+            ],
+            "actual_utility": [
+              -2.0,
+              3.5
+            ],
+            "predicted_scores": [
+              0.7086337804794312,
+              0.1500542014837265
+            ],
+            "correct": false
+          },
+          {
+            "pair_id": "cf-sign-agreement-seed1002",
+            "actions": [
+              "scroll(0, 600)",
+              "click(\"18\", \"left\")"
+            ],
+            "actual_utility": [
+              -0.75,
+              -2.75
+            ],
+            "predicted_scores": [
+              -0.5472967624664307,
+              -1.3063791990280151
+            ],
+            "correct": true
+          }
+        ]
+      },
+      "calibrated_ensemble": {
+        "observed_pair_count": 13,
+        "informative_pair_count": 10,
+        "tied_outcome_pair_count": 3,
+        "state_mismatch_count": 0,
+        "pairwise_accuracy": 0.9,
+        "pairwise_accuracy_95ci": [
+          0.7,
+          1.0
+        ],
+        "rank_flip_rate": 0.09999999999999998,
+        "mean_decision_regret": 0.55,
+        "ndcg_at_2": 0.9630929753571458,
+        "examples": [
+          {
+            "pair_id": "cf-click-checkboxes-seed1008",
+            "actions": [
+              "click(\"27\", \"left\")",
+              "click(\"36\", \"left\")"
+            ],
+            "actual_utility": [
+              0.0,
+              -2.0
+            ],
+            "predicted_scores": [
+              0.01487899199128151,
+              -0.23512408137321472
+            ],
+            "correct": true
+          },
+          {
+            "pair_id": "cf-click-dialog-2-seed1001",
+            "actions": [
+              "click(\"28\", \"left\")",
+              "click(\"27\", \"left\")"
+            ],
+            "actual_utility": [
+              3.5,
+              -2.0
+            ],
+            "predicted_scores": [
+              2.651475191116333,
+              1.495966911315918
+            ],
+            "correct": true
+          },
+          {
+            "pair_id": "cf-click-link-seed1002",
+            "actions": [
+              "scroll(0, 600)",
+              "click(\"phase2-counterfactual-missing-target\", \"left\")"
+            ],
+            "actual_utility": [
+              -0.75,
+              -2.75
+            ],
+            "predicted_scores": [
+              -0.3102227747440338,
+              -1.6802483797073364
+            ],
+            "correct": true
+          },
+          {
+            "pair_id": "cf-click-link-seed1003",
+            "actions": [
+              "scroll(0, 600)",
+              "click(\"phase2-counterfactual-missing-target\", \"left\")"
+            ],
+            "actual_utility": [
+              -0.75,
+              -2.75
+            ],
+            "predicted_scores": [
+              -0.36141979694366455,
+              -1.7341283559799194
+            ],
+            "correct": true
+          },
+          {
+            "pair_id": "cf-click-link-seed1004",
+            "actions": [
+              "scroll(0, 600)",
+              "click(\"phase2-counterfactual-missing-target\", \"left\")"
+            ],
+            "actual_utility": [
+              -0.75,
+              -2.75
+            ],
+            "predicted_scores": [
+              -0.3798992335796356,
+              -1.7446500062942505
+            ],
+            "correct": true
+          },
+          {
+            "pair_id": "cf-click-link-seed1006",
+            "actions": [
+              "scroll(0, 600)",
+              "click(\"phase2-counterfactual-missing-target\", \"left\")"
+            ],
+            "actual_utility": [
+              -0.75,
+              -2.75
+            ],
+            "predicted_scores": [
+              -0.34225255250930786,
+              -1.7361609935760498
+            ],
+            "correct": true
+          },
+          {
+            "pair_id": "cf-click-link-seed1009",
+            "actions": [
+              "scroll(0, 600)",
+              "click(\"phase2-counterfactual-missing-target\", \"left\")"
+            ],
+            "actual_utility": [
+              -0.75,
+              -2.75
+            ],
+            "predicted_scores": [
+              -0.36799031496047974,
+              -1.7173714637756348
+            ],
+            "correct": true
+          },
+          {
+            "pair_id": "cf-click-test-2-seed1009",
+            "actions": [
+              "click(\"13\", \"left\")",
+              "click(\"14\", \"left\")"
+            ],
+            "actual_utility": [
+              3.5,
+              -2.0
+            ],
+            "predicted_scores": [
+              2.113197088241577,
+              -0.3206748366355896
+            ],
+            "correct": true
+          },
+          {
+            "pair_id": "cf-click-widget-seed1005",
+            "actions": [
+              "click(\"19\", \"left\")",
+              "click(\"24\", \"left\")"
+            ],
+            "actual_utility": [
+              -2.0,
+              3.5
+            ],
+            "predicted_scores": [
+              0.3260890245437622,
+              -0.09021452814340591
+            ],
+            "correct": false
+          },
+          {
+            "pair_id": "cf-sign-agreement-seed1002",
+            "actions": [
+              "scroll(0, 600)",
+              "click(\"18\", \"left\")"
+            ],
+            "actual_utility": [
+              -0.75,
+              -2.75
+            ],
+            "predicted_scores": [
+              -0.3978870213031769,
+              -1.3465461730957031
+            ],
+            "correct": true
+          }
+        ]
+      }
+    },
+    "test": {
+      "selected_single": {
+        "observed_pair_count": 19,
+        "informative_pair_count": 13,
+        "tied_outcome_pair_count": 6,
+        "state_mismatch_count": 0,
+        "pairwise_accuracy": 0.6153846153846154,
+        "pairwise_accuracy_95ci": [
+          0.38461538461538464,
+          0.8461538461538461
+        ],
+        "rank_flip_rate": 0.3846153846153846,
+        "mean_decision_regret": 1.0384615384615385,
+        "ndcg_at_2": 0.8580499052197913,
+        "examples": [
+          {
+            "pair_id": "cf-click-button-seed1005",
+            "actions": [
+              "click(\"23\", \"left\")",
+              "click(\"phase2-counterfactual-missing-target\", \"left\")"
+            ],
+            "actual_utility": [
+              3.5,
+              -2.75
+            ],
+            "predicted_scores": [
+              3.352860689163208,
+              -1.3005868196487427
+            ],
+            "correct": true
+          },
+          {
+            "pair_id": "cf-click-button-seed1008",
+            "actions": [
+              "click(\"20\", \"left\")",
+              "click(\"12\", \"left\")"
+            ],
+            "actual_utility": [
+              3.5,
+              -2.0
+            ],
+            "predicted_scores": [
+              3.21785569190979,
+              3.210099935531616
+            ],
+            "correct": true
+          },
+          {
+            "pair_id": "cf-click-checkboxes-seed1000",
+            "actions": [
+              "click(\"18\", \"left\")",
+              "click(\"24\", \"left\")"
+            ],
+            "actual_utility": [
+              0.0,
+              -2.0
+            ],
+            "predicted_scores": [
+              0.13933956623077393,
+              1.5174801349639893
+            ],
+            "correct": false
+          },
+          {
+            "pair_id": "cf-click-checkboxes-seed1004",
+            "actions": [
+              "click(\"18\", \"left\")",
+              "click(\"27\", \"left\")"
+            ],
+            "actual_utility": [
+              0.0,
+              3.5
+            ],
+            "predicted_scores": [
+              0.09426946192979813,
+              0.8958821892738342
+            ],
+            "correct": true
+          },
+          {
+            "pair_id": "cf-click-dialog-seed1003",
+            "actions": [
+              "click(\"20\", \"left\")",
+              "click(\"phase2-counterfactual-missing-target\", \"left\")"
+            ],
+            "actual_utility": [
+              3.5,
+              -2.75
+            ],
+            "predicted_scores": [
+              2.8793323040008545,
+              -1.6178829669952393
+            ],
+            "correct": true
+          },
+          {
+            "pair_id": "cf-click-dialog-seed1004",
+            "actions": [
+              "click(\"20\", \"left\")",
+              "click(\"phase2-counterfactual-missing-target\", \"left\")"
+            ],
+            "actual_utility": [
+              3.5,
+              -2.75
+            ],
+            "predicted_scores": [
+              3.028352737426758,
+              -1.6436370611190796
+            ],
+            "correct": true
+          },
+          {
+            "pair_id": "cf-click-dialog-seed1007",
+            "actions": [
+              "click(\"20\", \"left\")",
+              "click(\"phase2-counterfactual-missing-target\", \"left\")"
+            ],
+            "actual_utility": [
+              3.5,
+              -2.75
+            ],
+            "predicted_scores": [
+              3.1315560340881348,
+              -1.6102532148361206
+            ],
+            "correct": true
+          },
+          {
+            "pair_id": "cf-click-link-seed1005",
+            "actions": [
+              "scroll(0, 600)",
+              "click(\"phase2-counterfactual-missing-target\", \"left\")"
+            ],
+            "actual_utility": [
+              -0.75,
+              -2.75
+            ],
+            "predicted_scores": [
+              -0.3811537027359009,
+              -1.6647206544876099
+            ],
+            "correct": true
+          },
+          {
+            "pair_id": "cf-click-option-seed1003",
+            "actions": [
+              "click(\"18\", \"left\")",
+              "click(\"27\", \"left\")"
+            ],
+            "actual_utility": [
+              0.0,
+              -2.0
+            ],
+            "predicted_scores": [
+              0.14856934547424316,
+              0.8148444294929504
+            ],
+            "correct": false
+          },
+          {
+            "pair_id": "cf-click-option-seed1005",
+            "actions": [
+              "click(\"18\", \"left\")",
+              "click(\"30\", \"left\")"
+            ],
+            "actual_utility": [
+              0.0,
+              -2.0
+            ],
+            "predicted_scores": [
+              -0.0007160287932492793,
+              0.08027675747871399
+            ],
+            "correct": false
+          },
+          {
+            "pair_id": "cf-click-option-seed1006",
+            "actions": [
+              "click(\"21\", \"left\")",
+              "click(\"24\", \"left\")"
+            ],
+            "actual_utility": [
+              0.0,
+              -2.0
+            ],
+            "predicted_scores": [
+              0.14528514444828033,
+              0.3106105923652649
+            ],
+            "correct": false
+          },
+          {
+            "pair_id": "cf-click-widget-seed1004",
+            "actions": [
+              "click(\"18\", \"left\")",
+              "click(\"15\", \"left\")"
+            ],
+            "actual_utility": [
+              -2.0,
+              3.5
+            ],
+            "predicted_scores": [
+              0.24091629683971405,
+              0.1531050056219101
+            ],
+            "correct": false
+          }
+        ]
+      },
+      "calibrated_ensemble": {
+        "observed_pair_count": 19,
+        "informative_pair_count": 13,
+        "tied_outcome_pair_count": 6,
+        "state_mismatch_count": 0,
+        "pairwise_accuracy": 0.5384615384615384,
+        "pairwise_accuracy_95ci": [
+          0.3076923076923077,
+          0.7692307692307693
+        ],
+        "rank_flip_rate": 0.46153846153846156,
+        "mean_decision_regret": 1.4615384615384615,
+        "ndcg_at_2": 0.8296598862637496,
+        "examples": [
+          {
+            "pair_id": "cf-click-button-seed1005",
+            "actions": [
+              "click(\"23\", \"left\")",
+              "click(\"phase2-counterfactual-missing-target\", \"left\")"
+            ],
+            "actual_utility": [
+              3.5,
+              -2.75
+            ],
+            "predicted_scores": [
+              3.1747024059295654,
+              -1.5594255924224854
+            ],
+            "correct": true
+          },
+          {
+            "pair_id": "cf-click-button-seed1008",
+            "actions": [
+              "click(\"20\", \"left\")",
+              "click(\"12\", \"left\")"
+            ],
+            "actual_utility": [
+              3.5,
+              -2.0
+            ],
+            "predicted_scores": [
+              3.0090503692626953,
+              3.2386157512664795
+            ],
+            "correct": false
+          },
+          {
+            "pair_id": "cf-click-checkboxes-seed1000",
+            "actions": [
+              "click(\"18\", \"left\")",
+              "click(\"24\", \"left\")"
+            ],
+            "actual_utility": [
+              0.0,
+              -2.0
+            ],
+            "predicted_scores": [
+              0.1625036746263504,
+              1.2801272869110107
+            ],
+            "correct": false
+          },
+          {
+            "pair_id": "cf-click-checkboxes-seed1004",
+            "actions": [
+              "click(\"18\", \"left\")",
+              "click(\"27\", \"left\")"
+            ],
+            "actual_utility": [
+              0.0,
+              3.5
+            ],
+            "predicted_scores": [
+              0.04079381376504898,
+              0.7331797480583191
+            ],
+            "correct": true
+          },
+          {
+            "pair_id": "cf-click-dialog-seed1003",
+            "actions": [
+              "click(\"20\", \"left\")",
+              "click(\"phase2-counterfactual-missing-target\", \"left\")"
+            ],
+            "actual_utility": [
+              3.5,
+              -2.75
+            ],
+            "predicted_scores": [
+              2.8879733085632324,
+              -1.735666036605835
+            ],
+            "correct": true
+          },
+          {
+            "pair_id": "cf-click-dialog-seed1004",
+            "actions": [
+              "click(\"20\", \"left\")",
+              "click(\"phase2-counterfactual-missing-target\", \"left\")"
+            ],
+            "actual_utility": [
+              3.5,
+              -2.75
+            ],
+            "predicted_scores": [
+              3.0303874015808105,
+              -1.7360764741897583
+            ],
+            "correct": true
+          },
+          {
+            "pair_id": "cf-click-dialog-seed1007",
+            "actions": [
+              "click(\"20\", \"left\")",
+              "click(\"phase2-counterfactual-missing-target\", \"left\")"
+            ],
+            "actual_utility": [
+              3.5,
+              -2.75
+            ],
+            "predicted_scores": [
+              3.0262954235076904,
+              -1.6964489221572876
+            ],
+            "correct": true
+          },
+          {
+            "pair_id": "cf-click-link-seed1005",
+            "actions": [
+              "scroll(0, 600)",
+              "click(\"phase2-counterfactual-missing-target\", \"left\")"
+            ],
+            "actual_utility": [
+              -0.75,
+              -2.75
+            ],
+            "predicted_scores": [
+              -0.37784865498542786,
+              -1.723608374595642
+            ],
+            "correct": true
+          },
+          {
+            "pair_id": "cf-click-option-seed1003",
+            "actions": [
+              "click(\"18\", \"left\")",
+              "click(\"27\", \"left\")"
+            ],
+            "actual_utility": [
+              0.0,
+              -2.0
+            ],
+            "predicted_scores": [
+              0.03538966923952103,
+              0.5333265662193298
+            ],
+            "correct": false
+          },
+          {
+            "pair_id": "cf-click-option-seed1005",
+            "actions": [
+              "click(\"18\", \"left\")",
+              "click(\"30\", \"left\")"
+            ],
+            "actual_utility": [
+              0.0,
+              -2.0
+            ],
+            "predicted_scores": [
+              -0.0029014162719249725,
+              0.1121571809053421
+            ],
+            "correct": false
+          },
+          {
+            "pair_id": "cf-click-option-seed1006",
+            "actions": [
+              "click(\"21\", \"left\")",
+              "click(\"24\", \"left\")"
+            ],
+            "actual_utility": [
+              0.0,
+              -2.0
+            ],
+            "predicted_scores": [
+              0.06607525795698166,
+              0.20934560894966125
+            ],
+            "correct": false
+          },
+          {
+            "pair_id": "cf-click-widget-seed1004",
+            "actions": [
+              "click(\"18\", \"left\")",
+              "click(\"15\", \"left\")"
+            ],
+            "actual_utility": [
+              -2.0,
+              3.5
+            ],
+            "predicted_scores": [
+              0.04310058802366257,
+              -0.0889962688088417
+            ],
+            "correct": false
+          }
+        ]
+      }
+    }
+  },
+  "acceptance": {
+    "passed": false,
+    "checks": {
+      "observed_pairs_present": true,
+      "no_state_mismatch": true,
+      "ensemble_not_below_selected_single": false
+    }
+  },
+  "interpretation_limit": "Only observed same-state pairs are used; tied outcomes are excluded from pairwise accuracy."
+}

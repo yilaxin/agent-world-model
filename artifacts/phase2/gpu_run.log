@@ -1,0 +1,1008 @@
+{
+  "python": "3.10.8 (main, Nov 24 2022, 14:13:03) [GCC 11.2.0]",
+  "platform": "Linux-5.15.0-91-generic-x86_64-with-glibc2.35",
+  "torch": "2.1.2+cu121",
+  "cuda_available": true,
+  "cuda_runtime": "12.1",
+  "cudnn": 8902,
+  "device_count": 1,
+  "devices": [
+    {
+      "index": 0,
+      "name": "NVIDIA GeForce RTX 4090",
+      "capability": [
+        8,
+        9
+      ],
+      "memory_gib": 23.52
+    }
+  ],
+  "dataset_transitions": 1536,
+  "p0_passed": true
+}
+/root/miniconda3/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-08-08T08:42:10.838869+00:00",
+  "device": "cuda",
+  "cuda_available": true,
+  "cuda_device_name": "NVIDIA GeForce RTX 4090",
+  "amp_enabled": true,
+  "model_config": {
+    "state_dim": 512,
+    "action_dim": 128,
+    "latent_dim": 192,
+    "action_latent_dim": 64,
+    "hidden_dim": 256,
+    "state_delta_dim": 5,
+    "task_signal_dim": 2,
+    "risk_dim": 4,
+    "dropout": 0.1
+  },
+  "training_config": {
+    "epochs": 50,
+    "batch_size": 64,
+    "learning_rate": 0.0003,
+    "weight_decay": 0.0001,
+    "gradient_clip": 1.0,
+    "patience": 8,
+    "num_workers": 0,
+    "seed": 42,
+    "device": "cuda",
+    "amp": true,
+    "focal_gamma": 2.0
+  },
+  "loss_weights": {
+    "reconstruction": 1.0,
+    "dynamics": 1.0,
+    "uncertainty": 0.05,
+    "state_delta": 0.75,
+    "task_signal": 1.0,
+    "risk": 1.0,
+    "progress": 1.0,
+    "reward": 0.5
+  },
+  "train_examples": 1089,
+  "validation_examples": 216,
+  "best_epoch": 34,
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.6693720867236456,
+      "validation_loss": 0.4968506097793579
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.3665324424703916,
+      "validation_loss": 0.3548496402800083
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.2180408297313584,
+      "validation_loss": 0.16348180454224348
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.0715524624619219,
+      "validation_loss": 0.050417658407241106
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.04842779117946824,
+      "validation_loss": 0.005673969630151987
+    },
+    {
+      "epoch": 6,
+      "train_loss": -0.020779387197560735,
+      "validation_loss": -0.028303940780460835
+    },
+    {
+      "epoch": 7,
+      "train_loss": -0.048777002996454634,
+      "validation_loss": -0.049485442228615284
+    },
+    {
+      "epoch": 8,
+      "train_loss": -0.07384244352579117,
+      "validation_loss": -0.06897720508277416
+    },
+    {
+      "epoch": 9,
+      "train_loss": -0.08088100536002053,
+      "validation_loss": -0.08384895417839289
+    },
+    {
+      "epoch": 10,
+      "train_loss": -0.10193285304639074,
+      "validation_loss": -0.09121129661798477
+    },
+    {
+      "epoch": 11,
+      "train_loss": -0.1199412341747019,
+      "validation_loss": -0.10645537741947919
+    },
+    {
+      "epoch": 12,
+      "train_loss": -0.1297238071759542,
+      "validation_loss": -0.10209484584629536
+    },
+    {
+      "epoch": 13,
+      "train_loss": -0.12920405053430134,
+      "validation_loss": -0.10683418996632099
+    },
+    {
+      "epoch": 14,
+      "train_loss": -0.13872632384300232,
+      "validation_loss": -0.12645451235584915
+    },
+    {
+      "epoch": 15,
+      "train_loss": -0.14962651083866754,
+      "validation_loss": -0.13263547327369452
+    },
+    {
+      "epoch": 16,
+      "train_loss": -0.1581708105901877,
+      "validation_loss": -0.14037801884114742
+    },
+    {
+      "epoch": 17,
+      "train_loss": -0.17034019281466803,
+      "validation_loss": -0.1494014486670494
+    },
+    {
+      "epoch": 18,
+      "train_loss": -0.17479027228222954,
+      "validation_loss": -0.14413900300860405
+    },
+    {
+      "epoch": 19,
+      "train_loss": -0.17583384530411827,
+      "validation_loss": -0.14950259402394295
+    },
+    {
+      "epoch": 20,
+      "train_loss": -0.18749047236310112,
+      "validation_loss": -0.1599658764898777
+    },
+    {
+      "epoch": 21,
+      "train_loss": -0.1856534265809589,
+      "validation_loss": -0.1590208476409316
+    },
+    {
+      "epoch": 22,
+      "train_loss": -0.19865253733264077,
+      "validation_loss": -0.16199631802737713
+    },
+    {
+      "epoch": 23,
+      "train_loss": -0.20000356435775757,
+      "validation_loss": -0.1682673878967762
+    },
+    {
+      "epoch": 24,
+      "train_loss": -0.2084275765551461,
+      "validation_loss": -0.16642221342772245
+    },
+    {
+      "epoch": 25,
+      "train_loss": -0.1975185771783193,
+      "validation_loss": -0.1686848709359765
+    },
+    {
+      "epoch": 26,
+      "train_loss": -0.20533022284507751,
+      "validation_loss": -0.15672010323032737
+    },
+    {
+      "epoch": 27,
+      "train_loss": -0.20126423405276406,
+      "validation_loss": -0.16753375064581633
+    },
+    {
+      "epoch": 28,
+      "train_loss": -0.20948550519016054,
+      "validation_loss": -0.1724059022963047
+    },
+    {
+      "epoch": 29,
+      "train_loss": -0.21761970801485908,
+      "validation_loss": -0.1715768165886402
+    },
+    {
+      "epoch": 30,
+      "train_loss": -0.21427429053518507,
+      "validation_loss": -0.1736250715330243
+    },
+    {
+      "epoch": 31,
+      "train_loss": -0.22264094981882307,
+      "validation_loss": -0.17501781322062016
+    },
+    {
+      "epoch": 32,
+      "train_loss": -0.22148995763725704,
+      "validation_loss": -0.17992078699171543
+    },
+    {
+      "epoch": 33,
+      "train_loss": -0.2240508488482899,
+      "validation_loss": -0.17482474772259593
+    },
+    {
+      "epoch": 34,
+      "train_loss": -0.23498157660166422,
+      "validation_loss": -0.180897394195199
+    },
+    {
+      "epoch": 35,
+      "train_loss": -0.22848574486043718,
+      "validation_loss": -0.18071587849408388
+    },
+    {
+      "epoch": 36,
+      "train_loss": -0.233206231560972,
+      "validation_loss": -0.17636100016534328
+    },
+    {
+      "epoch": 37,
+      "train_loss": -0.24307596269581053,
+      "validation_loss": -0.17508364096283913
+    },
+    {
+      "epoch": 38,
+      "train_loss": -0.2359222380651368,
+      "validation_loss": -0.178018344566226
+    },
+    {
+      "epoch": 39,
+      "train_loss": -0.24529609498050478,
+      "validation_loss": -0.17696204781532288
+    },
+    {
+      "epoch": 40,
+      "train_loss": -0.23661962731017006,
+      "validation_loss": -0.16651162039488554
+    },
+    {
+      "epoch": 41,
+      "train_loss": -0.24082843048704994,
+      "validation_loss": -0.17040166445076466
+    },
+    {
+      "epoch": 42,
+      "train_loss": -0.24494238363371956,
+      "validation_loss": -0.17400267254561186
+    }
+  ],
+  "validation": {
+    "loss": {
+      "total": -0.180897394195199,
+      "reconstruction": 0.00025568919227225706,
+      "dynamics": 0.006543961237184703,
+      "uncertainty": -4.661115944385529,
+      "state_delta": 0.025579193112207577,
+      "task_signal": 0.007717969576333417,
+      "risk": 0.010242966520308983,
+      "progress": 0.005402896989835426,
+      "reward": 0.005621064599836245
+    },
+    "progress": {
+      "mae": 0.07643313974457905,
+      "mse": 0.027235726501389123,
+      "rmse": 0.16503250134864078
+    },
+    "reward": {
+      "mae": 0.08009227495025091,
+      "mse": 0.02759107365370592,
+      "rmse": 0.16610560994050116
+    },
+    "state_delta": {
+      "per_label": {
+        "url_changed": {
+          "accuracy": 1.0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "auroc": 1.0,
+          "auprc": 1.0,
+          "brier": 1.857532372229226e-05,
+          "ece": 0.0011802276716210785,
+          "support_positive": 2.0,
+          "support_negative": 214.0
+        },
+        "title_changed": {
+          "accuracy": 1.0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "auroc": 1.0,
+          "auprc": 1.0,
+          "brier": 2.3336301196212568e-05,
+          "ece": 0.0012911763032106035,
+          "support_positive": 2.0,
+          "support_negative": 214.0
+        },
+        "axtree_changed": {
+          "accuracy": 0.9722222222222222,
+          "precision": 0.9603960396039604,
+          "recall": 0.9797979797979798,
+          "f1": 0.9700000000000001,
+          "auroc": 0.9924889924889925,
+          "auprc": 0.9946054266552766,
+          "brier": 0.020048736574894806,
+          "ece": 0.018258534566765797,
+          "support_positive": 99.0,
+          "support_negative": 117.0
+        },
+        "dom_changed": {
+          "accuracy": 0.9907407407407407,
+          "precision": 1.0,
+          "recall": 0.9714285714285714,
+          "f1": 0.9855072463768115,
+          "auroc": 0.9911937377690803,
+          "auprc": 0.9917995122577332,
+          "brier": 0.009215213975746274,
+          "ece": 0.008442609141886354,
+          "support_positive": 70.0,
+          "support_negative": 146.0
+        },
+        "target_available": {
+          "accuracy": 1.0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "auroc": 1.0,
+          "auprc": 1.0,
+          "brier": 6.823082675025066e-05,
+          "ece": 0.0028837517597989993,
+          "support_positive": 115.0,
+          "support_negative": 101.0
+        }
+      },
+      "macro_f1": 0.9911014492753623,
+      "macro_f1_supported": 0.9911014492753623,
+      "macro_auroc_supported": 0.9967365460516145,
+      "macro_auprc_supported": 0.997280987782602,
+      "macro_ece": 0.006411259888656566,
+      "macro_brier": 0.005874818600461967,
+      "supported_label_count": 5
+    },
+    "task_signal": {
+      "per_label": {
+        "invalid_action": {
+          "accuracy": 0.9907407407407407,
+          "precision": 1.0,
+          "recall": 0.9,
+          "f1": 0.9473684210526316,
+          "auroc": 0.999234693877551,
+          "auprc": 0.9954545454545455,
+          "brier": 0.008387894884289862,
+          "ece": 0.04595669941045343,
+          "support_positive": 20.0,
+          "support_negative": 196.0
+        },
+        "terminal": {
+          "accuracy": 0.9861111111111112,
+          "precision": 0.9318181818181818,
+          "recall": 1.0,
+          "f1": 0.9647058823529412,
+          "auroc": 0.9981881533101046,
+          "auprc": 0.9918577898912142,
+          "brier": 0.01373224976398876,
+          "ece": 0.04078260380090257,
+          "support_positive": 41.0,
+          "support_negative": 175.0
+        }
+      },
+      "macro_f1": 0.9560371517027864,
+      "macro_f1_supported": 0.9560371517027864,
+      "macro_auroc_supported": 0.9987114235938278,
+      "macro_auprc_supported": 0.9936561676728799,
+      "macro_ece": 0.043369651605678,
+      "macro_brier": 0.01106007232413931,
+      "supported_label_count": 2
+    },
+    "risk": {
+      "per_label": {
+        "success": {
+          "accuracy": 0.9814814814814815,
+          "precision": 0.9090909090909091,
+          "recall": 0.967741935483871,
+          "f1": 0.9374999999999999,
+          "auroc": 0.995640802092415,
+          "auprc": 0.966179967883079,
+          "brier": 0.022132169716903547,
+          "ece": 0.048853363954953634,
+          "support_positive": 31.0,
+          "support_negative": 185.0
+        },
+        "stalled": {
+          "accuracy": 0.9861111111111112,
+          "precision": 0.9911504424778761,
+          "recall": 0.9824561403508771,
+          "f1": 0.9867841409691629,
+          "auroc": 0.9934640522875817,
+          "auprc": 0.9910816501313949,
+          "brier": 0.012721215887642275,
+          "ece": 0.03438711159375362,
+          "support_positive": 114.0,
+          "support_negative": 102.0
+        },
+        "goal_deviation": {
+          "accuracy": 0.9907407407407407,
+          "precision": 1.0,
+          "recall": 0.9,
+          "f1": 0.9473684210526316,
+          "auroc": 0.999234693877551,
+          "auprc": 0.9954545454545455,
+          "brier": 0.008106550686430045,
+          "ece": 0.041464093225335494,
+          "support_positive": 20.0,
+          "support_negative": 196.0
+        },
+        "severe_failure": {
+          "accuracy": 1.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "auroc": 0.0,
+          "auprc": 0.0,
+          "brier": 0.0005184746088126206,
+          "ece": 0.019642966448036196,
+          "support_positive": 0.0,
+          "support_negative": 216.0
+        }
+      },
+      "macro_f1": 0.7179131405054486,
+      "macro_f1_supported": 0.9572175206739315,
+      "macro_auroc_supported": 0.9961131827525159,
+      "macro_auprc_supported": 0.9842387211563398,
+      "macro_ece": 0.036086883805519734,
+      "macro_brier": 0.010869602724947124,
+      "supported_label_count": 3
+    },
+    "latent": {
+      "mse": 0.007304063097021922,
+      "cosine_similarity": 0.9703872347319568
+    },
+    "example_count": 216
+  },
+  "checkpoint": "artifacts/phase2/world_model_best.pt"
+}
+/root/miniconda3/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-08-08T08:42:14.095810+00:00",
+  "split": "validation",
+  "device": "cuda",
+  "metrics": {
+    "loss": {
+      "total": -0.180897394195199,
+      "reconstruction": 0.00025568919227225706,
+      "dynamics": 0.006543961237184703,
+      "uncertainty": -4.661115944385529,
+      "state_delta": 0.025579193112207577,
+      "task_signal": 0.007717969576333417,
+      "risk": 0.010242966520308983,
+      "progress": 0.005402896989835426,
+      "reward": 0.005621064599836245
+    },
+    "progress": {
+      "mae": 0.07643313974457905,
+      "mse": 0.027235726501389123,
+      "rmse": 0.16503250134864078
+    },
+    "reward": {
+      "mae": 0.08009227495025091,
+      "mse": 0.02759107365370592,
+      "rmse": 0.16610560994050116
+    },
+    "state_delta": {
+      "per_label": {
+        "url_changed": {
+          "accuracy": 1.0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "auroc": 1.0,
+          "auprc": 1.0,
+          "brier": 1.857532372229226e-05,
+          "ece": 0.0011802276716210785,
+          "support_positive": 2.0,
+          "support_negative": 214.0
+        },
+        "title_changed": {
+          "accuracy": 1.0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "auroc": 1.0,
+          "auprc": 1.0,
+          "brier": 2.3336301196212568e-05,
+          "ece": 0.0012911763032106035,
+          "support_positive": 2.0,
+          "support_negative": 214.0
+        },
+        "axtree_changed": {
+          "accuracy": 0.9722222222222222,
+          "precision": 0.9603960396039604,
+          "recall": 0.9797979797979798,
+          "f1": 0.9700000000000001,
+          "auroc": 0.9924889924889925,
+          "auprc": 0.9946054266552766,
+          "brier": 0.020048736574894806,
+          "ece": 0.018258534566765797,
+          "support_positive": 99.0,
+          "support_negative": 117.0
+        },
+        "dom_changed": {
+          "accuracy": 0.9907407407407407,
+          "precision": 1.0,
+          "recall": 0.9714285714285714,
+          "f1": 0.9855072463768115,
+          "auroc": 0.9911937377690803,
+          "auprc": 0.9917995122577332,
+          "brier": 0.009215213975746274,
+          "ece": 0.008442609141886354,
+          "support_positive": 70.0,
+          "support_negative": 146.0
+        },
+        "target_available": {
+          "accuracy": 1.0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "auroc": 1.0,
+          "auprc": 1.0,
+          "brier": 6.823082675025066e-05,
+          "ece": 0.0028837517597989993,
+          "support_positive": 115.0,
+          "support_negative": 101.0
+        }
+      },
+      "macro_f1": 0.9911014492753623,
+      "macro_f1_supported": 0.9911014492753623,
+      "macro_auroc_supported": 0.9967365460516145,
+      "macro_auprc_supported": 0.997280987782602,
+      "macro_ece": 0.006411259888656566,
+      "macro_brier": 0.005874818600461967,
+      "supported_label_count": 5
+    },
+    "task_signal": {
+      "per_label": {
+        "invalid_action": {
+          "accuracy": 0.9907407407407407,
+          "precision": 1.0,
+          "recall": 0.9,
+          "f1": 0.9473684210526316,
+          "auroc": 0.999234693877551,
+          "auprc": 0.9954545454545455,
+          "brier": 0.008387894884289862,
+          "ece": 0.04595669941045343,
+          "support_positive": 20.0,
+          "support_negative": 196.0
+        },
+        "terminal": {
+          "accuracy": 0.9861111111111112,
+          "precision": 0.9318181818181818,
+          "recall": 1.0,
+          "f1": 0.9647058823529412,
+          "auroc": 0.9981881533101046,
+          "auprc": 0.9918577898912142,
+          "brier": 0.01373224976398876,
+          "ece": 0.04078260380090257,
+          "support_positive": 41.0,
+          "support_negative": 175.0
+        }
+      },
+      "macro_f1": 0.9560371517027864,
+      "macro_f1_supported": 0.9560371517027864,
+      "macro_auroc_supported": 0.9987114235938278,
+      "macro_auprc_supported": 0.9936561676728799,
+      "macro_ece": 0.043369651605678,
+      "macro_brier": 0.01106007232413931,
+      "supported_label_count": 2
+    },
+    "risk": {
+      "per_label": {
+        "success": {
+          "accuracy": 0.9814814814814815,
+          "precision": 0.9090909090909091,
+          "recall": 0.967741935483871,
+          "f1": 0.9374999999999999,
+          "auroc": 0.995640802092415,
+          "auprc": 0.966179967883079,
+          "brier": 0.022132169716903547,
+          "ece": 0.048853363954953634,
+          "support_positive": 31.0,
+          "support_negative": 185.0
+        },
+        "stalled": {
+          "accuracy": 0.9861111111111112,
+          "precision": 0.9911504424778761,
+          "recall": 0.9824561403508771,
+          "f1": 0.9867841409691629,
+          "auroc": 0.9934640522875817,
+          "auprc": 0.9910816501313949,
+          "brier": 0.012721215887642275,
+          "ece": 0.03438711159375362,
+          "support_positive": 114.0,
+          "support_negative": 102.0
+        },
+        "goal_deviation": {
+          "accuracy": 0.9907407407407407,
+          "precision": 1.0,
+          "recall": 0.9,
+          "f1": 0.9473684210526316,
+          "auroc": 0.999234693877551,
+          "auprc": 0.9954545454545455,
+          "brier": 0.008106550686430045,
+          "ece": 0.041464093225335494,
+          "support_positive": 20.0,
+          "support_negative": 196.0
+        },
+        "severe_failure": {
+          "accuracy": 1.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "auroc": 0.0,
+          "auprc": 0.0,
+          "brier": 0.0005184746088126206,
+          "ece": 0.019642966448036196,
+          "support_positive": 0.0,
+          "support_negative": 216.0
+        }
+      },
+      "macro_f1": 0.7179131405054486,
+      "macro_f1_supported": 0.9572175206739315,
+      "macro_auroc_supported": 0.9961131827525159,
+      "macro_auprc_supported": 0.9842387211563398,
+      "macro_ece": 0.036086883805519734,
+      "macro_brier": 0.010869602724947124,
+      "supported_label_count": 3
+    },
+    "latent": {
+      "mse": 0.007304063097021922,
+      "cosine_similarity": 0.9703872347319568
+    },
+    "example_count": 216
+  },
+  "acceptance": {
+    "passed": true,
+    "checks": {
+      "state_delta.macro_f1_supported": {
+        "actual": 0.9911014492753623,
+        "operator": ">=",
+        "target": 0.6,
+        "passed": true
+      },
+      "task_signal.macro_f1_supported": {
+        "actual": 0.9560371517027864,
+        "operator": ">=",
+        "target": 0.6,
+        "passed": true
+      },
+      "risk.macro_f1_supported": {
+        "actual": 0.9572175206739315,
+        "operator": ">=",
+        "target": 0.5,
+        "passed": true
+      },
+      "risk.macro_auroc_supported": {
+        "actual": 0.9961131827525159,
+        "operator": ">=",
+        "target": 0.7,
+        "passed": true
+      },
+      "latent.cosine_similarity": {
+        "actual": 0.9703872347319568,
+        "operator": ">=",
+        "target": 0.6,
+        "passed": true
+      },
+      "progress.mae": {
+        "actual": 0.07643313974457905,
+        "operator": "<=",
+        "target": 0.25,
+        "passed": true
+      },
+      "reward.mae": {
+        "actual": 0.08009227495025091,
+        "operator": "<=",
+        "target": 0.25,
+        "passed": true
+      },
+      "state_delta.macro_ece": {
+        "actual": 0.006411259888656566,
+        "operator": "<=",
+        "target": 0.15,
+        "passed": true
+      },
+      "task_signal.macro_ece": {
+        "actual": 0.043369651605678,
+        "operator": "<=",
+        "target": 0.15,
+        "passed": true
+      },
+      "risk.macro_ece": {
+        "actual": 0.036086883805519734,
+        "operator": "<=",
+        "target": 0.15,
+        "passed": true
+      }
+    }
+  }
+}
+/root/miniconda3/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-08-08T08:42:17.143306+00:00",
+  "split": "test",
+  "device": "cuda",
+  "metrics": {
+    "loss": {
+      "total": -0.15820063278079033,
+      "reconstruction": 0.00036367734719533473,
+      "dynamics": 0.009270598879083991,
+      "uncertainty": -4.226282715797424,
+      "state_delta": 0.03330367570742965,
+      "task_signal": 0.00619038147124229,
+      "risk": 0.00582623159425566,
+      "progress": 0.004212561179883778,
+      "reward": 0.004544593844912015
+    },
+    "progress": {
+      "mae": 0.06254963192994781,
+      "mse": 0.018823149769092665,
+      "rmse": 0.1371974845581823
+    },
+    "reward": {
+      "mae": 0.0640885253532758,
+      "mse": 0.021181474335303194,
+      "rmse": 0.14553856648772928
+    },
+    "state_delta": {
+      "per_label": {
+        "url_changed": {
+          "accuracy": 1.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "auroc": 0.0,
+          "auprc": 0.0,
+          "brier": 1.2262001521184772e-06,
+          "ece": 0.0006120905706244954,
+          "support_positive": 0.0,
+          "support_negative": 231.0
+        },
+        "title_changed": {
+          "accuracy": 1.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "auroc": 0.0,
+          "auprc": 0.0,
+          "brier": 1.0295516252295311e-06,
+          "ece": 0.000650946269334305,
+          "support_positive": 0.0,
+          "support_negative": 231.0
+        },
+        "axtree_changed": {
+          "accuracy": 0.9913419913419913,
+          "precision": 0.9900990099009901,
+          "recall": 0.9900990099009901,
+          "f1": 0.9900990099009901,
+          "auroc": 0.9971058644325971,
+          "auprc": 0.9970615443871325,
+          "brier": 0.009164742170320088,
+          "ece": 0.007000393405043455,
+          "support_positive": 101.0,
+          "support_negative": 130.0
+        },
+        "dom_changed": {
+          "accuracy": 0.961038961038961,
+          "precision": 0.9444444444444444,
+          "recall": 0.9315068493150684,
+          "f1": 0.9379310344827586,
+          "auroc": 0.9883821744407838,
+          "auprc": 0.9817319162935836,
+          "brier": 0.03234930432939641,
+          "ece": 0.029583130732598644,
+          "support_positive": 73.0,
+          "support_negative": 158.0
+        },
+        "target_available": {
+          "accuracy": 1.0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "auroc": 1.0,
+          "auprc": 1.0,
+          "brier": 5.903851240136819e-05,
+          "ece": 0.002731210419220114,
+          "support_positive": 124.0,
+          "support_negative": 107.0
+        }
+      },
+      "macro_f1": 0.5856060088767497,
+      "macro_f1_supported": 0.9760100147945829,
+      "macro_auroc_supported": 0.9951626796244604,
+      "macro_auprc_supported": 0.9929311535602388,
+      "macro_ece": 0.008115554279364202,
+      "macro_brier": 0.008315068152779043,
+      "supported_label_count": 3
+    },
+    "task_signal": {
+      "per_label": {
+        "invalid_action": {
+          "accuracy": 1.0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "auroc": 1.0,
+          "auprc": 1.0,
+          "brier": 0.0023207535259855312,
+          "ece": 0.03823765744233416,
+          "support_positive": 19.0,
+          "support_negative": 212.0
+        },
+        "terminal": {
+          "accuracy": 0.987012987012987,
+          "precision": 0.9696969696969697,
+          "recall": 0.9411764705882353,
+          "f1": 0.955223880597015,
+          "auroc": 0.9980591221260078,
+          "auprc": 0.9865891715058943,
+          "brier": 0.013254908742342543,
+          "ece": 0.03943211318787945,
+          "support_positive": 34.0,
+          "support_negative": 197.0
+        }
+      },
+      "macro_f1": 0.9776119402985075,
+      "macro_f1_supported": 0.9776119402985075,
+      "macro_auroc_supported": 0.9990295610630039,
+      "macro_auprc_supported": 0.9932945857529472,
+      "macro_ece": 0.0388348853151068,
+      "macro_brier": 0.007787831134164037,
+      "supported_label_count": 2
+    },
+    "risk": {
+      "per_label": {
+        "success": {
+          "accuracy": 0.9783549783549783,
+          "precision": 0.8695652173913043,
+          "recall": 0.9090909090909091,
+          "f1": 0.888888888888889,
+          "auroc": 0.9956502827316225,
+          "auprc": 0.9637378169468842,
+          "brier": 0.018234708932724743,
+          "ece": 0.03405317789834654,
+          "support_positive": 22.0,
+          "support_negative": 209.0
+        },
+        "stalled": {
+          "accuracy": 0.9956709956709957,
+          "precision": 0.9921875,
+          "recall": 1.0,
+          "f1": 0.996078431372549,
+          "auroc": 0.9984857662023017,
+          "auprc": 0.9986678920050179,
+          "brier": 0.007911859566671418,
+          "ece": 0.038344557774031444,
+          "support_positive": 127.0,
+          "support_negative": 104.0
+        },
+        "goal_deviation": {
+          "accuracy": 1.0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "auroc": 1.0,
+          "auprc": 1.0,
+          "brier": 0.0022491984343236465,
+          "ece": 0.0348956465309897,
+          "support_positive": 19.0,
+          "support_negative": 212.0
+        },
+        "severe_failure": {
+          "accuracy": 1.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "auroc": 0.0,
+          "auprc": 0.0,
+          "brier": 0.00045639580988753893,
+          "ece": 0.018892624500122936,
+          "support_positive": 0.0,
+          "support_negative": 231.0
+        }
+      },
+      "macro_f1": 0.7212418300653595,
+      "macro_f1_supported": 0.9616557734204793,
+      "macro_auroc_supported": 0.9980453496446414,
+      "macro_auprc_supported": 0.987468569650634,
+      "macro_ece": 0.031546501675872654,
+      "macro_brier": 0.007213040685901837,
+      "supported_label_count": 3
+    },
+    "latent": {
+      "mse": 0.009162651221038575,
+      "cosine_similarity": 0.9631239263526289
+    },
+    "example_count": 231
+  },
+  "acceptance": {
+    "passed": true,
+    "checks": {
+      "state_delta.macro_f1_supported": {
+        "actual": 0.9760100147945829,
+        "operator": ">=",
+        "target": 0.6,
+        "passed": true
+      },
+      "task_signal.macro_f1_supported": {
+        "actual": 0.9776119402985075,
+        "operator": ">=",
+        "target": 0.6,
+        "passed": true
+      },
+      "risk.macro_f1_supported": {
+        "actual": 0.9616557734204793,
+        "operator": ">=",
+        "target": 0.5,
+        "passed": true
+      },
+      "risk.macro_auroc_supported": {
+        "actual": 0.9980453496446414,
+        "operator": ">=",
+        "target": 0.7,
+        "passed": true
+      },
+      "latent.cosine_similarity": {
+        "actual": 0.9631239263526289,
+        "operator": ">=",
+        "target": 0.6,
+        "passed": true
+      },
+      "progress.mae": {
+        "actual": 0.06254963192994781,
+        "operator": "<=",
+        "target": 0.25,
+        "passed": true
+      },
+      "reward.mae": {
+        "actual": 0.0640885253532758,
+        "operator": "<=",
+        "target": 0.25,
+        "passed": true
+      },
+      "state_delta.macro_ece": {
+        "actual": 0.008115554279364202,
+        "operator": "<=",
+        "target": 0.15,
+        "passed": true
+      },
+      "task_signal.macro_ece": {
+        "actual": 0.0388348853151068,
+        "operator": "<=",
+        "target": 0.15,
+        "passed": true
+      },
+      "risk.macro_ece": {
+        "actual": 0.031546501675872654,
+        "operator": "<=",
+        "target": 0.15,
+        "passed": true
+      }
+    }
+  }
+}
+Phase-two CUDA training and validation completed.

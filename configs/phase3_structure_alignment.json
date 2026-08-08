@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "data": {
+    "dataset_directory": "data/phase2_p1",
+    "trajectory_directories": [
+      "data/trajectories_phase2",
+      "data/trajectories_phase2_expansion",
+      "data/trajectories_phase2_expansion_b",
+      "data/trajectories_phase2_expansion_c",
+      "data/trajectories_phase2_risk",
+      "data/trajectories_phase2_counterfactual"
+    ],
+    "max_negatives_per_state": 8
+  },
+  "model": {
+    "input_dim": 8,
+    "hidden_dim": 24,
+    "dropout": 0.1
+  },
+  "training": {
+    "seeds": [17, 42, 73],
+    "epochs": 160,
+    "learning_rate": 0.003,
+    "weight_decay": 0.0001,
+    "patience": 20,
+    "device": "cuda"
+  },
+  "outputs": {
+    "run_directory": "artifacts/phase3/structure_alignment",
+    "best_checkpoint": "artifacts/phase3/structure_aligner_best.pt",
+    "report": "data/reports/phase3_structure_alignment_gpu.json"
+  }
+}

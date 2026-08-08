@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "candidate_generation": {
+    "backend": "axtree_learned_structure_v2",
+    "max_candidates": 8,
+    "llm_backend_status": "qwen2.5_3b_constrained_ablation_complete"
+  },
+  "planning": {
+    "min_horizon": 1,
+    "max_horizon": 3,
+    "beam_width": 4,
+    "discount": 0.85,
+    "long_term_weight": 0.8,
+    "uncertainty_weight": 0.4,
+    "structure_weight": 2.0,
+    "progress_weight": 1.0,
+    "reward_weight": 0.5,
+    "target_available_weight": 0.2,
+    "invalid_action_weight": 0.8,
+    "stalled_weight": 0.6,
+    "goal_deviation_weight": 1.0,
+    "severe_failure_weight": 1.5,
+    "high_confidence": 0.72,
+    "medium_confidence": 0.52,
+    "low_confidence": 0.3
+  },
+  "evaluation": {
+    "split": "test",
+    "trajectory_directories": [
+      "data/trajectories_phase2",
+      "data/trajectories_phase2_expansion",
+      "data/trajectories_phase2_expansion_b",
+      "data/trajectories_phase2_expansion_c",
+      "data/trajectories_phase2_risk",
+      "data/trajectories_phase2_counterfactual"
+    ],
+    "acceptance_thresholds": {
+      "raw_state_match_rate": {"op": ">=", "value": 0.99},
+      "candidate_schema_valid_rate": {"op": ">=", "value": 1.0},
+      "safe_recorded_action_recall_at_k": {"op": ">=", "value": 0.95},
+      "explanation_completeness": {"op": ">=", "value": 1.0},
+      "planned_decision_rate": {"op": ">=", "value": 0.8},
+      "finite_horizon_compliance": {"op": ">=", "value": 1.0}
+    }
+  },
+  "outputs": {
+    "checkpoint": "artifacts/phase2/world_model_p1_best.pt",
+    "ensemble_manifest": "artifacts/phase2/world_model_ensemble_p1.json",
+    "alignment_checkpoint": "artifacts/phase3/structure_aligner_best.pt",
+    "evaluation_report": "data/reports/phase3_evaluation_ensemble_gpu.json",
+    "demo_report": "data/reports/phase3_demo_latest.json"
+  }
+}
