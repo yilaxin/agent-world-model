@@ -52,6 +52,23 @@ class ReactiveAgentTests(unittest.TestCase):
         self.assertEqual(decision.action_type, "answer")
         self.assertEqual(decision.action, 'send_msg_to_user("0")')
 
+    def test_forum_retrieval_uses_search_then_submit(self) -> None:
+        current = {
+            "goal": "Find the latest post on the Showerthoughts forum.",
+            "url": "http://reddit.local/",
+            "axtree": {
+                "text": (
+                    "RootWebArea 'Postmill'\n"
+                    "  [54] searchbox 'Search query', clickable\n"
+                    "  [42] link 'Forums', clickable"
+                )
+            },
+        }
+        first = self.agent.decide(current)
+        self.assertEqual(first.action, 'fill("54", "Showerthoughts")')
+        second = self.agent.decide(current, (first.action,))
+        self.assertEqual(second.action, 'press("ENTER")')
+
 
 if __name__ == "__main__":
     unittest.main()

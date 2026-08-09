@@ -57,6 +57,38 @@ class Phase2DatasetTests(unittest.TestCase):
         self.assertEqual(card["counterfactual_audit"]["valid_observed_pair_count"], 1)
         self.assertEqual(card["counterfactual_audit"]["pair_split_leakage"], [])
 
+    def test_counterfactual_group_leakage_is_detected(self) -> None:
+        rows = []
+        for index, split in enumerate(("train", "test")):
+            record = sample_record(f"episode-{index}", index)
+            record["metadata"] = {
+                "counterfactual_pair_id": f"pair-{index}",
+                "counterfactual_group_id": "shared-state-group",
+                "counterfactual_role": "factual",
+                "observed_in_environment": True,
+                "initial_state_id": "same-state",
+            }
+            rows.append(replace(canonicalize_transition(record), split=split))
+        card = audit_examples(rows)
+        self.assertEqual(
+            card["counterfactual_audit"]["group_split_leakage"],
+            ["shared-state-group"],
+        )
+        self.assertFalse(card["quality_gates"]["no_counterfactual_group_leakage"])
+
+    def test_dataset_card_reports_real_multistep_windows(self) -> None:
+        examples = []
+        for step in range(3):
+            record = sample_record("multi-episode", step)
+            record["terminated"] = step == 2
+            record["reward"] = 1.0 if step == 2 else 0.0
+            examples.append(canonicalize_transition(record, split="test"))
+        card = audit_examples(examples)
+        self.assertEqual(
+            card["multistep_audit"]["by_split"]["test"]["by_horizon"]["3"]["window_count"],
+            1,
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -16,6 +16,7 @@ from torch import Tensor
 from torch.nn import functional as F
 from torch.utils.data import DataLoader, Dataset
 
+from .counterfactual import build_counterfactual_pairs
 from .phase2_losses import LossWeights, world_model_loss
 from .phase2_metrics import (
     multilabel_metrics,
@@ -43,6 +44,9 @@ class TrainingConfig:
     device: str = "auto"
     amp: bool = True
     focal_gamma: float = 2.0
+    pairwise_rank_weight: float = 0.35
+    pairwise_batch_size: int = 32
+    pairwise_minimum_utility_gap: float = 0.05
 
 
 def resolve_device(preference: str = "auto") -> torch.device:
@@ -98,6 +102,37 @@ class Phase2TensorDataset(Dataset[dict[str, Tensor]]):
         }
 
 
+class CounterfactualPairTensorDataset(Dataset[dict[str, Tensor]]):
+    """Same-state observed action pairs for direct ranking supervision."""
+
+    def __init__(
+        self,
+        records: Sequence[Mapping[str, Any]],
+        *,
+        minimum_utility_gap: float = 0.05,
+    ) -> None:
+        self.pairs = build_counterfactual_pairs(
+            records,
+            minimum_utility_gap=minimum_utility_gap,
+        )
+
+    def __len__(self) -> int:
+        return len(self.pairs)
+
+    def __getitem__(self, index: int) -> dict[str, Tensor]:
+        pair = self.pairs[index]
+        left, right = pair["left"], pair["right"]
+        gap = float(pair["utility_gap"])
+        return {
+            "left_state": torch.tensor(left["state_vector"], dtype=torch.float32),
+            "left_action": torch.tensor(left["action_vector"], dtype=torch.float32),
+            "right_state": torch.tensor(right["state_vector"], dtype=torch.float32),
+            "right_action": torch.tensor(right["action_vector"], dtype=torch.float32),
+            "target": torch.tensor(1.0 if gap > 0 else -1.0, dtype=torch.float32),
+            "weight": torch.tensor(min(4.0, max(0.25, abs(gap))), dtype=torch.float32),
+        }
+
+
 def load_jsonl(path: str | Path) -> list[dict[str, Any]]:
     with Path(path).open("r", encoding="utf-8") as file:
         return [json.loads(line) for line in file if line.strip()]
@@ -109,6 +144,66 @@ def _move_batch(batch: Mapping[str, Tensor], device: torch.device) -> dict[str, 
 
 def _symexp_tensor(value: Tensor) -> Tensor:
     return torch.sign(value) * torch.expm1(value.abs())
+
+
+def predicted_action_score(outputs: Mapping[str, Tensor]) -> Tensor:
+    """Differentiable counterpart of the W0 candidate score."""
+
+    risks = torch.sigmoid(outputs["risk_logits"])
+    task_signals = torch.sigmoid(outputs["task_signal_logits"])
+    progress = _symexp_tensor(outputs["progress_symlog"])
+    reward = _symexp_tensor(outputs["reward_symlog"])
+    risk = risks[:, 1:].mean(dim=-1) + task_signals[:, 0]
+    uncertainty = F.softplus(outputs["log_variance"])
+    return progress + reward + risks[:, 0] - risk - 0.25 * uncertainty
+
+
+def pairwise_rank_loss(
+    model: ActionConditionedWorldModel,
+    batch: Mapping[str, Tensor],
+) -> tuple[Tensor, Tensor]:
+    left = model(batch["left_state"], batch["left_action"])
+    right = model(batch["right_state"], batch["right_action"])
+    score_delta = predicted_action_score(left) - predicted_action_score(right)
+    raw = F.softplus(-batch["target"] * score_delta)
+    loss = (raw * batch["weight"]).sum() / batch["weight"].sum().clamp_min(1e-6)
+    accuracy = ((batch["target"] * score_delta) > 0).float().mean()
+    return loss, accuracy
+
+
+@torch.no_grad()
+def evaluate_pairwise_model(
+    model: ActionConditionedWorldModel,
+    records: Sequence[Mapping[str, Any]],
+    *,
+    device: torch.device,
+    minimum_utility_gap: float = 0.05,
+    batch_size: int = 64,
+) -> dict[str, float | int]:
+    dataset = CounterfactualPairTensorDataset(
+        records,
+        minimum_utility_gap=minimum_utility_gap,
+    )
+    if not dataset:
+        return {"informative_pair_count": 0, "log_loss": 0.0, "accuracy": 0.0}
+    loader = DataLoader(dataset, batch_size=batch_size, shuffle=False)
+    model.eval()
+    losses: list[float] = []
+    accuracies: list[float] = []
+    counts: list[int] = []
+    for raw_batch in loader:
+        batch = _move_batch(raw_batch, device)
+        loss, accuracy = pairwise_rank_loss(model, batch)
+        count = int(batch["target"].shape[0])
+        losses.append(float(loss) * count)
+        accuracies.append(float(accuracy) * count)
+        counts.append(count)
+    total = sum(counts)
+    return {
+        "informative_pair_count": total,
+        "log_loss": sum(losses) / total,
+        "accuracy": sum(accuracies) / total,
+    }
 
 
 @torch.no_grad()
@@ -222,6 +317,27 @@ def train_world_model(
         num_workers=training_config.num_workers,
         pin_memory=device.type == "cuda",
     )
+    train_pair_dataset = CounterfactualPairTensorDataset(
+        train_records,
+        minimum_utility_gap=training_config.pairwise_minimum_utility_gap,
+    )
+    validation_pair_count = len(
+        CounterfactualPairTensorDataset(
+            validation_records,
+            minimum_utility_gap=training_config.pairwise_minimum_utility_gap,
+        )
+    )
+    train_pair_loader = (
+        DataLoader(
+            train_pair_dataset,
+            batch_size=training_config.pairwise_batch_size,
+            shuffle=True,
+            num_workers=training_config.num_workers,
+            pin_memory=device.type == "cuda",
+        )
+        if train_pair_dataset and training_config.pairwise_rank_weight > 0
+        else None
+    )
     optimizer = torch.optim.AdamW(
         model.parameters(),
         lr=training_config.learning_rate,
@@ -245,7 +361,10 @@ def train_world_model(
     for epoch in range(1, training_config.epochs + 1):
         model.train()
         train_total = 0.0
+        train_pair_total = 0.0
         batches = 0
+        pair_batches = 0
+        pair_iterator = iter(train_pair_loader) if train_pair_loader is not None else None
         for raw_batch in train_loader:
             batch = _move_batch(raw_batch, device)
             optimizer.zero_grad(set_to_none=True)
@@ -264,6 +383,17 @@ def train_world_model(
                     weights=loss_weights,
                     focal_gamma=training_config.focal_gamma,
                 )
+                if pair_iterator is not None:
+                    try:
+                        raw_pair_batch = next(pair_iterator)
+                    except StopIteration:
+                        pair_iterator = iter(train_pair_loader)
+                        raw_pair_batch = next(pair_iterator)
+                    pair_batch = _move_batch(raw_pair_batch, device)
+                    rank_loss, _ = pairwise_rank_loss(model, pair_batch)
+                    total = total + training_config.pairwise_rank_weight * rank_loss
+                    train_pair_total += float(rank_loss.detach())
+                    pair_batches += 1
             scaler.scale(total).backward()
             scaler.unscale_(optimizer)
             torch.nn.utils.clip_grad_norm_(
@@ -281,12 +411,27 @@ def train_world_model(
             loss_weights=loss_weights,
             focal_gamma=training_config.focal_gamma,
         )
+        pair_validation = evaluate_pairwise_model(
+            model,
+            validation_records,
+            device=device,
+            minimum_utility_gap=training_config.pairwise_minimum_utility_gap,
+            batch_size=training_config.pairwise_batch_size,
+        )
+        validation["pairwise_ranking"] = pair_validation
         validation_loss = float(validation["loss"]["total"])
+        if int(pair_validation["informative_pair_count"]) > 0:
+            validation_loss += (
+                training_config.pairwise_rank_weight
+                * float(pair_validation["log_loss"])
+            )
         history.append(
             {
                 "epoch": epoch,
                 "train_loss": train_total / max(1, batches),
+                "train_pairwise_rank_loss": train_pair_total / max(1, pair_batches),
                 "validation_loss": validation_loss,
+                "validation_pairwise_accuracy": pair_validation["accuracy"],
             }
         )
         if validation_loss < best_loss - 1e-6:
@@ -317,6 +462,13 @@ def train_world_model(
         loss_weights=loss_weights,
         focal_gamma=training_config.focal_gamma,
     )
+    final_validation["pairwise_ranking"] = evaluate_pairwise_model(
+        model,
+        validation_records,
+        device=device,
+        minimum_utility_gap=training_config.pairwise_minimum_utility_gap,
+        batch_size=training_config.pairwise_batch_size,
+    )
     try:
         checkpoint_display = str(
             checkpoint.resolve().relative_to(Path.cwd().resolve())
@@ -337,6 +489,8 @@ def train_world_model(
         "loss_weights": asdict(loss_weights or LossWeights()),
         "train_examples": len(train_records),
         "validation_examples": len(validation_records),
+        "train_counterfactual_pairs": len(train_pair_dataset),
+        "validation_counterfactual_pairs": validation_pair_count,
         "best_epoch": int(saved["epoch"]),
         "history": history,
         "validation": final_validation,

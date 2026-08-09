@@ -28,7 +28,10 @@
     "seed": 42,
     "device": "auto",
     "amp": true,
-    "focal_gamma": 2.0
+    "focal_gamma": 2.0,
+    "pairwise_rank_weight": 0.35,
+    "pairwise_batch_size": 32,
+    "pairwise_minimum_utility_gap": 0.05
   },
   "loss_weights": {
     "reconstruction": 1.0,

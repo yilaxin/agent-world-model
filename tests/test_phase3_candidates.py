@@ -74,6 +74,31 @@ class CandidateGenerationTests(unittest.TestCase):
         self.assertTrue(all(row.source == "llm_constrained" for row in rows))
         self.assertTrue(all(validate_action(row.action, {"11", "12", "13"})[0] for row in rows))
 
+    def test_webarena_forum_query_is_generated_and_submitted(self) -> None:
+        state = {
+            "goal": "Tell me the count for the user on the Showerthoughts forum.",
+            "axtree": {
+                "text": (
+                    "RootWebArea 'Postmill'\n"
+                    "  [54] searchbox 'Search query', clickable\n"
+                    "  [42] link 'Forums', clickable"
+                )
+            },
+        }
+        generator = AXTreeCandidateGenerator(max_candidates=6)
+        initial = generator.generate(state)
+        query = next(
+            row
+            for row in initial
+            if row.action == 'fill("54", "Showerthoughts")'
+        )
+        self.assertEqual(query.source, "task_query")
+        self.assertGreaterEqual(query.structure_score, 0.98)
+        follow_up = generator.generate(
+            state, ('fill("54", "Showerthoughts")',)
+        )
+        self.assertIn('press("ENTER")', [row.action for row in follow_up])
+
 
 if __name__ == "__main__":
     unittest.main()

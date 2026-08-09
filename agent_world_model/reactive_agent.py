@@ -28,6 +28,10 @@ _UP_WORDS = re.compile(r"\b(?:up|above|top)\b|向上|顶部", re.IGNORECASE)
 _CLICK_WORDS = re.compile(
     r"\b(?:click|open|choose|select|press)\b|点击|打开|选择", re.IGNORECASE
 )
+_FORUM_QUERY_RE = re.compile(
+    r"\b(?:on|in|from)\s+(?:the\s+)?([A-Za-z0-9_-]+)\s+(?:forum|subreddit)\b",
+    re.IGNORECASE,
+)
 _ROLE_PRIORITY = {
     "button": 30,
     "link": 24,
@@ -186,6 +190,11 @@ def _best_element(
     return max(candidates, key=score)
 
 
+def _extract_forum_query(goal: str) -> str:
+    match = _FORUM_QUERY_RE.search(goal)
+    return match.group(1).strip() if match else ""
+
+
 class ReactiveAgent:
     """Choose one BrowserGym action from the current structured state.
 
@@ -212,6 +221,53 @@ class ReactiveAgent:
                 rationale="Use the fixed smoke-task answer to exercise the official evaluator.",
                 confidence=1.0,
             )
+
+        # WebArena retrieval tasks often name a forum without using an
+        # explicit "search" verb.  Search is more stable than clicking a
+        # position-dependent row in the long forum list.
+        forum_query = _extract_forum_query(goal)
+        current_url = str(_snapshot_value(state, "url") or "")
+        on_target_forum = bool(
+            forum_query
+            and f"/f/{forum_query.lower()}" in current_url.lower()
+        )
+        if forum_query and not on_target_forum:
+            searchboxes = [item for item in elements if item.role == "searchbox"]
+            if recent_actions and recent_actions[-1].lstrip().startswith("fill("):
+                return ActionDecision(
+                    action='press("ENTER")',
+                    action_type="press",
+                    rationale="Submit the forum query entered in the previous observed step.",
+                    confidence=0.96,
+                )
+            exact_forum = next(
+                (
+                    item
+                    for item in elements
+                    if item.role == "link"
+                    and forum_query.lower() in item.name.lower()
+                ),
+                None,
+            )
+            if exact_forum is not None:
+                return ActionDecision(
+                    action=f"click({_json_arg(exact_forum.bid)}, \"left\")",
+                    action_type="click",
+                    rationale="Open the exact forum returned by the observed search results.",
+                    target_bid=exact_forum.bid,
+                    target_name=exact_forum.name,
+                    confidence=0.97,
+                )
+            if searchboxes:
+                target = searchboxes[0]
+                return ActionDecision(
+                    action=f"fill({_json_arg(target.bid)}, {_json_arg(forum_query)})",
+                    action_type="input",
+                    rationale="Search for the forum named in the retrieval task.",
+                    target_bid=target.bid,
+                    target_name=target.name,
+                    confidence=0.97,
+                )
 
         if _BACK_WORDS.search(goal):
             return ActionDecision(

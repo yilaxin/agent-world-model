@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import itertools
 from pathlib import Path
 from typing import Any, Mapping, Sequence
 
@@ -12,7 +13,8 @@ from torch.nn import functional as F
 from torch.utils.data import DataLoader
 
 from .phase2_schema import encode_action
-from .phase2_training import Phase2TensorDataset, resolve_device
+from .counterfactual import build_counterfactual_pairs
+from .phase2_training import Phase2TensorDataset, predicted_action_score, resolve_device
 from .world_model import ActionConditionedWorldModel, WorldModelConfig
 
 
@@ -64,6 +66,7 @@ class ActionConditionedWorldModelEnsemble(nn.Module):
         models: Sequence[ActionConditionedWorldModel],
         *,
         temperatures: Mapping[str, Sequence[float]] | None = None,
+        member_weights: Sequence[float] | None = None,
     ) -> None:
         super().__init__()
         if len(models) < 2:
@@ -87,6 +90,13 @@ class ActionConditionedWorldModelEnsemble(nn.Module):
             raise ValueError("all ensemble members must share one model shape")
         self.models = nn.ModuleList(models)
         self.config = models[0].config
+        raw_weights = list(member_weights or [1.0] * len(models))
+        if len(raw_weights) != len(models) or any(weight < 0 for weight in raw_weights):
+            raise ValueError("member_weights must be non-negative and match models")
+        weight_tensor = torch.tensor(raw_weights, dtype=torch.float32)
+        if float(weight_tensor.sum()) <= 0:
+            raise ValueError("member_weights must have a positive sum")
+        self.register_buffer("member_weights", weight_tensor / weight_tensor.sum())
         temperatures = temperatures or {}
         for key, dimensions in (
             ("state_delta", self.config.state_delta_dim),
@@ -101,6 +111,18 @@ class ActionConditionedWorldModelEnsemble(nn.Module):
     def _temperature(self, logit_key: str, logits: Tensor) -> Tensor:
         key = _TEMPERATURE_KEYS[logit_key]
         return getattr(self, f"temperature_{key}").to(logits)
+
+    def _weighted_mean(self, values: Tensor) -> Tensor:
+        shape = (len(self.models),) + (1,) * (values.ndim - 1)
+        return (values * self.member_weights.to(values).view(shape)).sum(dim=0)
+
+    def _weighted_variance(self, values: Tensor) -> Tensor:
+        mean = self._weighted_mean(values)
+        shape = (len(self.models),) + (1,) * (values.ndim - 1)
+        return (
+            (values - mean.unsqueeze(0)).pow(2)
+            * self.member_weights.to(values).view(shape)
+        ).sum(dim=0)
 
     def forward(
         self,
@@ -123,27 +145,27 @@ class ActionConditionedWorldModelEnsemble(nn.Module):
             "reward_symlog",
         )
         result = {
-            key: torch.stack([output[key] for output in member_outputs]).mean(dim=0)
+            key: self._weighted_mean(torch.stack([output[key] for output in member_outputs]))
             for key in mean_keys
         }
         if next_state is not None:
-            result["next_latent_posterior"] = torch.stack(
-                [output["next_latent_posterior"] for output in member_outputs]
-            ).mean(dim=0)
+            result["next_latent_posterior"] = self._weighted_mean(
+                torch.stack([output["next_latent_posterior"] for output in member_outputs])
+            )
 
         probability_members: list[Tensor] = []
         for key in _LOGIT_GROUPS:
             logits = torch.stack([output[key] for output in member_outputs])
-            calibrated = logits.mean(dim=0) / self._temperature(key, logits)
+            calibrated = self._weighted_mean(logits) / self._temperature(key, logits)
             result[key] = calibrated
             probability_members.append(torch.sigmoid(logits))
 
         latent_members = torch.stack(
             [output["next_latent_prior"] for output in member_outputs]
         )
-        latent_disagreement = latent_members.var(dim=0, unbiased=False).mean(dim=-1)
-        probability_disagreement = torch.cat(probability_members, dim=-1).var(
-            dim=0, unbiased=False
+        latent_disagreement = self._weighted_variance(latent_members).mean(dim=-1)
+        probability_disagreement = self._weighted_variance(
+            torch.cat(probability_members, dim=-1)
         ).mean(dim=-1)
         numeric_members = torch.stack(
             [
@@ -153,11 +175,11 @@ class ActionConditionedWorldModelEnsemble(nn.Module):
                 for output in member_outputs
             ]
         )
-        numeric_disagreement = numeric_members.var(dim=0, unbiased=False).mean(dim=-1)
+        numeric_disagreement = self._weighted_variance(numeric_members).mean(dim=-1)
         disagreement = latent_disagreement + probability_disagreement + 0.25 * numeric_disagreement
-        aleatoric = torch.stack(
-            [F.softplus(output["log_variance"]) for output in member_outputs]
-        ).mean(dim=0)
+        aleatoric = self._weighted_mean(
+            torch.stack([F.softplus(output["log_variance"]) for output in member_outputs])
+        )
         combined_uncertainty = aleatoric + disagreement
         result["log_variance"] = _inverse_softplus(combined_uncertainty)
         result["ensemble_disagreement"] = disagreement
@@ -243,6 +265,68 @@ def fit_ensemble_temperatures(
     return fitted
 
 
+@torch.no_grad()
+def fit_ensemble_rank_weights(
+    models: Sequence[ActionConditionedWorldModel],
+    records: Sequence[Mapping[str, Any]],
+    *,
+    device: torch.device,
+    minimum_utility_gap: float = 0.05,
+    grid_steps: int = 10,
+) -> list[float]:
+    """Fit simplex-constrained member weights on validation pairwise log loss."""
+
+    pairs = build_counterfactual_pairs(
+        records,
+        minimum_utility_gap=minimum_utility_gap,
+    )
+    member_count = len(models)
+    if not pairs:
+        return [1.0 / member_count] * member_count
+
+    differences: list[list[float]] = []
+    targets: list[float] = []
+    for pair in pairs:
+        rows = [pair["left"], pair["right"]]
+        state = torch.tensor(
+            [row["state_vector"] for row in rows],
+            dtype=torch.float32,
+            device=device,
+        )
+        action = torch.tensor(
+            [row["action_vector"] for row in rows],
+            dtype=torch.float32,
+            device=device,
+        )
+        member_differences: list[float] = []
+        for model in models:
+            scores = predicted_action_score(model(state, action))
+            member_differences.append(float(scores[0] - scores[1]))
+        differences.append(member_differences)
+        targets.append(1.0 if float(pair["utility_gap"]) > 0 else -1.0)
+
+    diff_tensor = torch.tensor(differences, dtype=torch.float32)
+    target_tensor = torch.tensor(targets, dtype=torch.float32)
+    candidates = [
+        values
+        for values in itertools.product(range(grid_steps + 1), repeat=member_count)
+        if sum(values) == grid_steps
+    ]
+    best_weights = [1.0 / member_count] * member_count
+    best_key = (float("inf"), float("inf"))
+    for values in candidates:
+        weights = torch.tensor(values, dtype=torch.float32) / grid_steps
+        score_delta = diff_tensor @ weights
+        loss = float(F.softplus(-target_tensor * score_delta).mean())
+        accuracy = float(((target_tensor * score_delta) > 0).float().mean())
+        regularisation = float((weights - 1.0 / member_count).pow(2).mean())
+        key = (loss + 0.01 * regularisation, -accuracy)
+        if key < best_key:
+            best_key = key
+            best_weights = [float(value) for value in weights]
+    return best_weights
+
+
 class EnsembleWorldModelPredictor:
     """Load an ensemble manifest and expose the same planner-facing API as W0."""
 
@@ -263,6 +347,7 @@ class EnsembleWorldModelPredictor:
         self.model = ActionConditionedWorldModelEnsemble(
             models,
             temperatures=self.manifest.get("temperatures"),
+            member_weights=self.manifest.get("member_weights"),
         ).to(self.device)
         self.model.eval()
 

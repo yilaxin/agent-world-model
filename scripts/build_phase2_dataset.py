@@ -41,6 +41,16 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Return a failure status unless at least 500 transitions are present.",
     )
+    parser.add_argument(
+        "--require-counterfactual-p0",
+        action="store_true",
+        help="Require 1,000 observed pairs and at least 200 informative test pairs.",
+    )
+    parser.add_argument(
+        "--require-multistep-p1",
+        action="store_true",
+        help="Require held-out H=2/3 windows plus terminal and severe-failure coverage.",
+    )
     return parser.parse_args()
 
 
@@ -62,6 +72,35 @@ def main() -> int:
             file=sys.stderr,
         )
         return 2
+    if args.require_counterfactual_p0:
+        required = (
+            "counterfactual_scale_1000",
+            "counterfactual_test_informative_200",
+            "counterfactual_tie_rate_le_20pct",
+            "no_counterfactual_pair_leakage",
+            "no_counterfactual_group_leakage",
+        )
+        failed = [name for name in required if not card["quality_gates"].get(name)]
+        if failed:
+            print(
+                "Counterfactual P0 gate failed: " + ", ".join(failed),
+                file=sys.stderr,
+            )
+            return 3
+    if args.require_multistep_p1:
+        required = (
+            "multistep_h2_test_100",
+            "multistep_h3_test_100",
+            "multistep_terminal_test_25",
+            "multistep_severe_failure_test_10",
+        )
+        failed = [name for name in required if not card["quality_gates"].get(name)]
+        if failed:
+            print(
+                "Multistep P1 gate failed: " + ", ".join(failed),
+                file=sys.stderr,
+            )
+            return 4
     return 0
 
 

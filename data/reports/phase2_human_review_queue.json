@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-08-09T04:28:16.151539+00:00",
+  "source_file_count": 718,
+  "source_transition_count": 1566,
+  "queued_transition_count": 300,
+  "queue_path": "data\\human_review\\phase2_review_queue.csv",
+  "review_status_counts": {
+    "pending": 300
+  },
+  "reason_counts": {
+    "webarena": 34,
+    "terminal": 166,
+    "stalled": 110,
+    "severe_failure": 65,
+    "invalid_action": 104,
+    "goal_deviation": 104
+  },
+  "instructions": [
+    "Review the state/action/next-state evidence in each CSV row.",
+    "Correct the seven label fields as needed, set reviewer, and change review_status to approved.",
+    "Only approved rows are accepted by apply_human_review_labels.py."
+  ]
+}

@@ -24,6 +24,7 @@ class Phase2EnsembleTests(unittest.TestCase):
         models = [ActionConditionedWorldModel(config) for _ in range(3)]
         ensemble = ActionConditionedWorldModelEnsemble(
             models,
+            member_weights=[0.6, 0.3, 0.1],
             temperatures={
                 "state_delta": [1.1] * 5,
                 "task_signal": [0.9] * 2,
@@ -38,6 +39,7 @@ class Phase2EnsembleTests(unittest.TestCase):
         self.assertEqual(output["risk_logits"].shape, (4, 4))
         self.assertEqual(output["ensemble_disagreement"].shape, (4,))
         self.assertTrue(torch.all(output["ensemble_disagreement"] >= 0))
+        self.assertTrue(torch.allclose(ensemble.member_weights.sum(), torch.tensor(1.0)))
 
 
 if __name__ == "__main__":

@@ -286,9 +286,37 @@ def canonicalize_transition(
             "source_schema_version": int(record.get("schema_version", 1) or 1),
             **(
                 {
+                    "human_review": {
+                        "review_schema_version": int(
+                            record["metadata"]["human_review"].get(
+                                "review_schema_version", 1
+                            )
+                            or 1
+                        ),
+                        "reviewer": str(
+                            record["metadata"]["human_review"].get("reviewer", "")
+                        ),
+                        "reviewed_at_utc": str(
+                            record["metadata"]["human_review"].get(
+                                "reviewed_at_utc", ""
+                            )
+                        ),
+                        "notes": str(
+                            record["metadata"]["human_review"].get("notes", "")
+                        ),
+                    }
+                }
+                if isinstance(record.get("metadata"), Mapping)
+                and isinstance(record["metadata"].get("human_review"), Mapping)
+                else {}
+            ),
+            **(
+                {
                     "counterfactual_pair_id": str(record["metadata"].get("counterfactual_pair_id", "")),
+                    "counterfactual_group_id": str(record["metadata"].get("counterfactual_group_id", "")),
                     "counterfactual_role": str(record["metadata"].get("counterfactual_role", "")),
                     "intervention": str(record["metadata"].get("intervention", "")),
+                    "intervention_type": str(record["metadata"].get("intervention_type", "unspecified")),
                     "observed_in_environment": bool(record["metadata"].get("observed_in_environment", False)),
                     "initial_state_id": str(record["metadata"].get("initial_state_id", "")),
                 }

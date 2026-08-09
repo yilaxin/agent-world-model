@@ -77,12 +77,16 @@ class Phase2SchemaTests(unittest.TestCase):
         record = sample_record()
         record["metadata"] = {
             "counterfactual_pair_id": "pair-1",
+            "counterfactual_group_id": "group-1",
             "counterfactual_role": "counterfactual",
             "intervention": "visible wrong target",
+            "intervention_type": "hard_wrong_target",
         }
         example = canonicalize_transition(record)
         self.assertEqual(example.metadata["counterfactual_pair_id"], "pair-1")
         self.assertEqual(example.metadata["counterfactual_role"], "counterfactual")
+        self.assertEqual(example.metadata["counterfactual_group_id"], "group-1")
+        self.assertEqual(example.metadata["intervention_type"], "hard_wrong_target")
 
     def test_terminal_zero_reward_is_observed_severe_failure(self) -> None:
         record = sample_record()
@@ -90,6 +94,21 @@ class Phase2SchemaTests(unittest.TestCase):
         example = canonicalize_transition(record)
         self.assertEqual(example.risks["success"], 0.0)
         self.assertEqual(example.risks["severe_failure"], 1.0)
+
+    def test_human_review_provenance_is_preserved(self) -> None:
+        record = sample_record()
+        record["label_source"] = "human_verified"
+        record["metadata"] = {
+            "human_review": {
+                "review_schema_version": 1,
+                "reviewer": "reviewer-a",
+                "reviewed_at_utc": "2026-08-09T00:00:00+00:00",
+                "notes": "checked against the final page",
+            }
+        }
+        example = canonicalize_transition(record)
+        self.assertEqual(example.label_source, "human_verified")
+        self.assertEqual(example.metadata["human_review"]["reviewer"], "reviewer-a")
 
 
 if __name__ == "__main__":

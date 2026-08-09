@@ -3,8 +3,8 @@
   "benchmark": "WebArena Verified Reddit-only retrieval subset",
   "task_ids": [27, 28, 29, 30, 31],
   "seeds": [0],
-  "reactive_step_budget": 6,
-  "world_model_step_budget": 6,
+  "reactive_step_budget": 12,
+  "world_model_step_budget": 12,
   "evaluator_smoke_step_budget": 1,
   "evaluator_smoke_answers": {
     "27": "0",

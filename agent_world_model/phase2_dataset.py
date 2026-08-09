@@ -10,6 +10,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Iterable, Mapping, Sequence
 
+from .counterfactual import counterfactual_pair_summary
+from .multistep import build_horizon_windows, multistep_coverage_summary
 from .phase2_schema import Phase2Example, canonicalize_transition
 from .trajectory import iter_trajectory
 
@@ -90,11 +92,20 @@ def load_phase2_examples(
         )
         for record in records
     ]
+    split_group_by_episode = {
+        example.episode_id: str(
+            example.metadata.get("counterfactual_group_id") or example.episode_id
+        )
+        for example in preliminary
+    }
     assignments = split_episodes(
-        [example.episode_id for example in preliminary], seed=seed
+        list(split_group_by_episode.values()), seed=seed
     )
     return [
-        replace(example, split=assignments[example.episode_id])
+        replace(
+            example,
+            split=assignments[split_group_by_episode[example.episode_id]],
+        )
         for example in preliminary
     ], files
 
@@ -194,6 +205,38 @@ def audit_examples(
         for pair_id, pair in counterfactual_pairs.items()
         if len({item.split for item in pair}) > 1
     )
+    counterfactual_groups: dict[str, list[Phase2Example]] = defaultdict(list)
+    for example in examples:
+        group_id = str(example.metadata.get("counterfactual_group_id", ""))
+        if group_id:
+            counterfactual_groups[group_id].append(example)
+    counterfactual_group_split_leakage = sorted(
+        group_id
+        for group_id, group in counterfactual_groups.items()
+        if len({item.split for item in group}) > 1
+    )
+    counterfactual_by_split = {
+        split: counterfactual_pair_summary(
+            [example for example in examples if example.split == split]
+        )
+        for split in ("train", "validation", "test")
+    }
+    counterfactual_overall = counterfactual_pair_summary(examples)
+    multistep_by_split = {
+        split: multistep_coverage_summary(
+            build_horizon_windows(
+                [
+                    example.to_dict()
+                    for example in examples
+                    if example.split == split
+                ]
+            )
+        )
+        for split in ("train", "validation", "test")
+    }
+    multistep_overall = multistep_coverage_summary(
+        build_horizon_windows([example.to_dict() for example in examples])
+    )
     return {
         "schema_version": 1,
         "generated_at_utc": datetime.now(timezone.utc).isoformat(),
@@ -220,6 +263,13 @@ def audit_examples(
                 for example in examples
             ),
             "pair_split_leakage": counterfactual_split_leakage,
+            "group_split_leakage": counterfactual_group_split_leakage,
+            "overall": counterfactual_overall,
+            "by_split": counterfactual_by_split,
+        },
+        "multistep_audit": {
+            "overall": multistep_overall,
+            "by_split": multistep_by_split,
         },
         "rare_label_warnings": [
             name for name, count in positive_counts.items() if count < 25
@@ -243,7 +293,30 @@ def audit_examples(
                 for name in ("success", "stalled", "invalid_action", "terminal")
             ),
             "observed_counterfactual_pairs": len(valid_counterfactual_pairs) >= 25,
+            "counterfactual_scale_1000": len(valid_counterfactual_pairs) >= 1000,
+            "counterfactual_test_informative_200": (
+                counterfactual_by_split["test"]["informative_pair_count"] >= 200
+            ),
+            "counterfactual_tie_rate_le_20pct": (
+                counterfactual_overall["informative_rate"] >= 0.80
+            ),
             "no_counterfactual_pair_leakage": not counterfactual_split_leakage,
+            "no_counterfactual_group_leakage": not counterfactual_group_split_leakage,
+            "multistep_h2_test_100": (
+                multistep_by_split["test"]["by_horizon"]["2"]["window_count"]
+                >= 100
+            ),
+            "multistep_h3_test_100": (
+                multistep_by_split["test"]["by_horizon"]["3"]["window_count"]
+                >= 100
+            ),
+            "multistep_terminal_test_25": (
+                multistep_by_split["test"]["long_horizon_terminal_count"] >= 25
+            ),
+            "multistep_severe_failure_test_10": (
+                multistep_by_split["test"]["long_horizon_severe_failure_count"]
+                >= 10
+            ),
         },
     }
 

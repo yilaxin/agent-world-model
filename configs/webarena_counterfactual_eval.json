@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "benchmark": "WebArena Verified controlled initial-state counterfactuals",
+  "tasks": [
+    "browsergym/webarena.27",
+    "browsergym/webarena.28",
+    "browsergym/webarena.29",
+    "browsergym/webarena.30",
+    "browsergym/webarena.31"
+  ],
+  "notes": [
+    "Each factual/counterfactual pair resets the same task and seed.",
+    "Both arms are executed in the deployed benchmark; model predictions are not used as outcome labels.",
+    "This Reddit-only controlled subset is evidence for phase 2/3 data quality, not the full multi-site success-rate claim."
+  ]
+}

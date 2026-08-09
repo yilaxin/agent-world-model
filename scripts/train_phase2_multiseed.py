@@ -20,6 +20,7 @@ from torch.utils.data import DataLoader  # noqa: E402
 
 from agent_world_model.phase2_ensemble import (  # noqa: E402
     ActionConditionedWorldModelEnsemble,
+    fit_ensemble_rank_weights,
     fit_ensemble_temperatures,
     load_world_model,
 )
@@ -28,6 +29,7 @@ from agent_world_model.phase2_metrics import evaluate_thresholds  # noqa: E402
 from agent_world_model.phase2_training import (  # noqa: E402
     Phase2TensorDataset,
     TrainingConfig,
+    evaluate_pairwise_model,
     evaluate_model,
     load_jsonl,
     resolve_device,
@@ -54,6 +56,7 @@ def project_path(value: str | Path) -> Path:
 
 def selection_score(metrics: Mapping[str, Any], weights: Mapping[str, float]) -> float:
     regression_penalty = float(metrics["progress"]["mae"]) + float(metrics["reward"]["mae"])
+    pairwise = metrics.get("pairwise_ranking", {})
     return (
         float(weights["state_delta_f1"]) * float(metrics["state_delta"]["macro_f1_supported"])
         + float(weights["task_signal_f1"]) * float(metrics["task_signal"]["macro_f1_supported"])
@@ -61,11 +64,15 @@ def selection_score(metrics: Mapping[str, Any], weights: Mapping[str, float]) ->
         + float(weights["latent_cosine"]) * float(metrics["latent"]["cosine_similarity"])
         - float(weights["risk_ece_penalty"]) * float(metrics["risk"]["macro_ece"])
         - float(weights["regression_mae_penalty"]) * regression_penalty
+        + float(weights.get("pairwise_accuracy", 0.0))
+        * float(pairwise.get("accuracy", 0.0))
+        - float(weights.get("pairwise_log_loss_penalty", 0.0))
+        * float(pairwise.get("log_loss", 0.0))
     )
 
 
 def compact_metrics(metrics: Mapping[str, Any]) -> dict[str, float]:
-    return {
+    result = {
         "state_delta_f1": float(metrics["state_delta"]["macro_f1_supported"]),
         "task_signal_f1": float(metrics["task_signal"]["macro_f1_supported"]),
         "risk_f1": float(metrics["risk"]["macro_f1_supported"]),
@@ -78,6 +85,16 @@ def compact_metrics(metrics: Mapping[str, Any]) -> dict[str, float]:
         "progress_mae": float(metrics["progress"]["mae"]),
         "reward_mae": float(metrics["reward"]["mae"]),
     }
+    pairwise = metrics.get("pairwise_ranking")
+    if pairwise:
+        result.update(
+            {
+                "pairwise_accuracy": float(pairwise["accuracy"]),
+                "pairwise_log_loss": float(pairwise["log_loss"]),
+                "pairwise_pair_count": float(pairwise["informative_pair_count"]),
+            }
+        )
+    return result
 
 
 def aggregate_runs(rows: list[Mapping[str, Any]], section: str) -> dict[str, dict[str, float]]:
@@ -104,7 +121,7 @@ def main() -> int:
     base = json.loads(project_path(experiment_config["base_config"]).read_text(encoding="utf-8"))
     experiment = experiment_config["experiment"]
     outputs = experiment_config["outputs"]
-    data_dir = project_path(base["data"]["directory"])
+    data_dir = project_path(experiment.get("data_directory", base["data"]["directory"]))
     card = json.loads((data_dir / "dataset_card.json").read_text(encoding="utf-8"))
     if not card["quality_gates"].get("p1_3000_transitions", False):
         raise RuntimeError("multi-seed formal training requires the P1 3000-transition gate")
@@ -146,6 +163,12 @@ def main() -> int:
         model = load_world_model(checkpoint, device)
         validation = evaluate_model(model, validation_loader, device=device)
         test = evaluate_model(model, test_loader, device=device)
+        validation["pairwise_ranking"] = evaluate_pairwise_model(
+            model, validation_records, device=device
+        )
+        test["pairwise_ranking"] = evaluate_pairwise_model(
+            model, test_records, device=device
+        )
         score = selection_score(validation, experiment["selection_weights"])
         runs.append(
             {
@@ -166,13 +189,34 @@ def main() -> int:
     selected = ranked[:ensemble_size]
     selected_models = [load_world_model(project_path(row["checkpoint"]), device) for row in selected]
     temperatures = fit_ensemble_temperatures(selected_models, validation_loader, device=device)
-    uncalibrated_model = ActionConditionedWorldModelEnsemble(selected_models).to(device)
+    member_weights = fit_ensemble_rank_weights(
+        selected_models,
+        validation_records,
+        device=device,
+        minimum_utility_gap=float(
+            base["training"].get("pairwise_minimum_utility_gap", 0.05)
+        ),
+    )
+    uncalibrated_model = ActionConditionedWorldModelEnsemble(
+        selected_models, member_weights=member_weights
+    ).to(device)
     calibrated_model = ActionConditionedWorldModelEnsemble(
-        selected_models, temperatures=temperatures
+        selected_models,
+        temperatures=temperatures,
+        member_weights=member_weights,
     ).to(device)
     validation_uncalibrated = evaluate_model(uncalibrated_model, validation_loader, device=device)
     validation_calibrated = evaluate_model(calibrated_model, validation_loader, device=device)
     test_calibrated = evaluate_model(calibrated_model, test_loader, device=device)
+    validation_uncalibrated["pairwise_ranking"] = evaluate_pairwise_model(
+        uncalibrated_model, validation_records, device=device
+    )
+    validation_calibrated["pairwise_ranking"] = evaluate_pairwise_model(
+        calibrated_model, validation_records, device=device
+    )
+    test_calibrated["pairwise_ranking"] = evaluate_pairwise_model(
+        calibrated_model, test_records, device=device
+    )
 
     thresholds = dict(base["acceptance_thresholds"])
     thresholds.update(experiment.get("extra_acceptance_thresholds", {}))
@@ -195,6 +239,7 @@ def main() -> int:
             for row in selected
         ],
         "temperatures": temperatures,
+        "member_weights": member_weights,
         "champion_single_checkpoint": selected[0]["checkpoint"],
     }
     write_report(manifest_path, manifest)
@@ -234,6 +279,7 @@ def main() -> int:
         },
         "selected_members": manifest["members"],
         "temperatures": temperatures,
+        "member_weights": member_weights,
         "calibration_comparison": {
             "risk_ece_before": validation_uncalibrated["risk"]["macro_ece"],
             "risk_ece_after": validation_calibrated["risk"]["macro_ece"],

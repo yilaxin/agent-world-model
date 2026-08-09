@@ -11,7 +11,13 @@ data/trajectories/
 data/trajectories_phase2/
 data/trajectories_phase2_risk/
 data/trajectories_phase2_risk_smoke/
+data/trajectories_phase2_multistep/
+data/trajectories_phase2_terminal_failures/
+data/trajectories_phase2_counterfactual_p2/
+data/trajectories_webarena_counterfactual/
 data/phase2/*.jsonl
+data/human_review/*.csv
+data/trajectories_human_reviewed/
 artifacts/phase2/*.pt
 data/reports/*_smoke.json
 data/reports/*_cpu.json

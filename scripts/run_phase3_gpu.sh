@@ -21,6 +21,11 @@ PY
   --checkpoint "${CHECKPOINT}" \
   --output data/reports/phase3_evaluation_gpu.json
 
+"${PYTHON_BIN}" scripts/evaluate_phase3_multistep.py \
+  --device cuda \
+  --checkpoint "${CHECKPOINT}" \
+  --output data/reports/phase3_multistep_observed_gpu.json
+
 "${PYTHON_BIN}" scripts/demo_phase3_agent.py \
   --device cuda \
   --checkpoint "${CHECKPOINT}" \

@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-08-09T04:28:25.416927+00:00",
+  "phase": 3,
+  "evaluation": "observed_contiguous_horizon_1_to_3",
+  "dataset": "data\\phase2\\test.jsonl",
+  "model_source": "artifacts\\phase2\\world_model_ensemble_p1.json",
+  "device": "cpu",
+  "coverage": {
+    "by_horizon": {
+      "1": {
+        "window_count": 231,
+        "task_count": 29,
+        "terminal_ending_count": 34,
+        "success_ending_count": 22,
+        "severe_failure_ending_count": 0,
+        "invalid_action_window_count": 19
+      },
+      "2": {
+        "window_count": 124,
+        "task_count": 23,
+        "terminal_ending_count": 11,
+        "success_ending_count": 10,
+        "severe_failure_ending_count": 0,
+        "invalid_action_window_count": 0
+      },
+      "3": {
+        "window_count": 59,
+        "task_count": 21,
+        "terminal_ending_count": 5,
+        "success_ending_count": 4,
+        "severe_failure_ending_count": 0,
+        "invalid_action_window_count": 0
+      }
+    },
+    "total_window_count": 414,
+    "long_horizon_window_count": 183,
+    "long_horizon_terminal_count": 16,
+    "long_horizon_severe_failure_count": 0,
+    "quality_gates": {
+      "h2_windows_ge_100": true,
+      "h3_windows_ge_100": false,
+      "long_horizon_terminal_ge_25": false,
+      "long_horizon_severe_failure_ge_10": false
+    }
+  },
+  "metrics": {
+    "1": {
+      "window_count": 231,
+      "latent_mse": 0.0002444742507463578,
+      "latent_cosine_similarity": 0.9323760616830933,
+      "persistence_baseline_mse": 0.00013912446293348985,
+      "mse_improvement_over_persistence": -0.7572341024111031,
+      "terminal_brier": 0.0005598802073719656,
+      "severe_failure_brier": 0.032935913724069364,
+      "progress_mae": 0.041535920283879174
+    },
+    "2": {
+      "window_count": 124,
+      "latent_mse": 0.0003503005487184583,
+      "latent_cosine_similarity": 0.9067855328321457,
+      "persistence_baseline_mse": 0.00016064903338848389,
+      "mse_improvement_over_persistence": -1.1805331867223645,
+      "terminal_brier": 0.0009569148116537211,
+      "severe_failure_brier": 0.0017750527254907107,
+      "progress_mae": 0.033477869758268844
+    },
+    "3": {
+      "window_count": 59,
+      "latent_mse": 0.00046013010284958123,
+      "latent_cosine_similarity": 0.888952738652795,
+      "persistence_baseline_mse": 0.0002989085437779283,
+      "mse_improvement_over_persistence": -0.5393675170136026,
+      "terminal_brier": 0.001374435217670111,
+      "severe_failure_brier": 0.0017139643389742314,
+      "progress_mae": 0.048799598978248315
+    }
+  },
+  "acceptance": {
+    "passed": false,
+    "gates": {
+      "h2_window_count": true,
+      "h3_window_count": false,
+      "long_horizon_terminal_coverage": false,
+      "long_horizon_severe_failure_coverage": false,
+      "h3_mse_ratio_bounded": true
+    }
+  },
+  "interpretation_limits": [
+    "Every evaluated sequence uses observed consecutive actions and observed final states.",
+    "This measures rollout drift on logged behavior; it does not substitute for live WebArena task success.",
+    "Horizon is capped at three steps to match the proposal and reduce compounding error."
+  ]
+}

@@ -48,6 +48,7 @@
     "ensemble_manifest": "artifacts/phase2/world_model_ensemble_p1.json",
     "alignment_checkpoint": "artifacts/phase3/structure_aligner_best.pt",
     "evaluation_report": "data/reports/phase3_evaluation_ensemble_gpu.json",
+    "multistep_evaluation_report": "data/reports/phase3_multistep_observed_gpu.json",
     "demo_report": "data/reports/phase3_demo_latest.json"
   }
 }

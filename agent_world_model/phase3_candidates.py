@@ -52,6 +52,12 @@ _STOPWORDS = {
 }
 
 
+_FORUM_QUERY_RE = re.compile(
+    r"\b(?:on|in|from)\s+(?:the\s+)?([A-Za-z0-9_-]+)\s+(?:forum|subreddit)\b",
+    re.IGNORECASE,
+)
+
+
 def _snapshot_value(state: Mapping[str, Any] | Any, key: str) -> Any:
     if isinstance(state, Mapping):
         return state.get(key)
@@ -91,6 +97,11 @@ def _input_value(goal: str) -> str:
     return ""
 
 
+def _forum_query(goal: str) -> str:
+    match = _FORUM_QUERY_RE.search(goal)
+    return match.group(1).strip() if match else ""
+
+
 def validate_action(action: str, visible_element_ids: set[str] | None = None) -> tuple[bool, str]:
     """Validate the supported BrowserGym subset without executing an action."""
 
@@ -101,7 +112,11 @@ def validate_action(action: str, visible_element_ids: set[str] | None = None) ->
     targets = parsed["target_element_ids"]
     if action_type in _TARGETED_ACTION_TYPES and not targets:
         return False, "targeted action has no element id"
-    if visible_element_ids is not None and targets:
+    if (
+        visible_element_ids is not None
+        and action_type in _TARGETED_ACTION_TYPES
+        and targets
+    ):
         if any(target not in visible_element_ids for target in targets):
             return False, "target element is not visible in the current AXTree"
     return True, ""
@@ -188,7 +203,7 @@ def structural_consistency(
 class AXTreeCandidateGenerator:
     """Generate a bounded, deterministic candidate set from visible controls."""
 
-    generator_name = "axtree_structure_v1"
+    generator_name = "axtree_structure_v2_task_query"
 
     def __init__(self, max_candidates: int = 8, alignment_scorer: Any | None = None) -> None:
         if not 2 <= max_candidates <= 32:
@@ -207,12 +222,18 @@ class AXTreeCandidateGenerator:
         elements = parse_elements(axtree)
         visible_ids = {element.bid for element in elements}
         raw: list[tuple[str, str, str, str, str]] = []
+        forum_query = _forum_query(goal)
 
         baseline = self.reactive.decide(state, recent_actions)
         raw.append(
             (
                 baseline.action,
-                "reactive",
+                (
+                    "task_query"
+                    if forum_query
+                    and baseline.action_type in {"input", "press"}
+                    else "reactive"
+                ),
                 baseline.rationale,
                 baseline.target_bid,
                 baseline.target_name,
@@ -232,6 +253,29 @@ class AXTreeCandidateGenerator:
                             element.name,
                         )
                     )
+
+        if forum_query:
+            for element in elements:
+                if element.role == "searchbox":
+                    raw.append(
+                        (
+                            f"fill({_json_arg(element.bid)}, {_json_arg(forum_query)})",
+                            "task_query",
+                            "Search for the forum explicitly named in the retrieval task.",
+                            element.bid,
+                            element.name,
+                        )
+                    )
+            if recent_actions and recent_actions[-1].lstrip().startswith("fill("):
+                raw.append(
+                    (
+                        'press("ENTER")',
+                        "task_query",
+                        "Submit the previously filled forum query.",
+                        "",
+                        "",
+                    )
+                )
 
         for element in elements:
             if element.role in _CLICK_ROLES:
@@ -270,6 +314,12 @@ class AXTreeCandidateGenerator:
                 score, components = self.alignment_scorer.score(
                     state, action, recent_actions
                 )
+            if source == "task_query":
+                score = max(
+                    score,
+                    0.98 if parsed["action_type"] == "fill" else 0.96,
+                )
+                components = {**components, "task_query_match": 1.0}
             candidates.append(
                 CandidateAction(
                     action=action,
