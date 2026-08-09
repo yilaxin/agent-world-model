@@ -26,6 +26,13 @@ def parse_args() -> argparse.Namespace:
         default="hard_wrong_target,wrong_action_type,missing_target",
     )
     parser.add_argument("--workers", type=int, default=4)
+    parser.add_argument("--min-valid-pairs", type=int, default=1000)
+    parser.add_argument("--max-failure-rate", type=float, default=0.05)
+    parser.add_argument(
+        "--aggregate-only",
+        action="store_true",
+        help="Aggregate completed shard reports without launching collectors.",
+    )
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--report", type=Path, required=True)
     return parser.parse_args()
@@ -57,6 +64,7 @@ def aggregate_reports(reports: list[dict[str, Any]]) -> dict[str, Any]:
         "informative_pairs": informative_pairs,
         "informative_pair_rate": informative_pairs / max(1, valid_pairs),
         "failed_pairs": failed_pairs,
+        "failure_rate": failed_pairs / max(1, planned_pairs),
         "transition_count": sum(int(report["transition_count"]) for report in reports),
         "counterfactual_invalid_action_positives": sum(
             int(report["counterfactual_invalid_action_positives"])
@@ -88,6 +96,19 @@ def aggregate_reports(reports: list[dict[str, Any]]) -> dict[str, Any]:
     }
 
 
+def quality_gate(
+    report: dict[str, Any],
+    *,
+    min_valid_pairs: int,
+    max_failure_rate: float,
+) -> bool:
+    return (
+        int(report["valid_pairs"]) >= min_valid_pairs
+        and float(report["failure_rate"]) <= max_failure_rate
+        and bool(report["observed_outcomes_only"])
+    )
+
+
 def main() -> int:
     args = parse_args()
     tasks_path = (
@@ -112,14 +133,17 @@ def main() -> int:
     shard_root.mkdir(parents=True, exist_ok=True)
     output_dir.mkdir(parents=True, exist_ok=True)
 
+    task_shards = split_tasks(tasks, args.workers)
     processes: list[tuple[subprocess.Popen[bytes], Path]] = []
-    for index, shard_tasks in enumerate(split_tasks(tasks, args.workers)):
+    for index, shard_tasks in enumerate(task_shards):
         shard_config = shard_root / f"shard_{index:02d}_tasks.json"
         shard_report = shard_root / f"shard_{index:02d}_report.json"
         shard_config.write_text(
             json.dumps({"schema_version": 1, "tasks": shard_tasks}, indent=2) + "\n",
             encoding="utf-8",
         )
+        if args.aggregate_only:
+            continue
         command = [
             sys.executable,
             str(COLLECTOR),
@@ -140,15 +164,25 @@ def main() -> int:
         processes.append((subprocess.Popen(command), shard_report))
 
     return_codes = [process.wait() for process, _ in processes]
-    reports = [
-        json.loads(path.read_text(encoding="utf-8"))
-        for (_, path), code in zip(processes, return_codes, strict=True)
-        if code == 0 and path.is_file()
+    shard_reports = [
+        shard_root / f"shard_{index:02d}_report.json"
+        for index in range(len(task_shards))
     ]
-    if len(reports) != len(processes):
-        failed = [index for index, code in enumerate(return_codes) if code != 0]
-        print(f"Counterfactual shard collection failed: {failed}", file=sys.stderr)
+    missing_reports = [path for path in shard_reports if not path.is_file()]
+    if missing_reports:
+        print(
+            f"Counterfactual shard reports are missing: {missing_reports}",
+            file=sys.stderr,
+        )
         return 2
+    reports = [json.loads(path.read_text(encoding="utf-8")) for path in shard_reports]
+    nonzero_shards = [index for index, code in enumerate(return_codes) if code != 0]
+    if nonzero_shards:
+        print(
+            "[counterfactual] shards reported pair-level failures: "
+            f"{nonzero_shards}; applying aggregate quality gates.",
+            file=sys.stderr,
+        )
 
     aggregate = aggregate_reports(reports)
     report_path.parent.mkdir(parents=True, exist_ok=True)
@@ -167,7 +201,15 @@ def main() -> int:
             indent=2,
         )
     )
-    return 0 if aggregate["valid_pairs"] and not aggregate["failed_pairs"] else 2
+    return (
+        0
+        if quality_gate(
+            aggregate,
+            min_valid_pairs=args.min_valid_pairs,
+            max_failure_rate=args.max_failure_rate,
+        )
+        else 2
+    )
 
 
 if __name__ == "__main__":

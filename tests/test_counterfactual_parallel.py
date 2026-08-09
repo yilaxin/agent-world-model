@@ -47,5 +47,11 @@ def test_aggregate_reports_sums_observed_results() -> None:
     assert aggregate["valid_pairs"] == 4
     assert aggregate["informative_pairs"] == 2
     assert aggregate["transition_count"] == 8
+    assert aggregate["failure_rate"] == 0.0
     assert aggregate["strategy_counts"] == {"missing_target": 4}
     assert aggregate["shard_count"] == 2
+    assert MODULE.quality_gate(
+        aggregate,
+        min_valid_pairs=4,
+        max_failure_rate=0.05,
+    )
