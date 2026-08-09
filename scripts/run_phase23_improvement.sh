@@ -37,13 +37,18 @@ PY
   --output-dir data/trajectories_phase2_counterfactual_p2 \
   --report data/reports/phase2_counterfactual_collection_p2.json
 
-"${PYTHON_BIN}" scripts/collect_phase2_counterfactuals.py \
-  --tasks-config configs/webarena_counterfactual_eval.json \
-  --seeds 1 \
-  --seed-offset 0 \
-  --strategies hard_wrong_target wrong_action_type missing_target \
-  --output-dir data/trajectories_webarena_counterfactual \
-  --report data/reports/webarena_counterfactual_collection.json
+if [[ -n "${REDDIT:-}" ]]; then
+  "${PYTHON_BIN}" scripts/collect_phase2_counterfactuals.py \
+    --tasks-config configs/webarena_counterfactual_eval.json \
+    --seeds 1 \
+    --seed-offset 0 \
+    --strategies hard_wrong_target wrong_action_type missing_target \
+    --output-dir data/trajectories_webarena_counterfactual \
+    --report data/reports/webarena_counterfactual_collection.json
+else
+  echo "[phase23] REDDIT is not configured; skipping live WebArena counterfactual collection."
+  echo "[phase23] This run does not claim WebArena online-success improvement."
+fi
 
 "${PYTHON_BIN}" scripts/export_human_review_queue.py \
   data/trajectories \
