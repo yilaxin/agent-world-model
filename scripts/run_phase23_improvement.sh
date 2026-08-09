@@ -35,11 +35,12 @@ else
     --report data/reports/phase2_terminal_failure_collection.json
 fi
 
-"${PYTHON_BIN}" scripts/collect_phase2_counterfactuals.py \
+"${PYTHON_BIN}" scripts/collect_phase2_counterfactuals_parallel.py \
   --tasks-config configs/phase2_collection.json \
   --seeds 40 \
   --seed-offset 1000 \
   --strategies hard_wrong_target,wrong_action_type,missing_target \
+  --workers "${PHASE23_COUNTERFACTUAL_WORKERS:-4}" \
   --output-dir data/trajectories_phase2_counterfactual_p2 \
   --report data/reports/phase2_counterfactual_collection_p2.json
 
