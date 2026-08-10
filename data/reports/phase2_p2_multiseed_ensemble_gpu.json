@@ -1,0 +1,620 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-08-10T04:49:11.023895+00:00",
+  "experiment": "proposal_33_counterfactual_p2",
+  "device": "cuda",
+  "run_count": 5,
+  "ensemble_size": 3,
+  "runs": [
+    {
+      "tag": "rank_balanced_a",
+      "seed": 29,
+      "checkpoint": "artifacts/phase2/p2_multiseed/world_model_rank_balanced_a_seed29.pt",
+      "training_report": "data/reports/phase2_p2_multiseed/training_rank_balanced_a_seed29.json",
+      "best_epoch": 19,
+      "selection_score": 0.8991784587578254,
+      "validation": {
+        "state_delta_f1": 0.9934165904149902,
+        "task_signal_f1": 0.9928199620398468,
+        "risk_f1": 0.9387531672045029,
+        "risk_auroc": 0.9918071145251357,
+        "risk_ece": 0.02652056287938622,
+        "risk_brier": 0.013244043141351287,
+        "risk_nll": 0.05879668249625174,
+        "risk_aurc": 0.0038112510940547977,
+        "latent_cosine": 0.9834828983750388,
+        "progress_mae": 0.11083964921765697,
+        "reward_mae": 0.20812279075445117,
+        "pairwise_accuracy": 0.983805668498823,
+        "pairwise_log_loss": 0.10045969724534494,
+        "pairwise_pair_count": 494.0
+      },
+      "test": {
+        "state_delta_f1": 0.9895020154089494,
+        "task_signal_f1": 0.990365697262249,
+        "risk_f1": 0.9364054347055628,
+        "risk_auroc": 0.9929536679326413,
+        "risk_ece": 0.023501905068797752,
+        "risk_brier": 0.01244398518009747,
+        "risk_nll": 0.056179791241629876,
+        "risk_aurc": 0.003956179617027676,
+        "latent_cosine": 0.9849914048850629,
+        "progress_mae": 0.0981566515309045,
+        "reward_mae": 0.18590096925618502,
+        "pairwise_accuracy": 0.9772727278747944,
+        "pairwise_log_loss": 0.08527740158817985,
+        "pairwise_pair_count": 396.0
+      }
+    },
+    {
+      "tag": "rank_regularized",
+      "seed": 73,
+      "checkpoint": "artifacts/phase2/p2_multiseed/world_model_rank_regularized_seed73.pt",
+      "training_report": "data/reports/phase2_p2_multiseed/training_rank_regularized_seed73.json",
+      "best_epoch": 27,
+      "selection_score": 0.8932787489941936,
+      "validation": {
+        "state_delta_f1": 0.9923912526175518,
+        "task_signal_f1": 0.9922440786605288,
+        "risk_f1": 0.9260044487282602,
+        "risk_auroc": 0.9923092404688403,
+        "risk_ece": 0.03783864268979692,
+        "risk_brier": 0.017573576312851606,
+        "risk_nll": 0.0749908918521471,
+        "risk_aurc": 0.004709842413510279,
+        "latent_cosine": 0.9866762715338715,
+        "progress_mae": 0.11522358874640451,
+        "reward_mae": 0.21199077324648105,
+        "pairwise_accuracy": 0.9757085025069202,
+        "pairwise_log_loss": 0.09318479075122942,
+        "pairwise_pair_count": 494.0
+      },
+      "test": {
+        "state_delta_f1": 0.9863311014601495,
+        "task_signal_f1": 0.9889756066226654,
+        "risk_f1": 0.9427078583779941,
+        "risk_auroc": 0.9887601067907852,
+        "risk_ece": 0.03876282683198143,
+        "risk_brier": 0.01589719055125448,
+        "risk_nll": 0.07327962810860475,
+        "risk_aurc": 0.005220655096872668,
+        "latent_cosine": 0.9873078490616548,
+        "progress_mae": 0.10254647268198627,
+        "reward_mae": 0.18865623689596997,
+        "pairwise_accuracy": 0.9823232323232324,
+        "pairwise_log_loss": 0.07699470041376172,
+        "pairwise_pair_count": 396.0
+      }
+    },
+    {
+      "tag": "rank_base_a",
+      "seed": 17,
+      "checkpoint": "artifacts/phase2/p2_multiseed/world_model_rank_base_a_seed17.pt",
+      "training_report": "data/reports/phase2_p2_multiseed/training_rank_base_a_seed17.json",
+      "best_epoch": 22,
+      "selection_score": 0.8927463612780172,
+      "validation": {
+        "state_delta_f1": 0.991569227418284,
+        "task_signal_f1": 0.9934259443198911,
+        "risk_f1": 0.9289401928819929,
+        "risk_auroc": 0.9878807536816776,
+        "risk_ece": 0.042904893535345746,
+        "risk_brier": 0.018649347399641233,
+        "risk_nll": 0.08053707747218666,
+        "risk_aurc": 0.005370494506692877,
+        "latent_cosine": 0.984956748898099,
+        "progress_mae": 0.09005698678941898,
+        "reward_mae": 0.15268404034577182,
+        "pairwise_accuracy": 0.9716599204762262,
+        "pairwise_log_loss": 0.11741317639708036,
+        "pairwise_pair_count": 494.0
+      },
+      "test": {
+        "state_delta_f1": 0.9923182136152162,
+        "task_signal_f1": 0.988996996996997,
+        "risk_f1": 0.9320910728314766,
+        "risk_auroc": 0.9884472623322016,
+        "risk_ece": 0.03860024642319481,
+        "risk_brier": 0.016540736120502785,
+        "risk_nll": 0.07438925739240057,
+        "risk_aurc": 0.005520889150811855,
+        "latent_cosine": 0.9859131150373281,
+        "progress_mae": 0.07880991352811004,
+        "reward_mae": 0.13707983411761862,
+        "pairwise_accuracy": 0.9722222228242894,
+        "pairwise_log_loss": 0.09502693694649321,
+        "pairwise_pair_count": 396.0
+      }
+    },
+    {
+      "tag": "rank_base_b",
+      "seed": 42,
+      "checkpoint": "artifacts/phase2/p2_multiseed/world_model_rank_base_b_seed42.pt",
+      "training_report": "data/reports/phase2_p2_multiseed/training_rank_base_b_seed42.json",
+      "best_epoch": 18,
+      "selection_score": 0.891641678728152,
+      "validation": {
+        "state_delta_f1": 0.9908283312165556,
+        "task_signal_f1": 0.9928199620398468,
+        "risk_f1": 0.9259369210416643,
+        "risk_auroc": 0.9888765634020182,
+        "risk_ece": 0.041029860418446806,
+        "risk_brier": 0.017678076423290365,
+        "risk_nll": 0.07842804725128039,
+        "risk_aurc": 0.005288051039022339,
+        "latent_cosine": 0.9822304640362389,
+        "progress_mae": 0.10247999632506753,
+        "reward_mae": 0.16043822262235838,
+        "pairwise_accuracy": 0.9736842119742019,
+        "pairwise_log_loss": 0.11599156604363368,
+        "pairwise_pair_count": 494.0
+      },
+      "test": {
+        "state_delta_f1": 0.9900450412586336,
+        "task_signal_f1": 0.9889558332918389,
+        "risk_f1": 0.9408803213831157,
+        "risk_auroc": 0.9899210773655479,
+        "risk_ece": 0.04043854991491325,
+        "risk_brier": 0.015515635804927697,
+        "risk_nll": 0.07235132128398107,
+        "risk_aurc": 0.004116881005784191,
+        "latent_cosine": 0.9835097764609587,
+        "progress_mae": 0.08581121037564858,
+        "reward_mae": 0.13605403325249968,
+        "pairwise_accuracy": 0.9848484854505519,
+        "pairwise_log_loss": 0.09781526856952244,
+        "pairwise_pair_count": 396.0
+      }
+    },
+    {
+      "tag": "rank_balanced_b",
+      "seed": 101,
+      "checkpoint": "artifacts/phase2/p2_multiseed/world_model_rank_balanced_b_seed101.pt",
+      "training_report": "data/reports/phase2_p2_multiseed/training_rank_balanced_b_seed101.json",
+      "best_epoch": 19,
+      "selection_score": 0.8884766123184907,
+      "validation": {
+        "state_delta_f1": 0.9917066606603484,
+        "task_signal_f1": 0.9916775751557281,
+        "risk_f1": 0.9152975921094353,
+        "risk_auroc": 0.9915808734275309,
+        "risk_ece": 0.023977195888679068,
+        "risk_brier": 0.014966158607723004,
+        "risk_nll": 0.06192683305531013,
+        "risk_aurc": 0.005463740828170411,
+        "latent_cosine": 0.9874929753222204,
+        "progress_mae": 0.11504927926125899,
+        "reward_mae": 0.20400541366081307,
+        "pairwise_accuracy": 0.9696356289782505,
+        "pairwise_log_loss": 0.10679203265832986,
+        "pairwise_pair_count": 494.0
+      },
+      "test": {
+        "state_delta_f1": 0.990559090161347,
+        "task_signal_f1": 0.9896205743282205,
+        "risk_f1": 0.940279964678314,
+        "risk_auroc": 0.9918471144493828,
+        "risk_ece": 0.023164864706047204,
+        "risk_brier": 0.012143577276226267,
+        "risk_nll": 0.05456076373942621,
+        "risk_aurc": 0.004052580594261557,
+        "latent_cosine": 0.9883827409729538,
+        "progress_mae": 0.10027933116605744,
+        "reward_mae": 0.18261463180755672,
+        "pairwise_accuracy": 0.9772727278747944,
+        "pairwise_log_loss": 0.0915820591076456,
+        "pairwise_pair_count": 396.0
+      }
+    }
+  ],
+  "run_stability": {
+    "validation": {
+      "state_delta_f1": {
+        "mean": 0.991982412465546,
+        "std": 0.0008720872813183367,
+        "minimum": 0.9908283312165556,
+        "maximum": 0.9934165904149902
+      },
+      "task_signal_f1": {
+        "mean": 0.9925975044431683,
+        "std": 0.0005927001048943745,
+        "minimum": 0.9916775751557281,
+        "maximum": 0.9934259443198911
+      },
+      "risk_f1": {
+        "mean": 0.9269864643931711,
+        "std": 0.00749623880804963,
+        "minimum": 0.9152975921094353,
+        "maximum": 0.9387531672045029
+      },
+      "risk_auroc": {
+        "mean": 0.9904909091010407,
+        "std": 0.0017689415628417487,
+        "minimum": 0.9878807536816776,
+        "maximum": 0.9923092404688403
+      },
+      "risk_ece": {
+        "mean": 0.034454231082330956,
+        "std": 0.0077306946207047695,
+        "minimum": 0.023977195888679068,
+        "maximum": 0.042904893535345746
+      },
+      "risk_brier": {
+        "mean": 0.0164222403769715,
+        "std": 0.0020041864229731403,
+        "minimum": 0.013244043141351287,
+        "maximum": 0.018649347399641233
+      },
+      "risk_nll": {
+        "mean": 0.07093590642543521,
+        "std": 0.0088688412662002,
+        "minimum": 0.05879668249625174,
+        "maximum": 0.08053707747218666
+      },
+      "risk_aurc": {
+        "mean": 0.004928675976290141,
+        "std": 0.0006176042326403306,
+        "minimum": 0.0038112510940547977,
+        "maximum": 0.005463740828170411
+      },
+      "latent_cosine": {
+        "mean": 0.9849678716330936,
+        "std": 0.00194902275540892,
+        "minimum": 0.9822304640362389,
+        "maximum": 0.9874929753222204
+      },
+      "progress_mae": {
+        "mean": 0.10672990006796139,
+        "std": 0.009531973296429953,
+        "minimum": 0.09005698678941898,
+        "maximum": 0.11522358874640451
+      },
+      "reward_mae": {
+        "mean": 0.1874482481259751,
+        "std": 0.02546371380229733,
+        "minimum": 0.15268404034577182,
+        "maximum": 0.21199077324648105
+      },
+      "pairwise_accuracy": {
+        "mean": 0.9748987864868843,
+        "std": 0.004891921063350115,
+        "minimum": 0.9696356289782505,
+        "maximum": 0.983805668498823
+      },
+      "pairwise_log_loss": {
+        "mean": 0.10676825261912366,
+        "std": 0.009194485145739143,
+        "minimum": 0.09318479075122942,
+        "maximum": 0.11741317639708036
+      },
+      "pairwise_pair_count": {
+        "mean": 494.0,
+        "std": 0.0,
+        "minimum": 494.0,
+        "maximum": 494.0
+      }
+    },
+    "test": {
+      "state_delta_f1": {
+        "mean": 0.9897510923808591,
+        "std": 0.0019538554206275103,
+        "minimum": 0.9863311014601495,
+        "maximum": 0.9923182136152162
+      },
+      "task_signal_f1": {
+        "mean": 0.9893829417003941,
+        "std": 0.0005512847780324684,
+        "minimum": 0.9889558332918389,
+        "maximum": 0.990365697262249
+      },
+      "risk_f1": {
+        "mean": 0.9384729303952927,
+        "std": 0.0037946848005814943,
+        "minimum": 0.9320910728314766,
+        "maximum": 0.9427078583779941
+      },
+      "risk_auroc": {
+        "mean": 0.9903858457741117,
+        "std": 0.00175192234165322,
+        "minimum": 0.9884472623322016,
+        "maximum": 0.9929536679326413
+      },
+      "risk_ece": {
+        "mean": 0.03289367858898688,
+        "std": 0.007833161945126042,
+        "minimum": 0.023164864706047204,
+        "maximum": 0.04043854991491325
+      },
+      "risk_brier": {
+        "mean": 0.01450822498660174,
+        "std": 0.001839991748842573,
+        "minimum": 0.012143577276226267,
+        "maximum": 0.016540736120502785
+      },
+      "risk_nll": {
+        "mean": 0.0661521523532085,
+        "std": 0.008841818609744808,
+        "minimum": 0.05456076373942621,
+        "maximum": 0.07438925739240057
+      },
+      "risk_aurc": {
+        "mean": 0.004573437092951589,
+        "std": 0.0006598936719024427,
+        "minimum": 0.003956179617027676,
+        "maximum": 0.005520889150811855
+      },
+      "latent_cosine": {
+        "mean": 0.9860209772835917,
+        "std": 0.0017094882191543972,
+        "minimum": 0.9835097764609587,
+        "maximum": 0.9883827409729538
+      },
+      "progress_mae": {
+        "mean": 0.09312071585654137,
+        "std": 0.009205207728856744,
+        "minimum": 0.07880991352811004,
+        "maximum": 0.10254647268198627
+      },
+      "reward_mae": {
+        "mean": 0.16606114106596598,
+        "std": 0.02415995805327369,
+        "minimum": 0.13605403325249968,
+        "maximum": 0.18865623689596997
+      },
+      "pairwise_accuracy": {
+        "mean": 0.9787878792695326,
+        "std": 0.004402928129112086,
+        "minimum": 0.9722222228242894,
+        "maximum": 0.9848484854505519
+      },
+      "pairwise_log_loss": {
+        "mean": 0.08933927332512057,
+        "std": 0.007458007552832295,
+        "minimum": 0.07699470041376172,
+        "maximum": 0.09781526856952244
+      },
+      "pairwise_pair_count": {
+        "mean": 396.0,
+        "std": 0.0,
+        "minimum": 396.0,
+        "maximum": 396.0
+      }
+    }
+  },
+  "selected_members": [
+    {
+      "tag": "rank_balanced_a",
+      "seed": 29,
+      "checkpoint": "artifacts/phase2/p2_multiseed/world_model_rank_balanced_a_seed29.pt",
+      "selection_score": 0.8991784587578254
+    },
+    {
+      "tag": "rank_regularized",
+      "seed": 73,
+      "checkpoint": "artifacts/phase2/p2_multiseed/world_model_rank_regularized_seed73.pt",
+      "selection_score": 0.8932787489941936
+    },
+    {
+      "tag": "rank_base_a",
+      "seed": 17,
+      "checkpoint": "artifacts/phase2/p2_multiseed/world_model_rank_base_a_seed17.pt",
+      "selection_score": 0.8927463612780172
+    }
+  ],
+  "temperatures": {
+    "state_delta": [
+      0.5,
+      0.5,
+      1.1749999523162842,
+      1.149999976158142,
+      0.5
+    ],
+    "task_signal": [
+      0.5,
+      0.5249999761581421
+    ],
+    "risk": [
+      0.5,
+      0.5,
+      0.5,
+      0.6499999761581421
+    ]
+  },
+  "member_weights": [
+    0.20000000298023224,
+    0.800000011920929,
+    0.0
+  ],
+  "calibration_comparison": {
+    "risk_ece_before": 0.03454485595510661,
+    "risk_ece_after": 0.011034981070317851,
+    "risk_brier_before": 0.01563969732321166,
+    "risk_brier_after": 0.01204163558417794
+  },
+  "validation_acceptance": {
+    "passed": true,
+    "checks": {
+      "state_delta.macro_f1_supported": {
+        "actual": 0.9933917677729345,
+        "operator": ">=",
+        "target": 0.6,
+        "passed": true
+      },
+      "task_signal.macro_f1_supported": {
+        "actual": 0.9928343046327581,
+        "operator": ">=",
+        "target": 0.6,
+        "passed": true
+      },
+      "risk.macro_f1_supported": {
+        "actual": 0.9271115726665091,
+        "operator": ">=",
+        "target": 0.5,
+        "passed": true
+      },
+      "risk.macro_auroc_supported": {
+        "actual": 0.9936436356218741,
+        "operator": ">=",
+        "target": 0.7,
+        "passed": true
+      },
+      "latent.cosine_similarity": {
+        "actual": 0.9866621462673496,
+        "operator": ">=",
+        "target": 0.6,
+        "passed": true
+      },
+      "progress.mae": {
+        "actual": 0.11203915361452484,
+        "operator": "<=",
+        "target": 0.25,
+        "passed": true
+      },
+      "reward.mae": {
+        "actual": 0.20741101103770757,
+        "operator": "<=",
+        "target": 0.25,
+        "passed": true
+      },
+      "state_delta.macro_ece": {
+        "actual": 0.0015087901367574529,
+        "operator": "<=",
+        "target": 0.15,
+        "passed": true
+      },
+      "task_signal.macro_ece": {
+        "actual": 0.003698476948534082,
+        "operator": "<=",
+        "target": 0.15,
+        "passed": true
+      },
+      "risk.macro_ece": {
+        "actual": 0.011034981070317851,
+        "operator": "<=",
+        "target": 0.15,
+        "passed": true
+      },
+      "risk.macro_nll": {
+        "actual": 0.04600017794126632,
+        "operator": "<=",
+        "target": 0.35,
+        "passed": true
+      },
+      "risk.macro_aurc": {
+        "actual": 0.0042967353503154445,
+        "operator": "<=",
+        "target": 0.1,
+        "passed": true
+      }
+    }
+  },
+  "test_acceptance": {
+    "passed": true,
+    "checks": {
+      "state_delta.macro_f1_supported": {
+        "actual": 0.9869132235753302,
+        "operator": ">=",
+        "target": 0.6,
+        "passed": true
+      },
+      "task_signal.macro_f1_supported": {
+        "actual": 0.988996996996997,
+        "operator": ">=",
+        "target": 0.6,
+        "passed": true
+      },
+      "risk.macro_f1_supported": {
+        "actual": 0.9438584446723687,
+        "operator": ">=",
+        "target": 0.5,
+        "passed": true
+      },
+      "risk.macro_auroc_supported": {
+        "actual": 0.9904117665477793,
+        "operator": ">=",
+        "target": 0.7,
+        "passed": true
+      },
+      "latent.cosine_similarity": {
+        "actual": 0.9873369602094406,
+        "operator": ">=",
+        "target": 0.6,
+        "passed": true
+      },
+      "progress.mae": {
+        "actual": 0.09921902454414529,
+        "operator": "<=",
+        "target": 0.25,
+        "passed": true
+      },
+      "reward.mae": {
+        "actual": 0.1846562469425911,
+        "operator": "<=",
+        "target": 0.25,
+        "passed": true
+      },
+      "state_delta.macro_ece": {
+        "actual": 0.002521081095967285,
+        "operator": "<=",
+        "target": 0.15,
+        "passed": true
+      },
+      "task_signal.macro_ece": {
+        "actual": 0.003581264921263299,
+        "operator": "<=",
+        "target": 0.15,
+        "passed": true
+      },
+      "risk.macro_ece": {
+        "actual": 0.0093675618901824,
+        "operator": "<=",
+        "target": 0.15,
+        "passed": true
+      },
+      "risk.macro_nll": {
+        "actual": 0.048208293910394294,
+        "operator": "<=",
+        "target": 0.35,
+        "passed": true
+      },
+      "risk.macro_aurc": {
+        "actual": 0.00428824948974441,
+        "operator": "<=",
+        "target": 0.1,
+        "passed": true
+      }
+    }
+  },
+  "ensemble_validation": {
+    "state_delta_f1": 0.9933917677729345,
+    "task_signal_f1": 0.9928343046327581,
+    "risk_f1": 0.9271115726665091,
+    "risk_auroc": 0.9936436356218741,
+    "risk_ece": 0.011034981070317851,
+    "risk_brier": 0.01204163558417794,
+    "risk_nll": 0.04600017794126632,
+    "risk_aurc": 0.0042967353503154445,
+    "latent_cosine": 0.9866621462673496,
+    "progress_mae": 0.11203915361452484,
+    "reward_mae": 0.20741101103770757,
+    "pairwise_accuracy": 0.9777327940048959,
+    "pairwise_log_loss": 0.10095404326795084,
+    "pairwise_pair_count": 494.0
+  },
+  "ensemble_test": {
+    "state_delta_f1": 0.9869132235753302,
+    "task_signal_f1": 0.988996996996997,
+    "risk_f1": 0.9438584446723687,
+    "risk_auroc": 0.9904117665477793,
+    "risk_ece": 0.0093675618901824,
+    "risk_brier": 0.0106716329139651,
+    "risk_nll": 0.048208293910394294,
+    "risk_aurc": 0.00428824948974441,
+    "latent_cosine": 0.9873369602094406,
+    "progress_mae": 0.09921902454414529,
+    "reward_mae": 0.1846562469425911,
+    "pairwise_accuracy": 0.9772727278747944,
+    "pairwise_log_loss": 0.08481022798352772,
+    "pairwise_pair_count": 396.0
+  }
+}
