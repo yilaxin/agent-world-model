@@ -33,6 +33,11 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Aggregate completed shard reports without launching collectors.",
     )
+    parser.add_argument(
+        "--resume",
+        action="store_true",
+        help="Resume shards from complete pairs already present on disk.",
+    )
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--report", type=Path, required=True)
     return parser.parse_args()
@@ -160,6 +165,8 @@ def main() -> int:
             "--report",
             str(shard_report),
         ]
+        if args.resume:
+            command.append("--resume")
         print(f"[counterfactual] starting shard {index + 1}: {len(shard_tasks)} tasks")
         processes.append((subprocess.Popen(command), shard_report))
 

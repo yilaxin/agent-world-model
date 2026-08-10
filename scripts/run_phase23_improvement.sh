@@ -41,6 +41,7 @@ fi
   --seed-offset 1000 \
   --strategies hard_wrong_target,wrong_action_type,missing_target \
   --workers "${PHASE23_COUNTERFACTUAL_WORKERS:-4}" \
+  --resume \
   --output-dir data/trajectories_phase2_counterfactual_p2 \
   --report data/reports/phase2_counterfactual_collection_p2.json
 

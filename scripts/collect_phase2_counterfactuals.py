@@ -14,7 +14,9 @@ import argparse
 import hashlib
 import json
 import os
+import shutil
 import sys
+from collections import defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -58,6 +60,74 @@ DEFAULT_STRATEGIES = (
     "wrong_action_type",
     "missing_target",
 )
+
+
+def _pair_id(task: str, seed: int, strategy: str) -> str:
+    return f"cf-{task.rsplit('.', 1)[-1]}-seed{seed}-{strategy}"
+
+
+def _row_from_path(path: Path) -> dict[str, Any]:
+    record = load_trajectory(path)[0]
+    metadata = dict(record.get("metadata") or {})
+    example = canonicalize_transition(record)
+    return {
+        "path": str(path),
+        "pair_id": str(
+            metadata.get("counterfactual_pair_id") or record.get("episode_id") or ""
+        ),
+        "role": str(metadata.get("counterfactual_role") or ""),
+        "initial_state_id": str(
+            metadata.get("initial_state_id")
+            or (record.get("state") or {}).get("state_id")
+            or ""
+        ),
+        "action": str(record.get("action") or ""),
+        "reward": float(record.get("reward") or 0.0),
+        "terminated": bool(record.get("terminated")),
+        "truncated": bool(record.get("truncated")),
+        "invalid_action": bool(example.task_signals["invalid_action"]),
+        "severe_failure": bool(example.risks["severe_failure"]),
+        "success": bool(example.risks["success"]),
+        "task_signals": dict(example.task_signals),
+        "risks": dict(example.risks),
+        "utility": observed_utility(example),
+        "intervention_type": str(metadata.get("intervention_type") or ""),
+    }
+
+
+def _completed_pairs_and_quarantine(output_dir: Path) -> tuple[set[str], int]:
+    pair_files: dict[str, list[tuple[Path, dict[str, Any]]]] = defaultdict(list)
+    incomplete: list[Path] = []
+    for path in sorted(output_dir.glob("*.jsonl")):
+        try:
+            row = _row_from_path(path)
+        except Exception:
+            incomplete.append(path)
+            continue
+        if not row["pair_id"] or not row["role"]:
+            incomplete.append(path)
+            continue
+        pair_files[row["pair_id"]].append((path, row))
+
+    completed: set[str] = set()
+    for pair_id, entries in pair_files.items():
+        roles = {row["role"] for _, row in entries}
+        state_ids = {row["initial_state_id"] for _, row in entries}
+        if len(entries) == 2 and roles == {"factual", "counterfactual"} and len(state_ids) == 1:
+            completed.add(pair_id)
+        else:
+            incomplete.extend(path for path, _ in entries)
+
+    if incomplete:
+        backup_dir = (
+            output_dir.parent.parent
+            / f"{output_dir.parent.name}_incomplete_backup"
+            / output_dir.name
+        )
+        backup_dir.mkdir(parents=True, exist_ok=True)
+        for path in incomplete:
+            shutil.move(str(path), str(backup_dir / path.name))
+    return completed, len(incomplete)
 
 
 def _counterfactual_decision(
@@ -181,25 +251,7 @@ def _run_arm(
             },
         )
         path = logger.path
-    record = load_trajectory(path)[0]
-    example = canonicalize_transition(record)
-    return {
-        "path": str(path),
-        "pair_id": pair_id,
-        "role": role,
-        "initial_state_id": state.state_id,
-        "action": decision.action,
-        "reward": float(reward),
-        "terminated": bool(terminated),
-        "truncated": bool(truncated),
-        "invalid_action": bool(example.task_signals["invalid_action"]),
-        "severe_failure": bool(example.risks["severe_failure"]),
-        "success": bool(example.risks["success"]),
-        "task_signals": dict(example.task_signals),
-        "risks": dict(example.risks),
-        "utility": observed_utility(example),
-        "intervention_type": intervention_type,
-    }
+    return _row_from_path(path)
 
 
 def parse_args() -> argparse.Namespace:
@@ -209,6 +261,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--seeds", type=int, default=10)
     parser.add_argument("--seed-offset", type=int, default=1000)
     parser.add_argument("--limit-pairs", type=int)
+    parser.add_argument(
+        "--resume",
+        action="store_true",
+        help="Reuse complete observed pairs and quarantine interrupted single arms.",
+    )
     parser.add_argument(
         "--tasks-config",
         type=Path,
@@ -251,14 +308,21 @@ def main() -> int:
     ]
     if args.limit_pairs is not None:
         planned = planned[: args.limit_pairs]
+    completed_pairs: set[str] = set()
+    if args.resume:
+        completed_pairs, quarantined = _completed_pairs_and_quarantine(output_dir)
+        print(
+            f"resume: completed_pairs={len(completed_pairs)} "
+            f"quarantined_files={quarantined}"
+        )
     extractor, encoder, agent = StateExtractor(), StateEncoderV1(), ReactiveAgent()
-    rows: list[dict[str, Any]] = []
     failures: list[dict[str, Any]] = []
     for task in tasks:
         task_runs = [
             (seed, strategy)
             for current_task, seed, strategy in planned
             if current_task == task
+            and _pair_id(current_task, seed, strategy) not in completed_pairs
         ]
         if not task_runs:
             continue
@@ -267,9 +331,9 @@ def main() -> int:
         try:
             for seed, strategy in task_runs:
                 group_id = f"cfgroup-{task.rsplit('.', 1)[-1]}-seed{seed}"
-                pair_id = f"cf-{task.rsplit('.', 1)[-1]}-seed{seed}-{strategy}"
+                pair_id = _pair_id(task, seed, strategy)
                 try:
-                    factual = _run_arm(
+                    _run_arm(
                         env,
                         task=task,
                         seed=seed,
@@ -282,7 +346,7 @@ def main() -> int:
                         encoder=encoder,
                         agent=agent,
                     )
-                    counterfactual = _run_arm(
+                    _run_arm(
                         env,
                         task=task,
                         seed=seed,
@@ -295,13 +359,16 @@ def main() -> int:
                         encoder=encoder,
                         agent=agent,
                     )
-                    rows.extend([factual, counterfactual])
                 except Exception as error:
                     failures.append(
                         {"task": task, "seed": seed, "strategy": strategy, "error": repr(error)}
                     )
         finally:
             env.close()
+    _, quarantined_after_run = _completed_pairs_and_quarantine(output_dir)
+    if quarantined_after_run:
+        print(f"quarantined_files_after_run={quarantined_after_run}")
+    rows = [_row_from_path(path) for path in sorted(output_dir.glob("*.jsonl"))]
     by_pair: dict[str, list[dict[str, Any]]] = {}
     for row in rows:
         by_pair.setdefault(row["pair_id"], []).append(row)
