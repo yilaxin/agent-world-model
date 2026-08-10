@@ -2,17 +2,20 @@
   "schema_version": 1,
   "headless": true,
   "max_steps": 3,
+  "agent_mode": "terminal_wrong_target",
   "safe_exploration_rate": 1.0,
-  "minimum_transitions": 250,
+  "minimum_transitions": 200,
   "seeds": [
-    500, 501, 502, 503, 504, 505, 506, 507, 508, 509,
-    510, 511, 512, 513, 514, 515, 516, 517, 518, 519
+    600, 601, 602, 603, 604, 605, 606, 607, 608, 609,
+    610, 611, 612, 613, 614, 615, 616, 617, 618, 619,
+    620, 621, 622, 623, 624, 625, 626, 627, 628, 629,
+    630, 631, 632, 633, 634, 635, 636, 637, 638, 639,
+    640, 641, 642, 643, 644, 645, 646, 647, 648, 649,
+    650, 651, 652, 653, 654, 655, 656, 657, 658, 659,
+    660, 661, 662, 663, 664, 665, 666, 667, 668, 669,
+    670, 671, 672, 673, 674, 675, 676, 677, 678, 679
   ],
   "tasks": [
-    "browsergym/miniwob.click-checkboxes-soft",
-    "browsergym/miniwob.click-dialog-2",
-    "browsergym/miniwob.click-test-2",
-    "browsergym/miniwob.click-widget",
-    "browsergym/miniwob.click-menu"
+    "browsergym/miniwob.click-test-2"
   ]
 }

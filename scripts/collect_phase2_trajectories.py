@@ -35,6 +35,7 @@ from agent_world_model import (  # noqa: E402
     run_baseline_episode,
 )
 from agent_world_model.baseline import register_browsergym_environment  # noqa: E402
+from agent_world_model.reactive_agent import parse_elements  # noqa: E402
 
 
 class SafeExplorationAgent:
@@ -68,6 +69,64 @@ class SafeExplorationAgent:
             )
         return self.base.decide(
             state, recent_actions, direct_answer=direct_answer
+        )
+
+
+class TerminalWrongTargetAgent:
+    """Build H=3 trajectories ending in an observed wrong-target failure."""
+
+    policy_name = "terminal_wrong_target_probe_v1"
+
+    def __init__(self, *, seed: int) -> None:
+        self.seed = seed
+        self.base = ReactiveAgent()
+
+    def decide(
+        self,
+        state,
+        recent_actions: Sequence[str] = (),
+        *,
+        direct_answer: str | None = None,
+    ) -> ActionDecision:
+        if len(recent_actions) < 2:
+            direction = -600 if (self.seed + len(recent_actions)) % 2 else 600
+            return ActionDecision(
+                action=f"scroll(0, {direction})",
+                action_type="scroll",
+                rationale="Preserve a real pre-failure context for H=3 evaluation.",
+                confidence=1.0,
+            )
+        factual = self.base.decide(
+            state,
+            recent_actions,
+            direct_answer=direct_answer,
+        )
+        alternatives = sorted(
+            (
+                item
+                for item in parse_elements(state.axtree.text)
+                if item.role in {"button", "link", "option", "tab"}
+                and item.bid != factual.target_bid
+            ),
+            key=lambda item: (item.role, item.name, item.bid),
+        )
+        if alternatives:
+            target = alternatives[self.seed % len(alternatives)]
+            return ActionDecision(
+                action=f'click("{target.bid}", "left")',
+                action_type="click",
+                rationale="Execute a visible wrong target and observe terminal failure.",
+                target_bid=target.bid,
+                target_name=target.name,
+                confidence=1.0,
+            )
+        return ActionDecision(
+            action='click("phase2-terminal-wrong-target", "left")',
+            action_type="click",
+            rationale="Execute an absent wrong target when no alternative is visible.",
+            target_bid="phase2-terminal-wrong-target",
+            target_name="<deliberately absent>",
+            confidence=1.0,
         )
 
 
@@ -114,6 +173,9 @@ def main() -> int:
     config = json.loads(config_path.read_text(encoding="utf-8"))
     seeds = [int(seed) for seed in config["seeds"]]
     tasks = [str(task) for task in config["tasks"]]
+    agent_mode = str(config.get("agent_mode", "safe_exploration"))
+    if agent_mode not in {"safe_exploration", "terminal_wrong_target"}:
+        raise ValueError(f"unsupported agent_mode: {agent_mode}")
     planned = [(task, seed) for task in tasks for seed in seeds]
     if args.limit_episodes is not None:
         planned = planned[: args.limit_episodes]
@@ -139,9 +201,13 @@ def main() -> int:
                         ),
                         output_dir=output_dir,
                         env=env,
-                        agent=SafeExplorationAgent(
-                            seed=seed,
-                            rate=float(config["safe_exploration_rate"]),
+                        agent=(
+                            TerminalWrongTargetAgent(seed=seed)
+                            if agent_mode == "terminal_wrong_target"
+                            else SafeExplorationAgent(
+                                seed=seed,
+                                rate=float(config["safe_exploration_rate"]),
+                            )
                         ),
                     )
                     results.append(result.to_dict())
