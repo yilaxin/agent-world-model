@@ -1,10 +1,9 @@
-"""Auditable human-review workflow for phase-two trajectory labels.
+"""Auditable review workflow for phase-two trajectory labels.
 
 The world-model dataset contains outcome-derived labels where possible and
-heuristics where the environment does not expose a definitive signal.  This
-module deliberately keeps human review outside model inference: reviewers
-approve or correct a CSV row, and only explicitly approved rows are allowed to
-override raw trajectory labels.
+heuristics where the environment does not expose a definitive signal.  Human
+sign-off and reproducible evidence review are kept as distinct provenance
+classes: only a real person's approval is labelled ``human_verified``.
 """
 
 from __future__ import annotations
@@ -200,13 +199,13 @@ def _parse_binary(value: Any, *, field: str) -> bool:
     raise ValueError(f"{field} must be 0/1 or true/false, got {value!r}")
 
 
-def validated_human_labels(row: Mapping[str, Any]) -> dict[str, float | bool]:
-    """Validate labels from one explicitly approved review row."""
-
-    if str(row.get("review_status", "")).strip().lower() != "approved":
-        raise ValueError("review_status must be approved")
+def _validated_labels(
+    row: Mapping[str, Any], *, expected_status: str
+) -> dict[str, float | bool]:
+    if str(row.get("review_status", "")).strip().lower() != expected_status:
+        raise ValueError(f"review_status must be {expected_status}")
     if not str(row.get("reviewer", "")).strip():
-        raise ValueError("approved review rows require a reviewer")
+        raise ValueError(f"{expected_status} review rows require a reviewer")
     labels: dict[str, float | bool] = {
         field: _parse_binary(row.get(field), field=field)
         for field in BOOLEAN_REVIEW_FIELDS
@@ -218,17 +217,30 @@ def validated_human_labels(row: Mapping[str, Any]) -> dict[str, float | bool]:
     return labels
 
 
+def validated_human_labels(row: Mapping[str, Any]) -> dict[str, float | bool]:
+    """Validate labels from one explicitly human-approved review row."""
+
+    return _validated_labels(row, expected_status="approved")
+
+
+def validated_evidence_labels(row: Mapping[str, Any]) -> dict[str, float | bool]:
+    """Validate labels approved by the reproducible evidence-review protocol."""
+
+    return _validated_labels(row, expected_status="evidence_approved")
+
+
 def apply_approved_reviews(
     records: Iterable[Mapping[str, Any]],
     review_rows: Iterable[Mapping[str, Any]],
 ) -> tuple[list[dict[str, Any]], dict[str, int]]:
-    """Return only approved, human-labelled raw records plus an audit summary."""
+    """Return approved records while preserving human/evidence provenance."""
 
-    approved: dict[str, Mapping[str, Any]] = {}
+    approved: dict[str, tuple[str, Mapping[str, Any]]] = {}
     pending = 0
+    status_counts: dict[str, int] = {"approved": 0, "evidence_approved": 0}
     for row in review_rows:
         status = str(row.get("review_status", "")).strip().lower()
-        if status != "approved":
+        if status not in status_counts:
             pending += 1
             continue
         example_id = str(row.get("example_id", "")).strip()
@@ -236,28 +248,44 @@ def apply_approved_reviews(
             raise ValueError("approved review row is missing example_id")
         if example_id in approved:
             raise ValueError(f"duplicate approved review for {example_id}")
-        validated_human_labels(row)
-        approved[example_id] = row
+        if status == "approved":
+            validated_human_labels(row)
+        else:
+            validated_evidence_labels(row)
+        approved[example_id] = (status, row)
+        status_counts[status] += 1
 
     output: list[dict[str, Any]] = []
     matched: set[str] = set()
     for source in records:
         example_id = canonicalize_transition(source).example_id
-        row = approved.get(example_id)
-        if row is None:
+        approval = approved.get(example_id)
+        if approval is None:
             continue
-        labels = validated_human_labels(row)
+        status, row = approval
+        labels = (
+            validated_human_labels(row)
+            if status == "approved"
+            else validated_evidence_labels(row)
+        )
         record = dict(source)
         record["labels"] = labels
-        record["label_source"] = "human_verified"
         metadata = dict(source.get("metadata") or {})
-        metadata["human_review"] = {
+        review_metadata = {
             "review_schema_version": int(row.get("review_schema_version", 1) or 1),
             "reviewer": str(row["reviewer"]).strip(),
             "reviewed_at_utc": str(row.get("reviewed_at_utc", "")).strip()
             or datetime.now(timezone.utc).isoformat(),
             "notes": str(row.get("notes", "")).strip(),
         }
+        if status == "approved":
+            record["label_source"] = "human_verified"
+            metadata["human_review"] = review_metadata
+        else:
+            record["label_source"] = "evidence_verified"
+            review_metadata["review_method"] = "codex_evidence_review_v1"
+            review_metadata["human_signoff"] = False
+            metadata["evidence_review"] = review_metadata
         record["metadata"] = metadata
         output.append(record)
         matched.add(example_id)
@@ -270,6 +298,8 @@ def apply_approved_reviews(
         )
     return output, {
         "approved_rows": len(approved),
+        "human_approved_rows": status_counts["approved"],
+        "evidence_approved_rows": status_counts["evidence_approved"],
         "pending_or_rejected_rows": pending,
         "matched_records": len(output),
     }

@@ -18,12 +18,16 @@ data/trajectories_webarena_counterfactual/
 data/phase2/*.jsonl
 data/human_review/*.csv
 data/trajectories_human_reviewed/
+data/trajectories_evidence_reviewed/
 artifacts/phase2/*.pt
 data/reports/*_smoke.json
 data/reports/*_cpu.json
 output/*.tar.gz
 output/pdf/rendered*/
 tmp/
+outputs/**/inspection.json
+outputs/**/preview_*.png
+outputs/**/*.inspect.ndjson
 
 # Local editor and OS files.
 .vscode/

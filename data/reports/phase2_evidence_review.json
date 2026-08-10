@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-08-10T09:38:58.391420+00:00",
+  "source_review_csv": "/root/autodl-tmp/agent_world_model_phase23_latest/data/human_review/phase2_review_queue.csv",
+  "source_audit": "/root/autodl-tmp/agent_world_model_phase23_latest/data/reports/phase2_review_evidence_audit.json",
+  "output_review_csv": "/root/autodl-tmp/agent_world_model_phase23_latest/data/human_review/phase2_review_queue_evidence_reviewed.csv",
+  "queue_row_count": 500,
+  "evidence_ready_count": 500,
+  "status_updated_count": 500,
+  "review_status_counts": {
+    "evidence_approved": 500
+  },
+  "review_method": "codex_evidence_review_v1",
+  "human_signoff": false
+}

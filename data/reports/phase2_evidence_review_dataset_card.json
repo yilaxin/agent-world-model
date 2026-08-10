@@ -1,0 +1,331 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-08-10T09:57:13.941390+00:00",
+  "source_files": [
+    "data/trajectories_phase2_evidence_view/all.jsonl"
+  ],
+  "transition_count": 13348,
+  "episode_count": 5930,
+  "task_count": 30,
+  "split_counts": {
+    "train": 9388,
+    "validation": 2017,
+    "test": 1943
+  },
+  "task_counts": {
+    "browsergym/miniwob.click-button": 407,
+    "browsergym/miniwob.click-link": 520,
+    "browsergym/miniwob.click-option": 472,
+    "browsergym/miniwob.click-test": 406,
+    "browsergym/miniwob.click-test-2": 703,
+    "browsergym/miniwob.click-collapsible": 473,
+    "browsergym/miniwob.click-collapsible-2": 435,
+    "browsergym/miniwob.click-dialog": 395,
+    "browsergym/miniwob.click-dialog-2": 379,
+    "browsergym/miniwob.click-tab": 400,
+    "browsergym/miniwob.click-tab-2-easy": 390,
+    "browsergym/miniwob.click-widget": 435,
+    "browsergym/miniwob.click-checkboxes": 527,
+    "browsergym/miniwob.click-checkboxes-soft": 452,
+    "browsergym/miniwob.enter-text": 475,
+    "browsergym/miniwob.enter-text-2": 585,
+    "browsergym/miniwob.enter-text-dynamic": 510,
+    "browsergym/miniwob.focus-text": 475,
+    "browsergym/miniwob.focus-text-2": 390,
+    "browsergym/miniwob.enter-password": 465,
+    "browsergym/miniwob.choose-list": 351,
+    "browsergym/miniwob.sign-agreement": 352,
+    "browsergym/miniwob.search-engine": 505,
+    "browsergym/miniwob.login-user": 505,
+    "browsergym/miniwob.click-menu": 426,
+    "browsergym/miniwob.click-menu-2": 400,
+    "browsergym/miniwob.click-scroll-list": 495,
+    "browsergym/miniwob.scroll-text": 300,
+    "browsergym/miniwob.scroll-text-2": 420,
+    "browsergym/miniwob.click-color": 300
+  },
+  "action_type_counts": {
+    "click": 6229,
+    "scroll": 4408,
+    "fill": 2711
+  },
+  "label_source_counts": {
+    "heuristic": 12848,
+    "evidence_verified": 500
+  },
+  "positive_label_counts": {
+    "success": 1478,
+    "stalled": 7501,
+    "goal_deviation": 2591,
+    "severe_failure": 1106,
+    "invalid_action": 2591,
+    "terminal": 2584
+  },
+  "positive_label_counts_by_split": {
+    "train": {
+      "success": 1028,
+      "stalled": 5309,
+      "goal_deviation": 1833,
+      "severe_failure": 765,
+      "invalid_action": 1833,
+      "terminal": 1793
+    },
+    "validation": {
+      "success": 250,
+      "stalled": 1114,
+      "goal_deviation": 423,
+      "severe_failure": 166,
+      "invalid_action": 423,
+      "terminal": 416
+    },
+    "test": {
+      "success": 200,
+      "stalled": 1078,
+      "goal_deviation": 335,
+      "severe_failure": 175,
+      "invalid_action": 335,
+      "terminal": 375
+    }
+  },
+  "counterfactual_audit": {
+    "pair_count": 3600,
+    "valid_observed_pair_count": 3600,
+    "observed_transition_count": 7200,
+    "severe_failure_positive_count": 562,
+    "pair_split_leakage": [],
+    "group_split_leakage": [],
+    "overall": {
+      "observed_pair_count": 3600,
+      "informative_pair_count": 3050,
+      "tied_or_near_tied_pair_count": 550,
+      "informative_rate": 0.8472222222222222,
+      "intervention_type_counts": {
+        "hard_wrong_target": 1200,
+        "missing_target": 1200,
+        "wrong_action_type": 1200
+      },
+      "minimum_utility_gap": 0.05
+    },
+    "by_split": {
+      "train": {
+        "observed_pair_count": 2538,
+        "informative_pair_count": 2160,
+        "tied_or_near_tied_pair_count": 378,
+        "informative_rate": 0.851063829787234,
+        "intervention_type_counts": {
+          "hard_wrong_target": 846,
+          "missing_target": 846,
+          "wrong_action_type": 846
+        },
+        "minimum_utility_gap": 0.05
+      },
+      "validation": {
+        "observed_pair_count": 585,
+        "informative_pair_count": 494,
+        "tied_or_near_tied_pair_count": 91,
+        "informative_rate": 0.8444444444444444,
+        "intervention_type_counts": {
+          "hard_wrong_target": 195,
+          "missing_target": 195,
+          "wrong_action_type": 195
+        },
+        "minimum_utility_gap": 0.05
+      },
+      "test": {
+        "observed_pair_count": 477,
+        "informative_pair_count": 396,
+        "tied_or_near_tied_pair_count": 81,
+        "informative_rate": 0.8301886792452831,
+        "intervention_type_counts": {
+          "hard_wrong_target": 159,
+          "missing_target": 159,
+          "wrong_action_type": 159
+        },
+        "minimum_utility_gap": 0.05
+      }
+    }
+  },
+  "multistep_audit": {
+    "overall": {
+      "by_horizon": {
+        "1": {
+          "window_count": 13348,
+          "task_count": 30,
+          "terminal_ending_count": 2584,
+          "success_ending_count": 1478,
+          "severe_failure_ending_count": 1106,
+          "invalid_action_window_count": 2591
+        },
+        "2": {
+          "window_count": 3818,
+          "task_count": 30,
+          "terminal_ending_count": 367,
+          "success_ending_count": 242,
+          "severe_failure_ending_count": 125,
+          "invalid_action_window_count": 10
+        },
+        "3": {
+          "window_count": 2032,
+          "task_count": 30,
+          "terminal_ending_count": 170,
+          "success_ending_count": 76,
+          "severe_failure_ending_count": 94,
+          "invalid_action_window_count": 4
+        }
+      },
+      "total_window_count": 19198,
+      "long_horizon_window_count": 5850,
+      "long_horizon_terminal_count": 537,
+      "long_horizon_severe_failure_count": 219,
+      "quality_gates": {
+        "h2_windows_ge_100": true,
+        "h3_windows_ge_100": true,
+        "long_horizon_terminal_ge_25": true,
+        "long_horizon_severe_failure_ge_10": true
+      }
+    },
+    "by_split": {
+      "train": {
+        "by_horizon": {
+          "1": {
+            "window_count": 9388,
+            "task_count": 30,
+            "terminal_ending_count": 1793,
+            "success_ending_count": 1028,
+            "severe_failure_ending_count": 765,
+            "invalid_action_window_count": 1833
+          },
+          "2": {
+            "window_count": 2687,
+            "task_count": 30,
+            "terminal_ending_count": 255,
+            "success_ending_count": 177,
+            "severe_failure_ending_count": 78,
+            "invalid_action_window_count": 6
+          },
+          "3": {
+            "window_count": 1434,
+            "task_count": 30,
+            "terminal_ending_count": 111,
+            "success_ending_count": 55,
+            "severe_failure_ending_count": 56,
+            "invalid_action_window_count": 2
+          }
+        },
+        "total_window_count": 13509,
+        "long_horizon_window_count": 4121,
+        "long_horizon_terminal_count": 366,
+        "long_horizon_severe_failure_count": 134,
+        "quality_gates": {
+          "h2_windows_ge_100": true,
+          "h3_windows_ge_100": true,
+          "long_horizon_terminal_ge_25": true,
+          "long_horizon_severe_failure_ge_10": true
+        }
+      },
+      "validation": {
+        "by_horizon": {
+          "1": {
+            "window_count": 2017,
+            "task_count": 30,
+            "terminal_ending_count": 416,
+            "success_ending_count": 250,
+            "severe_failure_ending_count": 166,
+            "invalid_action_window_count": 423
+          },
+          "2": {
+            "window_count": 512,
+            "task_count": 30,
+            "terminal_ending_count": 50,
+            "success_ending_count": 29,
+            "severe_failure_ending_count": 21,
+            "invalid_action_window_count": 3
+          },
+          "3": {
+            "window_count": 269,
+            "task_count": 30,
+            "terminal_ending_count": 27,
+            "success_ending_count": 10,
+            "severe_failure_ending_count": 17,
+            "invalid_action_window_count": 2
+          }
+        },
+        "total_window_count": 2798,
+        "long_horizon_window_count": 781,
+        "long_horizon_terminal_count": 77,
+        "long_horizon_severe_failure_count": 38,
+        "quality_gates": {
+          "h2_windows_ge_100": true,
+          "h3_windows_ge_100": true,
+          "long_horizon_terminal_ge_25": true,
+          "long_horizon_severe_failure_ge_10": true
+        }
+      },
+      "test": {
+        "by_horizon": {
+          "1": {
+            "window_count": 1943,
+            "task_count": 30,
+            "terminal_ending_count": 375,
+            "success_ending_count": 200,
+            "severe_failure_ending_count": 175,
+            "invalid_action_window_count": 335
+          },
+          "2": {
+            "window_count": 619,
+            "task_count": 30,
+            "terminal_ending_count": 62,
+            "success_ending_count": 36,
+            "severe_failure_ending_count": 26,
+            "invalid_action_window_count": 1
+          },
+          "3": {
+            "window_count": 329,
+            "task_count": 29,
+            "terminal_ending_count": 32,
+            "success_ending_count": 11,
+            "severe_failure_ending_count": 21,
+            "invalid_action_window_count": 0
+          }
+        },
+        "total_window_count": 2891,
+        "long_horizon_window_count": 948,
+        "long_horizon_terminal_count": 94,
+        "long_horizon_severe_failure_count": 47,
+        "quality_gates": {
+          "h2_windows_ge_100": true,
+          "h3_windows_ge_100": true,
+          "long_horizon_terminal_ge_25": true,
+          "long_horizon_severe_failure_ge_10": true
+        }
+      }
+    }
+  },
+  "rare_label_warnings": [],
+  "state_vector_dimensions": [
+    512
+  ],
+  "action_vector_dimensions": [
+    128
+  ],
+  "duplicate_example_ids": 0,
+  "episode_split_leakage": [],
+  "quality_gates": {
+    "valid_schema": true,
+    "no_duplicate_ids": true,
+    "no_episode_leakage": true,
+    "p0_500_transitions": true,
+    "p1_3000_transitions": true,
+    "core_signal_support": true,
+    "observed_counterfactual_pairs": true,
+    "counterfactual_scale_1000": true,
+    "counterfactual_test_informative_200": true,
+    "counterfactual_tie_rate_le_20pct": true,
+    "no_counterfactual_pair_leakage": true,
+    "no_counterfactual_group_leakage": true,
+    "multistep_h2_test_100": true,
+    "multistep_h3_test_100": true,
+    "multistep_terminal_test_25": true,
+    "multistep_severe_failure_test_10": true
+  }
+}

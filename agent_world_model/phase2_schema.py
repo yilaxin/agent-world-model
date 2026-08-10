@@ -312,6 +312,42 @@ def canonicalize_transition(
             ),
             **(
                 {
+                    "evidence_review": {
+                        "review_schema_version": int(
+                            record["metadata"]["evidence_review"].get(
+                                "review_schema_version", 1
+                            )
+                            or 1
+                        ),
+                        "reviewer": str(
+                            record["metadata"]["evidence_review"].get("reviewer", "")
+                        ),
+                        "reviewed_at_utc": str(
+                            record["metadata"]["evidence_review"].get(
+                                "reviewed_at_utc", ""
+                            )
+                        ),
+                        "review_method": str(
+                            record["metadata"]["evidence_review"].get(
+                                "review_method", ""
+                            )
+                        ),
+                        "human_signoff": bool(
+                            record["metadata"]["evidence_review"].get(
+                                "human_signoff", False
+                            )
+                        ),
+                        "notes": str(
+                            record["metadata"]["evidence_review"].get("notes", "")
+                        ),
+                    }
+                }
+                if isinstance(record.get("metadata"), Mapping)
+                and isinstance(record["metadata"].get("evidence_review"), Mapping)
+                else {}
+            ),
+            **(
+                {
                     "counterfactual_pair_id": str(record["metadata"].get("counterfactual_pair_id", "")),
                     "counterfactual_group_id": str(record["metadata"].get("counterfactual_group_id", "")),
                     "counterfactual_role": str(record["metadata"].get("counterfactual_role", "")),

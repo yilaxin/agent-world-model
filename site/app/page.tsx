@@ -19,7 +19,7 @@ const issueRows = [
   ["P1", "五次 GPU 训练", "5 个种子完成，按验证集选择 3 个成员", "已解决"],
   ["P1", "阶段三离线验收", "反事实与多步评估全部通过既定门槛", "已解决"],
   ["P0", "WebArena 在线成功率", "本轮未配置多站点环境，未做在线重评；不得声称提升", "待阶段四"],
-  ["P1", "人工复核", "已导出复核队列，但仍需人工检查高风险证据", "待人工"],
+  ["P1", "高风险标签复核", "500/500 条已完成原始轨迹证据核验并写为 evidence_verified；human_signoff=false", "证据完成/待签字"],
   ["P2", "AndroidWorld", "适配器与预检已完成，尚缺 ADB、模拟器及真实运行包", "待迁移"],
 ];
 
@@ -53,6 +53,7 @@ export default function Home() {
         <Metric label="观察反事实" value="3,600 对" note="3,050 对有信息 · 0 失败" />
         <Metric label="测试 H=3 窗口" value="329" note="门槛 100，已通过" />
         <Metric label="反事实测试准确率" value="97.73%" note="396 个有效测试配对" />
+        <Metric label="高风险证据复核" value="500 / 500" note="evidence_verified；人工签字 0" />
       </section>
 
       <h2>问题收口状态</h2>

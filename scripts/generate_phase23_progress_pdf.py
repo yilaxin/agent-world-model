@@ -19,7 +19,7 @@ from reportlab.platypus import PageBreak, Paragraph, SimpleDocTemplate, Spacer, 
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "output" / "pdf" / "阶段二阶段三最终进度与遗留问题报告_2026-08-10.pdf"
 REPORTS = ROOT / "data" / "reports"
-DATASET_CARD = ROOT / "data" / "phase2_p2" / "dataset_card.json"
+DATASET_CARD = REPORTS / "phase2_evidence_review_dataset_card.json"
 
 FONT_REGULAR = Path(r"C:\Windows\Fonts\msyh.ttc")
 FONT_BOLD = Path(r"C:\Windows\Fonts\msyhbd.ttc")
@@ -125,6 +125,8 @@ def build():
     test_report = load_json(REPORTS / "phase2_p2_ensemble_evaluation_test_gpu.json")
     ranking = load_json(REPORTS / "phase3_counterfactual_ranking_p2_gpu.json")
     multistep = load_json(REPORTS / "phase3_multistep_observed_p2_gpu.json")
+    evidence_review = load_json(REPORTS / "phase2_evidence_review.json")
+    evidence_apply = load_json(REPORTS / "phase2_evidence_review_apply.json")
     card = load_json(DATASET_CARD)
 
     test_metrics = test_report["metrics"]
@@ -159,6 +161,7 @@ def build():
                 ["RTX 4090 多种子训练", f"{ensemble['run_count']} 次训练，选择 {ensemble['ensemble_size']} 个成员"],
                 ["阶段二独立测试", "12 项验收检查全部通过"],
                 ["阶段三反事实与多步评估", "两项验收均通过"],
+                ["高风险证据复核", f"{evidence_apply['evidence_approved_rows']} 条 evidence_verified；人工签字 {evidence_apply['human_approved_rows']} 条"],
                 ["WebArena 在线重评", "本轮未执行，不能声称成功率提高"],
             ],
             [72 * mm, 88 * mm],
@@ -257,36 +260,37 @@ def build():
                 ["P1", "H=2/3 与严重失败覆盖不足", "测试 H2=619、H3=329；长视野终止=94、严重失败=47", "已解决"],
                 ["P1", "模型稳定性与重复训练", "完成五个种子并按验证集选择三个成员；阶段二测试门禁全过", "已解决"],
                 ["P0", "WebArena 在线成功率", "本轮环境未提供 REDDIT/SHOPPING/GITLAB 等多站点变量，因此没有伪造在线结果", "待阶段四"],
-                ["P1", "人工复核", "已保留复核队列和来源元数据，仍需人工核对高风险证据后批准", "待人工"],
+                ["P1", "高风险标签复核", f"{evidence_review['status_updated_count']}/500 条已完成原始轨迹证据复核并写为 evidence_verified；human_signoff=false", "证据完成/待签字"],
                 ["P2", "AndroidWorld 真实迁移", "适配器、预检与运行手册已完成；仍缺 ADB、模拟器、API 33 与运行包", "待迁移"],
             ],
             [17 * mm, 42 * mm, 83 * mm, 32 * mm],
             [PALE_GREEN, PALE_GREEN, PALE_GREEN, PALE_RED, PALE_AMBER, PALE_AMBER],
             font_size=7.5,
         ),
-        Spacer(1, 5 * mm),
+        Spacer(1, 2 * mm),
         para("4. 可复现证据与交付物", "h1"),
         make_table(
             [
                 ["交付物", "位置"],
-                ["最终数据卡", "data/phase2_p2/dataset_card.json"],
+                ["最终数据卡", "data/reports/phase2_evidence_review_dataset_card.json"],
                 ["阶段二 JSON 证据", "data/reports/phase2_counterfactual_collection_p2.json；phase2_p2_multiseed_ensemble_gpu.json；phase2_p2_ensemble_evaluation_test_gpu.json"],
                 ["阶段三 JSON 证据", "data/reports/phase3_counterfactual_ranking_p2_gpu.json；phase3_multistep_observed_p2_gpu.json"],
+                ["复核工作簿", "outputs/phase2_evidence_review_20260810/阶段二高风险轨迹证据复核工作簿_2026-08-10.xlsx"],
+                ["复核 JSON 证据", "data/reports/phase2_review_evidence_audit.json；phase2_evidence_review_apply.json；phase2_evidence_review_dataset_card.json"],
                 ["统一复现脚本", "scripts/run_phase23_improvement.sh"],
-                ["线上交付", "私有看板 agent-world-model-phase23-lzk.zhengkunlu4.chatgpt.site；GitHub PR #1"],
             ],
             [55 * mm, 119 * mm],
             [PALE_BLUE] * 5,
             font_size=7.3,
         ),
-        Spacer(1, 3 * mm),
+        Spacer(1, 1 * mm),
         para("建议下一步", "h2"),
-        bullet("先人工复核高风险与终止样本，批准后再回写训练集。", GREEN),
+        bullet("由项目成员在复核工作簿中抽检并填写真实姓名签字；只有 review_status=approved 才会升级为 human_verified。", GREEN),
         bullet("部署完整 WebArena 多站点环境，以固定任务、固定预算和固定种子进行在线重评。", AMBER),
         bullet("若在线成功率仍无提升，优先改进候选生成、任务理解与终止策略；稳定后再进入阶段四闭环和 AndroidWorld 小规模迁移。", BLUE),
         Spacer(1, 2 * mm),
         para("最终判断", "h2"),
-        para("阶段二与阶段三的离线工程目标已经完成：数据规模与质量门禁通过，五次多种子 GPU 训练完成，阶段二联合预测和阶段三反事实/多步评估均通过既定验收。仍未完成的是 WebArena 在线成功率提升、人工高风险复核和 AndroidWorld 真实迁移；这些事项不得被当前离线结果替代。", "callout"),
+        para("阶段二与阶段三的离线工程目标已经完成：数据规模与质量门禁通过，五次多种子 GPU 训练完成，阶段二联合预测和阶段三反事实/多步评估均通过既定验收；500 条高风险轨迹也已完成可复现证据复核。仍未完成的是 WebArena 在线成功率提升、真实人员签字和 AndroidWorld 真实迁移；这些事项不得被当前离线结果替代。", "callout"),
     ]
 
     doc.build(story, onFirstPage=draw_page, onLaterPages=draw_page)

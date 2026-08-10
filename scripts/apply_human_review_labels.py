@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate approved review rows and write human-labelled raw JSONL."""
+"""Validate approved rows and write provenance-preserving reviewed JSONL."""
 
 from __future__ import annotations
 
@@ -42,7 +42,10 @@ def _files(inputs: list[Path]) -> list[Path]:
     files: set[Path] = set()
     for item in inputs:
         path = item if item.is_absolute() else PROJECT_ROOT / item
-        files.update(path.rglob("*.jsonl") if path.is_dir() else [path])
+        if path.is_dir():
+            files.update(candidate for candidate in path.rglob("*.jsonl") if candidate.is_file())
+        elif path.is_file():
+            files.add(path)
     return sorted(files)
 
 

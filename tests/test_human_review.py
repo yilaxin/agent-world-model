@@ -41,6 +41,18 @@ class HumanReviewTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             validated_human_labels(row)
 
+    def test_evidence_review_never_claims_human_signoff(self) -> None:
+        record = sample_record()
+        row = build_review_queue([record])[0]
+        row["review_status"] = "evidence_approved"
+        row["reviewer"] = "codex-evidence-review-v1"
+        reviewed, audit = apply_approved_reviews([record], [row])
+        self.assertEqual(audit["evidence_approved_rows"], 1)
+        self.assertEqual(audit["human_approved_rows"], 0)
+        self.assertEqual(reviewed[0]["label_source"], "evidence_verified")
+        self.assertFalse(reviewed[0]["metadata"]["evidence_review"]["human_signoff"])
+        self.assertNotIn("human_review", reviewed[0]["metadata"])
+
     def test_pending_rows_never_override_labels(self) -> None:
         rows = build_review_queue([sample_record()])
         reviewed, audit = apply_approved_reviews([sample_record()], rows)
