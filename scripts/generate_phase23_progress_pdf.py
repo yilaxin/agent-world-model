@@ -81,10 +81,22 @@ def bullet(text: str, tone=INK) -> Paragraph:
     return Paragraph(f"• {text}", style)
 
 
-def make_table(rows, widths, row_colors=None, font_size=8.0):
+def make_table(rows, widths, row_colors=None, font_size=8.0, padding=5):
+    header_style = ParagraphStyle(
+        f"table_header_{font_size}",
+        parent=STYLES["table_header"],
+        fontSize=font_size,
+        leading=font_size * 1.5,
+    )
+    cell_style = ParagraphStyle(
+        f"table_cell_{font_size}",
+        parent=STYLES["table_cell"],
+        fontSize=font_size,
+        leading=font_size * 1.55,
+    )
     formatted = []
     for idx, row in enumerate(rows):
-        style = STYLES["table_header"] if idx == 0 else STYLES["table_cell"]
+        style = header_style if idx == 0 else cell_style
         formatted.append([Paragraph(str(cell), style) for cell in row])
     table = Table(formatted, colWidths=widths, repeatRows=1, hAlign="LEFT")
     commands = [
@@ -92,8 +104,8 @@ def make_table(rows, widths, row_colors=None, font_size=8.0):
         ("GRID", (0, 0), (-1, -1), 0.35, LINE),
         ("LEFTPADDING", (0, 0), (-1, -1), 6),
         ("RIGHTPADDING", (0, 0), (-1, -1), 6),
-        ("TOPPADDING", (0, 0), (-1, -1), 5),
-        ("BOTTOMPADDING", (0, 0), (-1, -1), 5),
+        ("TOPPADDING", (0, 0), (-1, -1), padding),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), padding),
         ("FONTNAME", (0, 0), (-1, -1), "MSYH"),
         ("FONTSIZE", (0, 0), (-1, -1), font_size),
         ("BACKGROUND", (0, 0), (-1, 0), NAVY),
@@ -128,6 +140,21 @@ def build():
     evidence_review = load_json(REPORTS / "phase2_evidence_review.json")
     evidence_apply = load_json(REPORTS / "phase2_evidence_review_apply.json")
     card = load_json(DATASET_CARD)
+    android_preflight_path = REPORTS / "androidworld_preflight_latest.json"
+    android_smoke_path = REPORTS / "androidworld_smoke_latest.json"
+    android_preflight = load_json(android_preflight_path) if android_preflight_path.exists() else {}
+    android_smoke = load_json(android_smoke_path) if android_smoke_path.exists() else {}
+    android_runtime_ready = bool(android_preflight.get("runtime_ready"))
+    android_smoke_passed = android_smoke.get("status") == "passed"
+    if android_smoke_passed:
+        android_summary = "真实 reset/action 冒烟通过；任务级基线/规划器对比仍待 KVM 环境"
+        android_status = "基础冒烟通过/任务评测待办"
+    elif android_runtime_ready:
+        android_summary = "官方 0.1.0、ADB、Pixel 6/API 33、gRPC 与客体路由预检通过；真实 reset/action 待验"
+        android_status = "运行时就绪/冒烟待验"
+    else:
+        android_summary = "适配器与预检已实现；真实运行时尚未通过"
+        android_status = "待迁移"
 
     test_metrics = test_report["metrics"]
     test_acceptance = test_report["acceptance"]
@@ -162,10 +189,11 @@ def build():
                 ["阶段二独立测试", "12 项验收检查全部通过"],
                 ["阶段三反事实与多步评估", "两项验收均通过"],
                 ["高风险证据复核", f"{evidence_apply['evidence_approved_rows']} 条 evidence_verified；人工签字 {evidence_apply['human_approved_rows']} 条"],
+                ["AndroidWorld", android_summary],
                 ["WebArena 在线重评", "本轮未执行，不能声称成功率提高"],
             ],
             [72 * mm, 88 * mm],
-            [PALE_GREEN, PALE_GREEN, PALE_GREEN, PALE_GREEN, PALE_GREEN, PALE_RED],
+            [PALE_GREEN, PALE_GREEN, PALE_GREEN, PALE_GREEN, PALE_GREEN, PALE_AMBER, PALE_AMBER, PALE_RED],
         ),
         Spacer(1, 5 * mm),
         para("验收边界：离线预测、排序与多步轨迹评估不等于完整 WebArena 在线任务成功率。完整多站点部署及相对成功率 +10% 仍属于阶段四闭环验证。", "callout"),
@@ -261,11 +289,12 @@ def build():
                 ["P1", "模型稳定性与重复训练", "完成五个种子并按验证集选择三个成员；阶段二测试门禁全过", "已解决"],
                 ["P0", "WebArena 在线成功率", "本轮环境未提供 REDDIT/SHOPPING/GITLAB 等多站点变量，因此没有伪造在线结果", "待阶段四"],
                 ["P1", "高风险标签复核", f"{evidence_review['status_updated_count']}/500 条已完成原始轨迹证据复核并写为 evidence_verified；human_signoff=false", "证据完成/待签字"],
-                ["P2", "AndroidWorld 真实迁移", "适配器、预检与运行手册已完成；仍缺 ADB、模拟器、API 33 与运行包", "待迁移"],
+                ["P2", "AndroidWorld 真实迁移", android_summary, android_status],
             ],
             [17 * mm, 42 * mm, 83 * mm, 32 * mm],
             [PALE_GREEN, PALE_GREEN, PALE_GREEN, PALE_RED, PALE_AMBER, PALE_AMBER],
             font_size=7.5,
+            padding=4,
         ),
         Spacer(1, 2 * mm),
         para("4. 可复现证据与交付物", "h1"),
@@ -277,11 +306,13 @@ def build():
                 ["阶段三 JSON 证据", "data/reports/phase3_counterfactual_ranking_p2_gpu.json；phase3_multistep_observed_p2_gpu.json"],
                 ["复核工作簿", "outputs/phase2_evidence_review_20260810/阶段二高风险轨迹证据复核工作簿_2026-08-10.xlsx"],
                 ["复核 JSON 证据", "data/reports/phase2_review_evidence_audit.json；phase2_evidence_review_apply.json；phase2_evidence_review_dataset_card.json"],
+                ["AndroidWorld 运行时证据", "data/reports/androidworld_preflight_latest.json；androidworld_smoke_latest.json（通过后生成）"],
                 ["统一复现脚本", "scripts/run_phase23_improvement.sh"],
             ],
             [55 * mm, 119 * mm],
-            [PALE_BLUE] * 5,
+            [PALE_BLUE] * 6,
             font_size=7.3,
+            padding=3.5,
         ),
         Spacer(1, 1 * mm),
         para("建议下一步", "h2"),
@@ -290,7 +321,7 @@ def build():
         bullet("若在线成功率仍无提升，优先改进候选生成、任务理解与终止策略；稳定后再进入阶段四闭环和 AndroidWorld 小规模迁移。", BLUE),
         Spacer(1, 2 * mm),
         para("最终判断", "h2"),
-        para("阶段二与阶段三的离线工程目标已经完成：数据规模与质量门禁通过，五次多种子 GPU 训练完成，阶段二联合预测和阶段三反事实/多步评估均通过既定验收；500 条高风险轨迹也已完成可复现证据复核。仍未完成的是 WebArena 在线成功率提升、真实人员签字和 AndroidWorld 真实迁移；这些事项不得被当前离线结果替代。", "callout"),
+        para(f"阶段二与阶段三的离线工程目标已经完成：数据规模与质量门禁通过，五次多种子 GPU 训练完成，阶段二联合预测和阶段三反事实/多步评估均通过既定验收；500 条高风险轨迹也已完成可复现证据复核。AndroidWorld 当前状态为“{android_status}”。仍未完成的是 WebArena 在线成功率提升、真实人员签字和 AndroidWorld 任务级迁移验收；这些事项不得被当前离线结果替代。", "callout"),
     ]
 
     doc.build(story, onFirstPage=draw_page, onLaterPages=draw_page)

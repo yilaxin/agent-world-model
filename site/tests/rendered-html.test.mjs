@@ -17,10 +17,13 @@ test("renders the phase-two and phase-three evidence dashboard", async () => {
   assert.equal(response.status, 200);
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
   const output = await response.text();
-  assert.match(output, /阶段二 × 阶段三完善与验收/);
+  assert.match(output, /阶段二 × 阶段三最终训练与验收/);
   assert.match(output, /问题收口状态/);
   assert.match(output, /真实连续轨迹：H=1\/2\/3/);
-  assert.match(output, /0 \/ 5/);
-  assert.match(output, /当前未通过/);
+  assert.match(output, /AndroidWorld 运行时/);
+  assert.match(output, /ADB、gRPC、客体路由通过；无 KVM/);
+  assert.match(output, /冒烟待验/);
+  assert.match(output, /未执行新的在线成功率评测/);
+  assert.doesNotMatch(output, /AndroidWorld 迁移完成/);
   assert.doesNotMatch(output, /Your site is taking shape|SkeletonPreview/);
 });

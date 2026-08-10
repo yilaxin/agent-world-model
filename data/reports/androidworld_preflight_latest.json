@@ -1,37 +1,71 @@
 {
-  "schema_version": 1,
-  "generated_at_utc": "2026-08-09T04:10:49.493222+00:00",
+  "schema_version": 2,
+  "generated_at_utc": "2026-08-10T12:41:46.851552+00:00",
   "checks": {
-    "platform": "Windows-11-10.0.26200-SP0",
-    "python_version": "3.12.13",
-    "adb_executable": null,
-    "connected_devices": [],
-    "ready_device_count": 0,
-    "emulator_executable": null,
-    "ANDROID_HOME": null,
-    "ANDROID_SDK_ROOT": null,
-    "android_world_package": false,
-    "grpc_package": false,
-    "grpc_forwarding_port_8554_open": false,
+    "platform": "Linux-5.15.0-91-generic-x86_64-with-glibc2.35",
+    "python_version": "3.11.15",
+    "adb_executable": "/root/autodl-tmp/android-sdk/platform-tools/adb",
+    "adb_connect_result": "",
+    "connected_devices": [
+      {
+        "serial": "emulator-5554",
+        "state": "device",
+        "product": "sdk_gphone64_x86_64",
+        "model": "sdk_gphone64_x86_64",
+        "device": "emu64x",
+        "transport_id": "3"
+      }
+    ],
+    "ready_device_count": 1,
+    "selected_device": {
+      "serial": "emulator-5554",
+      "state": "device",
+      "product": "sdk_gphone64_x86_64",
+      "model": "sdk_gphone64_x86_64",
+      "device": "emu64x",
+      "transport_id": "3"
+    },
+    "selected_device_properties": {
+      "api_level": "33",
+      "model": "sdk_gphone64_x86_64",
+      "abi": "x86_64",
+      "boot_completed": "1",
+      "is_emulator": "1"
+    },
+    "emulator_host_bridge_route": {
+      "returncode": 0,
+      "output": "10.0.2.2 dev wlan0 table wlan0 src 10.0.2.16 uid 0 \n    cache"
+    },
+    "expected_api_level": 33,
+    "api_level_compatible": true,
+    "boot_completed": true,
+    "emulator_executable": "/root/autodl-tmp/android-sdk/emulator/emulator",
+    "ANDROID_HOME": "/root/autodl-tmp/android-sdk",
+    "ANDROID_SDK_ROOT": "/root/autodl-tmp/android-sdk",
+    "android_world_package": true,
+    "android_world_version": "0.1.0",
+    "grpc_package": true,
+    "grpc_host": "127.0.0.1",
+    "grpc_port": 8554,
+    "grpc_forwarding_reachable": true,
     "docker_executable": null,
-    "kvm_available": null
+    "kvm_available": false,
+    "emulator_acceleration_probe": {
+      "returncode": 8,
+      "supported": false,
+      "output": "accel:\n8\n/dev/kvm is not found: VT disabled in BIOS or KVM kernel module not loaded\naccel"
+    }
   },
   "adb_error": "",
   "adapter_implemented": true,
-  "runtime_ready": false,
-  "native_runtime_ready": false,
-  "experimental_docker_runtime_possible": false,
-  "recommended_architecture": "native_androidworld_runtime",
-  "blockers": [
-    "adb executable not found",
-    "no running Android emulator/device",
-    "android_world Python package not installed"
-  ],
+  "software_stack_ready": true,
+  "runtime_ready": true,
+  "native_accelerated_emulator_possible": false,
+  "recommended_architecture": "native_software_emulation_diagnostic",
+  "blockers": [],
   "next_actions": [
-    "Use Python 3.11+, install the official google-research/android_world requirements, and expose adb on PATH.",
-    "Launch the Android 13/API 33 emulator with -grpc 8554 and verify adb devices reports state=device.",
-    "Run the official first-time setup with --perform_emulator_setup before collecting migration evidence.",
-    "If the GPU host has no /dev/kvm, run the emulator locally and keep only model inference on the GPU server."
+    "Run scripts/androidworld_smoke.py --perform-emulator-setup once, then rerun without that flag.",
+    "Move the AVD to a KVM-capable host for practical task-level evaluation; software emulation is diagnostic-only."
   ],
   "official_setup": "https://github.com/google-research/android_world#installation"
 }

@@ -9,7 +9,7 @@
 - 阶段二：完成五次多种子 GPU 训练，验证集选择三个成员；独立测试状态变化 F1 98.69%、任务信号 F1 98.90%、风险 F1 94.39%、风险 AUROC 99.04%，12 项门禁全部通过。
 - 阶段三反事实：测试集 477 个观察配对，其中 396 个有效配对；最佳单模型与集成 Pairwise Accuracy 均为 97.73%，集成平均决策遗憾从 0.0638 降到 0.0511。
 - 阶段三多步：独立测试 H2=619、H3=329，长视野终止=94、严重失败=47，全部覆盖门禁通过。
-- 诚实边界：本轮未配置完整 WebArena 多站点环境，因此没有新的在线成功率结果；历史 Reddit 5 任务为 0/5，不得用离线指标声称在线成功率提高。AndroidWorld 尚未完成真实迁移。
+- 诚实边界：本轮未配置完整 WebArena 多站点环境，因此没有新的在线成功率结果；历史 Reddit 5 任务为 0/5，不得用离线指标声称在线成功率提高。AndroidWorld 已完成官方 Python/SDK/API 33 AVD 安装并通过真实设备预检，但真实 reset/action 冒烟与任务级基线/规划器对比尚未通过，因此不能标记“迁移完成”。
 
 完整结果：
 
@@ -58,6 +58,7 @@ bash scripts/run_phase23_improvement.sh
 - `data/reports/phase2_p2_ensemble_evaluation_test_gpu.json`
 - `data/reports/phase3_counterfactual_ranking_p2_gpu.json`
 - `data/reports/phase3_multistep_observed_p2_gpu.json`
+- `data/reports/androidworld_preflight_latest.json`
 
 ## 结果边界
 

@@ -20,6 +20,19 @@ Official setup: <https://github.com/google-research/android_world#installation>
   container support; it is not evidence of a completed migration until a real
   task result is recorded.
 
+The AutoDL GPU container checked on 2026-08-10 exposes CPU virtualization flags
+but not `/dev/kvm`, `/dev/binder*`, Docker, or a connected Android device.  It
+can host the AndroidWorld Python/control stack and GPU inference, but it cannot
+be treated as an accelerated emulator host.  Software emulation is retained as
+a diagnostic-only fallback because it may be too slow for benchmark evidence.
+
+The same container now has the official AndroidWorld 0.1.0 package, Android
+SDK/emulator, a Pixel 6 Android 13/API 33 image and AVD installed under
+`/root/autodl-tmp`.  A real software-emulated device reached `adb state=device`
+and `sys.boot_completed=1`; API level, emulator gRPC 8554 and the Android guest
+route to `10.0.2.2` passed the repository preflight.  This is runtime evidence,
+not task-success evidence, because `/dev/kvm` is still unavailable.
+
 ## 2. Native benchmark prerequisites
 
 1. Create the official Pixel 6 Android 13 (API 33) AVD.
@@ -29,9 +42,33 @@ Official setup: <https://github.com/google-research/android_world#installation>
 5. Run the official first task with `--perform_emulator_setup` once so apps and
    permissions are installed.
 
+Reproducible Linux preparation in this repository:
+
+```bash
+bash ops/install_androidworld_runtime.sh
+ANDROIDWORLD_ALLOW_SOFTWARE_EMULATION=1 bash ops/start_androidworld_emulator.sh
+python scripts/androidworld_preflight.py \
+  --adb-path /root/autodl-tmp/android-sdk/platform-tools/adb
+python scripts/androidworld_smoke.py \
+  --adb-path /root/autodl-tmp/android-sdk/platform-tools/adb \
+  --perform-emulator-setup
+```
+
+The `ALLOW_SOFTWARE` flag is only for diagnosing a host without KVM.  For a
+real run, expose a KVM-capable Pixel 6/API 33 emulator and tunnel both its ADB
+transport and gRPC port 8554 to the Python runtime.
+
+If an API 33 emulator boots but `ip route get 10.0.2.2` reports that the network
+is unreachable, inspect the single saved `AndroidWifi` profile before starting
+AndroidWorld.  On the verified development AVD, the stale profile was repaired
+by enabling root ADB, forgetting that exact network id and reconnecting the
+open `AndroidWifi` network.  Re-run `androidworld_preflight.py` afterwards; do
+not bypass its host-bridge route check.
+
 ## 3. Evidence required before calling migration complete
 
 - Save the preflight JSON with `runtime_ready: true`.
+- Save `androidworld_smoke_latest.json` with a real reset and action execution.
 - Run at least one deterministic task/seed with both the reactive baseline and
   the phase-three planner.
 - Store the raw UI hierarchy, selected action, reward, terminal signal and task

@@ -41,6 +41,18 @@ def _walk_nodes(value: Any) -> Iterable[Mapping[str, Any]]:
             yield from _walk_nodes(item)
 
 
+def _attribute(value: Any, *names: str, default: Any = None) -> Any:
+    if isinstance(value, Mapping):
+        for name in names:
+            if name in value:
+                return value[name]
+        return default
+    for name in names:
+        if hasattr(value, name):
+            return getattr(value, name)
+    return default
+
+
 def _bounds(value: Any) -> tuple[int, int, int, int] | None:
     if isinstance(value, Mapping):
         keys = ("left", "top", "right", "bottom")
@@ -52,25 +64,67 @@ def _bounds(value: Any) -> tuple[int, int, int, int] | None:
         numbers = [int(item) for item in re.findall(r"-?\d+", value)]
         if len(numbers) >= 4:
             return tuple(numbers[:4])  # type: ignore[return-value]
+    if all(hasattr(value, key) for key in ("x_min", "y_min", "x_max", "y_max")):
+        return (int(value.x_min), int(value.y_min), int(value.x_max), int(value.y_max))
     return None
 
 
 def elements_from_observation(observation: Mapping[str, Any]) -> list[AndroidElement]:
-    source = observation.get("ui_tree") or observation.get("accessibility_tree") or observation.get("nodes") or []
+    source = (
+        observation.get("ui_tree")
+        or observation.get("accessibility_tree")
+        or observation.get("ui_elements")
+        or observation.get("nodes")
+        or []
+    )
     result: list[AndroidElement] = []
-    for index, node in enumerate(_walk_nodes(source)):
-        bounds = _bounds(node.get("bounds") or node.get("bounds_in_screen"))
+    nodes: Iterable[Any] = _walk_nodes(source) if isinstance(source, (Mapping, list)) else []
+    for index, node in enumerate(nodes):
+        bounds = _bounds(_attribute(node, "bounds", "bounds_in_screen", "bbox_pixels", "bbox"))
         if bounds is None:
             continue
-        name = str(node.get("text") or node.get("content_description") or node.get("content-desc") or "")
-        class_name = str(node.get("class") or node.get("class_name") or "").lower()
-        editable = bool(node.get("editable") or "edittext" in class_name)
-        clickable = bool(node.get("clickable", False))
+        name = str(_attribute(node, "text", "content_description", "content-desc", default="") or "")
+        class_name = str(_attribute(node, "class", "class_name", default="") or "").lower()
+        editable = bool(_attribute(node, "editable", "is_editable", default=False) or "edittext" in class_name)
+        clickable = bool(_attribute(node, "clickable", "is_clickable", default=False))
         role = "textbox" if editable else "button" if clickable else "text"
-        stable = str(node.get("resource_id") or node.get("resource-id") or node.get("id") or f"node-{index}")
+        stable = str(_attribute(node, "resource_id", "resource-id", "resource_name", "id", default=f"node-{index}"))
         bid = "aw-" + hashlib.sha256(f"{stable}:{bounds}".encode()).hexdigest()[:10]
         result.append(AndroidElement(bid=bid, role=role, name=name, bounds=bounds, editable=editable))
     return result
+
+
+def adapt_androidworld_state(state: Any, *, goal: str, activity: str = "") -> tuple[dict[str, Any], dict[str, tuple[int, int, int, int]]]:
+    """Adapt an official ``android_world.env.interface.State`` instance.
+
+    The import stays optional so the core project and its unit tests do not need
+    the large AndroidWorld runtime.  Only the documented public State/UIElement
+    attributes are consumed.
+    """
+
+    ui_elements = list(getattr(state, "ui_elements", []) or [])
+    normalized = []
+    for item in ui_elements:
+        bounds = _bounds(_attribute(item, "bbox_pixels", "bbox"))
+        normalized.append(
+            {
+                "resource_id": _attribute(item, "resource_id", "resource_name"),
+                "text": _attribute(item, "text") or _attribute(item, "content_description"),
+                "class_name": _attribute(item, "class_name"),
+                "editable": bool(_attribute(item, "is_editable", default=False)),
+                "clickable": bool(_attribute(item, "is_clickable", default=False)),
+                "bounds": bounds,
+                "package_name": _attribute(item, "package_name"),
+            }
+        )
+    package = next((item["package_name"] for item in normalized if item.get("package_name")), "unknown")
+    observation = {
+        "package": package,
+        "activity": activity,
+        "ui_elements": normalized,
+        "screenshot_shape": list(getattr(getattr(state, "pixels", None), "shape", ()) or ()),
+    }
+    return adapt_android_observation(observation, goal=goal)
 
 
 def adapt_android_observation(observation: Mapping[str, Any], *, goal: str) -> tuple[dict[str, Any], dict[str, tuple[int, int, int, int]]]:
@@ -83,7 +137,7 @@ def adapt_android_observation(observation: Mapping[str, Any], *, goal: str) -> t
     activity = str(observation.get("activity") or observation.get("activity_name") or "")
     state = {
         "goal": goal,
-        "url": f"android://{package}/{activity.lstrip('/')}",
+        "url": f"android://{package}/{activity.lstrip('/.')}",
         "title": activity or package,
         "axtree": {"text": axtree},
         "dom": {"text": json.dumps(observation.get("ui_tree") or observation.get("nodes") or [], ensure_ascii=False, sort_keys=True)},
@@ -107,16 +161,24 @@ def map_agent_action(action: str, bounds_by_bid: Mapping[str, tuple[int, int, in
         if action_type in {"fill", "type"}:
             if len(quoted) < 2:
                 raise ValueError("text action needs a value")
-            return [tap, {"action_type": "input_text", "text": quoted[1], "clear": action_type == "fill"}]
+            return [tap, {"action_type": "input_text", "text": quoted[1], "clear_text": action_type == "fill"}]
         return [tap]
     if action_type == "go_back":
-        return [{"action_type": "press_key", "key": "BACK"}]
+        return [{"action_type": "navigate_back"}]
     if action_type == "press":
-        return [{"action_type": "press_key", "key": quoted[0] if quoted else arguments.strip()}]
+        key = (quoted[0] if quoted else arguments.strip()).upper()
+        supported = {"BACK": "navigate_back", "HOME": "navigate_home", "ENTER": "keyboard_enter"}
+        if key not in supported:
+            raise ValueError(f"unsupported AndroidWorld key: {key}")
+        return [{"action_type": supported[key]}]
     if action_type == "scroll":
         numbers = [int(item) for item in re.findall(r"-?\d+", arguments)]
         dx, dy = (numbers + [0, 600])[:2]
-        return [{"action_type": "scroll", "direction": "down" if dy > 0 else "up", "magnitude": abs(dy), "dx": dx}]
+        if abs(dx) > abs(dy):
+            direction = "right" if dx > 0 else "left"
+        else:
+            direction = "down" if dy > 0 else "up"
+        return [{"action_type": "scroll", "direction": direction}]
     if action_type == "noop":
         return [{"action_type": "wait"}]
     raise ValueError(f"unsupported AndroidWorld action type: {action_type}")
