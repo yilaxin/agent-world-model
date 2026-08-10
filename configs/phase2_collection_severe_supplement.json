@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "headless": true,
+  "max_steps": 3,
+  "safe_exploration_rate": 1.0,
+  "minimum_transitions": 250,
+  "seeds": [
+    500, 501, 502, 503, 504, 505, 506, 507, 508, 509,
+    510, 511, 512, 513, 514, 515, 516, 517, 518, 519
+  ],
+  "tasks": [
+    "browsergym/miniwob.click-checkboxes-soft",
+    "browsergym/miniwob.click-dialog-2",
+    "browsergym/miniwob.click-test-2",
+    "browsergym/miniwob.click-widget",
+    "browsergym/miniwob.click-menu"
+  ]
+}

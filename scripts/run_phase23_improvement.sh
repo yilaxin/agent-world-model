@@ -33,6 +33,11 @@ else
     --config configs/phase2_collection_terminal_failures.json \
     --output-dir data/trajectories_phase2_terminal_failures \
     --report data/reports/phase2_terminal_failure_collection.json
+
+  "${PYTHON_BIN}" scripts/collect_phase2_trajectories.py \
+    --config configs/phase2_collection_severe_supplement.json \
+    --output-dir data/trajectories_phase2_severe_supplement \
+    --report data/reports/phase2_severe_supplement_collection.json
 fi
 
 "${PYTHON_BIN}" scripts/collect_phase2_counterfactuals_parallel.py \
@@ -67,6 +72,7 @@ fi
   data/trajectories_phase2_risk \
   data/trajectories_phase2_multistep \
   data/trajectories_phase2_terminal_failures \
+  data/trajectories_phase2_severe_supplement \
   data/trajectories_phase2_counterfactual_p2 \
   data/trajectories_webarena_counterfactual \
   --limit 500 \
@@ -82,6 +88,7 @@ fi
   data/trajectories_phase2_risk \
   data/trajectories_phase2_multistep \
   data/trajectories_phase2_terminal_failures \
+  data/trajectories_phase2_severe_supplement \
   data/trajectories_phase2_counterfactual_p2 \
   data/trajectories_webarena_counterfactual \
   --output-dir data/phase2_p2 \
