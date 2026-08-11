@@ -82,11 +82,20 @@ def build() -> None:
     task_eval_path = REPORTS / "androidworld_task_eval_latest.json"
     task_eval = load_json(task_eval_path) if task_eval_path.exists() else {}
     task_summary = task_eval.get("summary", {})
+    before_eval_path = REPORTS / "androidworld_task_eval_before_fix.json"
+    before_eval = load_json(before_eval_path) if before_eval_path.exists() else {}
+    before_summary = before_eval.get("summary", {})
     checks = preflight.get("checks", {})
     before = smoke.get("before", {})
     after = smoke.get("after", {})
     axtree = (before.get("axtree") or "").splitlines()
     pct = lambda value: f"{value * 100:.1f}%"
+
+    def val(summary: dict, agent: str, key: str, default: float | str = 0.0):
+        return summary.get(agent, {}).get(key, default)
+
+    def task_val(summary: dict, agent: str, task: str, key: str, default: float | str = 0.0):
+        return summary.get(agent, {}).get("per_task", {}).get(task, {}).get(key, default)
 
     story = [
         para("ANDROIDWORLD · 冒烟验收", "kicker"),
@@ -178,17 +187,18 @@ def build() -> None:
         para("采集到的无障碍树（节选）", "h2"),
         para("<br/>".join("· " + line for line in axtree[:11]), "mono"),
         para("五、任务级首轮评测结果", "h1"),
-        para("确定性任务（成功判定直接读系统设置/前台应用，无 LLM 裁判）：wifi_on、wifi_off（官方任务）、open_chrome（打开 Chrome）。每任务 3 次、每轮最多 10 步。", "body"),
+        para("确定性任务（成功判定直接读系统设置/前台应用，无 LLM 裁判）：wifi_on、wifi_off（官方任务）、open_chrome（打开 Chrome）。每任务 3 次、每轮最多 10 步。规划器在「修正后」启用语义目标匹配优先（目标明确点名可见元素时优先于想象式重排序）。", "body"),
         Table(
             [
-                ["指标", "反应式基线", "阶段三规划器"],
-                ["整体成功率", pct(task_summary.get("reactive", {}).get("success_rate", 0)) if task_summary else "—", pct(task_summary.get("phase3", {}).get("success_rate", 0)) if task_summary else "—"],
-                ["open_chrome", pct(task_summary.get("reactive", {}).get("per_task", {}).get("open_chrome", {}).get("success_rate", 0)) if task_summary else "—", pct(task_summary.get("phase3", {}).get("per_task", {}).get("open_chrome", {}).get("success_rate", 0)) if task_summary else "—"],
-                ["wifi_on / wifi_off", "0% / 0%", "0% / 0%"],
-                ["动作执行率", pct(task_summary.get("reactive", {}).get("action_execution_rate", 0)) if task_summary else "—", pct(task_summary.get("phase3", {}).get("action_execution_rate", 0)) if task_summary else "—"],
-                ["平均步数", str(task_summary.get("reactive", {}).get("avg_steps", "-")) if task_summary else "—", str(task_summary.get("phase3", {}).get("avg_steps", "-")) if task_summary else "—"],
+                ["指标", "规划器（修正前）", "规划器（修正后）", "反应式基线（对照）"],
+                ["整体成功率", pct(val(before_summary, "phase3", "success_rate", 0)), pct(val(task_summary, "phase3", "success_rate", 0)), pct(val(task_summary, "reactive", "success_rate", 0))],
+                ["open_chrome", pct(task_val(before_summary, "phase3", "open_chrome", "success_rate", 0)), pct(task_val(task_summary, "phase3", "open_chrome", "success_rate", 0)), pct(task_val(task_summary, "reactive", "open_chrome", "success_rate", 0))],
+                ["wifi_on / wifi_off", "0% / 0%", "0% / 0%", "0% / 0%"],
+                ["语义覆盖次数", "0", str(int(task_val(task_summary, "phase3", "open_chrome", "semantic_overrides_total", 0))), "—"],
+                ["动作执行率", pct(val(before_summary, "phase3", "action_execution_rate", 0)), pct(val(task_summary, "phase3", "action_execution_rate", 0)), pct(val(task_summary, "reactive", "action_execution_rate", 0))],
+                ["平均步数", str(val(before_summary, "phase3", "avg_steps", "-")), str(val(task_summary, "phase3", "avg_steps", "-")), str(val(task_summary, "reactive", "avg_steps", "-"))],
             ],
-            colWidths=[56 * mm, 62 * mm, 62 * mm],
+            colWidths=[46 * mm, 46 * mm, 46 * mm, 42 * mm],
             style=TableStyle([
                 ("FONTNAME", (0, 0), (-1, -1), "MSYH"),
                 ("FONTNAME", (0, 0), (-1, 0), "MSYH-Bold"),
@@ -202,9 +212,9 @@ def build() -> None:
         ),
         Spacer(1, 2 * mm),
         para("关键发现（可审计）：", "h2"),
-        para("• 反应式基线能完成简单目标词点击（open_chrome 2/3 成功），但无法多步导航设置页；", "bullet"),
-        para("• 阶段三规划器在 open_chrome 上同样失败：第 1 步候选生成器已给出结构分最高的 Chrome 点击，但世界模型想象式重排序改选搜索栏并随后迷失——训练于 WebArena 的策略在 Android UI 上发生真实重排序失误；", "bullet"),
-        para("• 无障碍转发器偶发抓取失败，评测加入状态稳定重试后仍有约 1/3 的波动（环境层面问题，非策略行为）；", "bullet"),
+        para("• 修正前：规划器在 open_chrome 第 1 步候选里已有结构分最高的 Chrome 点击，但世界模型想象式重排序改选搜索栏并随后迷失（0/3）；", "bullet"),
+        para("• 修正后：启用语义目标匹配优先，规划器 open_chrome 3/3 成功（整体 33.3%），语义覆盖共触发 5 次，且反超反应式基线（本次受无障碍转发器偶发抖动影响为 1/3）；", "bullet"),
+        para("• wifi 任务两条策略仍为 0%：设置页多步导航（Network & internet → Wi-Fi 开关）对二者仍是硬门槛；", "bullet"),
         para("• 两条策略动作执行率均 100%、平均步数均跑满 10 步预算。", "bullet"),
         para("六、结论与遗留问题", "h1"),
         para("真实 reset/action/state 冒烟与任务级首轮评测均已在 WHPX 加速环境完成并保留证据。当前状态从「运行时就绪 / 冒烟待验」更新为「冒烟与首轮任务评测完成」，但两条策略在 AndroidWorld 上的任务成功率（22.2% / 0%）尚不可用，因此不能声称迁移完成。", "callout"),

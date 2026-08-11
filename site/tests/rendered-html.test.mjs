@@ -23,6 +23,7 @@ test("renders the phase-two and phase-three evidence dashboard", async () => {
   assert.match(output, /AndroidWorld 运行时/);
   assert.match(output, /WHPX 冒烟通过；任务级首轮评测完成/);
   assert.match(output, /首轮评测完成/);
+  assert.match(output, /reactive 11.1% vs phase3 33.3%/);
   assert.match(output, /未执行新的在线成功率评测/);
   assert.doesNotMatch(output, /AndroidWorld 迁移完成/);
   assert.doesNotMatch(output, /Your site is taking shape|SkeletonPreview/);

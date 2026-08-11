@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import re
 from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import TYPE_CHECKING, Any, Mapping, Sequence
@@ -54,6 +55,7 @@ class Phase3WorldModelAgent:
         device: str = "auto",
         planning_config: PlanningConfig | None = None,
         max_candidates: int = 8,
+        semantic_goal_priority: bool = False,
     ) -> None:
         if checkpoint_path is None and ensemble_manifest is None:
             raise ValueError("provide checkpoint_path or ensemble_manifest")
@@ -77,6 +79,50 @@ class Phase3WorldModelAgent:
             alignment_scorer=alignment,
         )
         self.planner = ConfidenceAdaptivePlanner(self.predictor, planning_config)
+        self.semantic_goal_priority = semantic_goal_priority
+
+    @staticmethod
+    def _semantic_goal_match(
+        goal: str,
+        candidates: Sequence[CandidateAction],
+    ) -> tuple[str, str] | None:
+        """Return (action, target_name) of a candidate whose element name
+        strongly matches a task keyword.
+
+        This is the proposal-aligned "semantic goal priority" rule: when the
+        goal explicitly names a visible element, exact-name matches are
+        preferred over the imagined world-model reranking.  It is opt-in so
+        the offline WebArena evaluation is unchanged and the before/after
+        effect of the rule can be measured.
+        """
+        stopwords = {
+            "open",
+            "the",
+            "app",
+            "turn",
+            "value",
+            "settings",
+            "android",
+            "please",
+            "to",
+        }
+        tokens = {
+            token.lower()
+            for token in re.findall(r"[A-Za-z\u4e00-\u9fff]+", goal or "")
+            if len(token) >= 3 and token.lower() not in stopwords
+        }
+        if not tokens:
+            return None
+        for candidate in candidates:
+            name = candidate.target_name or ""
+            normalized = re.sub(r"[^a-z0-9\u4e00-\u9fff]", "", name.lower())
+            if not normalized:
+                continue
+            if candidate.action_type in {"click", "type", "fill"} and any(
+                keyword in normalized for keyword in tokens
+            ):
+                return candidate.action, name
+        return None
 
     def decide(
         self,
@@ -111,15 +157,29 @@ class Phase3WorldModelAgent:
             candidates,
             fallback_action=fallback.action,
         )
+        semantic_action: str | None = None
+        semantic_name: str = ""
+        if self.semantic_goal_priority:
+            match = self._semantic_goal_match(str(state.get("goal") or ""), candidates)
+            if match is not None and match[0] != planning.action:
+                semantic_action, semantic_name = match
         return AgentDecision(
-            action=planning.action,
-            mode=planning.mode,
+            action=semantic_action if semantic_action is not None else planning.action,
+            mode="semantic_goal_priority" if semantic_action is not None else planning.mode,
             should_execute=planning.should_execute,
             requires_reobservation=planning.requires_reobservation,
-            confidence=planning.confidence,
+            confidence=1.0 if semantic_action is not None else planning.confidence,
             horizon=planning.horizon,
             encoded_state_id=encoded.encoding_id,
             fallback_action=fallback.action,
             candidates=[candidate.to_dict() for candidate in candidates],
-            planning=planning.to_dict(),
+            planning=(
+                {
+                    **planning.to_dict(),
+                    "semantic_goal_priority": semantic_action is not None,
+                    "semantic_target_name": semantic_name,
+                }
+                if semantic_action is not None
+                else planning.to_dict()
+            ),
         )

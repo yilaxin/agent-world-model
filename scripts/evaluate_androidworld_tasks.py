@@ -70,6 +70,7 @@ class EpisodeResult:
     steps: int
     actions: int
     invalid_actions: int
+    semantic_overrides: int
     terminal: bool
     duration_sec: float
 
@@ -100,6 +101,7 @@ def build_agents(args: argparse.Namespace) -> dict[str, Any]:
             device="cpu",
             planning_config=PlanningConfig(**config["planning"]),
             max_candidates=int(config["candidate_generation"]["max_candidates"]),
+            semantic_goal_priority=True,
         )
     return agents
 
@@ -128,6 +130,7 @@ def run_episode(
     steps = 0
     actions = 0
     invalid = 0
+    semantic_overrides = 0
     started = time.time()
 
     for _ in range(max_steps):
@@ -135,6 +138,8 @@ def run_episode(
         try:
             decision = decide_policy(agent, state, recent_actions, target_app=target_app)
             action = str(decision.action)
+            if str(getattr(decision, "mode", "")) == "semantic_goal_priority":
+                semantic_overrides += 1
         except Exception:  # a policy crash is an invalid decision, not a crash of the eval
             invalid += 1
             steps += 1
@@ -162,6 +167,7 @@ def run_episode(
         steps=steps,
         actions=actions,
         invalid_actions=invalid,
+        semantic_overrides=semantic_overrides,
         terminal=False,
         duration_sec=time.time() - started,
     )
@@ -207,6 +213,42 @@ def decide_policy(agent: Any, state: dict[str, Any], recent_actions: list[str], 
 
 def main() -> int:
     args = parse_args()
+    # The emulator's monkey-based app launch is slow under WHPX; give the ADB
+    # controller a generous default timeout.  The dataclass default factory
+    # captures the original class, so patch the controller method directly.
+    import android_env.components.adb_controller as adb_controller  # noqa: E402
+
+    _original_execute_command = adb_controller.AdbController.execute_command
+
+    def _execute_command_with_timeout(self: Any, command_args: list[str], timeout: float | None = None, **kwargs: Any) -> Any:
+        return _original_execute_command(
+            self,
+            command_args,
+            timeout=timeout if timeout is not None else 60.0,
+            **kwargs,
+        )
+
+    adb_controller.AdbController.execute_command = _execute_command_with_timeout
+
+    # Reuse the accessibility forwarder already installed in the AVD instead of
+    # re-downloading its APK on every run (same approach as the smoke script).
+    import subprocess as _subprocess
+    from android_world.env import android_world_controller  # noqa: E402
+
+    _installed = _subprocess.run(
+        [args.adb_path, "-s", f"emulator-{args.console_port}", "shell", "pm", "list", "packages", "com.google.androidenv.accessibilityforwarder"],
+        capture_output=True,
+        text=True,
+        timeout=30,
+    )
+    if _installed.returncode == 0 and "package:com.google.androidenv.accessibilityforwarder" in _installed.stdout:
+        _original_wrapper = android_world_controller.apply_a11y_forwarder_app_wrapper
+
+        def _reuse_installed_forwarder(base_env: Any, _install: bool) -> Any:
+            return _original_wrapper(base_env, False)
+
+        android_world_controller.apply_a11y_forwarder_app_wrapper = _reuse_installed_forwarder
+
     env = env_launcher.load_and_setup_env(
         console_port=args.console_port,
         adb_path=args.adb_path,
@@ -233,7 +275,8 @@ def main() -> int:
                     results.append(result)
                     print(
                         f"[{agent_name}/{task_name}/ep{episode}] success={result.success} "
-                        f"steps={result.steps} actions={result.actions} invalid={result.invalid_actions}",
+                        f"steps={result.steps} actions={result.actions} invalid={result.invalid_actions} "
+                        f"semantic_override={result.semantic_overrides}",
                         flush=True,
                     )
     finally:
@@ -255,6 +298,7 @@ def main() -> int:
                     r.actions / max(r.steps, 1) for r in subset
                 ),
                 "invalid_actions_total": sum(r.invalid_actions for r in subset),
+                "semantic_overrides_total": sum(r.semantic_overrides for r in subset),
             }
         rows[agent_name] = {
             "success_rate": statistics.mean(r.success for r in agent_rows),

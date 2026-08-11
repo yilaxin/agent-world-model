@@ -114,19 +114,24 @@ $env:PYTHONIOENCODING="utf-8"
 
 First-round results (2026-08-11, 3 episodes per task, 10-step budget):
 
-| Metric | Reactive baseline | Phase-3 planner |
-|---|---:|---:|
-| Overall success | 22.2% (open_chrome 66.7%) | 0% |
-| Action execution rate | 100% | 100% |
-| Avg steps | 10 | 10 |
+| Metric | Planner (before fix) | Planner (after fix) | Reactive baseline |
+|---|---:|---:|---:|
+| Overall success | 0% | 33.3% | 11.1% |
+| open_chrome | 0% | 100% (semantic overrides 5) | 33.3% |
+| wifi_on / wifi_off | 0% / 0% | 0% / 0% | 0% / 0% |
+| Action execution rate | 100% | 100% | 100% |
+| Avg steps | 10 | 10 | 10 |
 
-Findings: the reactive baseline can perform simple goal-token clicks (open
-Chrome) but cannot navigate Settings; the phase-3 planner failed even on
-open_chrome because its world-model reranking overrode the best structured
-candidate (Search was chosen over Chrome on step 1).  The accessibility
-forwarder occasionally returns a sparse tree right after navigation; the
-evaluator retries for a short window, and residual flakiness is reported as an
-environment issue rather than attributed to either policy.
+The "after fix" run enables the planner's opt-in `semantic_goal_priority`
+rule: when the goal explicitly names a visible element, an exact-name
+candidate overrides the imagined world-model reranking.  Before the fix the
+planner failed even on open_chrome because its reranking chose Search over
+Chrome on step 1; after the fix it opens Chrome 3/3.  Multi-step Settings
+navigation (Network & internet → Wi-Fi toggle) remains a hard gap for both
+policies.  The accessibility forwarder occasionally returns a sparse tree
+right after navigation; the evaluator retries for a short window, and residual
+flakiness is reported as an environment issue rather than attributed to either
+policy.
 
 ## 3. Evidence required before calling migration complete
 

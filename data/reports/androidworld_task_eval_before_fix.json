@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at_utc": "2026-08-11T15:31:56.242938+00:00",
+  "generated_at_utc": "2026-08-11T12:42:59.280146+00:00",
   "platform": "androidworld_api33_whpx_local",
   "tasks": [
     "wifi_on",
@@ -15,7 +15,7 @@
   "episodes_per_task": 3,
   "summary": {
     "reactive": {
-      "success_rate": 0.1111111111111111,
+      "success_rate": 0.2222222222222222,
       "avg_steps": 10,
       "action_execution_rate": 1.0,
       "per_task": {
@@ -24,29 +24,26 @@
           "success_rate": 0.0,
           "avg_steps": 10,
           "action_execution_rate": 1.0,
-          "invalid_actions_total": 0,
-          "semantic_overrides_total": 0
+          "invalid_actions_total": 0
         },
         "wifi_off": {
           "episodes": 3,
           "success_rate": 0.0,
           "avg_steps": 10,
           "action_execution_rate": 1.0,
-          "invalid_actions_total": 0,
-          "semantic_overrides_total": 0
+          "invalid_actions_total": 0
         },
         "open_chrome": {
           "episodes": 3,
-          "success_rate": 0.3333333333333333,
+          "success_rate": 0.6666666666666666,
           "avg_steps": 10,
           "action_execution_rate": 1.0,
-          "invalid_actions_total": 0,
-          "semantic_overrides_total": 0
+          "invalid_actions_total": 0
         }
       }
     },
     "phase3": {
-      "success_rate": 0.3333333333333333,
+      "success_rate": 0.0,
       "avg_steps": 10,
       "action_execution_rate": 1.0,
       "per_task": {
@@ -55,24 +52,21 @@
           "success_rate": 0.0,
           "avg_steps": 10,
           "action_execution_rate": 1.0,
-          "invalid_actions_total": 0,
-          "semantic_overrides_total": 0
+          "invalid_actions_total": 0
         },
         "wifi_off": {
           "episodes": 3,
           "success_rate": 0.0,
           "avg_steps": 10,
           "action_execution_rate": 1.0,
-          "invalid_actions_total": 0,
-          "semantic_overrides_total": 0
+          "invalid_actions_total": 0
         },
         "open_chrome": {
           "episodes": 3,
-          "success_rate": 1.0,
+          "success_rate": 0.0,
           "avg_steps": 10,
           "action_execution_rate": 1.0,
-          "invalid_actions_total": 0,
-          "semantic_overrides_total": 5
+          "invalid_actions_total": 0
         }
       }
     }
@@ -87,9 +81,8 @@
       "steps": 10,
       "actions": 10,
       "invalid_actions": 0,
-      "semantic_overrides": 0,
       "terminal": false,
-      "duration_sec": 26.014606475830078
+      "duration_sec": 26.296464204788208
     },
     {
       "task": "wifi_on",
@@ -100,9 +93,8 @@
       "steps": 10,
       "actions": 10,
       "invalid_actions": 0,
-      "semantic_overrides": 0,
       "terminal": false,
-      "duration_sec": 27.902450799942017
+      "duration_sec": 24.226909637451172
     },
     {
       "task": "wifi_on",
@@ -113,9 +105,8 @@
       "steps": 10,
       "actions": 10,
       "invalid_actions": 0,
-      "semantic_overrides": 0,
       "terminal": false,
-      "duration_sec": 31.03602361679077
+      "duration_sec": 30.462794542312622
     },
     {
       "task": "wifi_off",
@@ -126,9 +117,8 @@
       "steps": 10,
       "actions": 10,
       "invalid_actions": 0,
-      "semantic_overrides": 0,
       "terminal": false,
-      "duration_sec": 28.734562397003174
+      "duration_sec": 24.679792642593384
     },
     {
       "task": "wifi_off",
@@ -139,9 +129,8 @@
       "steps": 10,
       "actions": 10,
       "invalid_actions": 0,
-      "semantic_overrides": 0,
       "terminal": false,
-      "duration_sec": 22.99899458885193
+      "duration_sec": 28.781030416488647
     },
     {
       "task": "wifi_off",
@@ -152,9 +141,8 @@
       "steps": 10,
       "actions": 10,
       "invalid_actions": 0,
-      "semantic_overrides": 0,
       "terminal": false,
-      "duration_sec": 24.198858737945557
+      "duration_sec": 27.036181211471558
     },
     {
       "task": "open_chrome",
@@ -165,22 +153,20 @@
       "steps": 10,
       "actions": 10,
       "invalid_actions": 0,
-      "semantic_overrides": 0,
       "terminal": false,
-      "duration_sec": 22.91950750350952
+      "duration_sec": 20.726410388946533
     },
     {
       "task": "open_chrome",
       "agent": "reactive",
       "episode": 2,
       "goal": "Open the Chrome app.",
-      "success": 0.0,
+      "success": 1.0,
       "steps": 10,
       "actions": 10,
       "invalid_actions": 0,
-      "semantic_overrides": 0,
       "terminal": false,
-      "duration_sec": 20.165282487869263
+      "duration_sec": 18.04634380340576
     },
     {
       "task": "open_chrome",
@@ -191,9 +177,8 @@
       "steps": 10,
       "actions": 10,
       "invalid_actions": 0,
-      "semantic_overrides": 0,
       "terminal": false,
-      "duration_sec": 19.216325759887695
+      "duration_sec": 22.32860517501831
     },
     {
       "task": "wifi_on",
@@ -204,9 +189,8 @@
       "steps": 10,
       "actions": 10,
       "invalid_actions": 0,
-      "semantic_overrides": 0,
       "terminal": false,
-      "duration_sec": 33.525243282318115
+      "duration_sec": 28.302842140197754
     },
     {
       "task": "wifi_on",
@@ -217,9 +201,8 @@
       "steps": 10,
       "actions": 10,
       "invalid_actions": 0,
-      "semantic_overrides": 0,
       "terminal": false,
-      "duration_sec": 35.368804931640625
+      "duration_sec": 25.6345796585083
     },
     {
       "task": "wifi_on",
@@ -230,9 +213,8 @@
       "steps": 10,
       "actions": 10,
       "invalid_actions": 0,
-      "semantic_overrides": 0,
       "terminal": false,
-      "duration_sec": 30.15958023071289
+      "duration_sec": 27.666303873062134
     },
     {
       "task": "wifi_off",
@@ -243,9 +225,8 @@
       "steps": 10,
       "actions": 10,
       "invalid_actions": 0,
-      "semantic_overrides": 0,
       "terminal": false,
-      "duration_sec": 28.922257661819458
+      "duration_sec": 26.016434907913208
     },
     {
       "task": "wifi_off",
@@ -256,9 +237,8 @@
       "steps": 10,
       "actions": 10,
       "invalid_actions": 0,
-      "semantic_overrides": 0,
       "terminal": false,
-      "duration_sec": 29.43480658531189
+      "duration_sec": 26.277225494384766
     },
     {
       "task": "wifi_off",
@@ -269,48 +249,44 @@
       "steps": 10,
       "actions": 10,
       "invalid_actions": 0,
-      "semantic_overrides": 0,
       "terminal": false,
-      "duration_sec": 30.93748164176941
+      "duration_sec": 27.472938060760498
     },
     {
       "task": "open_chrome",
       "agent": "phase3",
       "episode": 1,
       "goal": "Open the Chrome app.",
-      "success": 1.0,
+      "success": 0.0,
       "steps": 10,
       "actions": 10,
       "invalid_actions": 0,
-      "semantic_overrides": 1,
       "terminal": false,
-      "duration_sec": 17.54638981819153
+      "duration_sec": 26.78352928161621
     },
     {
       "task": "open_chrome",
       "agent": "phase3",
       "episode": 2,
       "goal": "Open the Chrome app.",
-      "success": 1.0,
+      "success": 0.0,
       "steps": 10,
       "actions": 10,
       "invalid_actions": 0,
-      "semantic_overrides": 2,
       "terminal": false,
-      "duration_sec": 25.033204317092896
+      "duration_sec": 16.173753261566162
     },
     {
       "task": "open_chrome",
       "agent": "phase3",
       "episode": 3,
       "goal": "Open the Chrome app.",
-      "success": 1.0,
+      "success": 0.0,
       "steps": 10,
       "actions": 10,
       "invalid_actions": 0,
-      "semantic_overrides": 2,
       "terminal": false,
-      "duration_sec": 20.770476818084717
+      "duration_sec": 18.881042957305908
     }
   ],
   "notes": [
