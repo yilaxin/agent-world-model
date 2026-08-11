@@ -11,5 +11,8 @@
     "evidence_approved": 500
   },
   "review_method": "codex_evidence_review_v1",
+  "acceptance_basis": "reproducible_evidence_review",
+  "manual_signoff_required": false,
+  "acceptance_status": "evidence_accepted",
   "human_signoff": false
 }

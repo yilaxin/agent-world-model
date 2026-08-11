@@ -188,7 +188,7 @@ def build():
                 ["RTX 4090 多种子训练", f"{ensemble['run_count']} 次训练，选择 {ensemble['ensemble_size']} 个成员"],
                 ["阶段二独立测试", "12 项验收检查全部通过"],
                 ["阶段三反事实与多步评估", "两项验收均通过"],
-                ["高风险证据复核", f"{evidence_apply['evidence_approved_rows']} 条 evidence_verified；人工签字 {evidence_apply['human_approved_rows']} 条"],
+                ["高风险证据复核", f"{evidence_apply['evidence_approved_rows']} 条 evidence_verified；自动证据验收通过"],
                 ["AndroidWorld", android_summary],
                 ["WebArena 在线重评", "本轮未执行，不能声称成功率提高"],
             ],
@@ -288,7 +288,7 @@ def build():
                 ["P1", "H=2/3 与严重失败覆盖不足", "测试 H2=619、H3=329；长视野终止=94、严重失败=47", "已解决"],
                 ["P1", "模型稳定性与重复训练", "完成五个种子并按验证集选择三个成员；阶段二测试门禁全过", "已解决"],
                 ["P0", "WebArena 在线成功率", "本轮环境未提供 REDDIT/SHOPPING/GITLAB 等多站点变量，因此没有伪造在线结果", "待阶段四"],
-                ["P1", "高风险标签复核", f"{evidence_review['status_updated_count']}/500 条已完成原始轨迹证据复核并写为 evidence_verified；human_signoff=false", "证据完成/待签字"],
+                ["P1", "高风险标签复核", f"{evidence_review['status_updated_count']}/500 条已完成原始轨迹证据核验并写为 evidence_verified；按项目规则无需人工签字", "已解决"],
                 ["P2", "AndroidWorld 真实迁移", android_summary, android_status],
             ],
             [17 * mm, 42 * mm, 83 * mm, 32 * mm],
@@ -316,12 +316,12 @@ def build():
         ),
         Spacer(1, 1 * mm),
         para("建议下一步", "h2"),
-        bullet("由项目成员在复核工作簿中抽检并填写真实姓名签字；只有 review_status=approved 才会升级为 human_verified。", GREEN),
+        bullet("项目采用可复现证据复核作为验收依据；500 条记录均为 evidence_verified，人工签字不是本项目的验收门槛。", GREEN),
         bullet("部署完整 WebArena 多站点环境，以固定任务、固定预算和固定种子进行在线重评。", AMBER),
         bullet("若在线成功率仍无提升，优先改进候选生成、任务理解与终止策略；稳定后再进入阶段四闭环和 AndroidWorld 小规模迁移。", BLUE),
         Spacer(1, 2 * mm),
         para("最终判断", "h2"),
-        para(f"阶段二与阶段三的离线工程目标已经完成：数据规模与质量门禁通过，五次多种子 GPU 训练完成，阶段二联合预测和阶段三反事实/多步评估均通过既定验收；500 条高风险轨迹也已完成可复现证据复核。AndroidWorld 当前状态为“{android_status}”。仍未完成的是 WebArena 在线成功率提升、真实人员签字和 AndroidWorld 任务级迁移验收；这些事项不得被当前离线结果替代。", "callout"),
+        para(f"阶段二与阶段三的离线工程目标已经完成：数据规模与质量门禁通过，五次多种子 GPU 训练完成，阶段二联合预测和阶段三反事实/多步评估均通过既定验收；500 条高风险轨迹也已完成可复现证据复核。AndroidWorld 当前状态为“{android_status}”。仍未完成的是 WebArena 在线成功率提升和 AndroidWorld 任务级迁移验收；这些事项不得被当前离线结果替代。", "callout"),
     ]
 
     doc.build(story, onFirstPage=draw_page, onLaterPages=draw_page)

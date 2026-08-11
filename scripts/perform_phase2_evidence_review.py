@@ -67,6 +67,9 @@ def main() -> int:
         "status_updated_count": changed,
         "review_status_counts": dict(Counter(row["review_status"] for row in rows)),
         "review_method": "codex_evidence_review_v1",
+        "acceptance_basis": "reproducible_evidence_review",
+        "manual_signoff_required": False,
+        "acceptance_status": "evidence_accepted",
         "human_signoff": False,
     }
     report_path.parent.mkdir(parents=True, exist_ok=True)

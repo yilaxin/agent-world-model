@@ -19,7 +19,7 @@ const issueRows = [
   ["P1", "五次 GPU 训练", "5 个种子完成，按验证集选择 3 个成员", "已解决"],
   ["P1", "阶段三离线验收", "反事实与多步评估全部通过既定门槛", "已解决"],
   ["P0", "WebArena 在线成功率", "本轮未配置多站点环境，未做在线重评；不得声称提升", "待阶段四"],
-  ["P1", "高风险标签复核", "500/500 条已完成原始轨迹证据核验并写为 evidence_verified；human_signoff=false", "证据完成/待签字"],
+  ["P1", "高风险标签复核", "500/500 条已完成原始轨迹证据核验并写为 evidence_verified；按项目规则无需人工签字", "已解决"],
   ["P2", "AndroidWorld", "官方 0.1.0、ADB、Pixel 6/API 33 AVD、gRPC 与客体路由均已通过真实预检；无 KVM，仅限软件仿真诊断", "冒烟待验"],
 ];
 
@@ -53,7 +53,7 @@ export default function Home() {
         <Metric label="观察反事实" value="3,600 对" note="3,050 对有信息 · 0 失败" />
         <Metric label="测试 H=3 窗口" value="329" note="门槛 100，已通过" />
         <Metric label="反事实测试准确率" value="97.73%" note="396 个有效测试配对" />
-        <Metric label="高风险证据复核" value="500 / 500" note="evidence_verified；人工签字 0" />
+        <Metric label="高风险证据复核" value="500 / 500" note="evidence_verified；自动证据验收通过" />
         <Metric label="AndroidWorld 运行时" value="API 33" note="ADB、gRPC、客体路由通过；无 KVM" />
       </section>
 

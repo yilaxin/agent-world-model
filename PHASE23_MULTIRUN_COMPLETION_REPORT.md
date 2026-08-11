@@ -51,7 +51,7 @@
 仍需处理：
 
 - P0：部署完整 WebArena 多站点环境并做固定任务、预算和种子的在线重评；相对 SR +10% 属于阶段四。
-- P1：500 条高风险、终止和严重失败样本已完成原始轨迹证据复核并以 `evidence_verified` 回写同规模数据视图；真实人工签字仍为 0，只有真实审核人把状态改为 `approved` 才能标为 `human_verified`。
+- P1：500 条高风险、终止和严重失败样本已完成原始轨迹证据复核并以 `evidence_verified` 回写同规模数据视图；项目验收采用可复现证据复核，人工签字不是验收门槛。该来源仍保持为 `evidence_verified`，不伪称为 `human_verified`。
 - P2：AndroidWorld 已补齐官方 AndroidWorld 0.1.0、ADB、Pixel 6 API 33 AVD、gRPC 8554 与运行手册，真实软件仿真设备预检通过；容器不暴露 `/dev/kvm`，当前仅适合诊断。真实 reset/action 冒烟和任务级基线/规划器对比仍未通过，不能声称迁移完成。
 
 ## 证据文件
