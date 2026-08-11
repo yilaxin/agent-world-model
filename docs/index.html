@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>阶段二、阶段三最终训练与验收看板</title>
+  <meta name="description" content="动作条件世界模型的数据、五次训练、反事实排序与有限步决策最终验收结果。" />
+  <style>
+    :root { --bg:#07111f; --panel:#0e1b2d; --panel2:#11243a; --line:#243b55; --ink:#eef7ff; --muted:#9fb3c8; --cyan:#38bdf8; --amber:#f59e0b; }
+    * { box-sizing: border-box; }
+    html { background: var(--bg); }
+    body { margin:0; background:radial-gradient(circle at 85% 4%,#143b61 0,transparent 28%),var(--bg); color:var(--ink); font-family:"Microsoft YaHei",system-ui,-apple-system,sans-serif; }
+    main { max-width:1180px; margin:auto; padding:42px 22px 72px; }
+    .hero { padding:36px; border:1px solid #2f5273; border-radius:24px; background:linear-gradient(135deg,#102a45e8,#0e1b2de8); box-shadow:0 24px 80px #0006; overflow:hidden; position:relative; }
+    .hero::after { content:""; position:absolute; width:280px; height:280px; border-radius:50%; right:-100px; top:-150px; background:#38bdf81c; border:1px solid #38bdf833; }
+    .eyebrow { margin:0 0 16px; color:#7dd3fc; font-size:12px; letter-spacing:.18em; }
+    h1 { font-size:clamp(32px,5vw,52px); line-height:1.12; margin:0 0 14px; letter-spacing:-.03em; }
+    h2 { margin:38px 0 15px; font-size:23px; }
+    .section-note { color:var(--muted); line-height:1.75; margin:-4px 0 16px; }
+    .subtitle { color:var(--muted); line-height:1.8; max-width:850px; margin:0; }
+    .chips { display:flex; flex-wrap:wrap; gap:10px; margin-top:22px; position:relative; z-index:1; }
+    .chips span { padding:8px 12px; border-radius:999px; background:#153653; border:1px solid #2b5f84; color:#c7edff; font-size:13px; }
+    .metric-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:18px; }
+    .metric-card,.panel { background:linear-gradient(145deg,var(--panel),var(--panel2)); border:1px solid var(--line); border-radius:18px; padding:20px; }
+    .metric-card { min-height:145px; display:flex; flex-direction:column; }
+    .metric-card span,.panel-label { color:var(--muted); font-size:13px; }
+    .metric-card strong { color:var(--cyan); font-size:30px; margin-top:12px; }
+    .metric-card small { color:var(--muted); margin-top:auto; }
+    .split { display:grid; grid-template-columns:1.25fr .75fr; gap:16px; align-items:stretch; }
+    .detail-list p { display:flex; justify-content:space-between; gap:18px; border-bottom:1px solid var(--line); padding-bottom:10px; }
+    .detail-list p:last-child { border-bottom:0; }
+    .table-wrap { overflow-x:auto; border-radius:16px; }
+    table { width:100%; border-collapse:collapse; min-width:620px; background:#0e1b2d; border:1px solid var(--line); }
+    th,td { padding:13px 15px; text-align:left; border-bottom:1px solid var(--line); white-space:nowrap; }
+    td.wrap { white-space:normal; min-width:330px; line-height:1.55; }
+    th { background:#15304b; color:#c7edff; font-size:13px; }
+    tr:last-child td { border-bottom:0; }
+    tbody tr:hover { background:#132238; }
+    .warning { border-left:5px solid var(--amber); background:#2a2112; padding:17px 20px; border-radius:12px; line-height:1.85; color:#f4dfbd; }
+    .warning p { margin:5px 0 0; }
+    .evidence { margin-top:18px; }
+    .status { display:inline-flex; align-items:center; border-radius:999px; padding:6px 10px; font-size:12px; border:1px solid; white-space:nowrap; }
+    .status.ok { color:#bbf7d0; background:#123622; border-color:#2f8552; }
+    .status.pending { color:#fde68a; background:#3b2d12; border-color:#a66f16; }
+    .status.blocked { color:#fecaca; background:#3a1d22; border-color:#9f3f4c; }
+    footer { display:flex; justify-content:space-between; gap:20px; margin-top:34px; padding-top:18px; border-top:1px solid var(--line); color:var(--muted); font-size:12px; flex-wrap:wrap; }
+    .note { margin-top:26px; padding:14px 18px; border:1px dashed var(--line); border-radius:12px; color:var(--muted); font-size:13px; line-height:1.7; }
+    .note a { color:#7dd3fc; }
+    @media(max-width:850px) { .metric-grid{grid-template-columns:repeat(2,1fr)} .split{grid-template-columns:1fr} }
+    @media(max-width:520px) { main{padding:24px 14px 48px}.hero{padding:25px}.metric-grid{grid-template-columns:1fr}footer{flex-direction:column} }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="hero">
+      <p class="eyebrow">AGENT WORLD MODEL · PROPOSAL 33.0</p>
+      <h1>阶段二 × 阶段三最终训练与验收</h1>
+      <p class="subtitle">RTX 4090 上完成观察反事实扩充、数据质量门禁、五次多种子训练、三成员集成、反事实排序和真实连续 H=1/2/3 轨迹评估。所有结论均来自已同步的 JSON 报告；未把离线指标等同于 WebArena 在线成功率。</p>
+      <div class="chips"><span>RTX 4090</span><span>5 次独立训练</span><span>3 模型集成</span><span>全部离线门禁通过</span></div>
+    </section>
+
+    <section class="metric-grid" aria-label="核心状态">
+      <article class="metric-card"><span>训练数据</span><strong>13,348</strong><small>5,930 episodes · 30 tasks</small></article>
+      <article class="metric-card"><span>观察反事实</span><strong>3,600 对</strong><small>3,050 对有信息 · 0 失败</small></article>
+      <article class="metric-card"><span>测试 H=3 窗口</span><strong>329</strong><small>门槛 100，已通过</small></article>
+      <article class="metric-card"><span>反事实测试准确率</span><strong>97.73%</strong><small>396 个有效测试配对</small></article>
+      <article class="metric-card"><span>高风险证据复核</span><strong>500 / 500</strong><small>evidence_verified；自动证据验收通过</small></article>
+      <article class="metric-card"><span>AndroidWorld 运行时</span><strong>API 33</strong><small>ADB、gRPC、客体路由通过；无 KVM</small></article>
+    </section>
+
+    <h2>问题收口状态</h2>
+    <div class="table-wrap"><table>
+      <thead><tr><th>优先级</th><th>问题</th><th>最终证据</th><th>结论</th></tr></thead>
+      <tbody>
+        <tr><td>P0</td><td>观察反事实规模</td><td class="wrap">3,600 对全部有效；3,050 对有信息</td><td><span class="status ok">已解决</span></td></tr>
+        <tr><td>P1</td><td>H=2/3 与失败覆盖</td><td class="wrap">测试 H2=619、H3=329；长视野终止=94、严重失败=47</td><td><span class="status ok">已解决</span></td></tr>
+        <tr><td>P1</td><td>五次 GPU 训练</td><td class="wrap">5 个种子完成，按验证集选择 3 个成员</td><td><span class="status ok">已解决</span></td></tr>
+        <tr><td>P1</td><td>阶段三离线验收</td><td class="wrap">反事实与多步评估全部通过既定门槛</td><td><span class="status ok">已解决</span></td></tr>
+        <tr><td>P0</td><td>WebArena 在线成功率</td><td class="wrap">本轮未配置多站点环境，未做在线重评；不得声称提升</td><td><span class="status pending">待阶段四</span></td></tr>
+        <tr><td>P1</td><td>高风险标签复核</td><td class="wrap">500/500 条已完成原始轨迹证据核验并写为 evidence_verified；按项目规则无需人工签字</td><td><span class="status ok">已解决</span></td></tr>
+        <tr><td>P2</td><td>AndroidWorld</td><td class="wrap">官方 0.1.0、ADB、Pixel 6/API 33 AVD、gRPC 与客体路由均已通过真实预检；无 KVM，仅限软件仿真诊断</td><td><span class="status blocked">冒烟待验</span></td></tr>
+      </tbody>
+    </table></div>
+
+    <h2>五次多种子 GPU 训练</h2>
+    <p class="section-note">成员仅按验证集选择，测试集不用于调参。最终选择 rank_balanced_a、rank_regularized 与 rank_base_a。</p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>变体</th><th>种子</th><th>验证选择分</th><th>状态</th></tr></thead>
+      <tbody>
+        <tr><td>rank_balanced_a</td><td>29</td><td>0.899178</td><td>入选</td></tr>
+        <tr><td>rank_regularized</td><td>73</td><td>0.893279</td><td>入选</td></tr>
+        <tr><td>rank_base_a</td><td>17</td><td>0.892746</td><td>入选</td></tr>
+        <tr><td>rank_base_b</td><td>42</td><td>0.891642</td><td>备选</td></tr>
+        <tr><td>rank_balanced_b</td><td>101</td><td>0.888477</td><td>备选</td></tr>
+      </tbody>
+    </table></div>
+
+    <section class="split evidence">
+      <article class="panel detail-list">
+        <span class="panel-label">阶段二独立测试</span>
+        <p>状态变化 F1 <b>98.69%</b></p>
+        <p>任务信号 F1 <b>98.90%</b></p>
+        <p>风险 F1 <b>94.39%</b></p>
+        <p>风险 AUROC <b>99.04%</b></p>
+        <p>进度 MAE <b>0.0992</b></p>
+      </article>
+      <article class="panel detail-list">
+        <span class="panel-label">阶段三反事实排序</span>
+        <p>测试观察配对 <b>477</b></p>
+        <p>有效配对 <b>396</b></p>
+        <p>Pairwise Accuracy <b>97.73%</b></p>
+        <p>NDCG@2 <b>0.9916</b></p>
+        <p>集成遗憾 <b>0.0511</b></p>
+      </article>
+    </section>
+
+    <h2>真实连续轨迹：H=1/2/3</h2>
+    <div class="table-wrap"><table>
+      <thead><tr><th>视野</th><th>测试窗口</th><th>Latent MSE</th><th>余弦相似度</th><th>终止结尾</th><th>严重失败</th></tr></thead>
+      <tbody>
+        <tr><td>H=1</td><td>1,943</td><td>0.000173</td><td>0.9523</td><td>375</td><td>175</td></tr>
+        <tr><td>H=2</td><td>619</td><td>0.000287</td><td>0.9385</td><td>62</td><td>26</td></tr>
+        <tr><td>H=3</td><td>329</td><td>0.000485</td><td>0.9189</td><td>32</td><td>21</td></tr>
+      </tbody>
+    </table></div>
+
+    <section class="warning"><b>诚实边界</b><p>多步评估的 H3 MSE 虽通过预设的相对上限，但仍差于 persistence baseline，说明长视野潜状态预测还有改进空间。反事实排序中集成与最佳单模型准确率相同，配对差异 95% CI 为 [-1.01%, 1.01%]；集成只降低了平均决策遗憾，因此生产方法仍按验证集选择单模型。WebArena 本轮没有可用多站点环境变量，未执行新的在线成功率评测。AndroidWorld 已补齐官方软件栈并通过真实 API 33 设备预检，但容器没有 KVM，真实 reset/action 冒烟及任务级对比仍是迁移完成前的硬门槛。</p></section>
+
+    <footer>
+      <span>Agent 世界模型决策优化</span>
+      <span>更新于 2026-08-10 · 证据来自 RTX 4090 最终 JSON 报告</span>
+    </footer>
+
+    <p class="note">本页是私有 Sites 看板的公开静态镜像，数据与 <a href="https://github.com/yilaxin/agent-world-model">github.com/yilaxin/agent-world-model</a> 中的 JSON 报告一致。如需下线，请删除本页并关闭仓库的 GitHub Pages。</p>
+  </main>
+</body>
+</html>
