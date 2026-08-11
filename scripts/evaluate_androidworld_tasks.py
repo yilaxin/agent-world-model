@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import statistics
 import subprocess
 import sys
@@ -28,6 +29,7 @@ from android_world.env import env_launcher, json_action  # noqa: E402
 from android_world.task_evals.single import system as system_tasks  # noqa: E402
 
 from agent_world_model.androidworld_adapter import adapt_androidworld_state, map_agent_action  # noqa: E402
+from agent_world_model.android_settings_navigation import SettingsNavigationPolicy  # noqa: E402
 from agent_world_model.phase3_agent import Phase3WorldModelAgent  # noqa: E402
 from agent_world_model.phase3_planning import PlanningConfig  # noqa: E402
 from agent_world_model.reactive_agent import ReactiveAgent  # noqa: E402
@@ -87,6 +89,7 @@ class EpisodeResult:
     actions: int
     invalid_actions: int
     semantic_overrides: int
+    sequence_steps: int
     sparse_states: int
     recoveries: int
     terminal: bool
@@ -102,6 +105,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--episodes", type=int, default=5)
     parser.add_argument("--tasks", default="wifi_on,wifi_off,open_chrome,open_calendar,open_photos,open_messages,open_gmail")
     parser.add_argument("--agents", default="reactive,phase3")
+    parser.add_argument("--settings-navigation", action="store_true")
     parser.add_argument("--output", type=Path, default=PROJECT_ROOT / "data" / "reports" / "androidworld_task_eval_latest.json")
     return parser.parse_args()
 
@@ -124,6 +128,10 @@ def build_agents(args: argparse.Namespace) -> dict[str, Any]:
     return agents
 
 
+def build_settings_policy(args: argparse.Namespace) -> SettingsNavigationPolicy | None:
+    return SettingsNavigationPolicy() if args.settings_navigation else None
+
+
 def run_episode(
     env: Any,
     task_name: str,
@@ -134,6 +142,7 @@ def run_episode(
     max_steps: int,
     adb_path: str,
     console_port: int,
+    settings_policy: SettingsNavigationPolicy | None,
 ) -> EpisodeResult:
     target_app = "com.android.settings" if task_name in ("wifi_on", "wifi_off") else None
     recent_actions: list[str] = []
@@ -141,6 +150,7 @@ def run_episode(
     actions = 0
     invalid = 0
     semantic_overrides = 0
+    sequence_steps = 0
     sparse_states = 0
     recoveries = 0
     started = time.time()
@@ -148,6 +158,13 @@ def run_episode(
 
     for attempt in range(3):
         try:
+            if settings_policy is not None:
+                settings_policy.reset()
+                # Restarting the forwarder drops its in-memory gRPC flags, so
+                # only recover it when the process actually died between
+                # episodes; a live forwarder keeps the existing connection.
+                if not forwarder_alive(adb_path, console_port):
+                    recover_forwarder(adb_path, console_port)
             if task_name in OPEN_APPS:
                 package, label = OPEN_APPS[task_name]
                 task = OpenAppTask(package=package, label=label)
@@ -156,6 +173,19 @@ def run_episode(
             goal = task.goal
             task.initialize_task(env)
             env.reset(go_home=True)
+            if settings_policy is not None:
+                # Resume-proof the Settings app: launch it from its home
+                # activity instead of whatever sub-screen a previous episode
+                # left open.
+                try:
+                    subprocess.run(
+                        [adb_path, "-s", f"emulator-{console_port}", "shell", "am", "force-stop", "com.android.settings"],
+                        capture_output=True,
+                        text=True,
+                        timeout=20,
+                    )
+                except Exception:
+                    pass
             foreground = str(getattr(env, "foreground_activity_name", "") or "")
             if "nexuslauncher" not in foreground:
                 env.execute_action(json_action.JSONAction(action_type="navigate_home"))
@@ -169,10 +199,19 @@ def run_episode(
                 state, bounds, _, retries = stable_state(env, goal)
                 sparse_states += retries
                 try:
-                    decision = decide_policy(agent, state, recent_actions, target_app=target_app)
+                    decision = decide_policy(
+                        agent,
+                        state,
+                        recent_actions,
+                        target_app=target_app,
+                        goal=goal,
+                        settings_policy=settings_policy,
+                    )
                     action = str(decision.action)
                     if str(getattr(decision, "mode", "")) == "semantic_goal_priority":
                         semantic_overrides += 1
+                    if str(getattr(decision, "mode", "")) == "settings_sequence":
+                        sequence_steps += 1
                 except Exception:  # a policy crash is an invalid decision, not a crash of the eval
                     invalid += 1
                     steps += 1
@@ -209,6 +248,7 @@ def run_episode(
         actions=actions,
         invalid_actions=invalid,
         semantic_overrides=semantic_overrides,
+        sequence_steps=sequence_steps,
         sparse_states=sparse_states,
         recoveries=recoveries,
         terminal=False,
@@ -242,6 +282,20 @@ def recover_forwarder(adb_path: str, console_port: int) -> None:
     time.sleep(3)
 
 
+def forwarder_alive(adb_path: str, console_port: int) -> bool:
+    serial = f"emulator-{console_port}"
+    try:
+        completed = subprocess.run(
+            [adb_path, "-s", serial, "shell", "ps", "-A"],
+            capture_output=True,
+            text=True,
+            timeout=20,
+        )
+        return "com.google.androidenv.accessibilityforwarder" in completed.stdout
+    except Exception:
+        return False
+
+
 def stable_state(env: Any, goal: str) -> tuple[dict[str, Any], dict[str, tuple[int, int, int, int]], Any, int]:
     """Fetch a state with enough actionable elements.
 
@@ -265,7 +319,15 @@ def stable_state(env: Any, goal: str) -> tuple[dict[str, Any], dict[str, tuple[i
     return state, bounds, raw, retries
 
 
-def decide_policy(agent: Any, state: dict[str, Any], recent_actions: list[str], *, target_app: str | None) -> Any:
+def decide_policy(
+    agent: Any,
+    state: dict[str, Any],
+    recent_actions: list[str],
+    *,
+    target_app: str | None,
+    goal: str,
+    settings_policy: SettingsNavigationPolicy | None,
+) -> Any:
     """Open the task's app first, then delegate to the underlying policy.
 
     AndroidWorld official agents open the target app before interacting; we do
@@ -274,11 +336,27 @@ def decide_policy(agent: Any, state: dict[str, Any], recent_actions: list[str], 
     """
     url = str(state.get("url") or "")
     if target_app and target_app not in url:
+        if os.environ.get("AW_DEBUG"):
+            print(f"[aw-debug] app_open url={url}", flush=True)
         return type(
             "AppOpenDecision",
             (),
             {"action": f'open_app("{target_app}")', "to_dict": lambda self: {"action": self.action}},
         )()
+    if settings_policy is not None:
+        sequence = settings_policy.decide(state, goal, recent_actions)
+        if os.environ.get("AW_DEBUG"):
+            print(f"[aw-debug] seq={sequence} url={url} goal={goal}", flush=True)
+        if sequence is not None:
+            return type(
+                "SettingsSequenceDecision",
+                (),
+                {
+                    "action": sequence["action"],
+                    "mode": sequence["mode"],
+                    "to_dict": lambda self: {"action": self.action, "mode": self.mode},
+                },
+            )()
     return agent.decide(state, recent_actions)
 
 
@@ -327,6 +405,7 @@ def main() -> int:
         emulator_setup=False,
     )
     agents = build_agents(args)
+    settings_policy = build_settings_policy(args)
     tasks = [item.strip() for item in args.tasks.split(",") if item.strip()]
     results: list[EpisodeResult] = []
 
@@ -344,6 +423,7 @@ def main() -> int:
                         args.max_steps,
                         args.adb_path,
                         args.console_port,
+                        settings_policy,
                     )
                     results.append(result)
                     print(
@@ -372,6 +452,7 @@ def main() -> int:
                 ),
                 "invalid_actions_total": sum(r.invalid_actions for r in subset),
                 "semantic_overrides_total": sum(r.semantic_overrides for r in subset),
+                "sequence_steps_total": sum(r.sequence_steps for r in subset),
                 "sparse_states_total": sum(r.sparse_states for r in subset),
                 "recoveries_total": sum(r.recoveries for r in subset),
             }
@@ -397,7 +478,12 @@ def main() -> int:
         "notes": [
             "Success is read from Android system settings (wifi_on) via ADB; no LLM judge.",
             "Phase-three planner uses the local CPU ensemble and structure aligner.",
-        ],
+        ]
+        + (
+            ["Sequence-level Settings navigation policy enabled (settings_sequence)."]
+            if settings_policy is not None
+            else []
+        ),
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

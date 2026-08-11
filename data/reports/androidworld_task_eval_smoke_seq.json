@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-08-11T17:31:43.785862+00:00",
+  "platform": "androidworld_api33_whpx_local",
+  "tasks": [
+    "wifi_on"
+  ],
+  "agents": [
+    "reactive"
+  ],
+  "max_steps": 10,
+  "episodes_per_task": 1,
+  "summary": {
+    "reactive": {
+      "success_rate": 1.0,
+      "avg_steps": 10,
+      "action_execution_rate": 1.0,
+      "per_task": {
+        "wifi_on": {
+          "episodes": 1,
+          "success_rate": 1.0,
+          "avg_steps": 10,
+          "action_execution_rate": 1.0,
+          "invalid_actions_total": 0,
+          "semantic_overrides_total": 0,
+          "sequence_steps_total": 9,
+          "sparse_states_total": 1,
+          "recoveries_total": 0
+        }
+      }
+    }
+  },
+  "episodes": [
+    {
+      "task": "wifi_on",
+      "agent": "reactive",
+      "episode": 1,
+      "goal": "Turn wifi on.",
+      "success": 1.0,
+      "steps": 10,
+      "actions": 10,
+      "invalid_actions": 0,
+      "semantic_overrides": 0,
+      "sequence_steps": 9,
+      "sparse_states": 1,
+      "recoveries": 0,
+      "terminal": false,
+      "duration_sec": 29.956570386886597
+    }
+  ],
+  "notes": [
+    "Success is read from Android system settings (wifi_on) via ADB; no LLM judge.",
+    "Phase-three planner uses the local CPU ensemble and structure aligner.",
+    "Sequence-level Settings navigation policy enabled (settings_sequence)."
+  ]
+}

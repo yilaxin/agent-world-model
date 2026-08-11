@@ -52,7 +52,7 @@
 
 - P0：部署完整 WebArena 多站点环境并做固定任务、预算和种子的在线重评；相对 SR +10% 属于阶段四。
 - P1：500 条高风险、终止和严重失败样本已完成原始轨迹证据复核并以 `evidence_verified` 回写同规模数据视图；项目验收采用可复现证据复核，人工签字不是验收门槛。该来源仍保持为 `evidence_verified`，不伪称为 `human_verified`。
-- P2：AndroidWorld 已补齐官方 AndroidWorld 0.1.0、ADB、Pixel 6 API 33 AVD、gRPC 8554 与运行手册；本机 WHPX 硬件加速模拟器上真实 `reset → action → state` 冒烟已通过（19 个无障碍 UI 元素），预检 `runtime_ready=true`。扩展任务集评测（7 任务 × 5 次）读数稳定：反应式基线整体 42.9%，阶段三规划器 45.7%（启用「语义目标匹配优先」，Chrome/相册/Gmail 100%、wifi_on 20%），两者动作执行率均 100%；转发器恢复 2 次、稀疏状态步数很低。日历与信息等部分任务仍为 0%，策略可用性仍待提升，不能声称迁移完成。
+- P2：AndroidWorld 已补齐官方 AndroidWorld 0.1.0、ADB、Pixel 6 API 33 AVD、gRPC 8554 与运行手册；本机 WHPX 硬件加速模拟器上真实 `reset → action → state` 冒烟已通过（19 个无障碍 UI 元素），预检 `runtime_ready=true`。扩展任务集评测（7 任务 × 5 次）读数稳定：反应式基线整体 42.9%，阶段三规划器 45.7%（语义目标匹配：Chrome/相册/Gmail 100%）。新增序列级设置导航后，wifi 任务从 0–20% 提升到 60–80%（reactive wifi_on 80%、wifi_off 60%；规划器 wifi_on 60%、wifi_off 80%），动作执行率均 100%。日历与信息等部分任务仍为 0%，策略可用性仍待提升，不能声称迁移完成。
 
 ## 证据文件
 

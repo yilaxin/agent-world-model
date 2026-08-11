@@ -97,7 +97,7 @@ def elements_from_observation(observation: Mapping[str, Any]) -> list[AndroidEle
             # as buttons so downstream policies can act on them, while keeping
             # small status-bar/decoration texts non-actionable.
             left, top, right, bottom = bounds
-            rowlike = (right - left) >= 400 and (bottom - top) >= 80 and top >= 120
+            rowlike = (right - left) >= 100 and (bottom - top) >= 40 and top >= 120
             role = "button" if (rowlike and name) else "text"
         stable = str(_attribute(node, "resource_id", "resource-id", "resource_name", "id", default=f"node-{index}"))
         bid = "aw-" + hashlib.sha256(f"{stable}:{bounds}".encode()).hexdigest()[:10]
@@ -168,6 +168,17 @@ def map_agent_action(action: str, bounds_by_bid: Mapping[str, tuple[int, int, in
         if not quoted:
             raise ValueError("open_app needs an app name")
         return [{"action_type": "open_app", "app_name": quoted[0]}]
+    if action_type == "tap_switch":
+        if not quoted or quoted[0] not in bounds_by_bid:
+            raise ValueError("target element is absent from the Android accessibility tree")
+        left, top, right, bottom = bounds_by_bid[quoted[0]]
+        if right - left >= 400:
+            x = right - 40
+        else:
+            # Narrow label bounds do not cover the switch; the toggle sits at
+            # the right edge of the 1080-wide Pixel 6 screen.
+            x = 1000
+        return [{"action_type": "click", "x": x, "y": (top + bottom) // 2}]
     if action_type in {"click", "fill", "type", "select_option"}:
         if not quoted or quoted[0] not in bounds_by_bid:
             raise ValueError("target element is absent from the Android accessibility tree")

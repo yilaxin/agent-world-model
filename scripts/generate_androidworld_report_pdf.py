@@ -48,10 +48,10 @@ STYLES = {
     "title": ParagraphStyle("title", parent=base["Title"], fontName="MSYH-Bold", fontSize=22, leading=30, alignment=TA_LEFT, textColor=NAVY, spaceAfter=4 * mm),
     "kicker": ParagraphStyle("kicker", parent=base["Normal"], fontName="MSYH-Bold", fontSize=9, leading=14, textColor=CYAN, spaceAfter=2 * mm),
     "lead": ParagraphStyle("lead", parent=base["BodyText"], fontName="MSYH", fontSize=10.5, leading=17.5, textColor=INK, spaceAfter=3.5 * mm),
-    "h1": ParagraphStyle("h1", parent=base["Heading1"], fontName="MSYH-Bold", fontSize=13.5, leading=19, textColor=BLUE, spaceBefore=2.6 * mm, spaceAfter=2.6 * mm),
-    "h2": ParagraphStyle("h2", parent=base["Heading2"], fontName="MSYH-Bold", fontSize=10.3, leading=15.5, textColor=NAVY, spaceBefore=1.7 * mm, spaceAfter=1.7 * mm),
-    "body": ParagraphStyle("body", parent=base["BodyText"], fontName="MSYH", fontSize=9.1, leading=15, textColor=INK, spaceAfter=1.9 * mm),
-    "bullet": ParagraphStyle("bullet", parent=base["BodyText"], fontName="MSYH", fontSize=9.1, leading=15, textColor=INK, leftIndent=5 * mm, bulletIndent=1.5 * mm, spaceAfter=1.3 * mm),
+    "h1": ParagraphStyle("h1", parent=base["Heading1"], fontName="MSYH-Bold", fontSize=13, leading=18.5, textColor=BLUE, spaceBefore=2.2 * mm, spaceAfter=2.2 * mm),
+    "h2": ParagraphStyle("h2", parent=base["Heading2"], fontName="MSYH-Bold", fontSize=10.2, leading=15, textColor=NAVY, spaceBefore=1.4 * mm, spaceAfter=1.4 * mm),
+    "body": ParagraphStyle("body", parent=base["BodyText"], fontName="MSYH", fontSize=9, leading=14.5, textColor=INK, spaceAfter=1.6 * mm),
+    "bullet": ParagraphStyle("bullet", parent=base["BodyText"], fontName="MSYH", fontSize=9, leading=14.5, textColor=INK, leftIndent=5 * mm, bulletIndent=1.5 * mm, spaceAfter=1 * mm),
     "callout": ParagraphStyle("callout", parent=base["BodyText"], fontName="MSYH", fontSize=9.4, leading=16, textColor=INK, backColor=PALE_GREEN, borderColor=GREEN, borderWidth=0.8, borderPadding=6, spaceAfter=3 * mm),
     "mono": ParagraphStyle("mono", parent=base["BodyText"], fontName="MSYH", fontSize=8.2, leading=13, textColor=INK, backColor=PALE_AMBER, borderColor=AMBER, borderWidth=0.6, borderPadding=5, spaceAfter=3 * mm),
 }
@@ -85,6 +85,9 @@ def build() -> None:
     before_eval_path = REPORTS / "androidworld_task_eval_before_fix.json"
     before_eval = load_json(before_eval_path) if before_eval_path.exists() else {}
     before_summary = before_eval.get("summary", {})
+    wifi_seq_path = REPORTS / "androidworld_task_eval_wifi_sequence.json"
+    wifi_seq = load_json(wifi_seq_path) if wifi_seq_path.exists() else {}
+    wifi_seq_summary = wifi_seq.get("summary", {})
     checks = preflight.get("checks", {})
     before = smoke.get("before", {})
     after = smoke.get("after", {})
@@ -130,12 +133,9 @@ def build() -> None:
         ),
         Spacer(1, 2 * mm),
         para("三、解决的关键问题", "h1"),
-        para("问题 1：模拟器重启后 AndroidWifi 未自动重连，客户机到宿主机桥 10.0.2.2 的路由不可达（无障碍 gRPC 回传失败）。", "h2"),
-        para("修复：以 root ADB 删除旧的 AndroidWifi 配置并用 open 方式重建，DHCP 获得 10.0.2.16/24，默认路由指向 10.0.2.2；预检中的 host-bridge 路由检查随之通过。", "body"),
-        para("问题 2：TCG 软件仿真下锁屏卡在 showing 状态，无障碍框架返回 null root（uiautomator 报错），转发器服务被标记为 crashed。", "h2"),
-        para("修复：执行 locksettings set-disabled true 并设置 lockscreen.disabled=1，随后 force-stop 并重新启用转发器服务，使其以新 gRPC 通道连接 android_env 的随机端口 a11y 服务。", "body"),
-        para("问题 3：androidworld.apk 在软件仿真下安装超过 30 秒默认超时。", "h2"),
-        para("修复：确认 com.example.androidworld 与无障碍转发器均已安装，冒烟改为复用已装应用（跳过 --perform-emulator-setup），不再重复安装。", "body"),
+        para("• 网络：模拟器重启后 AndroidWifi 未自动重连、到宿主机桥 10.0.2.2 路由不可达 → 重建 WiFi 配置，DHCP 恢复 10.0.2.16/24；", "bullet"),
+        para("• 锁屏：TCG/WHPX 下锁屏卡在 showing 导致无障碍框架拿不到根节点、转发器崩溃 → locksettings set-disabled true + 重启转发器服务；", "bullet"),
+        para("• 安装/路径：androidworld.apk 安装超时与中文路径乱码 → 复用已装应用、SDK/AVD 迁移到 ASCII 路径、截图像素改为 Unicode 安全写入。", "bullet"),
         para("四、验收证据", "h1"),
         para("预检结果（androidworld_preflight_latest.json）", "h2"),
         Table(
@@ -185,7 +185,7 @@ def build() -> None:
         ),
         Spacer(1, 2 * mm),
         para("采集到的无障碍树（节选）", "h2"),
-        para("<br/>".join("· " + line for line in axtree[:11]), "mono"),
+        para("<br/>".join("· " + line for line in axtree[:6]), "mono"),
         para("五、任务级评测结果（扩展任务集）", "h1"),
         para("确定性任务（成功判定直接读系统设置/前台应用，无 LLM 裁判）：wifi_on、wifi_off（官方任务）+ 5 个打开应用任务（Chrome/日历/相册/信息/Gmail）。每任务 5 次、每轮最多 10 步；两个 Agent 分两段、各自使用新启动的模拟器运行以避免长跑退化。规划器启用语义目标匹配优先。", "body"),
         Table(
@@ -224,16 +224,42 @@ def build() -> None:
         para("• 反应式基线在「信息」上 100% 而规划器 0%（12 次语义覆盖仍未成功，需进一步排查点击目标或前台判定）；", "bullet"),
         para("• 规划器在 wifi_on 上真实完成 1/5（20%）：语义匹配找到了 Wi-Fi 开关；日历两条策略均为 0%（按钮不在默认主页，需要翻页）；", "bullet"),
         para("• 稳定性：新增转发器故障恢复后全程无崩溃，恢复仅 2 次、稀疏状态步数很低（reactive 10、phase3 4）；两段评测使用独立的新模拟器启动。", "bullet"),
-        para("六、结论与遗留问题", "h1"),
-        para("真实 reset/action/state 冒烟与任务级首轮评测均已在 WHPX 加速环境完成并保留证据。当前状态从「运行时就绪 / 冒烟待验」更新为「冒烟与首轮任务评测完成」，但两条策略在 AndroidWorld 上的任务成功率（22.2% / 0%）尚不可用，因此不能声称迁移完成。", "callout"),
+        para("六、序列级导航（wifi 多步任务）", "h1"),
+        para("针对「进入设置 → Network & internet → Internet → Wi-Fi 开关」的多步导航，新增 opt-in 的序列策略（settings_sequence）：识别目标分区行、未知子页自动返回、开关点击防重复。每任务 5 次、每轮最多 12 步。", "body"),
+        Table(
+            [
+                ["任务", "无序列（基线）", "启用序列导航"],
+                ["wifi_on · 反应式", pct(task_val(task_summary, "reactive", "wifi_on", "success_rate", 0)), pct(task_val(wifi_seq_summary, "reactive", "wifi_on", "success_rate", 0))],
+                ["wifi_off · 反应式", pct(task_val(task_summary, "reactive", "wifi_off", "success_rate", 0)), pct(task_val(wifi_seq_summary, "reactive", "wifi_off", "success_rate", 0))],
+                ["wifi_on · 规划器", pct(task_val(task_summary, "phase3", "wifi_on", "success_rate", 0)), pct(task_val(wifi_seq_summary, "phase3", "wifi_on", "success_rate", 0))],
+                ["wifi_off · 规划器", pct(task_val(task_summary, "phase3", "wifi_off", "success_rate", 0)), pct(task_val(wifi_seq_summary, "phase3", "wifi_off", "success_rate", 0))],
+                ["动作执行率", "100%", "100%"],
+                ["序列决策步数", "—", "41–45 / 任务"],
+            ],
+            colWidths=[70 * mm, 55 * mm, 55 * mm],
+            style=TableStyle([
+                ("FONTNAME", (0, 0), (-1, -1), "MSYH"),
+                ("FONTNAME", (0, 0), (-1, 0), "MSYH-Bold"),
+                ("BACKGROUND", (0, 0), (-1, 0), GREEN),
+                ("TEXTCOLOR", (0, 0), (-1, 0), colors.white),
+                ("GRID", (0, 0), (-1, -1), 0.5, LINE),
+                ("TOPPADDING", (0, 0), (-1, -1), 5),
+                ("BOTTOMPADDING", (0, 0), (-1, -1), 5),
+                ("BACKGROUND", (0, 1), (0, -1), colors.HexColor("#EAF2F8")),
+            ]),
+        ),
+        Spacer(1, 2 * mm),
+        para("结论：序列级语义支持把 wifi 任务从 0–20% 提升到 60–80%，且两条策略同时受益；剩余失败主要来自无障碍转发器偶发抓取失败（每任务稀疏状态步数 4–6、恢复 0–1 次）。", "callout"),
+        para("七、结论与遗留问题", "h1"),
+        para("本机 WHPX 上已完成冒烟、7 任务扩展评测与 wifi 序列级导航实验：反应式基线整体 42.9%、规划器 45.7%，启用序列导航后 wifi 任务 60–80%。策略在简单打开应用与设置多步导航两类任务上均已具备可用性，但部分任务（日历、信息）与转发器稳定性仍是硬门槛，不能声称迁移完成。", "callout"),
         para("尚未完成（不能省略的硬门槛）：", "h2"),
-        para("• 策略可用性：阶段三规划器需在 Android UI 上修正重排序失误（例如：结构化候选优先于想象评分），并补测更多官方任务；", "bullet"),
-        para("• 环境稳定性：消除无障碍转发器偶发抓取失败，使成功率读数可复现；", "bullet"),
-        para("• 泛化：当前仅验证 Pixel 6 API 33 一条设备路径与 3 个任务。", "bullet"),
-        para("七、建议下一步", "h1"),
-        para("1. 在评测脚本中保留完整轨迹（每步状态、候选、决策）并扩大任务集与 episode 数；", "bullet"),
-        para("2. 为规划器加入「语义目标匹配优先」的 Android 适配策略后复测，对比重排序修正前后的成功率；", "bullet"),
-        para("3. 稳定转发器后，以本机 WHPX 作为 AndroidWorld 任务级评测的常驻环境。", "bullet"),
+        para("• 策略缺口：日历（按钮不在默认主页，需要翻页）与信息（规划器 12 次语义覆盖仍未进入前台）两条任务仍为 0%；", "bullet"),
+        para("• 环境稳定性：无障碍转发器偶发抓取失败仍会吞掉部分 episode，需进一步稳定（如转发器进程健康监控）；", "bullet"),
+        para("• 泛化：当前仅验证 Pixel 6 API 33 一条设备路径。", "bullet"),
+        para("建议下一步：", "h2"),
+        para("① 为日历任务加入首页翻页（swipe）支持，为信息任务排查点击目标与前台判定；", "bullet"),
+        para("② 把序列导航策略扩展到亮度等其它官方设置任务，并扩大 episode 数到 10 以进一步压稳读数；", "bullet"),
+        para("③ 稳定转发器后，以本机 WHPX 作为 AndroidWorld 任务级评测的常驻环境。", "bullet"),
     ]
 
     doc = SimpleDocTemplate(str(OUTPUT), pagesize=A4, leftMargin=16 * mm, rightMargin=16 * mm, topMargin=14 * mm, bottomMargin=14 * mm)
