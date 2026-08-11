@@ -20,7 +20,7 @@ const issueRows = [
   ["P1", "阶段三离线验收", "反事实与多步评估全部通过既定门槛", "已解决"],
   ["P0", "WebArena 在线成功率", "本轮未配置多站点环境，未做在线重评；不得声称提升", "待阶段四"],
   ["P1", "高风险标签复核", "500/500 条已完成原始轨迹证据核验并写为 evidence_verified；按项目规则无需人工签字", "已解决"],
-  ["P2", "AndroidWorld", "本机 WHPX：预检/冒烟通过（19 个 UI 元素）；7 任务扩展评测 reactive 42.9% vs phase3 45.7%；序列级导航后 wifi 任务 60–80%（reactive 80%/60%，phase3 60%/80%）", "扩展评测+序列导航完成"],
+  ["P2", "AndroidWorld", "本机 WHPX：预检/冒烟通过（19 个 UI 元素）；7 任务扩展评测 reactive 42.9% vs phase3 45.7%；序列级导航后 wifi 任务 10 次复测 70–90%（reactive 70%/80%，phase3 80%/90%），轨迹已落盘", "扩展评测+序列导航完成"],
 ];
 
 const horizons = [
@@ -54,7 +54,7 @@ export default function Home() {
         <Metric label="测试 H=3 窗口" value="329" note="门槛 100，已通过" />
         <Metric label="反事实测试准确率" value="97.73%" note="396 个有效测试配对" />
         <Metric label="高风险证据复核" value="500 / 500" note="evidence_verified；自动证据验收通过" />
-        <Metric label="AndroidWorld 运行时" value="API 33" note="WHPX 冒烟通过；序列导航后 wifi 60–80%" />
+        <Metric label="AndroidWorld 运行时" value="API 33" note="WHPX 冒烟通过；序列导航后 wifi 70–90%" />
       </section>
 
       <h2>问题收口状态</h2>
@@ -72,7 +72,7 @@ export default function Home() {
       <h2>真实连续轨迹：H=1/2/3</h2>
       <div className="table-wrap"><table><thead><tr><th>视野</th><th>测试窗口</th><th>Latent MSE</th><th>余弦相似度</th><th>终止结尾</th><th>严重失败</th></tr></thead><tbody>{horizons.map((row) => <tr key={row[0]}>{row.map((cell) => <td key={cell}>{cell}</td>)}</tr>)}</tbody></table></div>
 
-      <section className="warning"><b>诚实边界</b><p>多步评估的 H3 MSE 虽通过预设的相对上限，但仍差于 persistence baseline，说明长视野潜状态预测还有改进空间。反事实排序中集成与最佳单模型准确率相同，配对差异 95% CI 为 [-1.01%, 1.01%]；集成只降低了平均决策遗憾，因此生产方法仍按验证集选择单模型。WebArena 本轮没有可用多站点环境变量，未执行新的在线成功率评测。AndroidWorld 在本机 WHPX 上完成冒烟与任务级评测：7 任务 reactive 42.9% vs phase3 45.7%，序列级导航后 wifi 任务 60–80%；日历/信息仍为 0%，转发器偶发抖动仍在，不能声称迁移完成。</p></section>
+      <section className="warning"><b>诚实边界</b><p>多步评估的 H3 MSE 虽通过预设的相对上限，但仍差于 persistence baseline，说明长视野潜状态预测还有改进空间。反事实排序中集成与最佳单模型准确率相同，配对差异 95% CI 为 [-1.01%, 1.01%]；集成只降低了平均决策遗憾，因此生产方法仍按验证集选择单模型。WebArena 本轮没有可用多站点环境变量，未执行新的在线成功率评测。AndroidWorld 在本机 WHPX 上完成冒烟与任务级评测：7 任务 reactive 42.9% vs phase3 45.7%，序列级导航后 wifi 任务 10 次复测 70–90%；日历/信息仍为 0%，转发器偶发抖动仍在，不能声称迁移完成。</p></section>
 
       <footer><span>Agent 世界模型决策优化</span><span>更新于 2026-08-10 · 证据来自 RTX 4090 最终 JSON 报告</span></footer>
     </main>

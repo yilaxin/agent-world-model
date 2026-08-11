@@ -94,6 +94,7 @@ class EpisodeResult:
     recoveries: int
     terminal: bool
     duration_sec: float
+    trajectory_file: str
 
 
 def parse_args() -> argparse.Namespace:
@@ -106,6 +107,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--tasks", default="wifi_on,wifi_off,open_chrome,open_calendar,open_photos,open_messages,open_gmail")
     parser.add_argument("--agents", default="reactive,phase3")
     parser.add_argument("--settings-navigation", action="store_true")
+    parser.add_argument("--trajectory-dir", type=Path, default=PROJECT_ROOT / "data" / "trajectories_androidworld")
     parser.add_argument("--output", type=Path, default=PROJECT_ROOT / "data" / "reports" / "androidworld_task_eval_latest.json")
     return parser.parse_args()
 
@@ -143,7 +145,11 @@ def run_episode(
     adb_path: str,
     console_port: int,
     settings_policy: SettingsNavigationPolicy | None,
+    trajectory_dir: Path,
 ) -> EpisodeResult:
+    trajectory_dir.mkdir(parents=True, exist_ok=True)
+    trajectory_file = trajectory_dir / f"{agent_name}_{task_name}_ep{episode}.jsonl"
+    trajectory_rows: list[dict[str, Any]] = []
     target_app = "com.android.settings" if task_name in ("wifi_on", "wifi_off") else None
     recent_actions: list[str] = []
     steps = 0
@@ -213,22 +219,90 @@ def run_episode(
                     if str(getattr(decision, "mode", "")) == "settings_sequence":
                         sequence_steps += 1
                 except Exception:  # a policy crash is an invalid decision, not a crash of the eval
+                    trajectory_rows.append(
+                        {
+                            "agent": agent_name,
+                            "task": task_name,
+                            "episode": episode,
+                            "step": steps + 1,
+                            "url": str(state.get("url") or ""),
+                            "action": "invalid()",
+                            "mode": "policy_error",
+                            "invalid": True,
+                            "element_count": len(bounds),
+                        }
+                    )
                     invalid += 1
                     steps += 1
                     recent_actions.append("invalid()")
                     continue
                 steps += 1
+                decision_detail: dict[str, Any] = {}
+                try:
+                    decision_detail = dict(getattr(decision, "to_dict", lambda: {})() or {})
+                    if "candidates" in decision_detail:
+                        decision_detail["candidates"] = decision_detail["candidates"][:8]
+                except Exception:
+                    decision_detail = {}
                 try:
                     mapped = map_agent_action(action, bounds)
                 except ValueError:
+                    trajectory_rows.append(
+                        {
+                            "agent": agent_name,
+                            "task": task_name,
+                            "episode": episode,
+                            "step": steps,
+                            "url": str(state.get("url") or ""),
+                            "goal": goal,
+                            "action": action,
+                            "mode": str(getattr(decision, "mode", "")),
+                            "invalid": True,
+                            "reason": "unmappable_action",
+                            "element_count": len(bounds),
+                            "decision": decision_detail,
+                        }
+                    )
                     invalid += 1
                     recent_actions.append(action)
                     continue
+                trajectory_rows.append(
+                    {
+                        "agent": agent_name,
+                        "task": task_name,
+                        "episode": episode,
+                        "step": steps,
+                        "url": str(state.get("url") or ""),
+                        "goal": goal,
+                        "action": action,
+                        "mode": str(getattr(decision, "mode", "")),
+                        "target": str(getattr(decision, "target", "") or ""),
+                        "invalid": False,
+                        "element_count": len(bounds),
+                        "axtree": str((state.get("axtree") or {}).get("text") or "")[:2500],
+                        "decision": decision_detail,
+                    }
+                )
                 for item in mapped:
                     env.execute_action(json_action.JSONAction(**item))
                     actions += 1
                 recent_actions.append(action)
             success = float(task.is_successful(env))
+            trajectory_rows.append(
+                {
+                    "agent": agent_name,
+                    "task": task_name,
+                    "episode": episode,
+                    "step": "done",
+                    "success": success,
+                    "actions": actions,
+                    "invalid_actions": invalid,
+                    "duration_sec": time.time() - started,
+                }
+            )
+            with trajectory_file.open("w", encoding="utf-8") as handle:
+                for row in trajectory_rows:
+                    handle.write(json.dumps(row, ensure_ascii=False) + "\n")
             break
         except RuntimeError as error:
             if "a11y" not in str(error).lower() and "tree" not in str(error).lower():
@@ -253,6 +327,7 @@ def run_episode(
         recoveries=recoveries,
         terminal=False,
         duration_sec=time.time() - started,
+        trajectory_file=str(trajectory_file),
     )
 
 
@@ -424,6 +499,7 @@ def main() -> int:
                         args.adb_path,
                         args.console_port,
                         settings_policy,
+                        Path(args.trajectory_dir),
                     )
                     results.append(result)
                     print(
@@ -475,6 +551,8 @@ def main() -> int:
         "episodes_per_task": args.episodes,
         "summary": rows,
         "episodes": [vars(r) for r in results],
+        "trajectory_dir": str(args.trajectory_dir),
+        "trajectory_files": len(list(Path(args.trajectory_dir).glob("*.jsonl"))),
         "notes": [
             "Success is read from Android system settings (wifi_on) via ADB; no LLM judge.",
             "Phase-three planner uses the local CPU ensemble and structure aligner.",

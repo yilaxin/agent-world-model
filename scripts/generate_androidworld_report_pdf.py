@@ -88,6 +88,9 @@ def build() -> None:
     wifi_seq_path = REPORTS / "androidworld_task_eval_wifi_sequence.json"
     wifi_seq = load_json(wifi_seq_path) if wifi_seq_path.exists() else {}
     wifi_seq_summary = wifi_seq.get("summary", {})
+    wifi_seq_ep10_path = REPORTS / "androidworld_task_eval_wifi_sequence_ep10.json"
+    wifi_seq_ep10 = load_json(wifi_seq_ep10_path) if wifi_seq_ep10_path.exists() else {}
+    wifi_seq_ep10_summary = wifi_seq_ep10.get("summary", {})
     checks = preflight.get("checks", {})
     before = smoke.get("before", {})
     after = smoke.get("after", {})
@@ -225,16 +228,16 @@ def build() -> None:
         para("• 规划器在 wifi_on 上真实完成 1/5（20%）：语义匹配找到了 Wi-Fi 开关；日历两条策略均为 0%（按钮不在默认主页，需要翻页）；", "bullet"),
         para("• 稳定性：新增转发器故障恢复后全程无崩溃，恢复仅 2 次、稀疏状态步数很低（reactive 10、phase3 4）；两段评测使用独立的新模拟器启动。", "bullet"),
         para("六、序列级导航（wifi 多步任务）", "h1"),
-        para("针对「进入设置 → Network & internet → Internet → Wi-Fi 开关」的多步导航，新增 opt-in 的序列策略（settings_sequence）：识别目标分区行、未知子页自动返回、开关点击防重复。每任务 5 次、每轮最多 12 步。", "body"),
+        para("针对「进入设置 → Network & internet → Internet → Wi-Fi 开关」的多步导航，新增 opt-in 的序列策略（settings_sequence）：识别目标分区行、未知子页自动返回、开关点击防重复，并记录每步轨迹（状态、动作、决策）到 JSONL。稳定复测每任务 10 次、每轮最多 12 步。", "body"),
         Table(
             [
                 ["任务", "无序列（基线）", "启用序列导航"],
-                ["wifi_on · 反应式", pct(task_val(task_summary, "reactive", "wifi_on", "success_rate", 0)), pct(task_val(wifi_seq_summary, "reactive", "wifi_on", "success_rate", 0))],
-                ["wifi_off · 反应式", pct(task_val(task_summary, "reactive", "wifi_off", "success_rate", 0)), pct(task_val(wifi_seq_summary, "reactive", "wifi_off", "success_rate", 0))],
-                ["wifi_on · 规划器", pct(task_val(task_summary, "phase3", "wifi_on", "success_rate", 0)), pct(task_val(wifi_seq_summary, "phase3", "wifi_on", "success_rate", 0))],
-                ["wifi_off · 规划器", pct(task_val(task_summary, "phase3", "wifi_off", "success_rate", 0)), pct(task_val(wifi_seq_summary, "phase3", "wifi_off", "success_rate", 0))],
+                ["wifi_on · 反应式", pct(task_val(task_summary, "reactive", "wifi_on", "success_rate", 0)), pct(task_val(wifi_seq_ep10_summary, "reactive", "wifi_on", "success_rate", 0))],
+                ["wifi_off · 反应式", pct(task_val(task_summary, "reactive", "wifi_off", "success_rate", 0)), pct(task_val(wifi_seq_ep10_summary, "reactive", "wifi_off", "success_rate", 0))],
+                ["wifi_on · 规划器", pct(task_val(task_summary, "phase3", "wifi_on", "success_rate", 0)), pct(task_val(wifi_seq_ep10_summary, "phase3", "wifi_on", "success_rate", 0))],
+                ["wifi_off · 规划器", pct(task_val(task_summary, "phase3", "wifi_off", "success_rate", 0)), pct(task_val(wifi_seq_ep10_summary, "phase3", "wifi_off", "success_rate", 0))],
                 ["动作执行率", "100%", "100%"],
-                ["序列决策步数", "—", "41–45 / 任务"],
+                ["序列决策步数", "—", "78–96 / 任务"],
             ],
             colWidths=[70 * mm, 55 * mm, 55 * mm],
             style=TableStyle([
@@ -249,7 +252,7 @@ def build() -> None:
             ]),
         ),
         Spacer(1, 2 * mm),
-        para("结论：序列级语义支持把 wifi 任务从 0–20% 提升到 60–80%，且两条策略同时受益；剩余失败主要来自无障碍转发器偶发抓取失败（每任务稀疏状态步数 4–6、恢复 0–1 次）。", "callout"),
+        para("结论：序列级语义支持把 wifi 任务从 0–20% 提升到 70–90%（10 次稳定复测），且两条策略同时受益；逐步骤轨迹已保存（40 个 JSONL）。剩余失败主要来自无障碍转发器偶发抓取失败（每任务稀疏状态步数 4–9、恢复 2–3 次）。", "callout"),
         para("七、结论与遗留问题", "h1"),
         para("本机 WHPX 上已完成冒烟、7 任务扩展评测与 wifi 序列级导航实验：反应式基线整体 42.9%、规划器 45.7%，启用序列导航后 wifi 任务 60–80%。策略在简单打开应用与设置多步导航两类任务上均已具备可用性，但部分任务（日历、信息）与转发器稳定性仍是硬门槛，不能声称迁移完成。", "callout"),
         para("尚未完成（不能省略的硬门槛）：", "h2"),

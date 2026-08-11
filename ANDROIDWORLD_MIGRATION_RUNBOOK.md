@@ -140,20 +140,23 @@ forwarder on failure and retries the episode up to three times; sparse-state
 steps and recoveries are reported so environment flakiness is not attributed
 to either policy.
 
-Sequence-level Settings navigation (2026-08-12, 5 episodes per task, 12-step
+Sequence-level Settings navigation (2026-08-12, 10 episodes per task, 12-step
 budget) adds the explicit plan "open Settings -> Network & internet -> Internet
 -> tap the Wi-Fi switch", with unknown-screen BACK unwinding and a no-repeat
-guard on the toggled switch:
+guard on the toggled switch.  The evaluator also writes per-step trajectories
+(state URL, axtree, action, decision) as JSONL under
+`data/trajectories_androidworld/`:
 
 | wifi task | Without sequence | With sequence |
 |---|---:|---:|
-| wifi_on · reactive | 0% | 80% |
-| wifi_off · reactive | 0% | 60% |
-| wifi_on · phase3 | 20% | 60% |
-| wifi_off · phase3 | 0% | 80% |
+| wifi_on · reactive | 0% | 70% |
+| wifi_off · reactive | 0% | 80% |
+| wifi_on · phase3 | 20% | 80% |
+| wifi_off · phase3 | 0% | 90% |
 
-Run with `--settings-navigation`.  Remaining failures track the accessibility
-forwarder's occasional sparse-tree hiccups (4-6 sparse steps and 0-1 recoveries
+Run with `--settings-navigation --episodes 10 --trajectory-dir
+data/trajectories_androidworld`.  Remaining failures track the accessibility
+forwarder's occasional sparse-tree hiccups (4-9 sparse steps and 2-3 recoveries
 per task) rather than the navigation policy.
 
 ## 3. Evidence required before calling migration complete
