@@ -87,7 +87,18 @@ def elements_from_observation(observation: Mapping[str, Any]) -> list[AndroidEle
         class_name = str(_attribute(node, "class", "class_name", default="") or "").lower()
         editable = bool(_attribute(node, "editable", "is_editable", default=False) or "edittext" in class_name)
         clickable = bool(_attribute(node, "clickable", "is_clickable", default=False))
-        role = "textbox" if editable else "button" if clickable else "text"
+        if editable:
+            role = "textbox"
+        elif clickable:
+            role = "button"
+        else:
+            # Android navigation rows are full-width tappable text rows that
+            # are not flagged clickable in the accessibility tree.  Expose them
+            # as buttons so downstream policies can act on them, while keeping
+            # small status-bar/decoration texts non-actionable.
+            left, top, right, bottom = bounds
+            rowlike = (right - left) >= 400 and (bottom - top) >= 80 and top >= 120
+            role = "button" if (rowlike and name) else "text"
         stable = str(_attribute(node, "resource_id", "resource-id", "resource_name", "id", default=f"node-{index}"))
         bid = "aw-" + hashlib.sha256(f"{stable}:{bounds}".encode()).hexdigest()[:10]
         result.append(AndroidElement(bid=bid, role=role, name=name, bounds=bounds, editable=editable))
@@ -153,6 +164,10 @@ def map_agent_action(action: str, bounds_by_bid: Mapping[str, tuple[int, int, in
         raise ValueError(f"invalid action syntax: {action}")
     action_type, arguments = match.group(1).lower(), match.group(2)
     quoted = _QUOTED_RE.findall(arguments)
+    if action_type == "open_app":
+        if not quoted:
+            raise ValueError("open_app needs an app name")
+        return [{"action_type": "open_app", "app_name": quoted[0]}]
     if action_type in {"click", "fill", "type", "select_option"}:
         if not quoted or quoted[0] not in bounds_by_bid:
             raise ValueError("target element is absent from the Android accessibility tree")

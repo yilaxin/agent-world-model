@@ -52,7 +52,7 @@
 
 - P0：部署完整 WebArena 多站点环境并做固定任务、预算和种子的在线重评；相对 SR +10% 属于阶段四。
 - P1：500 条高风险、终止和严重失败样本已完成原始轨迹证据复核并以 `evidence_verified` 回写同规模数据视图；项目验收采用可复现证据复核，人工签字不是验收门槛。该来源仍保持为 `evidence_verified`，不伪称为 `human_verified`。
-- P2：AndroidWorld 已补齐官方 AndroidWorld 0.1.0、ADB、Pixel 6 API 33 AVD、gRPC 8554 与运行手册；软件仿真设备上真实 `reset → action → state` 冒烟已通过（18 个无障碍 UI 元素），预检 `runtime_ready=true`。容器不暴露 `/dev/kvm`，任务级基线/规划器对比仍需 KVM 加速主机，不能声称迁移完成。
+- P2：AndroidWorld 已补齐官方 AndroidWorld 0.1.0、ADB、Pixel 6 API 33 AVD、gRPC 8554 与运行手册；本机 WHPX 硬件加速模拟器上真实 `reset → action → state` 冒烟已通过（19 个无障碍 UI 元素），预检 `runtime_ready=true`。任务级首轮评测已完成：反应式基线整体成功率 22.2%（open_chrome 66.7%），阶段三规划器 0%，两者动作执行率均 100%；策略可用性仍待提升，不能声称迁移完成。
 
 ## 证据文件
 

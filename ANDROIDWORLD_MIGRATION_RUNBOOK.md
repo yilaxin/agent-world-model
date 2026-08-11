@@ -93,6 +93,41 @@ After that the forwarder service must be force-stopped and re-enabled so it
 builds a fresh gRPC channel to the host a11y server (an ephemeral port
 broadcast by `android_env`), and the smoke can capture a populated tree.
 
+## 5. Task-level evaluation (local WHPX)
+
+On the verified Windows workstation the emulator runs with WHPX hardware
+acceleration (`emulator -accel-check` reports WHPX installed and usable), so
+task-level runs no longer depend on a KVM host.  The AVD and SDK live under
+ASCII-only paths (`C:\AndroidSdk`, `C:\AndroidUser\.android`) because the
+emulator mangles non-ASCII user-home paths when spawning QEMU.
+
+Run the deterministic task comparison (no LLM judge; success is read back from
+Android settings / foreground activity via ADB):
+
+```powershell
+$env:PYTHONIOENCODING="utf-8"
+& C:\Users\卢政坤\Android\androidworld-venv\Scripts\python.exe `
+  scripts\evaluate_androidworld_tasks.py `
+  --adb-path C:\AndroidSdk\platform-tools\adb.exe `
+  --tasks wifi_on,wifi_off,open_chrome --episodes 3 --max-steps 10
+```
+
+First-round results (2026-08-11, 3 episodes per task, 10-step budget):
+
+| Metric | Reactive baseline | Phase-3 planner |
+|---|---:|---:|
+| Overall success | 22.2% (open_chrome 66.7%) | 0% |
+| Action execution rate | 100% | 100% |
+| Avg steps | 10 | 10 |
+
+Findings: the reactive baseline can perform simple goal-token clicks (open
+Chrome) but cannot navigate Settings; the phase-3 planner failed even on
+open_chrome because its world-model reranking overrode the best structured
+candidate (Search was chosen over Chrome on step 1).  The accessibility
+forwarder occasionally returns a sparse tree right after navigation; the
+evaluator retries for a short window, and residual flakiness is reported as an
+environment issue rather than attributed to either policy.
+
 ## 3. Evidence required before calling migration complete
 
 - Save the preflight JSON with `runtime_ready: true`.

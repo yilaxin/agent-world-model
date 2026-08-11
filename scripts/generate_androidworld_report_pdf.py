@@ -79,25 +79,30 @@ def draw_page(canvas, doc) -> None:
 def build() -> None:
     preflight = load_json(REPORTS / "androidworld_preflight_latest.json")
     smoke = load_json(REPORTS / "androidworld_smoke_latest.json")
+    task_eval_path = REPORTS / "androidworld_task_eval_latest.json"
+    task_eval = load_json(task_eval_path) if task_eval_path.exists() else {}
+    task_summary = task_eval.get("summary", {})
     checks = preflight.get("checks", {})
     before = smoke.get("before", {})
     after = smoke.get("after", {})
     axtree = (before.get("axtree") or "").splitlines()
+    pct = lambda value: f"{value * 100:.1f}%"
 
     story = [
         para("ANDROIDWORLD · 冒烟验收", "kicker"),
         para("AndroidWorld 真实迁移：冒烟验收汇报", "title"),
-        para("在 AutoDL RTX 4090 容器中完成官方 AndroidWorld 0.1.0 软件仿真设备上的真实 <b>reset → action → state</b> 冒烟测试；无障碍树含 18 个真实 UI 元素。任务级基线/规划器对比仍需 KVM 加速主机，因此本报告结论为「基础冒烟通过、任务评测待办」，不声称迁移完成。", "lead"),
+        para("官方 AndroidWorld 0.1.0 已在 <b>本机 Windows WHPX 硬件加速模拟器</b>上完成真实 <b>reset → action → state</b> 冒烟（19 个无障碍 UI 元素），并完成任务级首轮评测：反应式基线整体成功率 22.2%，阶段三规划器 0%，两者动作执行率均 100%。当前结论为「冒烟与首轮任务评测完成、策略可用性仍待提升」，不声称迁移完成。", "lead"),
         para("一、背景与目标", "h1"),
-        para("进度看板 P2 项「AndroidWorld 真实迁移」此前状态为「运行时就绪 / 冒烟待验」：官方软件栈、API 33 模拟器与预检均已就绪，但真实环境交互尚未跑通。本次目标是完成真实 <b>reset → action → state</b> 冒烟并保留可审计证据（状态、动作、无障碍树、截图哈希）。", "body"),
+        para("进度看板 P2 项「AndroidWorld 真实迁移」此前状态为「运行时就绪 / 冒烟待验」。本次目标：①在本机 WHPX 加速模拟器上完成真实 <b>reset → action → state</b> 冒烟；②完成确定性任务的反应式基线 vs 阶段三规划器对比（成功率、动作执行率、平均步数）；③保留全部可审计证据。", "body"),
         para("二、运行环境", "h1"),
         Table(
             [
                 ["项目", "配置"],
-                ["主机", "AutoDL GPU 容器（RTX 4090，软件仿真；无 /dev/kvm）"],
+                ["模拟器主机", "本机 Windows 11 · WHPX 硬件加速（虚拟化已启用）"],
+                ["推理主机", "AutoDL RTX 4090 / 本机 CPU（世界模型集成与结构对齐器）"],
                 ["AndroidWorld", "官方 0.1.0（固定上游提交）"],
-                ["Python", "3.11.15（conda 环境 android_world）"],
-                ["Android SDK", "platform-tools、emulator 37.1.11、build-tools 33.0.2、platforms;android-33"],
+                ["Python", "3.12 venv（torch CPU + android_world 0.1.0）"],
+                ["Android SDK", "platform-tools、emulator 37.2.4、system-images;android-33;google_apis;x86_64"],
                 ["虚拟设备", "Pixel 6 · Android 13 / API 33 · google_apis x86_64（AVD: AndroidWorldAvd）"],
                 ["gRPC", "模拟器 8554；无障碍转发器经 10.0.2.2 连接 android_env 随机端口服务"],
             ],
@@ -132,7 +137,7 @@ def build() -> None:
                 ["gRPC 8554 可达", str(checks.get("grpc_forwarding_reachable"))],
                 ["10.0.2.2 路由", "已建立（" + (checks.get("emulator_host_bridge_route") or {}).get("output", "").splitlines()[0] + "）"],
                 ["android_world 版本", str(checks.get("android_world_version"))],
-                ["/dev/kvm", "不可用（软件仿真诊断）"],
+                ["加速环境", "本机 WHPX 可用（-accel-check 通过），任务级评测在本机完成"],
             ],
             colWidths=[70 * mm, 110 * mm],
             style=TableStyle([
@@ -172,16 +177,45 @@ def build() -> None:
         Spacer(1, 2 * mm),
         para("采集到的无障碍树（节选）", "h2"),
         para("<br/>".join("· " + line for line in axtree[:11]), "mono"),
-        para("五、结论与遗留问题", "h1"),
-        para("真实 reset、真实动作执行与真实状态采集已在软件仿真设备上通过，Agent 可感知完整屏幕无障碍树。当前状态从「运行时就绪 / 冒烟待验」更新为「基础冒烟通过 / 任务评测待办」。", "callout"),
+        para("五、任务级首轮评测结果", "h1"),
+        para("确定性任务（成功判定直接读系统设置/前台应用，无 LLM 裁判）：wifi_on、wifi_off（官方任务）、open_chrome（打开 Chrome）。每任务 3 次、每轮最多 10 步。", "body"),
+        Table(
+            [
+                ["指标", "反应式基线", "阶段三规划器"],
+                ["整体成功率", pct(task_summary.get("reactive", {}).get("success_rate", 0)) if task_summary else "—", pct(task_summary.get("phase3", {}).get("success_rate", 0)) if task_summary else "—"],
+                ["open_chrome", pct(task_summary.get("reactive", {}).get("per_task", {}).get("open_chrome", {}).get("success_rate", 0)) if task_summary else "—", pct(task_summary.get("phase3", {}).get("per_task", {}).get("open_chrome", {}).get("success_rate", 0)) if task_summary else "—"],
+                ["wifi_on / wifi_off", "0% / 0%", "0% / 0%"],
+                ["动作执行率", pct(task_summary.get("reactive", {}).get("action_execution_rate", 0)) if task_summary else "—", pct(task_summary.get("phase3", {}).get("action_execution_rate", 0)) if task_summary else "—"],
+                ["平均步数", str(task_summary.get("reactive", {}).get("avg_steps", "-")) if task_summary else "—", str(task_summary.get("phase3", {}).get("avg_steps", "-")) if task_summary else "—"],
+            ],
+            colWidths=[56 * mm, 62 * mm, 62 * mm],
+            style=TableStyle([
+                ("FONTNAME", (0, 0), (-1, -1), "MSYH"),
+                ("FONTNAME", (0, 0), (-1, 0), "MSYH-Bold"),
+                ("BACKGROUND", (0, 0), (-1, 0), NAVY),
+                ("TEXTCOLOR", (0, 0), (-1, 0), colors.white),
+                ("GRID", (0, 0), (-1, -1), 0.5, LINE),
+                ("TOPPADDING", (0, 0), (-1, -1), 5),
+                ("BOTTOMPADDING", (0, 0), (-1, -1), 5),
+                ("BACKGROUND", (0, 1), (0, -1), colors.HexColor("#EAF2F8")),
+            ]),
+        ),
+        Spacer(1, 2 * mm),
+        para("关键发现（可审计）：", "h2"),
+        para("• 反应式基线能完成简单目标词点击（open_chrome 2/3 成功），但无法多步导航设置页；", "bullet"),
+        para("• 阶段三规划器在 open_chrome 上同样失败：第 1 步候选生成器已给出结构分最高的 Chrome 点击，但世界模型想象式重排序改选搜索栏并随后迷失——训练于 WebArena 的策略在 Android UI 上发生真实重排序失误；", "bullet"),
+        para("• 无障碍转发器偶发抓取失败，评测加入状态稳定重试后仍有约 1/3 的波动（环境层面问题，非策略行为）；", "bullet"),
+        para("• 两条策略动作执行率均 100%、平均步数均跑满 10 步预算。", "bullet"),
+        para("六、结论与遗留问题", "h1"),
+        para("真实 reset/action/state 冒烟与任务级首轮评测均已在 WHPX 加速环境完成并保留证据。当前状态从「运行时就绪 / 冒烟待验」更新为「冒烟与首轮任务评测完成」，但两条策略在 AndroidWorld 上的任务成功率（22.2% / 0%）尚不可用，因此不能声称迁移完成。", "callout"),
         para("尚未完成（不能省略的硬门槛）：", "h2"),
-        para("• 任务级评估：至少一个确定性任务在反应式基线与阶段三规划器下对比，产出任务成功率、动作执行率、平均步数；", "bullet"),
-        para("• 加速环境：容器无 /dev/kvm，软件仿真仅适合诊断；建议在 KVM 主机或 Windows WHPX 模拟器上完成正式任务评测；", "bullet"),
-        para("• 真机/其他设备泛化：当前仅验证 Pixel 6 API 33 一条设备路径。", "bullet"),
-        para("六、建议下一步", "h1"),
-        para("1. 将模拟器迁移到 KVM 主机（或本机 WHPX），复跑预检与冒烟；", "bullet"),
-        para("2. 运行 android_world 官方确定性任务，分别记录反应式基线与阶段三规划器的轨迹、奖励与终止信号；", "bullet"),
-        para("3. 把任务级结果回写数据/报告 JSON，更新看板与 PDF 后再声明迁移完成。", "bullet"),
+        para("• 策略可用性：阶段三规划器需在 Android UI 上修正重排序失误（例如：结构化候选优先于想象评分），并补测更多官方任务；", "bullet"),
+        para("• 环境稳定性：消除无障碍转发器偶发抓取失败，使成功率读数可复现；", "bullet"),
+        para("• 泛化：当前仅验证 Pixel 6 API 33 一条设备路径与 3 个任务。", "bullet"),
+        para("七、建议下一步", "h1"),
+        para("1. 在评测脚本中保留完整轨迹（每步状态、候选、决策）并扩大任务集与 episode 数；", "bullet"),
+        para("2. 为规划器加入「语义目标匹配优先」的 Android 适配策略后复测，对比重排序修正前后的成功率；", "bullet"),
+        para("3. 稳定转发器后，以本机 WHPX 作为 AndroidWorld 任务级评测的常驻环境。", "bullet"),
     ]
 
     doc = SimpleDocTemplate(str(OUTPUT), pagesize=A4, leftMargin=16 * mm, rightMargin=16 * mm, topMargin=14 * mm, bottomMargin=14 * mm)

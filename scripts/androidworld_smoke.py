@@ -41,8 +41,12 @@ def _save_rgb(path: Path, pixels: Any) -> str:
     import cv2
 
     path.parent.mkdir(parents=True, exist_ok=True)
-    if not cv2.imwrite(str(path), cv2.cvtColor(pixels, cv2.COLOR_RGB2BGR)):
-        raise RuntimeError(f"failed to write screenshot: {path}")
+    # cv2.imwrite cannot handle non-ASCII paths on Windows; encode first and
+    # write the bytes with Python so Unicode paths work on every platform.
+    ok, encoded = cv2.imencode(".png", cv2.cvtColor(pixels, cv2.COLOR_RGB2BGR))
+    if not ok:
+        raise RuntimeError(f"failed to encode screenshot: {path}")
+    path.write_bytes(encoded.tobytes())
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
