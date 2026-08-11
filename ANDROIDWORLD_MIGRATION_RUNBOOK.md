@@ -33,6 +33,15 @@ and `sys.boot_completed=1`; API level, emulator gRPC 8554 and the Android guest
 route to `10.0.2.2` passed the repository preflight.  This is runtime evidence,
 not task-success evidence, because `/dev/kvm` is still unavailable.
 
+On 2026-08-11 a real `reset -> action -> state` smoke passed on the software-
+emulated device: `androidworld_smoke_latest.json` reports `status: passed`,
+`real_environment_reset: true`, `real_action_executed: true`, and an
+18-element accessibility tree (Phone, Messages, Chrome, Gmail, Search, Photos,
+YouTube, Voice search, Google Lens, ...) was captured before and after the
+`wait` action with SHA-256-verified screenshots.  Task-level baseline/planner
+comparison remains blocked by the missing `/dev/kvm`, so the migration is not
+yet called complete.
+
 ## 2. Native benchmark prerequisites
 
 1. Create the official Pixel 6 Android 13 (API 33) AVD.
@@ -64,6 +73,25 @@ AndroidWorld.  On the verified development AVD, the stale profile was repaired
 by enabling root ADB, forgetting that exact network id and reconnecting the
 open `AndroidWifi` network.  Re-run `androidworld_preflight.py` afterwards; do
 not bypass its host-bridge route check.
+
+Under TCG software emulation the lock screen can stay "showing" even when the
+launcher is visible, which makes the accessibility framework return no root
+node and crashes the AccessibilityForwarder service (uiautomator reports
+"null root node").  On the verified AVD this was fixed once by:
+
+```bash
+adb root
+adb shell locksettings set-disabled true
+adb shell settings put secure lockscreen.disabled 1
+adb shell wm dismiss-keyguard
+adb shell settings put secure enabled_accessibility_services \
+  com.google.androidenv.accessibilityforwarder/com.google.androidenv.accessibilityforwarder.AccessibilityForwarder
+adb shell settings put secure accessibility_enabled 1
+```
+
+After that the forwarder service must be force-stopped and re-enabled so it
+builds a fresh gRPC channel to the host a11y server (an ephemeral port
+broadcast by `android_env`), and the smoke can capture a populated tree.
 
 ## 3. Evidence required before calling migration complete
 

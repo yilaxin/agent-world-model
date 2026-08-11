@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-08-11T08:45:28.172803+00:00",
+  "status": "passed",
+  "real_environment_reset": true,
+  "real_action_executed": true,
+  "a11y_forwarder_reused": true,
+  "adb_timeout_seconds": 600.0,
+  "action": {
+    "action_type": "wait"
+  },
+  "before": {
+    "url": "android://com.google.android.apps.nexuslauncher/com.google.android.apps.nexuslauncher/com.google.android.apps.nexuslauncher.NexusLauncherActivity",
+    "title": "com.google.android.apps.nexuslauncher/com.google.android.apps.nexuslauncher.NexusLauncherActivity",
+    "element_count": 18,
+    "axtree": "[aw-ddb74e54c5] text \"\"\n[aw-dca2ef788e] text \"Home\"\n[aw-0bcd150d2a] button \"Phone\"\n[aw-63c681657a] button \"Messages\"\n[aw-6cd7b1f545] button \"Chrome\"\n[aw-41697850f5] button \"Gmail\"\n[aw-922fe27862] button \"Search\"\n[aw-d2fa153f8a] button \"Tue, Aug 11\"\n[aw-57151dd92b] button \"Gmail\"\n[aw-82d612269e] button \"Photos\"\n[aw-1ac1b7e9d4] button \"YouTube\"\n[aw-4eab36dc78] button \"Google app\"\n[aw-6832cd54ac] button \"Voice search\"\n[aw-511fafc8bd] button \"Google Lens\"\n[aw-2465d7c311] text \"08:46\"\n[aw-26e9ca7e10] text \"Android System notification: \"\n[aw-08b14542c3] text \"Wifi signal full.,No internet\"\n[aw-9a63550cda] text \"Battery charging, 100 percent.\"",
+    "normalized_ui": "[]",
+    "screenshot": "/root/autodl-tmp/agent_world_model_phase23_latest/outputs/androidworld_smoke/before.png",
+    "screenshot_sha256": "142d034c94b00b8dadd4c9df2260d629dd0a177b2ed0d612915b9cf13e1eb061"
+  },
+  "after": {
+    "url": "android://com.google.android.apps.nexuslauncher/com.google.android.apps.nexuslauncher/com.google.android.apps.nexuslauncher.NexusLauncherActivity",
+    "title": "com.google.android.apps.nexuslauncher/com.google.android.apps.nexuslauncher.NexusLauncherActivity",
+    "axtree": "[aw-ddb74e54c5] text \"\"\n[aw-dca2ef788e] text \"Home\"\n[aw-0bcd150d2a] button \"Phone\"\n[aw-63c681657a] button \"Messages\"\n[aw-6cd7b1f545] button \"Chrome\"\n[aw-41697850f5] button \"Gmail\"\n[aw-922fe27862] button \"Search\"\n[aw-d2fa153f8a] button \"Tue, Aug 11\"\n[aw-57151dd92b] button \"Gmail\"\n[aw-82d612269e] button \"Photos\"\n[aw-1ac1b7e9d4] button \"YouTube\"\n[aw-4eab36dc78] button \"Google app\"\n[aw-6832cd54ac] button \"Voice search\"\n[aw-511fafc8bd] button \"Google Lens\"\n[aw-2465d7c311] text \"08:46\"\n[aw-26e9ca7e10] text \"Android System notification: \"\n[aw-08b14542c3] text \"Wifi signal full.,No internet\"\n[aw-9a63550cda] text \"Battery charging, 100 percent.\"",
+    "normalized_ui": "[]",
+    "screenshot": "/root/autodl-tmp/agent_world_model_phase23_latest/outputs/androidworld_smoke/after.png",
+    "screenshot_sha256": "142d034c94b00b8dadd4c9df2260d629dd0a177b2ed0d612915b9cf13e1eb061"
+  },
+  "migration_complete": false,
+  "completion_note": "This proves real reset/action transport only; task-level baseline and planner success evidence are still required."
+}

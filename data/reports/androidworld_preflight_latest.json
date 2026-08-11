@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "generated_at_utc": "2026-08-10T12:41:46.851552+00:00",
+  "generated_at_utc": "2026-08-11T07:59:13.276855+00:00",
   "checks": {
     "platform": "Linux-5.15.0-91-generic-x86_64-with-glibc2.35",
     "python_version": "3.11.15",
@@ -13,7 +13,7 @@
         "product": "sdk_gphone64_x86_64",
         "model": "sdk_gphone64_x86_64",
         "device": "emu64x",
-        "transport_id": "3"
+        "transport_id": "2"
       }
     ],
     "ready_device_count": 1,
@@ -23,7 +23,7 @@
       "product": "sdk_gphone64_x86_64",
       "model": "sdk_gphone64_x86_64",
       "device": "emu64x",
-      "transport_id": "3"
+      "transport_id": "2"
     },
     "selected_device_properties": {
       "api_level": "33",
@@ -40,7 +40,7 @@
     "api_level_compatible": true,
     "boot_completed": true,
     "emulator_executable": "/root/autodl-tmp/android-sdk/emulator/emulator",
-    "ANDROID_HOME": "/root/autodl-tmp/android-sdk",
+    "ANDROID_HOME": null,
     "ANDROID_SDK_ROOT": "/root/autodl-tmp/android-sdk",
     "android_world_package": true,
     "android_world_version": "0.1.0",
