@@ -112,26 +112,33 @@ $env:PYTHONIOENCODING="utf-8"
   --tasks wifi_on,wifi_off,open_chrome --episodes 3 --max-steps 10
 ```
 
-First-round results (2026-08-11, 3 episodes per task, 10-step budget):
+Expanded results (2026-08-12, 7 tasks x 5 episodes, 10-step budget; the two
+agents ran on separate fresh emulator boots):
 
-| Metric | Planner (before fix) | Planner (after fix) | Reactive baseline |
-|---|---:|---:|---:|
-| Overall success | 0% | 33.3% | 11.1% |
-| open_chrome | 0% | 100% (semantic overrides 5) | 33.3% |
-| wifi_on / wifi_off | 0% / 0% | 0% / 0% | 0% / 0% |
-| Action execution rate | 100% | 100% | 100% |
-| Avg steps | 10 | 10 | 10 |
+| Task | Reactive baseline | Phase-3 planner |
+|---|---:|---:|
+| Overall success | 42.9% | 45.7% |
+| open_chrome / open_gmail | 100% / 100% | 100% / 100% |
+| open_photos | 0% | 100% |
+| open_messages | 100% | 0% |
+| open_calendar | 0% | 0% |
+| wifi_on / wifi_off | 0% / 0% | 20% / 0% |
+| Action execution rate | 100% | 100% |
+| Avg steps | 10 | 10 |
+| Forwarder recoveries | 0 | 2 |
+| Sparse-state steps | 10 | 4 |
 
-The "after fix" run enables the planner's opt-in `semantic_goal_priority`
-rule: when the goal explicitly names a visible element, an exact-name
-candidate overrides the imagined world-model reranking.  Before the fix the
-planner failed even on open_chrome because its reranking chose Search over
-Chrome on step 1; after the fix it opens Chrome 3/3.  Multi-step Settings
-navigation (Network & internet → Wi-Fi toggle) remains a hard gap for both
-policies.  The accessibility forwarder occasionally returns a sparse tree
-right after navigation; the evaluator retries for a short window, and residual
-flakiness is reported as an environment issue rather than attributed to either
-policy.
+The planner runs with the opt-in `semantic_goal_priority` rule (an exact-name
+candidate overrides the imagined world-model reranking when the goal names a
+visible element).  Before that fix the planner failed even on open_chrome (0/3)
+because its reranking chose Search over Chrome; after the fix it reaches 100%
+on chrome/photos/gmail and completes wifi_on once (1/5).  Calendar remains a
+gap for both (its launcher button is not on the default home page), and
+Messages is a gap for the planner (12 semantic overrides still did not put the
+app in the foreground).  The evaluator now restarts the accessibility
+forwarder on failure and retries the episode up to three times; sparse-state
+steps and recoveries are reported so environment flakiness is not attributed
+to either policy.
 
 ## 3. Evidence required before calling migration complete
 

@@ -11,6 +11,7 @@ from __future__ import annotations
 import argparse
 import json
 import statistics
+import subprocess
 import sys
 import time
 from dataclasses import dataclass
@@ -37,27 +38,42 @@ TASK_CLASSES = {
     "wifi_off": system_tasks.SystemWifiTurnOff,
 }
 
+OPEN_APPS = {
+    "open_chrome": ("com.android.chrome", "Chrome"),
+    "open_calendar": ("com.google.android.calendar", "Calendar"),
+    "open_photos": ("com.google.android.apps.photos", "Photos"),
+    "open_messages": ("com.google.android.apps.messaging", "Messages"),
+    "open_gmail": ("com.google.android.gm", "Gmail"),
+}
 
-class OpenChromeTask:
-    """Deterministic task: open the Chrome app from the launcher.
+
+class OpenAppTask:
+    """Deterministic task: open a launcher app.
 
     Success is read from the foreground activity name, so no LLM judge is
-    needed.  The launcher exposes Chrome as a real button, giving both
+    needed.  The launcher exposes these apps as real buttons, giving both
     policies a basic tap-to-open capability check.
     """
 
-    name = "open_chrome"
-    goal = "Open the Chrome app."
+    def __init__(self, package: str, label: str) -> None:
+        self.name = f"open_{label.lower()}"
+        self.goal = f"Open the {label} app."
+        self._package = package
 
     def initialize_task(self, env: Any) -> None:
         return None
 
     def is_successful(self, env: Any) -> float:
         foreground = str(getattr(env, "foreground_activity_name", "") or "")
-        return 1.0 if "com.android.chrome" in foreground else 0.0
+        return 1.0 if self._package in foreground else 0.0
 
 
-TASK_CLASSES["open_chrome"] = OpenChromeTask
+for _task_name, (_package, _label) in OPEN_APPS.items():
+    TASK_CLASSES[_task_name] = type(
+        f"Open{_label}Task",
+        (OpenAppTask,),
+        {},
+    )
 
 
 @dataclass
@@ -71,6 +87,8 @@ class EpisodeResult:
     actions: int
     invalid_actions: int
     semantic_overrides: int
+    sparse_states: int
+    recoveries: int
     terminal: bool
     duration_sec: float
 
@@ -81,8 +99,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--console-port", type=int, default=5554)
     parser.add_argument("--grpc-port", type=int, default=8554)
     parser.add_argument("--max-steps", type=int, default=12)
-    parser.add_argument("--episodes", type=int, default=3)
-    parser.add_argument("--tasks", default="wifi_on,wifi_off")
+    parser.add_argument("--episodes", type=int, default=5)
+    parser.add_argument("--tasks", default="wifi_on,wifi_off,open_chrome,open_calendar,open_photos,open_messages,open_gmail")
     parser.add_argument("--agents", default="reactive,phase3")
     parser.add_argument("--output", type=Path, default=PROJECT_ROOT / "data" / "reports" / "androidworld_task_eval_latest.json")
     return parser.parse_args()
@@ -114,50 +132,73 @@ def run_episode(
     agent: Any,
     episode: int,
     max_steps: int,
+    adb_path: str,
+    console_port: int,
 ) -> EpisodeResult:
-    if task_name == "open_chrome":
-        task = OpenChromeTask()
-    else:
-        task = task_cls(params={"on_or_off": "off" if task_name.endswith("off") else "on"})
-    task.initialize_task(env)
-    env.reset(go_home=True)
-    foreground = str(getattr(env, "foreground_activity_name", "") or "")
-    if "nexuslauncher" not in foreground:
-        env.execute_action(json_action.JSONAction(action_type="navigate_home"))
-    goal = task.goal
     target_app = "com.android.settings" if task_name in ("wifi_on", "wifi_off") else None
     recent_actions: list[str] = []
     steps = 0
     actions = 0
     invalid = 0
     semantic_overrides = 0
+    sparse_states = 0
+    recoveries = 0
     started = time.time()
+    success = 0.0
 
-    for _ in range(max_steps):
-        state, bounds, _ = stable_state(env, goal)
+    for attempt in range(3):
         try:
-            decision = decide_policy(agent, state, recent_actions, target_app=target_app)
-            action = str(decision.action)
-            if str(getattr(decision, "mode", "")) == "semantic_goal_priority":
-                semantic_overrides += 1
-        except Exception:  # a policy crash is an invalid decision, not a crash of the eval
-            invalid += 1
-            steps += 1
-            recent_actions.append("invalid()")
-            continue
-        steps += 1
-        try:
-            mapped = map_agent_action(action, bounds)
-        except ValueError:
-            invalid += 1
-            recent_actions.append(action)
-            continue
-        for item in mapped:
-            env.execute_action(json_action.JSONAction(**item))
-            actions += 1
-        recent_actions.append(action)
+            if task_name in OPEN_APPS:
+                package, label = OPEN_APPS[task_name]
+                task = OpenAppTask(package=package, label=label)
+            else:
+                task = task_cls(params={"on_or_off": "off" if task_name.endswith("off") else "on"})
+            goal = task.goal
+            task.initialize_task(env)
+            env.reset(go_home=True)
+            foreground = str(getattr(env, "foreground_activity_name", "") or "")
+            if "nexuslauncher" not in foreground:
+                env.execute_action(json_action.JSONAction(action_type="navigate_home"))
+            recent_actions = []
+            steps = 0
+            actions = 0
+            invalid = 0
+            semantic_overrides = 0
+            sparse_states = 0
+            for _ in range(max_steps):
+                state, bounds, _, retries = stable_state(env, goal)
+                sparse_states += retries
+                try:
+                    decision = decide_policy(agent, state, recent_actions, target_app=target_app)
+                    action = str(decision.action)
+                    if str(getattr(decision, "mode", "")) == "semantic_goal_priority":
+                        semantic_overrides += 1
+                except Exception:  # a policy crash is an invalid decision, not a crash of the eval
+                    invalid += 1
+                    steps += 1
+                    recent_actions.append("invalid()")
+                    continue
+                steps += 1
+                try:
+                    mapped = map_agent_action(action, bounds)
+                except ValueError:
+                    invalid += 1
+                    recent_actions.append(action)
+                    continue
+                for item in mapped:
+                    env.execute_action(json_action.JSONAction(**item))
+                    actions += 1
+                recent_actions.append(action)
+            success = float(task.is_successful(env))
+            break
+        except RuntimeError as error:
+            if "a11y" not in str(error).lower() and "tree" not in str(error).lower():
+                raise
+            recoveries += 1
+            recover_forwarder(adb_path, console_port)
+            if attempt == 2:
+                success = 0.0
 
-    success = float(task.is_successful(env))
     return EpisodeResult(
         task=task_name,
         agent=agent_name,
@@ -168,19 +209,48 @@ def run_episode(
         actions=actions,
         invalid_actions=invalid,
         semantic_overrides=semantic_overrides,
+        sparse_states=sparse_states,
+        recoveries=recoveries,
         terminal=False,
         duration_sec=time.time() - started,
     )
 
 
-def stable_state(env: Any, goal: str) -> tuple[dict[str, Any], dict[str, tuple[int, int, int, int]], Any]:
+def recover_forwarder(adb_path: str, console_port: int) -> None:
+    """Restart the accessibility forwarder service after an a11y failure."""
+    serial = f"emulator-{console_port}"
+    commands = [
+        [adb_path, "-s", serial, "shell", "am", "force-stop", "com.google.androidenv.accessibilityforwarder"],
+        [
+            adb_path,
+            "-s",
+            serial,
+            "shell",
+            "settings",
+            "put",
+            "secure",
+            "enabled_accessibility_services",
+            "com.google.androidenv.accessibilityforwarder/com.google.androidenv.accessibilityforwarder.AccessibilityForwarder",
+        ],
+        [adb_path, "-s", serial, "shell", "settings", "put", "secure", "accessibility_enabled", "1"],
+    ]
+    for command in commands:
+        try:
+            subprocess.run(command, capture_output=True, text=True, timeout=20)
+        except Exception:
+            pass
+    time.sleep(3)
+
+
+def stable_state(env: Any, goal: str) -> tuple[dict[str, Any], dict[str, tuple[int, int, int, int]], Any, int]:
     """Fetch a state with enough actionable elements.
 
     The accessibility forwarder occasionally hiccups right after navigation and
     returns a sparse tree; retrying for a short window keeps the environment
     flakiness from being attributed to either policy.
     """
-    for _ in range(3):
+    retries = 0
+    for _ in range(5):
         raw = env.get_state(wait_to_stabilize=True)
         state, bounds = adapt_androidworld_state(
             raw,
@@ -189,9 +259,10 @@ def stable_state(env: Any, goal: str) -> tuple[dict[str, Any], dict[str, tuple[i
         )
         lines = [line for line in state["axtree"]["text"].splitlines() if line.strip()]
         if len(lines) >= 6:
-            return state, bounds, raw
+            return state, bounds, raw, retries
+        retries += 1
         time.sleep(2.0)
-    return state, bounds, raw
+    return state, bounds, raw, retries
 
 
 def decide_policy(agent: Any, state: dict[str, Any], recent_actions: list[str], *, target_app: str | None) -> Any:
@@ -271,6 +342,8 @@ def main() -> int:
                         agent,
                         episode,
                         args.max_steps,
+                        args.adb_path,
+                        args.console_port,
                     )
                     results.append(result)
                     print(
@@ -299,6 +372,8 @@ def main() -> int:
                 ),
                 "invalid_actions_total": sum(r.invalid_actions for r in subset),
                 "semantic_overrides_total": sum(r.semantic_overrides for r in subset),
+                "sparse_states_total": sum(r.sparse_states for r in subset),
+                "recoveries_total": sum(r.recoveries for r in subset),
             }
         rows[agent_name] = {
             "success_rate": statistics.mean(r.success for r in agent_rows),

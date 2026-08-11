@@ -52,7 +52,7 @@
 
 - P0：部署完整 WebArena 多站点环境并做固定任务、预算和种子的在线重评；相对 SR +10% 属于阶段四。
 - P1：500 条高风险、终止和严重失败样本已完成原始轨迹证据复核并以 `evidence_verified` 回写同规模数据视图；项目验收采用可复现证据复核，人工签字不是验收门槛。该来源仍保持为 `evidence_verified`，不伪称为 `human_verified`。
-- P2：AndroidWorld 已补齐官方 AndroidWorld 0.1.0、ADB、Pixel 6 API 33 AVD、gRPC 8554 与运行手册；本机 WHPX 硬件加速模拟器上真实 `reset → action → state` 冒烟已通过（19 个无障碍 UI 元素），预检 `runtime_ready=true`。任务级首轮评测已完成并验证了「语义目标匹配优先」修正：阶段三规划器 open_chrome 0%→100%、整体 0%→33.3%（语义覆盖 5 次），反应式基线整体 11.1%（open_chrome 1/3，受转发器偶发抖动影响）；wifi 导航任务两条策略仍为 0%，策略可用性仍待提升，不能声称迁移完成。
+- P2：AndroidWorld 已补齐官方 AndroidWorld 0.1.0、ADB、Pixel 6 API 33 AVD、gRPC 8554 与运行手册；本机 WHPX 硬件加速模拟器上真实 `reset → action → state` 冒烟已通过（19 个无障碍 UI 元素），预检 `runtime_ready=true`。扩展任务集评测（7 任务 × 5 次）读数稳定：反应式基线整体 42.9%，阶段三规划器 45.7%（启用「语义目标匹配优先」，Chrome/相册/Gmail 100%、wifi_on 20%），两者动作执行率均 100%；转发器恢复 2 次、稀疏状态步数很低。日历与信息等部分任务仍为 0%，策略可用性仍待提升，不能声称迁移完成。
 
 ## 证据文件
 
