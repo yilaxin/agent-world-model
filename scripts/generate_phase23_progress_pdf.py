@@ -147,8 +147,8 @@ def build():
     android_runtime_ready = bool(android_preflight.get("runtime_ready"))
     android_smoke_passed = android_smoke.get("status") == "passed"
     if android_smoke_passed:
-        android_summary = "本机 WHPX 预检/冒烟通过（19 个 UI 元素）；7 任务评测 reactive 42.9% vs phase3 45.7%；序列导航后 wifi 任务 60–80%"
-        android_status = "冒烟+首轮评测完成/策略待提升"
+        android_summary = "本机 WHPX 预检/冒烟通过（19 个 UI 元素）；最终 7 任务评测 reactive 91.4% vs phase3 91.4%（启动器翻页+序列导航+快速转发器恢复）；wifi 任务 60–100%"
+        android_status = "任务级评测完成/策略增强后高可用"
     elif android_runtime_ready:
         android_summary = "官方 0.1.0、ADB、Pixel 6/API 33、gRPC 与客体路由预检通过；真实 reset/action 待验"
         android_status = "运行时就绪/冒烟待验"
