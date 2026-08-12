@@ -30,6 +30,7 @@ from android_world.task_evals.single import system as system_tasks  # noqa: E402
 
 from agent_world_model.androidworld_adapter import adapt_androidworld_state, map_agent_action  # noqa: E402
 from agent_world_model.android_settings_navigation import SettingsNavigationPolicy  # noqa: E402
+from agent_world_model.launcher_app_policy import LauncherAppPolicy  # noqa: E402
 from agent_world_model.phase3_agent import Phase3WorldModelAgent  # noqa: E402
 from agent_world_model.phase3_planning import PlanningConfig  # noqa: E402
 from agent_world_model.reactive_agent import ReactiveAgent  # noqa: E402
@@ -43,7 +44,7 @@ TASK_CLASSES = {
 OPEN_APPS = {
     "open_chrome": ("com.android.chrome", "Chrome"),
     "open_calendar": ("com.google.android.calendar", "Calendar"),
-    "open_photos": ("com.google.android.apps.photos", "Photos"),
+    "open_gallery": ("com.simplemobiletools.gallery.pro", "Gallery"),
     "open_messages": ("com.google.android.apps.messaging", "Messages"),
     "open_gmail": ("com.google.android.gm", "Gmail"),
 }
@@ -90,6 +91,7 @@ class EpisodeResult:
     invalid_actions: int
     semantic_overrides: int
     sequence_steps: int
+    launcher_steps: int
     sparse_states: int
     recoveries: int
     terminal: bool
@@ -107,6 +109,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--tasks", default="wifi_on,wifi_off,open_chrome,open_calendar,open_photos,open_messages,open_gmail")
     parser.add_argument("--agents", default="reactive,phase3")
     parser.add_argument("--settings-navigation", action="store_true")
+    parser.add_argument("--launcher-paging", action="store_true")
     parser.add_argument("--trajectory-dir", type=Path, default=PROJECT_ROOT / "data" / "trajectories_androidworld")
     parser.add_argument("--output", type=Path, default=PROJECT_ROOT / "data" / "reports" / "androidworld_task_eval_latest.json")
     return parser.parse_args()
@@ -134,6 +137,10 @@ def build_settings_policy(args: argparse.Namespace) -> SettingsNavigationPolicy 
     return SettingsNavigationPolicy() if args.settings_navigation else None
 
 
+def build_launcher_policy(args: argparse.Namespace) -> LauncherAppPolicy | None:
+    return LauncherAppPolicy() if args.launcher_paging else None
+
+
 def run_episode(
     env: Any,
     task_name: str,
@@ -145,6 +152,7 @@ def run_episode(
     adb_path: str,
     console_port: int,
     settings_policy: SettingsNavigationPolicy | None,
+    launcher_policy: LauncherAppPolicy | None,
     trajectory_dir: Path,
 ) -> EpisodeResult:
     trajectory_dir.mkdir(parents=True, exist_ok=True)
@@ -157,6 +165,7 @@ def run_episode(
     invalid = 0
     semantic_overrides = 0
     sequence_steps = 0
+    launcher_steps = 0
     sparse_states = 0
     recoveries = 0
     started = time.time()
@@ -166,11 +175,13 @@ def run_episode(
         try:
             if settings_policy is not None:
                 settings_policy.reset()
+            if launcher_policy is not None:
+                launcher_policy.reset()
                 # Restarting the forwarder drops its in-memory gRPC flags, so
                 # only recover it when the process actually died between
                 # episodes; a live forwarder keeps the existing connection.
                 if not forwarder_alive(adb_path, console_port):
-                    recover_forwarder(adb_path, console_port)
+                    recover_forwarder_fast(env, adb_path, console_port)
             if task_name in OPEN_APPS:
                 package, label = OPEN_APPS[task_name]
                 task = OpenAppTask(package=package, label=label)
@@ -212,12 +223,16 @@ def run_episode(
                         target_app=target_app,
                         goal=goal,
                         settings_policy=settings_policy,
+                        launcher_policy=launcher_policy,
+                        launcher_label=OPEN_APPS.get(task_name, (None, None))[1],
                     )
                     action = str(decision.action)
                     if str(getattr(decision, "mode", "")) == "semantic_goal_priority":
                         semantic_overrides += 1
                     if str(getattr(decision, "mode", "")) == "settings_sequence":
                         sequence_steps += 1
+                    if str(getattr(decision, "mode", "")) == "launcher_app":
+                        launcher_steps += 1
                 except Exception:  # a policy crash is an invalid decision, not a crash of the eval
                     trajectory_rows.append(
                         {
@@ -308,7 +323,7 @@ def run_episode(
             if "a11y" not in str(error).lower() and "tree" not in str(error).lower():
                 raise
             recoveries += 1
-            recover_forwarder(adb_path, console_port)
+            recover_forwarder_fast(env, adb_path, console_port)
             if attempt == 2:
                 success = 0.0
 
@@ -323,6 +338,7 @@ def run_episode(
         invalid_actions=invalid,
         semantic_overrides=semantic_overrides,
         sequence_steps=sequence_steps,
+        launcher_steps=launcher_steps,
         sparse_states=sparse_states,
         recoveries=recoveries,
         terminal=False,
@@ -355,6 +371,53 @@ def recover_forwarder(adb_path: str, console_port: int) -> None:
         except Exception:
             pass
     time.sleep(3)
+
+
+def recover_forwarder_fast(env: Any, adb_path: str, console_port: int) -> None:
+    """Restart the forwarder AND re-broadcast the gRPC flags immediately.
+
+    The wrapper's flags live in the forwarder process memory, so a plain
+    restart leaves it silent until android_env's slow internal refresh.  This
+    fast path re-broadcasts the current wrapper port so recovery takes seconds
+    instead of minutes.
+    """
+    serial = f"emulator-{console_port}"
+    wrapper_port: int | None = None
+    try:
+        wrapper = getattr(env, "_env", None)
+        if wrapper is not None and hasattr(wrapper, "get_port"):
+            wrapper_port = int(wrapper.get_port())
+    except Exception:
+        wrapper_port = None
+
+    recover_forwarder(adb_path, console_port)
+    if wrapper_port is None:
+        return
+
+    component = "com.google.androidenv.accessibilityforwarder/.FlagsBroadcastReceiver"
+    broadcasts = [
+        [
+            adb_path, "-s", serial, "shell", "am", "broadcast",
+            "-a", "accessibility_forwarder.intent.action.SET_GRPC",
+            "--es", "host", "10.0.2.2", "--ei", "port", str(wrapper_port),
+            "-n", component,
+        ],
+        [
+            adb_path, "-s", serial, "shell", "am", "broadcast",
+            "-a", "accessibility_forwarder.intent.action.ENABLE_ACCESSIBILITY_TREE_LOGS",
+            "-n", component,
+        ],
+        [
+            adb_path, "-s", serial, "shell", "am", "broadcast",
+            "-a", "accessibility_forwarder.intent.action.ENABLE_GRPC",
+            "-n", component,
+        ],
+    ]
+    for command in broadcasts:
+        try:
+            subprocess.run(command, capture_output=True, text=True, timeout=20)
+        except Exception:
+            pass
 
 
 def forwarder_alive(adb_path: str, console_port: int) -> bool:
@@ -402,6 +465,8 @@ def decide_policy(
     target_app: str | None,
     goal: str,
     settings_policy: SettingsNavigationPolicy | None,
+    launcher_policy: LauncherAppPolicy | None,
+    launcher_label: str | None,
 ) -> Any:
     """Open the task's app first, then delegate to the underlying policy.
 
@@ -429,6 +494,18 @@ def decide_policy(
                 {
                     "action": sequence["action"],
                     "mode": sequence["mode"],
+                    "to_dict": lambda self: {"action": self.action, "mode": self.mode},
+                },
+            )()
+    if launcher_policy is not None and launcher_label:
+        launcher_decision = launcher_policy.decide(state, launcher_label)
+        if launcher_decision is not None:
+            return type(
+                "LauncherDecision",
+                (),
+                {
+                    "action": launcher_decision["action"],
+                    "mode": launcher_decision["mode"],
                     "to_dict": lambda self: {"action": self.action, "mode": self.mode},
                 },
             )()
@@ -481,6 +558,7 @@ def main() -> int:
     )
     agents = build_agents(args)
     settings_policy = build_settings_policy(args)
+    launcher_policy = build_launcher_policy(args)
     tasks = [item.strip() for item in args.tasks.split(",") if item.strip()]
     results: list[EpisodeResult] = []
 
@@ -499,6 +577,7 @@ def main() -> int:
                         args.adb_path,
                         args.console_port,
                         settings_policy,
+                        launcher_policy,
                         Path(args.trajectory_dir),
                     )
                     results.append(result)
@@ -529,6 +608,7 @@ def main() -> int:
                 "invalid_actions_total": sum(r.invalid_actions for r in subset),
                 "semantic_overrides_total": sum(r.semantic_overrides for r in subset),
                 "sequence_steps_total": sum(r.sequence_steps for r in subset),
+                "launcher_steps_total": sum(r.launcher_steps for r in subset),
                 "sparse_states_total": sum(r.sparse_states for r in subset),
                 "recoveries_total": sum(r.recoveries for r in subset),
             }
@@ -560,6 +640,11 @@ def main() -> int:
         + (
             ["Sequence-level Settings navigation policy enabled (settings_sequence)."]
             if settings_policy is not None
+            else []
+        )
+        + (
+            ["Launcher paging policy enabled (launcher_app): opens the app drawer for apps not on the home page."]
+            if launcher_policy is not None
             else []
         ),
     }

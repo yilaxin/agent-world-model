@@ -190,7 +190,7 @@ def build() -> None:
         para("采集到的无障碍树（节选）", "h2"),
         para("<br/>".join("· " + line for line in axtree[:6]), "mono"),
         para("五、任务级评测结果（扩展任务集）", "h1"),
-        para("确定性任务（成功判定直接读系统设置/前台应用，无 LLM 裁判）：wifi_on、wifi_off（官方任务）+ 5 个打开应用任务（Chrome/日历/相册/信息/Gmail）。每任务 5 次、每轮最多 10 步；两个 Agent 分两段、各自使用新启动的模拟器运行以避免长跑退化。规划器启用语义目标匹配优先。", "body"),
+        para("确定性任务（成功判定直接读系统设置/前台应用，无 LLM 裁判）：wifi_on、wifi_off（官方任务）+ 5 个打开应用任务（Chrome/日历/图库/信息/Gmail；相册因 AVD 无 Google 账号会跳 GMS 错误页，替换为无需账号的图库）。每任务 5 次、每轮最多 12 步；启用语义目标匹配、设置序列导航与启动器翻页策略。", "body"),
         Table(
             [
                 ["任务", "反应式基线", "阶段三规划器"],
@@ -198,7 +198,7 @@ def build() -> None:
                 ["open_chrome", pct(task_val(task_summary, "reactive", "open_chrome", "success_rate", 0)), pct(task_val(task_summary, "phase3", "open_chrome", "success_rate", 0))],
                 ["open_messages", pct(task_val(task_summary, "reactive", "open_messages", "success_rate", 0)), pct(task_val(task_summary, "phase3", "open_messages", "success_rate", 0))],
                 ["open_gmail", pct(task_val(task_summary, "reactive", "open_gmail", "success_rate", 0)), pct(task_val(task_summary, "phase3", "open_gmail", "success_rate", 0))],
-                ["open_photos", pct(task_val(task_summary, "reactive", "open_photos", "success_rate", 0)), pct(task_val(task_summary, "phase3", "open_photos", "success_rate", 0))],
+                ["open_gallery", pct(task_val(task_summary, "reactive", "open_gallery", "success_rate", 0)), pct(task_val(task_summary, "phase3", "open_gallery", "success_rate", 0))],
                 ["open_calendar", pct(task_val(task_summary, "reactive", "open_calendar", "success_rate", 0)), pct(task_val(task_summary, "phase3", "open_calendar", "success_rate", 0))],
                 ["wifi_on", pct(task_val(task_summary, "reactive", "wifi_on", "success_rate", 0)), pct(task_val(task_summary, "phase3", "wifi_on", "success_rate", 0))],
                 ["wifi_off", pct(task_val(task_summary, "reactive", "wifi_off", "success_rate", 0)), pct(task_val(task_summary, "phase3", "wifi_off", "success_rate", 0))],
@@ -222,11 +222,10 @@ def build() -> None:
         ),
         Spacer(1, 2 * mm),
         para("关键发现（可审计）：", "h2"),
-        para("• 扩展任务集与 episode 数后读数稳定：反应式基线整体 42.9%，阶段三规划器 45.7%，动作执行率均 100%、平均步数均跑满 10 步预算；", "bullet"),
-        para("• 语义目标匹配优先使规划器在 Chrome/相册/Gmail 达到 100%（相册与 Gmail 在反应式基线上为 0%，因为基线点击了其他元素）；", "bullet"),
-        para("• 反应式基线在「信息」上 100% 而规划器 0%（12 次语义覆盖仍未成功，需进一步排查点击目标或前台判定）；", "bullet"),
-        para("• 规划器在 wifi_on 上真实完成 1/5（20%）：语义匹配找到了 Wi-Fi 开关；日历两条策略均为 0%（按钮不在默认主页，需要翻页）；", "bullet"),
-        para("• 稳定性：新增转发器故障恢复后全程无崩溃，恢复仅 2 次、稀疏状态步数很低（reactive 10、phase3 4）；两段评测使用独立的新模拟器启动。", "bullet"),
+        para("• 最终 7 任务 × 5 次：反应式基线整体 91.4%，阶段三规划器 91.4%（此前 42.9% / 45.7%），动作执行率均 100%、平均步数均跑满 12 步预算；", "bullet"),
+        para("• 启动器翻页策略修复日历（0%→80%，进入应用抽屉查找）与信息（规划器 0%→100%）；图库替换相册后两条策略均 100%（相册在无 Google 账号的 AVD 上会跳 GMS 错误页，属环境阻塞）；", "bullet"),
+        para("• 设置序列导航后 wifi 任务 10 次复测 70–90%（本次 5 次复测 wifi_off 反应式/规划器 80%/100%、wifi_on 80%/60%）；", "bullet"),
+        para("• 稳定性：转发器快速恢复（重启后立即重播 gRPC 配置）加进程健康检查，全程无崩溃，每任务恢复 0–1 次、稀疏状态步数 0–5；逐步骤轨迹已落盘。", "bullet"),
         para("六、序列级导航（wifi 多步任务）", "h1"),
         para("针对「进入设置 → Network & internet → Internet → Wi-Fi 开关」的多步导航，新增 opt-in 的序列策略（settings_sequence）：识别目标分区行、未知子页自动返回、开关点击防重复，并记录每步轨迹（状态、动作、决策）到 JSONL。稳定复测每任务 10 次、每轮最多 12 步。", "body"),
         Table(

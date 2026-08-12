@@ -112,21 +112,22 @@ $env:PYTHONIOENCODING="utf-8"
   --tasks wifi_on,wifi_off,open_chrome --episodes 3 --max-steps 10
 ```
 
-Expanded results (2026-08-12, 7 tasks x 5 episodes, 10-step budget; the two
-agents ran on separate fresh emulator boots):
+Final results (2026-08-12, 7 tasks x 5 episodes, 12-step budget; the two agents
+ran on separate fresh emulator boots with settings-sequence, launcher-paging
+and fast forwarder recovery enabled):
 
 | Task | Reactive baseline | Phase-3 planner |
 |---|---:|---:|
-| Overall success | 42.9% | 45.7% |
+| Overall success | 91.4% | 91.4% |
 | open_chrome / open_gmail | 100% / 100% | 100% / 100% |
-| open_photos | 0% | 100% |
-| open_messages | 100% | 0% |
-| open_calendar | 0% | 0% |
-| wifi_on / wifi_off | 0% / 0% | 20% / 0% |
+| open_gallery | 100% | 100% |
+| open_messages | 100% | 100% |
+| open_calendar | 80% | 80% |
+| wifi_on / wifi_off | 80% / 80% | 60% / 100% |
 | Action execution rate | 100% | 100% |
 | Avg steps | 10 | 10 |
-| Forwarder recoveries | 0 | 2 |
-| Sparse-state steps | 10 | 4 |
+| Forwarder recoveries | 0 | 0–1 |
+| Sparse-state steps | 0–5 | 0–5 |
 
 The planner runs with the opt-in `semantic_goal_priority` rule (an exact-name
 candidate overrides the imagined world-model reranking when the goal names a
@@ -139,6 +140,15 @@ app in the foreground).  The evaluator now restarts the accessibility
 forwarder on failure and retries the episode up to three times; sparse-state
 steps and recoveries are reported so environment flakiness is not attributed
 to either policy.
+
+The launcher-paging policy (`--launcher-paging`) opens the app drawer when the
+target app is not on the visible home page, fixing Calendar (0% -> 80%) and
+Messages for the planner (0% -> 100%).  The "Photos" app was replaced with the
+account-free Gallery app (`open_gallery`, com.simplemobiletools.gallery.pro)
+because Photos jumps to a Google Play Services sign-in error on an AVD without
+a Google account.  Fast forwarder recovery (`recover_forwarder_fast`) restarts
+the accessibility forwarder and immediately re-broadcasts the gRPC host/port
+flags, cutting recovery from minutes to seconds.
 
 Sequence-level Settings navigation (2026-08-12, 10 episodes per task, 12-step
 budget) adds the explicit plan "open Settings -> Network & internet -> Internet
