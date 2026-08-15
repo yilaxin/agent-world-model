@@ -1,0 +1,217 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-08-15T05:38:17.242019+00:00",
+  "device": "cuda",
+  "dataset": "/root/autodl-tmp/agent_world_model_phase23_latest/data/phase2_p2",
+  "train_examples": 9388,
+  "validation_examples": 2017,
+  "best_epoch": 39,
+  "best_validation_mse": 3.0430932487687308e-05,
+  "history": [
+    {
+      "epoch": 1,
+      "train_mse": 0.00016343456572250566,
+      "validation_mse": 6.84191494598544e-05
+    },
+    {
+      "epoch": 2,
+      "train_mse": 6.557432188941435e-05,
+      "validation_mse": 5.407091255513473e-05
+    },
+    {
+      "epoch": 3,
+      "train_mse": 5.698026128948167e-05,
+      "validation_mse": 5.007483445451325e-05
+    },
+    {
+      "epoch": 4,
+      "train_mse": 5.363409452475242e-05,
+      "validation_mse": 4.861224552202472e-05
+    },
+    {
+      "epoch": 5,
+      "train_mse": 5.153555906613639e-05,
+      "validation_mse": 4.7545570129607485e-05
+    },
+    {
+      "epoch": 6,
+      "train_mse": 4.983892190232131e-05,
+      "validation_mse": 4.503255904362569e-05
+    },
+    {
+      "epoch": 7,
+      "train_mse": 4.828091829279688e-05,
+      "validation_mse": 4.517566406103949e-05
+    },
+    {
+      "epoch": 8,
+      "train_mse": 4.62401288670498e-05,
+      "validation_mse": 4.307579066828015e-05
+    },
+    {
+      "epoch": 9,
+      "train_mse": 4.35804527798631e-05,
+      "validation_mse": 4.017293620195632e-05
+    },
+    {
+      "epoch": 10,
+      "train_mse": 4.066130779011238e-05,
+      "validation_mse": 3.928193203249476e-05
+    },
+    {
+      "epoch": 11,
+      "train_mse": 3.919445412478827e-05,
+      "validation_mse": 3.8327110702584226e-05
+    },
+    {
+      "epoch": 12,
+      "train_mse": 3.805984470997844e-05,
+      "validation_mse": 3.748551993309126e-05
+    },
+    {
+      "epoch": 13,
+      "train_mse": 3.6983915064822663e-05,
+      "validation_mse": 3.64654609053469e-05
+    },
+    {
+      "epoch": 14,
+      "train_mse": 3.598897753259176e-05,
+      "validation_mse": 3.635609393433587e-05
+    },
+    {
+      "epoch": 15,
+      "train_mse": 3.52786728465101e-05,
+      "validation_mse": 3.5277095081250125e-05
+    },
+    {
+      "epoch": 16,
+      "train_mse": 3.447852002129512e-05,
+      "validation_mse": 3.471734042829293e-05
+    },
+    {
+      "epoch": 17,
+      "train_mse": 3.3876835370588735e-05,
+      "validation_mse": 3.41464418107049e-05
+    },
+    {
+      "epoch": 18,
+      "train_mse": 3.342810041985366e-05,
+      "validation_mse": 3.412172162747292e-05
+    },
+    {
+      "epoch": 19,
+      "train_mse": 3.286053116031945e-05,
+      "validation_mse": 3.3544879722411965e-05
+    },
+    {
+      "epoch": 20,
+      "train_mse": 3.2454887148596804e-05,
+      "validation_mse": 3.3081230766307346e-05
+    },
+    {
+      "epoch": 21,
+      "train_mse": 3.204979771395963e-05,
+      "validation_mse": 3.28435010744308e-05
+    },
+    {
+      "epoch": 22,
+      "train_mse": 3.164808666501334e-05,
+      "validation_mse": 3.278833082911946e-05
+    },
+    {
+      "epoch": 23,
+      "train_mse": 3.12768518837166e-05,
+      "validation_mse": 3.2403192349867094e-05
+    },
+    {
+      "epoch": 24,
+      "train_mse": 3.1128748611689014e-05,
+      "validation_mse": 3.199456125925624e-05
+    },
+    {
+      "epoch": 25,
+      "train_mse": 3.062650627873459e-05,
+      "validation_mse": 3.163089328365484e-05
+    },
+    {
+      "epoch": 26,
+      "train_mse": 3.028456652948931e-05,
+      "validation_mse": 3.123817222622868e-05
+    },
+    {
+      "epoch": 27,
+      "train_mse": 3.0071071005369008e-05,
+      "validation_mse": 3.146928075451581e-05
+    },
+    {
+      "epoch": 28,
+      "train_mse": 2.9939827776391875e-05,
+      "validation_mse": 3.130801604307034e-05
+    },
+    {
+      "epoch": 29,
+      "train_mse": 2.9665674057668963e-05,
+      "validation_mse": 3.124502635505976e-05
+    },
+    {
+      "epoch": 30,
+      "train_mse": 2.9432998476855282e-05,
+      "validation_mse": 3.102997122914891e-05
+    },
+    {
+      "epoch": 31,
+      "train_mse": 2.9248299440634874e-05,
+      "validation_mse": 3.103839761819987e-05
+    },
+    {
+      "epoch": 32,
+      "train_mse": 2.9084469629539922e-05,
+      "validation_mse": 3.094214842747783e-05
+    },
+    {
+      "epoch": 33,
+      "train_mse": 2.8939539544612905e-05,
+      "validation_mse": 3.083545739482009e-05
+    },
+    {
+      "epoch": 34,
+      "train_mse": 2.866464242034381e-05,
+      "validation_mse": 3.067707806839252e-05
+    },
+    {
+      "epoch": 35,
+      "train_mse": 2.8635243786499203e-05,
+      "validation_mse": 3.06376965147023e-05
+    },
+    {
+      "epoch": 36,
+      "train_mse": 2.841182300676308e-05,
+      "validation_mse": 3.07702585937795e-05
+    },
+    {
+      "epoch": 37,
+      "train_mse": 2.8340378975374716e-05,
+      "validation_mse": 3.055568356969529e-05
+    },
+    {
+      "epoch": 38,
+      "train_mse": 2.8267694106452984e-05,
+      "validation_mse": 3.0516604177921337e-05
+    },
+    {
+      "epoch": 39,
+      "train_mse": 2.81383911648741e-05,
+      "validation_mse": 3.0430932487687308e-05
+    },
+    {
+      "epoch": 40,
+      "train_mse": 2.7991472298306835e-05,
+      "validation_mse": 3.0772071522440215e-05
+    }
+  ],
+  "checkpoint": "artifacts/phase3/learned_delta_baseline.pt",
+  "interpretation_limits": [
+    "Learned-delta is a baseline for rollout-drift comparison, not a WebArena online policy.",
+    "It is trained only on observed one-step deltas and evaluated on observed trajectories."
+  ]
+}

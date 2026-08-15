@@ -85,8 +85,14 @@
   Reactive 同题 12 步失败，是 holdout 上世界模型在护栏开条件下首次反超的实证。
 - 无 evaluator 失败；全部 312 episodes 已判定；78 题与 round-2 的 90 题差异
   来自 Reddit 池耗尽（详见冻结说明）。
-- 多步动力学（P1）：persistence/learned-delta 对照已跑通（GPU）；当前 W4 H2/H3 未达到
-  "不劣于 persistence" 门槛，记录为负结果；残差动力学单模型重训进行中。
+- 多步动力学（P1）：
+  - persistence/learned-delta 对照已跑通；learned-delta H3 MSE 6.7e-05，
+    显著优于 persistence 2.08e-04（约 3 倍）。
+  - 残差动力学单模型重训完成（best epoch 18）：H1 4.5e-05 已优于 persistence 9.5e-05；
+    H2 1.35e-04（原版 2.87e-04）、H3 2.74e-04（原版 4.85e-04），漂移较原版减半，
+    但仍略高于 persistence（H2 1.1e-04、H3 2.08e-04），"不劣于 persistence" 门槛未达成。
+  - 结论：多步动力学尚未形成相对 persistence 的优势；learned-delta 累积是当前最稳的
+    动力学候选，接入规划器为后续工作，本阶段如实记录负结果。
 - AndroidWorld（P1）：已完成 W4 扩展 7 任务 × 5 episode = 35 集，
   总体 27/35 = 77.1%（Wilson 95% CI [61.0%, 87.9%]），统一重置 + ADB 状态判读。
 - 安全加固（P2）：推理服务已增加可选 TLS、客户端 IP 白名单、每 IP 限流与异常脱敏（含单测）。
