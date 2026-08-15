@@ -70,36 +70,59 @@ class Phase2TensorDataset(Dataset[dict[str, Tensor]]):
         if not records:
             raise ValueError("phase-two dataset cannot be empty")
         self.records = list(records)
+        self.tensors = {
+            "state": torch.tensor(
+                [item["state_vector"] for item in self.records], dtype=torch.float32
+            ),
+            "action": torch.tensor(
+                [item["action_vector"] for item in self.records], dtype=torch.float32
+            ),
+            "next_state": torch.tensor(
+                [item["next_state_vector"] for item in self.records], dtype=torch.float32
+            ),
+            "state_delta": torch.tensor(
+                [
+                    [float(item["state_delta"][name]) for name in STATE_DELTA_LABELS]
+                    for item in self.records
+                ],
+                dtype=torch.float32,
+            ),
+            "task_signal": torch.tensor(
+                [
+                    [float(item["task_signals"][name]) for name in TASK_SIGNAL_LABELS]
+                    for item in self.records
+                ],
+                dtype=torch.float32,
+            ),
+            "risk": torch.tensor(
+                [
+                    [float(item["risks"][name]) for name in RISK_LABELS]
+                    for item in self.records
+                ],
+                dtype=torch.float32,
+            ),
+            "progress": torch.tensor(
+                [float(item["task_signals"]["progress"]) for item in self.records],
+                dtype=torch.float32,
+            ),
+            "reward": torch.tensor(
+                [float(item["task_signals"]["reward"]) for item in self.records],
+                dtype=torch.float32,
+            ),
+            "sample_weight": torch.tensor(
+                [
+                    float(item.get("metadata", {}).get("phase4_replay_weight", 1.0))
+                    for item in self.records
+                ],
+                dtype=torch.float32,
+            ),
+        }
 
     def __len__(self) -> int:
         return len(self.records)
 
     def __getitem__(self, index: int) -> dict[str, Tensor]:
-        item = self.records[index]
-        delta = item["state_delta"]
-        signals = item["task_signals"]
-        risks = item["risks"]
-        return {
-            "state": torch.tensor(item["state_vector"], dtype=torch.float32),
-            "action": torch.tensor(item["action_vector"], dtype=torch.float32),
-            "next_state": torch.tensor(
-                item["next_state_vector"], dtype=torch.float32
-            ),
-            "state_delta": torch.tensor(
-                [float(delta[name]) for name in STATE_DELTA_LABELS],
-                dtype=torch.float32,
-            ),
-            "task_signal": torch.tensor(
-                [float(signals[name]) for name in TASK_SIGNAL_LABELS],
-                dtype=torch.float32,
-            ),
-            "risk": torch.tensor(
-                [float(risks[name]) for name in RISK_LABELS],
-                dtype=torch.float32,
-            ),
-            "progress": torch.tensor(float(signals["progress"]), dtype=torch.float32),
-            "reward": torch.tensor(float(signals["reward"]), dtype=torch.float32),
-        }
+        return {name: value[index] for name, value in self.tensors.items()}
 
 
 class CounterfactualPairTensorDataset(Dataset[dict[str, Tensor]]):
@@ -115,22 +138,48 @@ class CounterfactualPairTensorDataset(Dataset[dict[str, Tensor]]):
             records,
             minimum_utility_gap=minimum_utility_gap,
         )
+        if self.pairs:
+            self.tensors = {
+                "left_state": torch.tensor(
+                    [pair["left"]["state_vector"] for pair in self.pairs],
+                    dtype=torch.float32,
+                ),
+                "left_action": torch.tensor(
+                    [pair["left"]["action_vector"] for pair in self.pairs],
+                    dtype=torch.float32,
+                ),
+                "right_state": torch.tensor(
+                    [pair["right"]["state_vector"] for pair in self.pairs],
+                    dtype=torch.float32,
+                ),
+                "right_action": torch.tensor(
+                    [pair["right"]["action_vector"] for pair in self.pairs],
+                    dtype=torch.float32,
+                ),
+                "target": torch.tensor(
+                    [1.0 if float(pair["utility_gap"]) > 0 else -1.0 for pair in self.pairs],
+                    dtype=torch.float32,
+                ),
+                "weight": torch.tensor(
+                    [self._pair_weight(pair) for pair in self.pairs],
+                    dtype=torch.float32,
+                ),
+            }
+
+    @staticmethod
+    def _pair_weight(pair: Mapping[str, Any]) -> float:
+        left, right = pair["left"], pair["right"]
+        gap = float(pair["utility_gap"])
+        return min(4.0, max(0.25, abs(gap))) * 0.5 * (
+            float(left.get("metadata", {}).get("phase4_replay_weight", 1.0))
+            + float(right.get("metadata", {}).get("phase4_replay_weight", 1.0))
+        )
 
     def __len__(self) -> int:
         return len(self.pairs)
 
     def __getitem__(self, index: int) -> dict[str, Tensor]:
-        pair = self.pairs[index]
-        left, right = pair["left"], pair["right"]
-        gap = float(pair["utility_gap"])
-        return {
-            "left_state": torch.tensor(left["state_vector"], dtype=torch.float32),
-            "left_action": torch.tensor(left["action_vector"], dtype=torch.float32),
-            "right_state": torch.tensor(right["state_vector"], dtype=torch.float32),
-            "right_action": torch.tensor(right["action_vector"], dtype=torch.float32),
-            "target": torch.tensor(1.0 if gap > 0 else -1.0, dtype=torch.float32),
-            "weight": torch.tensor(min(4.0, max(0.25, abs(gap))), dtype=torch.float32),
-        }
+        return {name: value[index] for name, value in self.tensors.items()}
 
 
 def load_jsonl(path: str | Path) -> list[dict[str, Any]]:
@@ -296,6 +345,7 @@ def train_world_model(
     checkpoint_path: str | Path,
     report_path: str | Path,
     loss_weights: LossWeights | None = None,
+    initial_checkpoint_path: str | Path | None = None,
 ) -> dict[str, Any]:
     if not validation_records:
         raise ValueError("validation split cannot be empty")
@@ -303,6 +353,14 @@ def train_world_model(
     device = resolve_device(training_config.device)
     use_amp = bool(training_config.amp and device.type == "cuda")
     model = ActionConditionedWorldModel(model_config).to(device)
+    if initial_checkpoint_path is not None:
+        initial = torch.load(
+            Path(initial_checkpoint_path), map_location=device, weights_only=True
+        )
+        initial_config = WorldModelConfig(**initial["model_config"])
+        if initial_config != model_config:
+            raise ValueError("initial checkpoint model config does not match training config")
+        model.load_state_dict(initial["model_state_dict"])
     train_loader = DataLoader(
         Phase2TensorDataset(train_records),
         batch_size=training_config.batch_size,
@@ -487,6 +545,7 @@ def train_world_model(
         "model_config": model_config.to_dict(),
         "training_config": asdict(training_config),
         "loss_weights": asdict(loss_weights or LossWeights()),
+        "initial_checkpoint": str(initial_checkpoint_path) if initial_checkpoint_path else None,
         "train_examples": len(train_records),
         "validation_examples": len(validation_records),
         "train_counterfactual_pairs": len(train_pair_dataset),

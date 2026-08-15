@@ -68,7 +68,17 @@ def run_baseline_episode(
     register_browsergym_environment(config.env_id)
     owns_env = env is None
     if env is None:
-        env = gym.make(config.env_id, headless=config.headless)
+        env_kwargs: dict[str, Any] = {"headless": config.headless}
+        if "/webarena." in config.env_id:
+            # Match WebArena's documented action vocabulary. BrowserGym's
+            # generic default instead exposes the element-scoped ``press``
+            # action and omits WebArena's page-level ``keyboard_press``.
+            from browsergym.core.action.highlevel import HighLevelActionSet
+
+            env_kwargs["action_mapping"] = HighLevelActionSet(
+                subsets="webarena"
+            ).to_python_code
+        env = gym.make(config.env_id, **env_kwargs)
 
     extractor = extractor or StateExtractor()
     encoder = encoder or StateEncoderV1()

@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "benchmark": "Classic WebArena frozen three-site subset on WebArena Verified container images",
+  "required_sites": ["reddit", "shopping", "gitlab"],
+  "task_ids": [595, 596, 597, 274, 275, 276, 44, 45, 258],
+  "task_sites": {
+    "595": "reddit",
+    "596": "reddit",
+    "597": "reddit",
+    "274": "shopping",
+    "275": "shopping",
+    "276": "shopping",
+    "44": "gitlab",
+    "45": "gitlab",
+    "258": "gitlab"
+  },
+  "seeds": [0],
+  "reactive_step_budget": 12,
+  "world_model_step_budget": 12,
+  "episode_max_attempts": 2,
+  "evaluator_smoke_step_budget": 1,
+  "evaluator_smoke_answers": {},
+  "scope_limit": "Frozen 9-task subset spanning Reddit, Shopping, and GitLab; it is not the full 812-task benchmark.",
+  "evaluation_status": "post_fix_regression",
+  "task_feedback_used": true,
+  "shared_navigation_guard": true,
+  "notes": [
+    "Tasks and equal 12-step budgets are frozen before the formal paired run.",
+    "BrowserGym's classic WebArena evaluator supplies success labels; no expected answers are used by either compared agent.",
+    "Failure trajectories from these same frozen tasks were used to repair general visible-control navigation rules, so the final run is a post-fix regression rather than an unseen-task estimate.",
+    "Reactive and W4 share the repaired visible-control navigation guard; their success-rate difference cannot isolate world-model value.",
+    "The released agent is the conservative W4 ensemble plus the phase-three visible-control semantic guard."
+  ]
+}

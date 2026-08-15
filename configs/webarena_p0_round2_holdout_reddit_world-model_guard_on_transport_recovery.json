@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "benchmark": "Classic WebArena P0 round-2 unseen paired holdout transport recovery",
+  "frozen_at_utc": "2026-08-14T17:41:12.310878+00:00",
+  "selection_salt": "p0-round2-holdout-v1",
+  "required_sites": [
+    "reddit"
+  ],
+  "task_ids": [
+    728,
+    652,
+    718,
+    649,
+    69,
+    619,
+    729,
+    399,
+    601,
+    633,
+    598,
+    719,
+    624,
+    580,
+    726,
+    715,
+    638,
+    622,
+    616,
+    647
+  ],
+  "task_sites": {
+    "728": "reddit",
+    "652": "reddit",
+    "718": "reddit",
+    "649": "reddit",
+    "69": "reddit",
+    "619": "reddit",
+    "729": "reddit",
+    "399": "reddit",
+    "601": "reddit",
+    "633": "reddit",
+    "598": "reddit",
+    "719": "reddit",
+    "624": "reddit",
+    "580": "reddit",
+    "726": "reddit",
+    "715": "reddit",
+    "638": "reddit",
+    "622": "reddit",
+    "616": "reddit",
+    "647": "reddit"
+  },
+  "seeds": [
+    0
+  ],
+  "reactive_step_budget": 12,
+  "world_model_step_budget": 12,
+  "episode_max_attempts": 2,
+  "evaluator_smoke_step_budget": 1,
+  "evaluator_smoke_answers": {},
+  "release_fingerprint_sha256": "fe52d922a891ca9464b2691781b2f3d4594eecf3eaed82ff315d849b34118a24",
+  "task_feedback_used": false,
+  "post_freeze_policy_changes_allowed": false,
+  "parent_manifest": {
+    "path": "configs/webarena_p0_round2_holdout_frozen.json",
+    "file_sha256": "921938145f91c0112b71ff7cf28e48a8552301c5480e636a3b544b5b24090545",
+    "freeze_sha256": "a772943ee036958f48ec17249a25865d7a779217797618ef10a03881661230b9"
+  },
+  "source": {
+    "task_count": 812,
+    "task_source_sha256": "7b50386fd69163dbc05d615d834df4c6ed2c35596e97a1b10d17451c02537652",
+    "source_wheel_sha256": "9ebee3b4371502c4f0f7e727a72e5846235d6750d420db9a3b8a168107654feb"
+  },
+  "scope_limit": "Frozen holdout transport recovery; merge by task ID with the parent report. It is not an independent benchmark and permits no policy feedback.",
+  "parent_holdout_report": {
+    "path": "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_on.json",
+    "sha256": "2526477c74c0c6faca498b66badfe0f06aec41c0ca2efe65dfe7fba07d7b20c6",
+    "site_config_freeze_sha256": "7d36393b46e71c3538c41b784d0f07012b9baff1293e8a6e7bcc22fbe0bfd1db"
+  },
+  "recovery_reason": "Retry only episodes whose parent report recorded an allowed transport failure.",
+  "non_transport_failures_excluded": [],
+  "freeze_sha256": "f75be0bcc0c71c95ad870e98596aebb812445862cee092a8e4cae4d7853fef13"
+}

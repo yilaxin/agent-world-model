@@ -1,0 +1,1108 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-08-12T11:55:41.059157+00:00",
+  "phase": 4,
+  "device": "cuda",
+  "cuda_device_name": "NVIDIA GeForce RTX 4090",
+  "experiment_design": {
+    "selection_split": "validation",
+    "test_evaluated_after_variant_selection": true,
+    "equal_budget": true,
+    "ensemble_member_count": 3,
+    "feedback_config": {
+      "regret": 1.0,
+      "rank_flip": 1.0,
+      "stall": 0.75,
+      "struct_error": 0.75,
+      "uniform_fraction": 0.25,
+      "maximum_weight": 4.0
+    },
+    "training_config": {
+      "epochs": 12,
+      "batch_size": 96,
+      "learning_rate": 0.0001,
+      "weight_decay": 0.0001,
+      "gradient_clip": 1.0,
+      "patience": 4,
+      "num_workers": 0,
+      "device": "cuda",
+      "amp": true,
+      "focal_gamma": 1.5,
+      "pairwise_rank_weight": 0.7,
+      "pairwise_batch_size": 64,
+      "pairwise_minimum_utility_gap": 0.05
+    }
+  },
+  "feedback_pool": {
+    "path": "data/phase4/feedback_pool_train.jsonl",
+    "summary": {
+      "example_count": 9388,
+      "complete_observed_pair_count": 2538,
+      "prediction_error": {
+        "mean": 0.13762978439973342,
+        "p95": 0.35937994718551636,
+        "positive_count": 9388
+      },
+      "regret": {
+        "mean": 0.7307466979122283,
+        "p95": 5.5,
+        "positive_count": 2160
+      },
+      "rank_flip": {
+        "mean": 0.00021303792074989347,
+        "p95": 0.0,
+        "positive_count": 2
+      },
+      "stall": {
+        "mean": 0.5655091606305922,
+        "p95": 1.0,
+        "positive_count": 5309
+      },
+      "struct_error": {
+        "mean": 0.45792501065189606,
+        "p95": 1.0,
+        "positive_count": 4299
+      }
+    }
+  },
+  "baseline_w3": {
+    "manifest": "artifacts/phase2/world_model_ensemble_p2.json",
+    "validation": {
+      "latent_mse": 0.002490154675764468,
+      "latent_cosine": 0.9866621462377985,
+      "progress_mae": 0.11203915340149115,
+      "reward_mae": 0.20741101079844146,
+      "state_delta_f1": 0.9933917677729345,
+      "task_signal_f1": 0.9928343046327581,
+      "risk_f1": 0.9271115726665091,
+      "risk_ece": 0.011034981608985799,
+      "informative_pair_count": 494,
+      "pairwise_accuracy": 0.9777327935222672,
+      "rank_flip_rate": 0.022267206477732837,
+      "mean_decision_regret": 0.09261133603238866
+    },
+    "test": {
+      "latent_mse": 0.002353076059051173,
+      "latent_cosine": 0.9873369622647732,
+      "progress_mae": 0.09921902406707014,
+      "reward_mae": 0.18465624505509612,
+      "state_delta_f1": 0.9869132235753302,
+      "task_signal_f1": 0.988996996996997,
+      "risk_f1": 0.9438584446723687,
+      "risk_ece": 0.009367562236739489,
+      "informative_pair_count": 396,
+      "pairwise_accuracy": 0.9772727272727273,
+      "rank_flip_rate": 0.022727272727272707,
+      "mean_decision_regret": 0.05113636363636364
+    }
+  },
+  "variants": [
+    {
+      "name": "uniform",
+      "strategy": "uniform",
+      "omitted_components": [],
+      "runs": [
+        {
+          "seed": 29,
+          "initial_checkpoint": "artifacts/phase2/p2_multiseed/world_model_rank_balanced_a_seed29.pt",
+          "checkpoint": "artifacts/phase4/uniform/member_seed29.pt",
+          "best_epoch": 9,
+          "validation_pairwise_accuracy": 0.9736842114915732
+        },
+        {
+          "seed": 73,
+          "initial_checkpoint": "artifacts/phase2/p2_multiseed/world_model_rank_regularized_seed73.pt",
+          "checkpoint": "artifacts/phase4/uniform/member_seed73.pt",
+          "best_epoch": 1,
+          "validation_pairwise_accuracy": 0.9797570855028717
+        },
+        {
+          "seed": 17,
+          "initial_checkpoint": "artifacts/phase2/p2_multiseed/world_model_rank_base_a_seed17.pt",
+          "checkpoint": "artifacts/phase4/uniform/member_seed17.pt",
+          "best_epoch": 1,
+          "validation_pairwise_accuracy": 0.9736842119742019
+        }
+      ],
+      "manifest": "artifacts/phase4/uniform/ensemble_manifest.json",
+      "validation": {
+        "latent_mse": 0.0019034672821287768,
+        "latent_cosine": 0.9871863238458062,
+        "progress_mae": 0.10594100243254069,
+        "reward_mae": 0.22668108292868236,
+        "state_delta_f1": 0.993508174418853,
+        "task_signal_f1": 0.9934259443198911,
+        "risk_f1": 0.9273768279440502,
+        "risk_ece": 0.008923788778032139,
+        "informative_pair_count": 494,
+        "pairwise_accuracy": 0.9757085020242915,
+        "rank_flip_rate": 0.02429149797570851,
+        "mean_decision_regret": 0.09919028340080972
+      },
+      "selection_key": [
+        0.9757085020242915,
+        -0.09919028340080972,
+        -0.008923788778032139,
+        -0.0019034672821287768
+      ]
+    },
+    {
+      "name": "prediction_error",
+      "strategy": "prediction_error",
+      "omitted_components": [],
+      "runs": [
+        {
+          "seed": 29,
+          "initial_checkpoint": "artifacts/phase2/p2_multiseed/world_model_rank_balanced_a_seed29.pt",
+          "checkpoint": "artifacts/phase4/prediction_error/member_seed29.pt",
+          "best_epoch": 5,
+          "validation_pairwise_accuracy": 0.9757085025069202
+        },
+        {
+          "seed": 73,
+          "initial_checkpoint": "artifacts/phase2/p2_multiseed/world_model_rank_regularized_seed73.pt",
+          "checkpoint": "artifacts/phase4/prediction_error/member_seed73.pt",
+          "best_epoch": 1,
+          "validation_pairwise_accuracy": 0.9736842114915732
+        },
+        {
+          "seed": 17,
+          "initial_checkpoint": "artifacts/phase2/p2_multiseed/world_model_rank_base_a_seed17.pt",
+          "checkpoint": "artifacts/phase4/prediction_error/member_seed17.pt",
+          "best_epoch": 1,
+          "validation_pairwise_accuracy": 0.9736842119742019
+        }
+      ],
+      "manifest": "artifacts/phase4/prediction_error/ensemble_manifest.json",
+      "validation": {
+        "latent_mse": 0.0023331995788229308,
+        "latent_cosine": 0.9870903645048771,
+        "progress_mae": 0.10361548599245714,
+        "reward_mae": 0.21518023942597383,
+        "state_delta_f1": 0.993508174418853,
+        "task_signal_f1": 0.9934259443198911,
+        "risk_f1": 0.9291754225282186,
+        "risk_ece": 0.010309382847896433,
+        "informative_pair_count": 494,
+        "pairwise_accuracy": 0.9777327935222672,
+        "rank_flip_rate": 0.022267206477732837,
+        "mean_decision_regret": 0.08805668016194332
+      },
+      "selection_key": [
+        0.9777327935222672,
+        -0.08805668016194332,
+        -0.010309382847896433,
+        -0.0023331995788229308
+      ]
+    },
+    {
+      "name": "priority",
+      "strategy": "priority",
+      "omitted_components": [],
+      "runs": [
+        {
+          "seed": 29,
+          "initial_checkpoint": "artifacts/phase2/p2_multiseed/world_model_rank_balanced_a_seed29.pt",
+          "checkpoint": "artifacts/phase4/priority/member_seed29.pt",
+          "best_epoch": 9,
+          "validation_pairwise_accuracy": 0.9716599199935975
+        },
+        {
+          "seed": 73,
+          "initial_checkpoint": "artifacts/phase2/p2_multiseed/world_model_rank_regularized_seed73.pt",
+          "checkpoint": "artifacts/phase4/priority/member_seed73.pt",
+          "best_epoch": 1,
+          "validation_pairwise_accuracy": 0.9797570859855004
+        },
+        {
+          "seed": 17,
+          "initial_checkpoint": "artifacts/phase2/p2_multiseed/world_model_rank_base_a_seed17.pt",
+          "checkpoint": "artifacts/phase4/priority/member_seed17.pt",
+          "best_epoch": 4,
+          "validation_pairwise_accuracy": 0.9696356289782505
+        }
+      ],
+      "manifest": "artifacts/phase4/priority/ensemble_manifest.json",
+      "validation": {
+        "latent_mse": 0.0028827918373537254,
+        "latent_cosine": 0.9870780421237161,
+        "progress_mae": 0.10844575708678794,
+        "reward_mae": 0.22890773019288052,
+        "state_delta_f1": 0.9931998961529679,
+        "task_signal_f1": 0.9928343046327581,
+        "risk_f1": 0.9280085225334488,
+        "risk_ece": 0.010021418510458754,
+        "informative_pair_count": 494,
+        "pairwise_accuracy": 0.979757085020243,
+        "rank_flip_rate": 0.020242914979757054,
+        "mean_decision_regret": 0.07692307692307693
+      },
+      "selection_key": [
+        0.979757085020243,
+        -0.07692307692307693,
+        -0.010021418510458754,
+        -0.0028827918373537254
+      ]
+    },
+    {
+      "name": "priority_no_regret",
+      "strategy": "priority",
+      "omitted_components": [
+        "regret"
+      ],
+      "runs": [
+        {
+          "seed": 29,
+          "initial_checkpoint": "artifacts/phase2/p2_multiseed/world_model_rank_balanced_a_seed29.pt",
+          "checkpoint": "artifacts/phase4/priority_no_regret/member_seed29.pt",
+          "best_epoch": 9,
+          "validation_pairwise_accuracy": 0.9716599199935975
+        },
+        {
+          "seed": 73,
+          "initial_checkpoint": "artifacts/phase2/p2_multiseed/world_model_rank_regularized_seed73.pt",
+          "checkpoint": "artifacts/phase4/priority_no_regret/member_seed73.pt",
+          "best_epoch": 1,
+          "validation_pairwise_accuracy": 0.9817813770008473
+        },
+        {
+          "seed": 17,
+          "initial_checkpoint": "artifacts/phase2/p2_multiseed/world_model_rank_base_a_seed17.pt",
+          "checkpoint": "artifacts/phase4/priority_no_regret/member_seed17.pt",
+          "best_epoch": 1,
+          "validation_pairwise_accuracy": 0.9736842119742019
+        }
+      ],
+      "manifest": "artifacts/phase4/priority_no_regret/ensemble_manifest.json",
+      "validation": {
+        "latent_mse": 0.002322535260079615,
+        "latent_cosine": 0.9871476634516831,
+        "progress_mae": 0.10789782399737721,
+        "reward_mae": 0.22660873077275234,
+        "state_delta_f1": 0.993508174418853,
+        "task_signal_f1": 0.9928343046327581,
+        "risk_f1": 0.9305740551603311,
+        "risk_ece": 0.010407063142046619,
+        "informative_pair_count": 494,
+        "pairwise_accuracy": 0.9777327935222672,
+        "rank_flip_rate": 0.022267206477732837,
+        "mean_decision_regret": 0.08805668016194332
+      },
+      "selection_key": [
+        0.9777327935222672,
+        -0.08805668016194332,
+        -0.010407063142046619,
+        -0.002322535260079615
+      ]
+    },
+    {
+      "name": "priority_no_rank_flip",
+      "strategy": "priority",
+      "omitted_components": [
+        "rank_flip"
+      ],
+      "runs": [
+        {
+          "seed": 29,
+          "initial_checkpoint": "artifacts/phase2/p2_multiseed/world_model_rank_balanced_a_seed29.pt",
+          "checkpoint": "artifacts/phase4/priority_no_rank_flip/member_seed29.pt",
+          "best_epoch": 9,
+          "validation_pairwise_accuracy": 0.9716599199935975
+        },
+        {
+          "seed": 73,
+          "initial_checkpoint": "artifacts/phase2/p2_multiseed/world_model_rank_regularized_seed73.pt",
+          "checkpoint": "artifacts/phase4/priority_no_rank_flip/member_seed73.pt",
+          "best_epoch": 1,
+          "validation_pairwise_accuracy": 0.9797570859855004
+        },
+        {
+          "seed": 17,
+          "initial_checkpoint": "artifacts/phase2/p2_multiseed/world_model_rank_base_a_seed17.pt",
+          "checkpoint": "artifacts/phase4/priority_no_rank_flip/member_seed17.pt",
+          "best_epoch": 4,
+          "validation_pairwise_accuracy": 0.9696356289782505
+        }
+      ],
+      "manifest": "artifacts/phase4/priority_no_rank_flip/ensemble_manifest.json",
+      "validation": {
+        "latent_mse": 0.002391904230840867,
+        "latent_cosine": 0.9871383999383384,
+        "progress_mae": 0.10790256261028561,
+        "reward_mae": 0.22599716399174463,
+        "state_delta_f1": 0.9931998961529679,
+        "task_signal_f1": 0.9928343046327581,
+        "risk_f1": 0.9285777110155576,
+        "risk_ece": 0.009843012385780371,
+        "informative_pair_count": 494,
+        "pairwise_accuracy": 0.9777327935222672,
+        "rank_flip_rate": 0.022267206477732837,
+        "mean_decision_regret": 0.08805668016194332
+      },
+      "selection_key": [
+        0.9777327935222672,
+        -0.08805668016194332,
+        -0.009843012385780371,
+        -0.002391904230840867
+      ]
+    },
+    {
+      "name": "priority_no_stall",
+      "strategy": "priority",
+      "omitted_components": [
+        "stall"
+      ],
+      "runs": [
+        {
+          "seed": 29,
+          "initial_checkpoint": "artifacts/phase2/p2_multiseed/world_model_rank_balanced_a_seed29.pt",
+          "checkpoint": "artifacts/phase4/priority_no_stall/member_seed29.pt",
+          "best_epoch": 3,
+          "validation_pairwise_accuracy": 0.9716599195109688
+        },
+        {
+          "seed": 73,
+          "initial_checkpoint": "artifacts/phase2/p2_multiseed/world_model_rank_regularized_seed73.pt",
+          "checkpoint": "artifacts/phase4/priority_no_stall/member_seed73.pt",
+          "best_epoch": 1,
+          "validation_pairwise_accuracy": 0.9797570859855004
+        },
+        {
+          "seed": 17,
+          "initial_checkpoint": "artifacts/phase2/p2_multiseed/world_model_rank_base_a_seed17.pt",
+          "checkpoint": "artifacts/phase4/priority_no_stall/member_seed17.pt",
+          "best_epoch": 4,
+          "validation_pairwise_accuracy": 0.9716599204762262
+        }
+      ],
+      "manifest": "artifacts/phase4/priority_no_stall/ensemble_manifest.json",
+      "validation": {
+        "latent_mse": 0.00233130521571378,
+        "latent_cosine": 0.9870998524000104,
+        "progress_mae": 0.10207408527888832,
+        "reward_mae": 0.21310688230251706,
+        "state_delta_f1": 0.9931998961529679,
+        "task_signal_f1": 0.9934259443198911,
+        "risk_f1": 0.9275014053273937,
+        "risk_ece": 0.009149804726760084,
+        "informative_pair_count": 494,
+        "pairwise_accuracy": 0.979757085020243,
+        "rank_flip_rate": 0.020242914979757054,
+        "mean_decision_regret": 0.07692307692307693
+      },
+      "selection_key": [
+        0.979757085020243,
+        -0.07692307692307693,
+        -0.009149804726760084,
+        -0.00233130521571378
+      ]
+    },
+    {
+      "name": "priority_no_struct_error",
+      "strategy": "priority",
+      "omitted_components": [
+        "struct_error"
+      ],
+      "runs": [
+        {
+          "seed": 29,
+          "initial_checkpoint": "artifacts/phase2/p2_multiseed/world_model_rank_balanced_a_seed29.pt",
+          "checkpoint": "artifacts/phase4/priority_no_struct_error/member_seed29.pt",
+          "best_epoch": 3,
+          "validation_pairwise_accuracy": 0.9736842110089445
+        },
+        {
+          "seed": 73,
+          "initial_checkpoint": "artifacts/phase2/p2_multiseed/world_model_rank_regularized_seed73.pt",
+          "checkpoint": "artifacts/phase4/priority_no_struct_error/member_seed73.pt",
+          "best_epoch": 1,
+          "validation_pairwise_accuracy": 0.9797570859855004
+        },
+        {
+          "seed": 17,
+          "initial_checkpoint": "artifacts/phase2/p2_multiseed/world_model_rank_base_a_seed17.pt",
+          "checkpoint": "artifacts/phase4/priority_no_struct_error/member_seed17.pt",
+          "best_epoch": 4,
+          "validation_pairwise_accuracy": 0.9696356289782505
+        }
+      ],
+      "manifest": "artifacts/phase4/priority_no_struct_error/ensemble_manifest.json",
+      "validation": {
+        "latent_mse": 0.001904227702816543,
+        "latent_cosine": 0.987175953465047,
+        "progress_mae": 0.1172908052204166,
+        "reward_mae": 0.2591685025434991,
+        "state_delta_f1": 0.9931998961529679,
+        "task_signal_f1": 0.9928343046327581,
+        "risk_f1": 0.9301638140504425,
+        "risk_ece": 0.011280141137781172,
+        "informative_pair_count": 494,
+        "pairwise_accuracy": 0.9757085020242915,
+        "rank_flip_rate": 0.02429149797570851,
+        "mean_decision_regret": 0.09919028340080972
+      },
+      "selection_key": [
+        0.9757085020242915,
+        -0.09919028340080972,
+        -0.011280141137781172,
+        -0.001904227702816543
+      ]
+    }
+  ],
+  "selected_w4": {
+    "variant": "priority",
+    "manifest": "artifacts/phase4/world_model_ensemble_w4.json",
+    "validation": {
+      "latent_mse": 0.0028827918373537254,
+      "latent_cosine": 0.9870780421237161,
+      "progress_mae": 0.10844575708678794,
+      "reward_mae": 0.22890773019288052,
+      "state_delta_f1": 0.9931998961529679,
+      "task_signal_f1": 0.9928343046327581,
+      "risk_f1": 0.9280085225334488,
+      "risk_ece": 0.010021418510458754,
+      "informative_pair_count": 494,
+      "pairwise_accuracy": 0.979757085020243,
+      "rank_flip_rate": 0.020242914979757054,
+      "mean_decision_regret": 0.07692307692307693
+    },
+    "test": {
+      "latent_mse": 0.002737650109609129,
+      "latent_cosine": 0.9876882292165379,
+      "progress_mae": 0.09549146114512587,
+      "reward_mae": 0.2084601329568682,
+      "state_delta_f1": 0.9886411119872206,
+      "task_signal_f1": 0.9876136189809112,
+      "risk_f1": 0.9424988520596813,
+      "risk_ece": 0.007498923184756922,
+      "informative_pair_count": 396,
+      "pairwise_accuracy": 0.9722222222222222,
+      "rank_flip_rate": 0.02777777777777779,
+      "mean_decision_regret": 0.07007575757575757
+    }
+  },
+  "release": {
+    "passed": true,
+    "checks": {
+      "validation_pairwise_not_below_w3": true,
+      "validation_regret_not_above_w3": true,
+      "validation_latent_mse_not_regressed": true,
+      "validation_risk_ece_not_regressed": true
+    },
+    "policy": "largest W4 fraction satisfying prediction, ranking, regret, and calibration non-regression gates",
+    "calibrated_at_utc": "2026-08-12T11:59:11.113485+00:00"
+  },
+  "interpretation_limits": [
+    "Feedback labels use only environment-observed factual/counterfactual outcomes and logged task signals.",
+    "All replay variants see the same records for the same number of epochs; mean-one weights change emphasis, not data or update count.",
+    "This offline experiment does not substitute for the separately reported WebArena online success rate."
+  ],
+  "released_w4": {
+    "selected_on": "validation",
+    "selection_rule": "largest W4 fraction satisfying prediction, ranking, regret, and calibration non-regression gates",
+    "w4_fraction": 0.5,
+    "manifest": "artifacts/phase4/world_model_ensemble_w4.json",
+    "validation": {
+      "latent_mse": 0.0026019413070082977,
+      "latent_cosine": 0.987029408309267,
+      "progress_mae": 0.10767489980707595,
+      "reward_mae": 0.21007955995475755,
+      "state_delta_f1": 0.9935993708139677,
+      "task_signal_f1": 0.9928343046327581,
+      "risk_f1": 0.9285062016444019,
+      "risk_ece": 0.009767303165691046,
+      "informative_pair_count": 494,
+      "pairwise_accuracy": 0.9777327935222672,
+      "rank_flip_rate": 0.022267206477732837,
+      "mean_decision_regret": 0.09261133603238866
+    },
+    "test": {
+      "latent_mse": 0.0024663897610219766,
+      "latent_cosine": 0.9876555710248707,
+      "progress_mae": 0.09471033919408117,
+      "reward_mae": 0.18738701763979151,
+      "state_delta_f1": 0.9874143797405943,
+      "task_signal_f1": 0.9876136189809112,
+      "risk_f1": 0.941977080430297,
+      "risk_ece": 0.008960101955564962,
+      "informative_pair_count": 396,
+      "pairwise_accuracy": 0.9747474747474747,
+      "rank_flip_rate": 0.025252525252525304,
+      "mean_decision_regret": 0.05618686868686869
+    },
+    "release": {
+      "passed": true,
+      "checks": {
+        "validation_pairwise_not_below_w3": true,
+        "validation_regret_not_above_w3": true,
+        "validation_latent_mse_not_regressed": true,
+        "validation_risk_ece_not_regressed": true
+      },
+      "policy": "largest W4 fraction satisfying prediction, ranking, regret, and calibration non-regression gates",
+      "calibrated_at_utc": "2026-08-12T11:59:11.113485+00:00"
+    },
+    "candidate_trace": [
+      {
+        "w4_fraction": 1.0,
+        "member_weights": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.8999999761581421,
+          0.10000000149011612
+        ],
+        "temperatures": {
+          "state_delta": [
+            0.5,
+            0.5,
+            1.149999976158142,
+            1.1749999523162842,
+            0.5
+          ],
+          "task_signal": [
+            0.5,
+            0.550000011920929
+          ],
+          "risk": [
+            0.5,
+            0.5,
+            0.5,
+            0.699999988079071
+          ]
+        },
+        "validation": {
+          "latent_mse": 0.0028827918373537254,
+          "latent_cosine": 0.9870780421237161,
+          "progress_mae": 0.10844575708678794,
+          "reward_mae": 0.22890773019288052,
+          "state_delta_f1": 0.9931998961529679,
+          "task_signal_f1": 0.9928343046327581,
+          "risk_f1": 0.9280085225334488,
+          "risk_ece": 0.01030099642089141,
+          "informative_pair_count": 494,
+          "pairwise_accuracy": 0.979757085020243,
+          "rank_flip_rate": 0.020242914979757054,
+          "mean_decision_regret": 0.07692307692307693
+        },
+        "checks": {
+          "validation_pairwise_not_below_w3": true,
+          "validation_regret_not_above_w3": true,
+          "validation_latent_mse_not_regressed": false,
+          "validation_risk_ece_not_regressed": true
+        },
+        "passed": false
+      },
+      {
+        "w4_fraction": 0.9,
+        "member_weights": [
+          0.02000000029802322,
+          0.08000000119209288,
+          0.0,
+          0.0,
+          0.8099999785423279,
+          0.09000000134110452
+        ],
+        "temperatures": {
+          "state_delta": [
+            0.5,
+            0.5,
+            1.149999976158142,
+            1.1749999523162842,
+            0.5
+          ],
+          "task_signal": [
+            0.5,
+            0.550000011920929
+          ],
+          "risk": [
+            0.5,
+            0.5,
+            0.5,
+            0.699999988079071
+          ]
+        },
+        "validation": {
+          "latent_mse": 0.00281309717730948,
+          "latent_cosine": 0.9870903033635731,
+          "progress_mae": 0.10783056048676931,
+          "reward_mae": 0.2239909656758936,
+          "state_delta_f1": 0.9931998961529679,
+          "task_signal_f1": 0.9928343046327581,
+          "risk_f1": 0.9289277513745267,
+          "risk_ece": 0.009936639560192643,
+          "informative_pair_count": 494,
+          "pairwise_accuracy": 0.979757085020243,
+          "rank_flip_rate": 0.020242914979757054,
+          "mean_decision_regret": 0.07692307692307693
+        },
+        "checks": {
+          "validation_pairwise_not_below_w3": true,
+          "validation_regret_not_above_w3": true,
+          "validation_latent_mse_not_regressed": false,
+          "validation_risk_ece_not_regressed": true
+        },
+        "passed": false
+      },
+      {
+        "w4_fraction": 0.8,
+        "member_weights": [
+          0.04000000059604644,
+          0.16000000238418577,
+          0.0,
+          0.0,
+          0.7199999809265137,
+          0.0800000011920929
+        ],
+        "temperatures": {
+          "state_delta": [
+            0.5,
+            0.5,
+            1.149999976158142,
+            1.1749999523162842,
+            0.5
+          ],
+          "task_signal": [
+            0.5,
+            0.550000011920929
+          ],
+          "risk": [
+            0.5,
+            0.5,
+            0.5,
+            0.699999988079071
+          ]
+        },
+        "validation": {
+          "latent_mse": 0.0027501638429000734,
+          "latent_cosine": 0.9870922792412943,
+          "progress_mae": 0.10736859630829608,
+          "reward_mae": 0.21956451761199872,
+          "state_delta_f1": 0.9931998961529679,
+          "task_signal_f1": 0.9928343046327581,
+          "risk_f1": 0.9289277513745267,
+          "risk_ece": 0.00917133711236135,
+          "informative_pair_count": 494,
+          "pairwise_accuracy": 0.979757085020243,
+          "rank_flip_rate": 0.020242914979757054,
+          "mean_decision_regret": 0.07692307692307693
+        },
+        "checks": {
+          "validation_pairwise_not_below_w3": true,
+          "validation_regret_not_above_w3": true,
+          "validation_latent_mse_not_regressed": false,
+          "validation_risk_ece_not_regressed": true
+        },
+        "passed": false
+      },
+      {
+        "w4_fraction": 0.7,
+        "member_weights": [
+          0.06000000089406968,
+          0.2400000035762787,
+          0.0,
+          0.0,
+          0.6299999833106994,
+          0.07000000104308128
+        ],
+        "temperatures": {
+          "state_delta": [
+            0.5,
+            0.5,
+            1.149999976158142,
+            1.1749999523162842,
+            0.5
+          ],
+          "task_signal": [
+            0.5,
+            0.550000011920929
+          ],
+          "risk": [
+            0.5,
+            0.5,
+            0.5,
+            0.699999988079071
+          ]
+        },
+        "validation": {
+          "latent_mse": 0.0026939939680859556,
+          "latent_cosine": 0.9870832534373013,
+          "progress_mae": 0.1071522497455008,
+          "reward_mae": 0.21578162210195437,
+          "state_delta_f1": 0.9931998961529679,
+          "task_signal_f1": 0.9928343046327581,
+          "risk_f1": 0.9289277513745267,
+          "risk_ece": 0.009724297248875233,
+          "informative_pair_count": 494,
+          "pairwise_accuracy": 0.979757085020243,
+          "rank_flip_rate": 0.020242914979757054,
+          "mean_decision_regret": 0.07692307692307693
+        },
+        "checks": {
+          "validation_pairwise_not_below_w3": true,
+          "validation_regret_not_above_w3": true,
+          "validation_latent_mse_not_regressed": false,
+          "validation_risk_ece_not_regressed": true
+        },
+        "passed": false
+      },
+      {
+        "w4_fraction": 0.6,
+        "member_weights": [
+          0.0800000011920929,
+          0.3200000047683716,
+          0.0,
+          0.0,
+          0.5399999856948853,
+          0.06000000089406967
+        ],
+        "temperatures": {
+          "state_delta": [
+            0.5,
+            0.5,
+            1.149999976158142,
+            1.1749999523162842,
+            0.5
+          ],
+          "task_signal": [
+            0.5,
+            0.550000011920929
+          ],
+          "risk": [
+            0.5,
+            0.5,
+            0.5,
+            0.699999988079071
+          ]
+        },
+        "validation": {
+          "latent_mse": 0.002644586643523932,
+          "latent_cosine": 0.9870625094547092,
+          "progress_mae": 0.10724943866691398,
+          "reward_mae": 0.21260979440906108,
+          "state_delta_f1": 0.9930099661127159,
+          "task_signal_f1": 0.9928343046327581,
+          "risk_f1": 0.9284806796940339,
+          "risk_ece": 0.009835198282456542,
+          "informative_pair_count": 494,
+          "pairwise_accuracy": 0.9777327935222672,
+          "rank_flip_rate": 0.022267206477732837,
+          "mean_decision_regret": 0.0840080971659919
+        },
+        "checks": {
+          "validation_pairwise_not_below_w3": true,
+          "validation_regret_not_above_w3": true,
+          "validation_latent_mse_not_regressed": false,
+          "validation_risk_ece_not_regressed": true
+        },
+        "passed": false
+      },
+      {
+        "w4_fraction": 0.5,
+        "member_weights": [
+          0.10000000149011612,
+          0.4000000059604645,
+          0.0,
+          0.0,
+          0.44999998807907104,
+          0.05000000074505806
+        ],
+        "temperatures": {
+          "state_delta": [
+            0.5,
+            0.5,
+            1.149999976158142,
+            1.1749999523162842,
+            0.5
+          ],
+          "task_signal": [
+            0.5,
+            0.550000011920929
+          ],
+          "risk": [
+            0.5,
+            0.5,
+            0.5,
+            0.699999988079071
+          ]
+        },
+        "validation": {
+          "latent_mse": 0.0026019413070082977,
+          "latent_cosine": 0.987029408309267,
+          "progress_mae": 0.10767489980707595,
+          "reward_mae": 0.21007955995475755,
+          "state_delta_f1": 0.9935993708139677,
+          "task_signal_f1": 0.9928343046327581,
+          "risk_f1": 0.9285062016444019,
+          "risk_ece": 0.009767303165691046,
+          "informative_pair_count": 494,
+          "pairwise_accuracy": 0.9777327935222672,
+          "rank_flip_rate": 0.022267206477732837,
+          "mean_decision_regret": 0.09261133603238866
+        },
+        "checks": {
+          "validation_pairwise_not_below_w3": true,
+          "validation_regret_not_above_w3": true,
+          "validation_latent_mse_not_regressed": true,
+          "validation_risk_ece_not_regressed": true
+        },
+        "passed": true
+      },
+      {
+        "w4_fraction": 0.4,
+        "member_weights": [
+          0.12000000178813934,
+          0.48000000715255736,
+          0.0,
+          0.0,
+          0.35999999046325687,
+          0.04000000059604645
+        ],
+        "temperatures": {
+          "state_delta": [
+            0.5,
+            0.5,
+            1.149999976158142,
+            1.1749999523162842,
+            0.5
+          ],
+          "task_signal": [
+            0.5,
+            0.550000011920929
+          ],
+          "risk": [
+            0.5,
+            0.5,
+            0.5,
+            0.699999988079071
+          ]
+        },
+        "validation": {
+          "latent_mse": 0.0025660588927262874,
+          "latent_cosine": 0.986983371123738,
+          "progress_mae": 0.10827826640704842,
+          "reward_mae": 0.20814884987826013,
+          "state_delta_f1": 0.9939082369413708,
+          "task_signal_f1": 0.9922440786605288,
+          "risk_f1": 0.9285062016444019,
+          "risk_ece": 0.009998252284346367,
+          "informative_pair_count": 494,
+          "pairwise_accuracy": 0.9757085020242915,
+          "rank_flip_rate": 0.02429149797570851,
+          "mean_decision_regret": 0.10374493927125505
+        },
+        "checks": {
+          "validation_pairwise_not_below_w3": false,
+          "validation_regret_not_above_w3": false,
+          "validation_latent_mse_not_regressed": true,
+          "validation_risk_ece_not_regressed": true
+        },
+        "passed": false
+      },
+      {
+        "w4_fraction": 0.3,
+        "member_weights": [
+          0.14000000208616256,
+          0.5600000083446502,
+          0.0,
+          0.0,
+          0.26999999284744264,
+          0.030000000447034835
+        ],
+        "temperatures": {
+          "state_delta": [
+            0.5,
+            0.5,
+            1.149999976158142,
+            1.1749999523162842,
+            0.5
+          ],
+          "task_signal": [
+            0.5,
+            0.550000011920929
+          ],
+          "risk": [
+            0.5,
+            0.5,
+            0.5,
+            0.699999988079071
+          ]
+        },
+        "validation": {
+          "latent_mse": 0.0025369388633126283,
+          "latent_cosine": 0.9869239342407714,
+          "progress_mae": 0.10902746755661927,
+          "reward_mae": 0.20690050466394208,
+          "state_delta_f1": 0.9937185240881287,
+          "task_signal_f1": 0.9922440786605288,
+          "risk_f1": 0.9287104658517266,
+          "risk_ece": 0.01037548203932609,
+          "informative_pair_count": 494,
+          "pairwise_accuracy": 0.9777327935222672,
+          "rank_flip_rate": 0.022267206477732837,
+          "mean_decision_regret": 0.09261133603238866
+        },
+        "checks": {
+          "validation_pairwise_not_below_w3": true,
+          "validation_regret_not_above_w3": true,
+          "validation_latent_mse_not_regressed": true,
+          "validation_risk_ece_not_regressed": true
+        },
+        "passed": true
+      },
+      {
+        "w4_fraction": 0.2,
+        "member_weights": [
+          0.1600000023841858,
+          0.6400000095367432,
+          0.0,
+          0.0,
+          0.17999999523162843,
+          0.020000000298023225
+        ],
+        "temperatures": {
+          "state_delta": [
+            0.5,
+            0.5,
+            1.149999976158142,
+            1.1749999523162842,
+            0.5
+          ],
+          "task_signal": [
+            0.5,
+            0.550000011920929
+          ],
+          "risk": [
+            0.5,
+            0.5,
+            0.5,
+            0.699999988079071
+          ]
+        },
+        "validation": {
+          "latent_mse": 0.0025145814776495537,
+          "latent_cosine": 0.9868507165688953,
+          "progress_mae": 0.10991921959326618,
+          "reward_mae": 0.20641853163093077,
+          "state_delta_f1": 0.9934096579607256,
+          "task_signal_f1": 0.9928343046327581,
+          "risk_f1": 0.9291660739945103,
+          "risk_ece": 0.010790266993280775,
+          "informative_pair_count": 494,
+          "pairwise_accuracy": 0.9777327935222672,
+          "rank_flip_rate": 0.022267206477732837,
+          "mean_decision_regret": 0.09261133603238866
+        },
+        "checks": {
+          "validation_pairwise_not_below_w3": true,
+          "validation_regret_not_above_w3": true,
+          "validation_latent_mse_not_regressed": true,
+          "validation_risk_ece_not_regressed": true
+        },
+        "passed": true
+      },
+      {
+        "w4_fraction": 0.1,
+        "member_weights": [
+          0.18000000268220903,
+          0.7200000107288361,
+          0.0,
+          0.0,
+          0.08999999761581422,
+          0.010000000149011612
+        ],
+        "temperatures": {
+          "state_delta": [
+            0.5,
+            0.5,
+            1.149999976158142,
+            1.1749999523162842,
+            0.5
+          ],
+          "task_signal": [
+            0.5,
+            0.550000011920929
+          ],
+          "risk": [
+            0.5,
+            0.5,
+            0.5,
+            0.699999988079071
+          ]
+        },
+        "validation": {
+          "latent_mse": 0.002498986982192092,
+          "latent_cosine": 0.9867634877274399,
+          "progress_mae": 0.11091127802609652,
+          "reward_mae": 0.20655844771249823,
+          "state_delta_f1": 0.9930907225236472,
+          "task_signal_f1": 0.9928343046327581,
+          "risk_f1": 0.9271115726665091,
+          "risk_ece": 0.01095293186579542,
+          "informative_pair_count": 494,
+          "pairwise_accuracy": 0.9777327935222672,
+          "rank_flip_rate": 0.022267206477732837,
+          "mean_decision_regret": 0.09261133603238866
+        },
+        "checks": {
+          "validation_pairwise_not_below_w3": true,
+          "validation_regret_not_above_w3": true,
+          "validation_latent_mse_not_regressed": true,
+          "validation_risk_ece_not_regressed": true
+        },
+        "passed": true
+      },
+      {
+        "w4_fraction": 0.0,
+        "member_weights": [
+          0.20000000298023224,
+          0.800000011920929,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "temperatures": {
+          "state_delta": [
+            0.5,
+            0.5,
+            1.149999976158142,
+            1.1749999523162842,
+            0.5
+          ],
+          "task_signal": [
+            0.5,
+            0.550000011920929
+          ],
+          "risk": [
+            0.5,
+            0.5,
+            0.5,
+            0.699999988079071
+          ]
+        },
+        "validation": {
+          "latent_mse": 0.002490154675764468,
+          "latent_cosine": 0.9866621462377985,
+          "progress_mae": 0.11203915340149115,
+          "reward_mae": 0.20741101079844146,
+          "state_delta_f1": 0.9933917677729345,
+          "task_signal_f1": 0.9928343046327581,
+          "risk_f1": 0.9271115726665091,
+          "risk_ece": 0.011765285368492362,
+          "informative_pair_count": 494,
+          "pairwise_accuracy": 0.9777327935222672,
+          "rank_flip_rate": 0.022267206477732837,
+          "mean_decision_regret": 0.09261133603238866
+        },
+        "checks": {
+          "validation_pairwise_not_below_w3": true,
+          "validation_regret_not_above_w3": true,
+          "validation_latent_mse_not_regressed": true,
+          "validation_risk_ece_not_regressed": true
+        },
+        "passed": true
+      }
+    ]
+  }
+}

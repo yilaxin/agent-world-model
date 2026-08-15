@@ -108,6 +108,17 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--episodes", type=int, default=5)
     parser.add_argument("--tasks", default="wifi_on,wifi_off,open_chrome,open_calendar,open_photos,open_messages,open_gmail")
     parser.add_argument("--agents", default="reactive,phase3")
+    parser.add_argument(
+        "--ensemble-manifest",
+        type=Path,
+        default=PROJECT_ROOT / "artifacts" / "phase2" / "world_model_ensemble_p1.json",
+        help="Ensemble used by phase3/world-model agents; accepts the released W4 manifest.",
+    )
+    parser.add_argument(
+        "--world-model-label",
+        default="phase3",
+        help="Result label for the configured world-model ensemble (for example released_w4).",
+    )
     parser.add_argument("--settings-navigation", action="store_true")
     parser.add_argument("--launcher-paging", action="store_true")
     parser.add_argument("--trajectory-dir", type=Path, default=PROJECT_ROOT / "data" / "trajectories_androidworld")
@@ -120,10 +131,11 @@ def build_agents(args: argparse.Namespace) -> dict[str, Any]:
     names = [item.strip() for item in args.agents.split(",") if item.strip()]
     if "reactive" in names:
         agents["reactive"] = ReactiveAgent()
-    if "phase3" in names:
+    world_model_requested = "phase3" in names or args.world_model_label in names
+    if world_model_requested:
         config = json.loads((PROJECT_ROOT / "configs" / "phase3_planner.json").read_text(encoding="utf-8"))
-        agents["phase3"] = Phase3WorldModelAgent(
-            ensemble_manifest=PROJECT_ROOT / "artifacts" / "phase2" / "world_model_ensemble_p1.json",
+        agents[args.world_model_label] = Phase3WorldModelAgent(
+            ensemble_manifest=args.ensemble_manifest,
             alignment_checkpoint=PROJECT_ROOT / "artifacts" / "phase3" / "structure_aligner_best.pt",
             device="cpu",
             planning_config=PlanningConfig(**config["planning"]),

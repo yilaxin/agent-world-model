@@ -8,6 +8,11 @@
 
 ## 数据
 
+> 历史说明：下表记录阶段二首次完成时的 P1 数据口径。项目随后在阶段二/三补强中扩展为
+> 13,348 条转移、5,930 个 episode、3,600 对观察反事实，并重新完成五次多种子训练。
+> 结题与最终指标应以 `PHASE23_MULTIRUN_COMPLETION_REPORT.md` 及
+> `data/reports/phase2_p2_multiseed_ensemble_gpu.json` 为准。
+
 | 指标 | 结果 |
 |---|---:|
 | 转移数 | 3,333 |
@@ -49,6 +54,8 @@
 - `data/reports/phase2_multiseed_ensemble_gpu.json`
 - `data/reports/phase2_ensemble_evaluation_test_gpu.json`
 
-## 遗留问题
+## 遗留问题（首次阶段验收时）
 
 观察反事实只有 100 对，测试有效配对很少，集成排序没有超过最佳单模型；数据标签仍有较高启发式占比。下一步需要人工核验并扩充 WebArena 同状态受控替代动作。
+
+上述“100 对”问题已在后续补强中解决为 3,600 对；它不再是最终结题状态。

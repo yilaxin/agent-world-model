@@ -192,7 +192,7 @@ def map_agent_action(action: str, bounds_by_bid: Mapping[str, tuple[int, int, in
     if action_type == "go_back":
         return [{"action_type": "navigate_back"}]
     if action_type == "press":
-        key = (quoted[0] if quoted else arguments.strip()).upper()
+        key = (quoted[-1] if quoted else arguments.strip()).upper()
         supported = {"BACK": "navigate_back", "HOME": "navigate_home", "ENTER": "keyboard_enter"}
         if key not in supported:
             raise ValueError(f"unsupported AndroidWorld key: {key}")

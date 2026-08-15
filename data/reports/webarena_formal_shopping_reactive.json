@@ -1,0 +1,120 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-08-12T18:06:22.448204+00:00",
+  "benchmark": "Classic WebArena frozen three-site subset on WebArena Verified container images",
+  "fixed_task_ids": [
+    274,
+    275,
+    276
+  ],
+  "task_sites": {
+    "274": "shopping",
+    "275": "shopping",
+    "276": "shopping"
+  },
+  "required_sites": [
+    "shopping"
+  ],
+  "fixed_seeds": [
+    0
+  ],
+  "budgets": {
+    "reactive_steps": 12,
+    "world_model_steps": 12,
+    "evaluator_smoke_steps": 1
+  },
+  "agent_metrics": {
+    "episodes": 3,
+    "successes": 3,
+    "success_rate": 1.0,
+    "action_execution_rate": 1.0,
+    "average_steps": 2.0,
+    "average_latency_seconds": 15.151152034666515
+  },
+  "world_model_agent_metrics": null,
+  "per_site_metrics": {
+    "reactive": {
+      "shopping": {
+        "episodes": 3,
+        "successes": 3,
+        "success_rate": 1.0,
+        "action_execution_rate": 1.0,
+        "average_steps": 2.0,
+        "average_latency_seconds": 15.151152034666515
+      }
+    }
+  },
+  "paired_online_comparison": null,
+  "evaluator_integrity_metrics": null,
+  "agent_success_rate_excludes_answer_injection": true,
+  "scope_limit": "Shopping partition of the frozen 9-task formal subset; not a standalone benchmark claim.",
+  "results": {
+    "reactive": [
+      {
+        "env_id": "browsergym/webarena.274",
+        "seed": 0,
+        "success": true,
+        "terminated": true,
+        "truncated": false,
+        "steps": 2,
+        "total_reward": 1.0,
+        "last_action_error": "",
+        "trajectory_path": "data/trajectories_webarena_formal_evidence/shopping/reactive/task274_seed0.jsonl",
+        "final_state_id": "be19359f11620a4d",
+        "elapsed_seconds": 21.072862931000145,
+        "attempted_actions": 2,
+        "action_execution_successes": 2,
+        "episode_attempts": 1,
+        "mode": "reactive",
+        "task_id": 274,
+        "site": "shopping",
+        "uses_expected_answer": false,
+        "trajectory_sha256": "10081b7a3800c046bf8f6018c882bfbd79cdfe68b43aed3e78baa58233b6ed02"
+      },
+      {
+        "env_id": "browsergym/webarena.275",
+        "seed": 0,
+        "success": true,
+        "terminated": true,
+        "truncated": false,
+        "steps": 2,
+        "total_reward": 1.0,
+        "last_action_error": "",
+        "trajectory_path": "data/trajectories_webarena_formal_evidence/shopping/reactive/task275_seed0.jsonl",
+        "final_state_id": "367786254523208d",
+        "elapsed_seconds": 12.233285607999733,
+        "attempted_actions": 2,
+        "action_execution_successes": 2,
+        "episode_attempts": 1,
+        "mode": "reactive",
+        "task_id": 275,
+        "site": "shopping",
+        "uses_expected_answer": false,
+        "trajectory_sha256": "97eb73a6058072bd3001a413ab1aed58972a920d1c877e75aec6b9a2fe9cb396"
+      },
+      {
+        "env_id": "browsergym/webarena.276",
+        "seed": 0,
+        "success": true,
+        "terminated": true,
+        "truncated": false,
+        "steps": 2,
+        "total_reward": 1.0,
+        "last_action_error": "",
+        "trajectory_path": "data/trajectories_webarena_formal_evidence/shopping/reactive/task276_seed0.jsonl",
+        "final_state_id": "43e98932be2a1a7b",
+        "elapsed_seconds": 12.147307564999664,
+        "attempted_actions": 2,
+        "action_execution_successes": 2,
+        "episode_attempts": 1,
+        "mode": "reactive",
+        "task_id": 276,
+        "site": "shopping",
+        "uses_expected_answer": false,
+        "trajectory_sha256": "87aef1b2afbdef9778153ba2ce0af7eb61ea0fe4cf31bf1e43ed484fba6f1379"
+      }
+    ]
+  },
+  "failures": [],
+  "trajectories_archived_in_workspace": true
+}

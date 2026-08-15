@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-08-12T17:28:16.533794+00:00",
+  "benchmark": "WebArena Verified frozen three-site navigation subset",
+  "fixed_task_ids": [
+    44,
+    45,
+    258
+  ],
+  "task_sites": {
+    "44": "gitlab",
+    "45": "gitlab",
+    "258": "gitlab"
+  },
+  "required_sites": [
+    "gitlab"
+  ],
+  "fixed_seeds": [
+    0
+  ],
+  "budgets": {
+    "reactive_steps": 12,
+    "world_model_steps": 12,
+    "evaluator_smoke_steps": 1
+  },
+  "agent_metrics": null,
+  "world_model_agent_metrics": {
+    "episodes": 3,
+    "successes": 0,
+    "success_rate": 0.0,
+    "action_execution_rate": 0.9166666666666666,
+    "average_steps": 12.0,
+    "average_latency_seconds": 39.07838784633333
+  },
+  "per_site_metrics": {
+    "world-model": {
+      "gitlab": {
+        "episodes": 3,
+        "successes": 0,
+        "success_rate": 0.0,
+        "action_execution_rate": 0.9166666666666666,
+        "average_steps": 12.0,
+        "average_latency_seconds": 39.07838784633333
+      }
+    }
+  },
+  "paired_online_comparison": null,
+  "evaluator_integrity_metrics": null,
+  "agent_success_rate_excludes_answer_injection": true,
+  "scope_limit": "GitLab partition of the frozen 9-task formal subset; not a standalone benchmark claim.",
+  "results": {
+    "world-model": [
+      {
+        "env_id": "browsergym/webarena.44",
+        "seed": 0,
+        "success": false,
+        "terminated": false,
+        "truncated": false,
+        "steps": 12,
+        "total_reward": 0.0,
+        "last_action_error": "",
+        "trajectory_path": "/home/filp/agent_world_model/data/trajectories_webarena_formal/gitlab/world-model/world-model/20260812T172631Z_browsergym_webarena.44_seed0_14686160.jsonl",
+        "final_state_id": "792cd480d8038689",
+        "elapsed_seconds": 43.796829419999995,
+        "attempted_actions": 12,
+        "action_execution_successes": 11,
+        "mode": "world-model",
+        "task_id": 44,
+        "site": "gitlab",
+        "uses_expected_answer": false
+      },
+      {
+        "env_id": "browsergym/webarena.45",
+        "seed": 0,
+        "success": false,
+        "terminated": false,
+        "truncated": false,
+        "steps": 12,
+        "total_reward": 0.0,
+        "last_action_error": "",
+        "trajectory_path": "/home/filp/agent_world_model/data/trajectories_webarena_formal/gitlab/world-model/world-model/20260812T172710Z_browsergym_webarena.45_seed0_3e0c23f7.jsonl",
+        "final_state_id": "94ff20947e89471a",
+        "elapsed_seconds": 40.65358826099998,
+        "attempted_actions": 12,
+        "action_execution_successes": 10,
+        "mode": "world-model",
+        "task_id": 45,
+        "site": "gitlab",
+        "uses_expected_answer": false
+      },
+      {
+        "env_id": "browsergym/webarena.258",
+        "seed": 0,
+        "success": false,
+        "terminated": false,
+        "truncated": false,
+        "steps": 12,
+        "total_reward": 0.0,
+        "last_action_error": "",
+        "trajectory_path": "/home/filp/agent_world_model/data/trajectories_webarena_formal/gitlab/world-model/world-model/20260812T172750Z_browsergym_webarena.258_seed0_acf2e8bb.jsonl",
+        "final_state_id": "4a94fc679ec9daf9",
+        "elapsed_seconds": 32.78474585800001,
+        "attempted_actions": 12,
+        "action_execution_successes": 12,
+        "mode": "world-model",
+        "task_id": 258,
+        "site": "gitlab",
+        "uses_expected_answer": false
+      }
+    ]
+  },
+  "failures": []
+}

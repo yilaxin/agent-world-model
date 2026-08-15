@@ -1,0 +1,253 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-08-14T10:25:52.683640+00:00",
+  "benchmark": "Classic WebArena P0 round-2 development split",
+  "fixed_task_ids": [
+    225,
+    512,
+    434,
+    321,
+    272,
+    520,
+    334,
+    263,
+    468,
+    233
+  ],
+  "task_sites": {
+    "225": "shopping",
+    "512": "shopping",
+    "434": "shopping",
+    "321": "shopping",
+    "272": "shopping",
+    "520": "shopping",
+    "334": "shopping",
+    "263": "shopping",
+    "468": "shopping",
+    "233": "shopping"
+  },
+  "required_sites": [
+    "shopping"
+  ],
+  "fixed_seeds": [
+    0
+  ],
+  "navigation_guard": "on",
+  "remote_agent_health": {
+    "status": "ok",
+    "device": "cuda",
+    "navigation_guard": "on",
+    "semantic_goal_priority": false,
+    "release_fingerprint_sha256": "fe52d922a891ca9464b2691781b2f3d4594eecf3eaed82ff315d849b34118a24",
+    "authentication_required": false
+  },
+  "freeze_sha256": "477627118f5d5da55810beadfc42f61c36149623d594ea5a8fb612b9b2872153",
+  "budgets": {
+    "reactive_steps": 12,
+    "world_model_steps": 12,
+    "evaluator_smoke_steps": 1
+  },
+  "agent_metrics": null,
+  "world_model_agent_metrics": {
+    "episodes": 8,
+    "successes": 0,
+    "success_rate": 0.0,
+    "action_execution_rate": 0.9479166666666666,
+    "average_steps": 12.0,
+    "average_latency_seconds": 67.60542644599991
+  },
+  "per_site_metrics": {
+    "world-model": {
+      "shopping": {
+        "episodes": 8,
+        "successes": 0,
+        "success_rate": 0.0,
+        "action_execution_rate": 0.9479166666666666,
+        "average_steps": 12.0,
+        "average_latency_seconds": 67.60542644599991
+      }
+    }
+  },
+  "paired_online_comparison": null,
+  "evaluator_integrity_metrics": null,
+  "agent_success_rate_excludes_answer_injection": true,
+  "scope_limit": "Round-2 shopping development tasks; policy iteration is allowed and results are not eligible for the final holdout claim.",
+  "results": {
+    "world-model": [
+      {
+        "env_id": "browsergym/webarena.512",
+        "seed": 0,
+        "success": false,
+        "terminated": false,
+        "truncated": false,
+        "steps": 12,
+        "total_reward": 0.0,
+        "last_action_error": "",
+        "trajectory_path": "/home/filp/agent_world_model/data/trajectories_webarena_round2_dev/shopping/world-model_v2/world-model/20260814T101650Z_browsergym_webarena.512_seed0_7acf0acd.jsonl",
+        "final_state_id": "554602cb41f4585c",
+        "elapsed_seconds": 94.82647016999908,
+        "attempted_actions": 12,
+        "action_execution_successes": 12,
+        "episode_attempts": 1,
+        "mode": "world-model",
+        "task_id": 512,
+        "site": "shopping",
+        "uses_expected_answer": false
+      },
+      {
+        "env_id": "browsergym/webarena.434",
+        "seed": 0,
+        "success": false,
+        "terminated": false,
+        "truncated": false,
+        "steps": 12,
+        "total_reward": 0.0,
+        "last_action_error": "",
+        "trajectory_path": "/home/filp/agent_world_model/data/trajectories_webarena_round2_dev/shopping/world-model_v2/world-model/20260814T101826Z_browsergym_webarena.434_seed0_ef874a74.jsonl",
+        "final_state_id": "6547613924388e16",
+        "elapsed_seconds": 98.54369354799928,
+        "attempted_actions": 12,
+        "action_execution_successes": 11,
+        "episode_attempts": 1,
+        "mode": "world-model",
+        "task_id": 434,
+        "site": "shopping",
+        "uses_expected_answer": false
+      },
+      {
+        "env_id": "browsergym/webarena.321",
+        "seed": 0,
+        "success": false,
+        "terminated": false,
+        "truncated": false,
+        "steps": 12,
+        "total_reward": 0.0,
+        "last_action_error": "",
+        "trajectory_path": "/home/filp/agent_world_model/data/trajectories_webarena_round2_dev/shopping/world-model_v2/world-model/20260814T102003Z_browsergym_webarena.321_seed0_ee2d8956.jsonl",
+        "final_state_id": "647e6df661118d8f",
+        "elapsed_seconds": 39.88736096199864,
+        "attempted_actions": 12,
+        "action_execution_successes": 11,
+        "episode_attempts": 1,
+        "mode": "world-model",
+        "task_id": 321,
+        "site": "shopping",
+        "uses_expected_answer": false
+      },
+      {
+        "env_id": "browsergym/webarena.272",
+        "seed": 0,
+        "success": false,
+        "terminated": false,
+        "truncated": false,
+        "steps": 12,
+        "total_reward": 0.0,
+        "last_action_error": "",
+        "trajectory_path": "/home/filp/agent_world_model/data/trajectories_webarena_round2_dev/shopping/world-model_v2/world-model/20260814T102043Z_browsergym_webarena.272_seed0_1e2cd2fb.jsonl",
+        "final_state_id": "45df04afe5fc4c25",
+        "elapsed_seconds": 40.98486812899864,
+        "attempted_actions": 12,
+        "action_execution_successes": 11,
+        "episode_attempts": 1,
+        "mode": "world-model",
+        "task_id": 272,
+        "site": "shopping",
+        "uses_expected_answer": false
+      },
+      {
+        "env_id": "browsergym/webarena.520",
+        "seed": 0,
+        "success": false,
+        "terminated": false,
+        "truncated": false,
+        "steps": 12,
+        "total_reward": 0.0,
+        "last_action_error": "",
+        "trajectory_path": "/home/filp/agent_world_model/data/trajectories_webarena_round2_dev/shopping/world-model_v2/world-model/20260814T102124Z_browsergym_webarena.520_seed0_5984a470.jsonl",
+        "final_state_id": "e0b6878e16377b6b",
+        "elapsed_seconds": 93.27083433700318,
+        "attempted_actions": 12,
+        "action_execution_successes": 12,
+        "episode_attempts": 1,
+        "mode": "world-model",
+        "task_id": 520,
+        "site": "shopping",
+        "uses_expected_answer": false
+      },
+      {
+        "env_id": "browsergym/webarena.263",
+        "seed": 0,
+        "success": false,
+        "terminated": false,
+        "truncated": false,
+        "steps": 12,
+        "total_reward": 0.0,
+        "last_action_error": "",
+        "trajectory_path": "/home/filp/agent_world_model/data/trajectories_webarena_round2_dev/shopping/world-model_v2/world-model/20260814T102306Z_browsergym_webarena.263_seed0_6e41557c.jsonl",
+        "final_state_id": "32e8d007d586b0a0",
+        "elapsed_seconds": 41.49213055499786,
+        "attempted_actions": 12,
+        "action_execution_successes": 10,
+        "episode_attempts": 1,
+        "mode": "world-model",
+        "task_id": 263,
+        "site": "shopping",
+        "uses_expected_answer": false
+      },
+      {
+        "env_id": "browsergym/webarena.468",
+        "seed": 0,
+        "success": false,
+        "terminated": false,
+        "truncated": false,
+        "steps": 12,
+        "total_reward": 0.0,
+        "last_action_error": "",
+        "trajectory_path": "/home/filp/agent_world_model/data/trajectories_webarena_round2_dev/shopping/world-model_v2/world-model/20260814T102348Z_browsergym_webarena.468_seed0_c1b744d1.jsonl",
+        "final_state_id": "e6b5acf910ee8e54",
+        "elapsed_seconds": 93.37535538800148,
+        "attempted_actions": 12,
+        "action_execution_successes": 12,
+        "episode_attempts": 1,
+        "mode": "world-model",
+        "task_id": 468,
+        "site": "shopping",
+        "uses_expected_answer": false
+      },
+      {
+        "env_id": "browsergym/webarena.233",
+        "seed": 0,
+        "success": false,
+        "terminated": false,
+        "truncated": false,
+        "steps": 12,
+        "total_reward": 0.0,
+        "last_action_error": "",
+        "trajectory_path": "/home/filp/agent_world_model/data/trajectories_webarena_round2_dev/shopping/world-model_v2/world-model/20260814T102521Z_browsergym_webarena.233_seed0_0fdc72b8.jsonl",
+        "final_state_id": "701b0dfb0bb6e795",
+        "elapsed_seconds": 38.46269847900112,
+        "attempted_actions": 12,
+        "action_execution_successes": 12,
+        "episode_attempts": 1,
+        "mode": "world-model",
+        "task_id": 233,
+        "site": "shopping",
+        "uses_expected_answer": false
+      }
+    ]
+  },
+  "failures": [
+    {
+      "mode": "world-model",
+      "task_id": 225,
+      "seed": 0,
+      "error": "ValueError('OPENAI_API_KEY environment variable must be set when using OpenAI API.')"
+    },
+    {
+      "mode": "world-model",
+      "task_id": 334,
+      "seed": 0,
+      "error": "ValueError('OPENAI_API_KEY environment variable must be set when using OpenAI API.')"
+    }
+  ]
+}

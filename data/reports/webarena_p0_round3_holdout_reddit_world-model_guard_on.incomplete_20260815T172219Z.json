@@ -1,0 +1,317 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-08-15T09:31:30.889850+00:00",
+  "benchmark": "Classic WebArena P0 round-3 unseen paired holdout",
+  "fixed_task_ids": [
+    615,
+    623,
+    403,
+    599,
+    610,
+    607,
+    603,
+    735,
+    609,
+    606,
+    639,
+    646,
+    406,
+    636,
+    581,
+    651,
+    400,
+    66
+  ],
+  "task_sites": {
+    "615": "reddit",
+    "623": "reddit",
+    "403": "reddit",
+    "599": "reddit",
+    "610": "reddit",
+    "607": "reddit",
+    "603": "reddit",
+    "735": "reddit",
+    "609": "reddit",
+    "606": "reddit",
+    "639": "reddit",
+    "646": "reddit",
+    "406": "reddit",
+    "636": "reddit",
+    "581": "reddit",
+    "651": "reddit",
+    "400": "reddit",
+    "66": "reddit"
+  },
+  "required_sites": [
+    "reddit"
+  ],
+  "fixed_seeds": [
+    0
+  ],
+  "navigation_guard": "on",
+  "remote_agent_health": {
+    "status": "ok",
+    "device": "cuda",
+    "navigation_guard": "on",
+    "semantic_goal_priority": false,
+    "release_fingerprint_sha256": "f12e304eacf9b150d786b31143231b463dcac49f32ad4b3e85f59567a6a4f947",
+    "authentication_required": false
+  },
+  "freeze_sha256": "24775e15fa93d732d057f3b5207a15c8fa79212e765b992ee87c03f244506614",
+  "budgets": {
+    "reactive_steps": 12,
+    "world_model_steps": 12,
+    "evaluator_smoke_steps": 1
+  },
+  "agent_metrics": null,
+  "world_model_agent_metrics": {
+    "episodes": 8,
+    "successes": 0,
+    "success_rate": 0.0,
+    "action_execution_rate": 0.9066666666666666,
+    "average_steps": 9.375,
+    "average_latency_seconds": 86.50654553249979
+  },
+  "per_site_metrics": {
+    "world-model": {
+      "reddit": {
+        "episodes": 8,
+        "successes": 0,
+        "success_rate": 0.0,
+        "action_execution_rate": 0.9066666666666666,
+        "average_steps": 9.375,
+        "average_latency_seconds": 86.50654553249979
+      }
+    }
+  },
+  "paired_online_comparison": null,
+  "evaluator_integrity_metrics": null,
+  "agent_success_rate_excludes_answer_injection": true,
+  "scope_limit": "18 unseen frozen round-3 reddit tasks; paired 2x2 holdout only, not the full 812-task WebArena benchmark.",
+  "results": {
+    "world-model": [
+      {
+        "env_id": "browsergym/webarena.615",
+        "seed": 0,
+        "success": false,
+        "terminated": false,
+        "truncated": false,
+        "steps": 12,
+        "total_reward": 0.0,
+        "last_action_error": "",
+        "trajectory_path": "/home/filp/agent_world_model/data/trajectories_webarena_p0_round3_holdout/reddit/world-model_guard_on/world-model/20260815T091903Z_browsergym_webarena.615_seed0_c73faba1.jsonl",
+        "final_state_id": "343b4676a396324f",
+        "elapsed_seconds": 201.68910831800167,
+        "attempted_actions": 12,
+        "action_execution_successes": 12,
+        "episode_attempts": 2,
+        "mode": "world-model",
+        "task_id": 615,
+        "site": "reddit",
+        "uses_expected_answer": false
+      },
+      {
+        "env_id": "browsergym/webarena.623",
+        "seed": 0,
+        "success": false,
+        "terminated": true,
+        "truncated": false,
+        "steps": 4,
+        "total_reward": 0.0,
+        "last_action_error": "TimeoutError: Locator.click: Timeout 500ms exceeded.\nCall log:\nwaiting for get_by_test_id(\"125\")\n  -   locator resolved to <a bid=\"125\" browsergym_set_of_marks=\"1\" href=\"http…>Postmill</a>\n  - attempting click action\n  -   waiting for element to be visible, enabled and stable\n  -   element is visible, enabled and stable\n  -   scrolling into view if needed\n  -   done scrolling\n  -   performing click action\n",
+        "trajectory_path": "/home/filp/agent_world_model/data/trajectories_webarena_p0_round3_holdout/reddit/world-model_guard_on/world-model/20260815T092126Z_browsergym_webarena.623_seed0_68aa2401.jsonl",
+        "final_state_id": "be38a52c050e6484",
+        "elapsed_seconds": 29.078837176999514,
+        "attempted_actions": 4,
+        "action_execution_successes": 3,
+        "episode_attempts": 1,
+        "mode": "world-model",
+        "task_id": 623,
+        "site": "reddit",
+        "uses_expected_answer": false
+      },
+      {
+        "env_id": "browsergym/webarena.403",
+        "seed": 0,
+        "success": false,
+        "terminated": true,
+        "truncated": false,
+        "steps": 4,
+        "total_reward": 0.0,
+        "last_action_error": "TimeoutError: Locator.click: Timeout 500ms exceeded.\nCall log:\nwaiting for get_by_test_id(\"125\")\n  -   locator resolved to <a bid=\"125\" browsergym_set_of_marks=\"1\" href=\"http…>Postmill</a>\n  - attempting click action\n  -   waiting for element to be visible, enabled and stable\n  -   element is visible, enabled and stable\n  -   scrolling into view if needed\n  -   done scrolling\n  -   performing click action\n",
+        "trajectory_path": "/home/filp/agent_world_model/data/trajectories_webarena_p0_round3_holdout/reddit/world-model_guard_on/world-model/20260815T092155Z_browsergym_webarena.403_seed0_c5448af7.jsonl",
+        "final_state_id": "2668c6d7eb7c5710",
+        "elapsed_seconds": 30.5959531289991,
+        "attempted_actions": 4,
+        "action_execution_successes": 3,
+        "episode_attempts": 1,
+        "mode": "world-model",
+        "task_id": 403,
+        "site": "reddit",
+        "uses_expected_answer": false
+      },
+      {
+        "env_id": "browsergym/webarena.599",
+        "seed": 0,
+        "success": false,
+        "terminated": false,
+        "truncated": false,
+        "steps": 12,
+        "total_reward": 0.0,
+        "last_action_error": "",
+        "trajectory_path": "/home/filp/agent_world_model/data/trajectories_webarena_p0_round3_holdout/reddit/world-model_guard_on/world-model/20260815T092226Z_browsergym_webarena.599_seed0_ee952d27.jsonl",
+        "final_state_id": "f76cbe9d52acef0d",
+        "elapsed_seconds": 94.44669319899913,
+        "attempted_actions": 12,
+        "action_execution_successes": 12,
+        "episode_attempts": 1,
+        "mode": "world-model",
+        "task_id": 599,
+        "site": "reddit",
+        "uses_expected_answer": false
+      },
+      {
+        "env_id": "browsergym/webarena.610",
+        "seed": 0,
+        "success": false,
+        "terminated": false,
+        "truncated": false,
+        "steps": 12,
+        "total_reward": 0.0,
+        "last_action_error": "TimeoutError: Locator.click: Timeout 500ms exceeded.\nCall log:\nwaiting for get_by_test_id(\"163\")\n  -   locator resolved to <a bid=\"163\" class=\"text-sm\" browsergym_set_of_mark…>…</a>\n  - attempting click action\n  -   waiting for element to be visible, enabled and stable\n  -   element is visible, enabled and stable\n  -   scrolling into view if needed\n  -   done scrolling\n  -   performing click action\n",
+        "trajectory_path": "/home/filp/agent_world_model/data/trajectories_webarena_p0_round3_holdout/reddit/world-model_guard_on/world-model/20260815T092400Z_browsergym_webarena.610_seed0_7a0576e5.jsonl",
+        "final_state_id": "676efd8e345fcf74",
+        "elapsed_seconds": 104.02723623899874,
+        "attempted_actions": 12,
+        "action_execution_successes": 8,
+        "episode_attempts": 1,
+        "mode": "world-model",
+        "task_id": 610,
+        "site": "reddit",
+        "uses_expected_answer": false
+      },
+      {
+        "env_id": "browsergym/webarena.607",
+        "seed": 0,
+        "success": false,
+        "terminated": false,
+        "truncated": false,
+        "steps": 12,
+        "total_reward": 0.0,
+        "last_action_error": "",
+        "trajectory_path": "/home/filp/agent_world_model/data/trajectories_webarena_p0_round3_holdout/reddit/world-model_guard_on/world-model/20260815T092546Z_browsergym_webarena.607_seed0_77191dbb.jsonl",
+        "final_state_id": "80a6c3224446f5de",
+        "elapsed_seconds": 90.88324148000174,
+        "attempted_actions": 12,
+        "action_execution_successes": 12,
+        "episode_attempts": 1,
+        "mode": "world-model",
+        "task_id": 607,
+        "site": "reddit",
+        "uses_expected_answer": false
+      },
+      {
+        "env_id": "browsergym/webarena.603",
+        "seed": 0,
+        "success": false,
+        "terminated": true,
+        "truncated": false,
+        "steps": 7,
+        "total_reward": 0.0,
+        "last_action_error": "TimeoutError: Locator.click: Timeout 500ms exceeded.\nCall log:\nwaiting for get_by_test_id(\"265\")\n  -   locator resolved to <a bid=\"265\" target=\"_self\" class=\"submission__link…>After Two Decades And 38 Children’s Books Lin Oli…</a>\n  - attempting click action\n  -   waiting for element to be visible, enabled and stable\n  -   element is visible, enabled and stable\n  -   scrolling into view if needed\n  -   done scrolling\n  -   performing click action\n",
+        "trajectory_path": "/home/filp/agent_world_model/data/trajectories_webarena_p0_round3_holdout/reddit/world-model_guard_on/world-model/20260815T092715Z_browsergym_webarena.603_seed0_85dadca2.jsonl",
+        "final_state_id": "baa943aeeb09d0ca",
+        "elapsed_seconds": 51.68348666399834,
+        "attempted_actions": 7,
+        "action_execution_successes": 6,
+        "episode_attempts": 1,
+        "mode": "world-model",
+        "task_id": 603,
+        "site": "reddit",
+        "uses_expected_answer": false
+      },
+      {
+        "env_id": "browsergym/webarena.735",
+        "seed": 0,
+        "success": false,
+        "terminated": false,
+        "truncated": false,
+        "steps": 12,
+        "total_reward": 0.0,
+        "last_action_error": "",
+        "trajectory_path": "/home/filp/agent_world_model/data/trajectories_webarena_p0_round3_holdout/reddit/world-model_guard_on/world-model/20260815T092807Z_browsergym_webarena.735_seed0_126b8096.jsonl",
+        "final_state_id": "6441a0b32aa6d8bf",
+        "elapsed_seconds": 89.64780805400005,
+        "attempted_actions": 12,
+        "action_execution_successes": 12,
+        "episode_attempts": 1,
+        "mode": "world-model",
+        "task_id": 735,
+        "site": "reddit",
+        "uses_expected_answer": false
+      }
+    ]
+  },
+  "failures": [
+    {
+      "mode": "world-model",
+      "task_id": 609,
+      "seed": 0,
+      "error": "URLError(ConnectionRefusedError(111, 'Connection refused'))"
+    },
+    {
+      "mode": "world-model",
+      "task_id": 606,
+      "seed": 0,
+      "error": "URLError(ConnectionRefusedError(111, 'Connection refused'))"
+    },
+    {
+      "mode": "world-model",
+      "task_id": 639,
+      "seed": 0,
+      "error": "URLError(ConnectionRefusedError(111, 'Connection refused'))"
+    },
+    {
+      "mode": "world-model",
+      "task_id": 646,
+      "seed": 0,
+      "error": "URLError(ConnectionRefusedError(111, 'Connection refused'))"
+    },
+    {
+      "mode": "world-model",
+      "task_id": 406,
+      "seed": 0,
+      "error": "URLError(ConnectionRefusedError(111, 'Connection refused'))"
+    },
+    {
+      "mode": "world-model",
+      "task_id": 636,
+      "seed": 0,
+      "error": "URLError(ConnectionRefusedError(111, 'Connection refused'))"
+    },
+    {
+      "mode": "world-model",
+      "task_id": 581,
+      "seed": 0,
+      "error": "URLError(ConnectionRefusedError(111, 'Connection refused'))"
+    },
+    {
+      "mode": "world-model",
+      "task_id": 651,
+      "seed": 0,
+      "error": "URLError(ConnectionRefusedError(111, 'Connection refused'))"
+    },
+    {
+      "mode": "world-model",
+      "task_id": 400,
+      "seed": 0,
+      "error": "URLError(ConnectionRefusedError(111, 'Connection refused'))"
+    },
+    {
+      "mode": "world-model",
+      "task_id": 66,
+      "seed": 0,
+      "error": "URLError(ConnectionRefusedError(111, 'Connection refused'))"
+    }
+  ]
+}

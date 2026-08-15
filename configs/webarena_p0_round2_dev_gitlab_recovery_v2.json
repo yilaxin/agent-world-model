@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "benchmark": "Classic WebArena P0 round-2 development split environment recovery",
+  "frozen_at_utc": "2026-08-14T08:04:02.825177+00:00",
+  "selection_salt": "p0-round2-development-v1",
+  "required_sites": [
+    "gitlab"
+  ],
+  "task_ids": [
+    442,
+    736,
+    449,
+    415,
+    398
+  ],
+  "task_sites": {
+    "442": "gitlab",
+    "736": "gitlab",
+    "449": "gitlab",
+    "415": "gitlab",
+    "398": "gitlab"
+  },
+  "seeds": [
+    0
+  ],
+  "reactive_step_budget": 12,
+  "world_model_step_budget": 12,
+  "episode_max_attempts": 2,
+  "evaluator_smoke_step_budget": 1,
+  "evaluator_smoke_answers": {},
+  "release_fingerprint_sha256": "fe52d922a891ca9464b2691781b2f3d4594eecf3eaed82ff315d849b34118a24",
+  "task_feedback_allowed": true,
+  "eligible_for_final_claim": false,
+  "source": {
+    "task_count": 812,
+    "task_source_sha256": "7b50386fd69163dbc05d615d834df4c6ed2c35596e97a1b10d17451c02537652",
+    "source_wheel_sha256": "9ebee3b4371502c4f0f7e727a72e5846235d6750d420db9a3b8a168107654feb"
+  },
+  "scope_limit": "Development-only recovery of recorded environment failures; merge by task ID with the parent report and never treat it as an independent benchmark.",
+  "parent_development_report": "data/reports/webarena_p0_round2_dev_gitlab_world-model_v2.json",
+  "recovery_reason": "Retry only episodes with recorded environment/transport failures.",
+  "freeze_sha256": "68dc9eb0edf701f53b8a2fc336c68b1f94a7b2df1c9536466b42af91577d2c34"
+}

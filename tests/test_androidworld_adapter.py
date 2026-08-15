@@ -34,6 +34,10 @@ class AndroidWorldAdapterTests(unittest.TestCase):
         self.assertTrue(actions[-1]["clear_text"])
         self.assertEqual(map_agent_action("go_back()", bounds), [{"action_type": "navigate_back"}])
         self.assertEqual(map_agent_action('press("ENTER")', bounds), [{"action_type": "keyboard_enter"}])
+        self.assertEqual(
+            map_agent_action('press("field", "ENTER")', bounds),
+            [{"action_type": "keyboard_enter"}],
+        )
 
     def test_official_state_shape_and_action_schema(self) -> None:
         @dataclass

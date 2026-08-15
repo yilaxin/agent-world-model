@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "source_report": "data\\reports\\androidworld_task_eval_w4_round3.json",
+  "agent": "released_w4",
+  "episodes_per_task": 5,
+  "platform": "androidworld_api33_whpx_local",
+  "unified_reset": true,
+  "confidence_interval_method": "wilson_95",
+  "overall": {
+    "episodes": 35,
+    "successes": 27,
+    "success_rate": 0.7714285714285715,
+    "wilson_95ci": [
+      0.6098236221989801,
+      0.879342632538209
+    ]
+  },
+  "per_task": [
+    {
+      "task": "wifi_on",
+      "episodes": 5,
+      "successes": 4,
+      "success_rate": 0.8,
+      "wilson_95ci": [
+        0.3755282641185388,
+        0.9637768390302125
+      ],
+      "action_execution_rate": 1.0
+    },
+    {
+      "task": "wifi_off",
+      "episodes": 5,
+      "successes": 4,
+      "success_rate": 0.8,
+      "wilson_95ci": [
+        0.3755282641185388,
+        0.9637768390302125
+      ],
+      "action_execution_rate": 1.0
+    },
+    {
+      "task": "open_chrome",
+      "episodes": 5,
+      "successes": 5,
+      "success_rate": 1.0,
+      "wilson_95ci": [
+        0.5655085052479191,
+        1.0
+      ],
+      "action_execution_rate": 1.0
+    },
+    {
+      "task": "open_calendar",
+      "episodes": 5,
+      "successes": 4,
+      "success_rate": 0.8,
+      "wilson_95ci": [
+        0.3755282641185388,
+        0.9637768390302125
+      ],
+      "action_execution_rate": 1.0
+    },
+    {
+      "task": "open_gallery",
+      "episodes": 5,
+      "successes": 5,
+      "success_rate": 1.0,
+      "wilson_95ci": [
+        0.5655085052479191,
+        1.0
+      ],
+      "action_execution_rate": 1.0
+    },
+    {
+      "task": "open_messages",
+      "episodes": 5,
+      "successes": 0,
+      "success_rate": 0.0,
+      "wilson_95ci": [
+        0.0,
+        0.43449149475208104
+      ],
+      "action_execution_rate": 1.0
+    },
+    {
+      "task": "open_gmail",
+      "episodes": 5,
+      "successes": 5,
+      "success_rate": 1.0,
+      "wilson_95ci": [
+        0.5655085052479191,
+        1.0
+      ],
+      "action_execution_rate": 1.0
+    }
+  ],
+  "interpretation_limits": [
+    "AndroidWorld results are a small migration check, not a statistical cross-platform proof.",
+    "Success is read from Android system/foreground state via ADB, not an LLM judge."
+  ]
+}

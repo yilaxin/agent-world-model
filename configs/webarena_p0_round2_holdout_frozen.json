@@ -1,0 +1,294 @@
+{
+  "schema_version": 1,
+  "benchmark": "Classic WebArena P0 round-2 unseen paired holdout",
+  "frozen_at_utc": "2026-08-14T10:30:45.217239+00:00",
+  "frozen_before_any_holdout_episode": true,
+  "selection_salt": "p0-round2-holdout-v1",
+  "sites": [
+    "gitlab",
+    "reddit",
+    "shopping"
+  ],
+  "tasks_per_site": 30,
+  "selected_task_ids_by_site": {
+    "gitlab": [
+      524,
+      411,
+      783,
+      341,
+      811,
+      422,
+      357,
+      181,
+      136,
+      135,
+      663,
+      802,
+      306,
+      477,
+      537,
+      392,
+      481,
+      669,
+      755,
+      418,
+      485,
+      416,
+      397,
+      800,
+      176,
+      448,
+      665,
+      293,
+      178,
+      804
+    ],
+    "reddit": [
+      620,
+      717,
+      643,
+      734,
+      641,
+      635,
+      727,
+      642,
+      732,
+      714,
+      728,
+      652,
+      718,
+      649,
+      69,
+      619,
+      729,
+      399,
+      601,
+      633,
+      598,
+      719,
+      624,
+      580,
+      726,
+      715,
+      638,
+      622,
+      616,
+      647
+    ],
+    "shopping": [
+      49,
+      571,
+      163,
+      655,
+      281,
+      798,
+      439,
+      515,
+      234,
+      376,
+      513,
+      329,
+      165,
+      796,
+      588,
+      368,
+      359,
+      510,
+      229,
+      511,
+      521,
+      277,
+      336,
+      335,
+      692,
+      532,
+      466,
+      149,
+      162,
+      328
+    ]
+  },
+  "cells": [
+    "reactive_guard_off",
+    "reactive_guard_on",
+    "w4_guard_off",
+    "w4_guard_on"
+  ],
+  "step_budget_per_episode": 12,
+  "total_planned_episodes": 360,
+  "task_feedback_used": false,
+  "post_freeze_policy_changes_allowed": false,
+  "development_gate": {
+    "report": "data/reports/webarena_p0_round2_dev_analysis.json",
+    "report_sha256": "6e84966bff27afbc96f337f952dd326c91e1a3e1ee68fa079f0ee8dbc5ef865e",
+    "successes": 1,
+    "episodes": 30
+  },
+  "release": {
+    "sha256": "fe52d922a891ca9464b2691781b2f3d4594eecf3eaed82ff315d849b34118a24",
+    "files": [
+      {
+        "path": "agent_world_model/__init__.py",
+        "bytes": 1793,
+        "sha256": "f240c27da3e4b55ada259207b84d8fdf9a8a2aecb3e8605e12158252e044fc18"
+      },
+      {
+        "path": "agent_world_model/baseline.py",
+        "bytes": 5124,
+        "sha256": "89256ab526dfedb9fbf042ac1a70d10a9febda655d7f2a395a79ef10d83a2876"
+      },
+      {
+        "path": "agent_world_model/encoder.py",
+        "bytes": 5897,
+        "sha256": "cc8ec71cff583f146f3d422e11c7caffa6a75d031d1cf1c322cc51a5a6f3d835"
+      },
+      {
+        "path": "agent_world_model/experiment_stats.py",
+        "bytes": 2389,
+        "sha256": "d27429859a4ae1d35c4d2a3abe9391d95601e242b79001f8a3c09a0b14303dde"
+      },
+      {
+        "path": "agent_world_model/phase2_dataset.py",
+        "bytes": 13256,
+        "sha256": "b65fc573966743c3c92ff769205392c8b37b69f288c7390d3706f6c004064a32"
+      },
+      {
+        "path": "agent_world_model/phase2_ensemble.py",
+        "bytes": 15695,
+        "sha256": "4cbd5876e0619dff7ca465f17ff781608b6e8bf523bfdbed72ee4e0724568b18"
+      },
+      {
+        "path": "agent_world_model/phase2_losses.py",
+        "bytes": 4227,
+        "sha256": "cb01729c4cf4f1c97134eceaae45652c40c45913237876dffbe505a401f36303"
+      },
+      {
+        "path": "agent_world_model/phase2_metrics.py",
+        "bytes": 9764,
+        "sha256": "e63ecee641b2fe8ecd9f4db34457cf37e9e709f4221a013a78607d5a043f177b"
+      },
+      {
+        "path": "agent_world_model/phase2_schema.py",
+        "bytes": 14714,
+        "sha256": "2483b5b6beb7714e91488a2c200cd4a214eee8553db7b108127f18b295bc2644"
+      },
+      {
+        "path": "agent_world_model/phase2_training.py",
+        "bytes": 23649,
+        "sha256": "5c2b328cf3745fb26026e58d8447721ff6b0253f952a8231e6ba817313876754"
+      },
+      {
+        "path": "agent_world_model/phase3_agent.py",
+        "bytes": 17037,
+        "sha256": "53908772eff82e890dda4f563529dfbe1c45583efa9b0b46c77c7ecf759ef901"
+      },
+      {
+        "path": "agent_world_model/phase3_candidates.py",
+        "bytes": 23200,
+        "sha256": "e3f6ba95eff9ba0f752d290124ad302413176e3a9f4f2913feed3ac4a9286641"
+      },
+      {
+        "path": "agent_world_model/phase3_planning.py",
+        "bytes": 16318,
+        "sha256": "b0897f3853299d86b34d5f0f1d7428c1cfc89a22f24b2751fccafec72838b813"
+      },
+      {
+        "path": "agent_world_model/reactive_agent.py",
+        "bytes": 21577,
+        "sha256": "c98980097c913d35a7e564b76de505d8f17af9ddba6f0d0eb4b97ffa09d9df06"
+      },
+      {
+        "path": "agent_world_model/release_fingerprint.py",
+        "bytes": 2901,
+        "sha256": "d0945cbd5b64b1a18de4069f9275e29867c0762cecd5aeb6fd3c1e3cc9dd583b"
+      },
+      {
+        "path": "agent_world_model/remote_agent.py",
+        "bytes": 4054,
+        "sha256": "6f87b631efee9c7e3b349c7447f45da00414d6dce993455c462cb4d633865cda"
+      },
+      {
+        "path": "agent_world_model/state.py",
+        "bytes": 11809,
+        "sha256": "3550958452da5ff2b8eae69ad87d922c929adae7913d223f6fe57b291c57a56e"
+      },
+      {
+        "path": "agent_world_model/structure_alignment.py",
+        "bytes": 6322,
+        "sha256": "915b0d4676ee1af9772f55ed6a64c691bfc83fe101230524029cdb48cbe37785"
+      },
+      {
+        "path": "agent_world_model/trajectory.py",
+        "bytes": 8025,
+        "sha256": "d721bdb2715b5eb90e81989b8d775be2bfbb23b9aa0ef2a4662cdce73b9fb89f"
+      },
+      {
+        "path": "agent_world_model/world_model.py",
+        "bytes": 6616,
+        "sha256": "643ec791d42d857c0d5b9b4a6adad87a188955f8e23a47ab8e18a66bc6b94c6b"
+      },
+      {
+        "path": "artifacts/phase2/p2_multiseed/world_model_rank_balanced_a_seed29.pt",
+        "bytes": 5533698,
+        "sha256": "bcd0ae6738c308edf67bb00b29d909bc8426a27fddf5f81fa56c7f610bf64f3a"
+      },
+      {
+        "path": "artifacts/phase2/p2_multiseed/world_model_rank_base_a_seed17.pt",
+        "bytes": 5533426,
+        "sha256": "19618056007572ad84099794ace489f5906d4301f158678a20527599f6feb000"
+      },
+      {
+        "path": "artifacts/phase2/p2_multiseed/world_model_rank_regularized_seed73.pt",
+        "bytes": 5533750,
+        "sha256": "adbce45480a6c783e49b2d9ac8666d8fbdb529b3cc0e016ddb38780091209f0b"
+      },
+      {
+        "path": "artifacts/phase3/structure_aligner_best.pt",
+        "bytes": 3480,
+        "sha256": "9959d67826d12f2c898247c91c5f688073c625e13c386b74ec383fd4f0d751ef"
+      },
+      {
+        "path": "artifacts/phase4/priority/member_seed17.pt",
+        "bytes": 5532478,
+        "sha256": "cdc21e44ad8bfebdfb91c8cdd4c0c3ceae55a4756c3ae36c233413d3cb74adfd"
+      },
+      {
+        "path": "artifacts/phase4/priority/member_seed29.pt",
+        "bytes": 5532478,
+        "sha256": "c37c2a58c0571edb858fd15f687168eb12020978709b352eadef591d824dce18"
+      },
+      {
+        "path": "artifacts/phase4/priority/member_seed73.pt",
+        "bytes": 5532478,
+        "sha256": "ffbbcf1f3b81c6f7624b8204276396555b9f34c2ecc01691dd36a404066f47f9"
+      },
+      {
+        "path": "artifacts/phase4/world_model_ensemble_w4.json",
+        "bytes": 1388,
+        "sha256": "3822be90e35cb1a4d3c5d6247b6fdaf821623fe86825ee567aaca0e55045075c"
+      },
+      {
+        "path": "configs/phase3_planner.json",
+        "bytes": 1960,
+        "sha256": "1c7b80b05daf168cdec9683663836f264c12af8b44afa0e0451f1c5f37acebe7"
+      },
+      {
+        "path": "scripts/evaluate_webarena_online.py",
+        "bytes": 13775,
+        "sha256": "0d5b952bc8edbf5e58a17b9fbe7452ef9ba7aa6d1334156e7e98b0f2828d704b"
+      },
+      {
+        "path": "scripts/serve_phase3_inference.py",
+        "bytes": 6712,
+        "sha256": "a6c54576970d999342594b32584b925b14660023f1991fbd83e9ba047192b49f"
+      }
+    ]
+  },
+  "source": {
+    "task_count": 812,
+    "task_source_sha256": "7b50386fd69163dbc05d615d834df4c6ed2c35596e97a1b10d17451c02537652",
+    "source_wheel_sha256": "9ebee3b4371502c4f0f7e727a72e5846235d6750d420db9a3b8a168107654feb"
+  },
+  "claim_rule": "Report absolute pp, relative SR, and paired CI; claim +10% only if established here.",
+  "freeze_sha256": "a772943ee036958f48ec17249a25865d7a779217797618ef10a03881661230b9"
+}

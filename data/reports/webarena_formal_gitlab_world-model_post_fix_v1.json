@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-08-12T17:35:59.075587+00:00",
+  "benchmark": "WebArena Verified frozen three-site navigation subset",
+  "fixed_task_ids": [
+    44,
+    45,
+    258
+  ],
+  "task_sites": {
+    "44": "gitlab",
+    "45": "gitlab",
+    "258": "gitlab"
+  },
+  "required_sites": [
+    "gitlab"
+  ],
+  "fixed_seeds": [
+    0
+  ],
+  "budgets": {
+    "reactive_steps": 12,
+    "world_model_steps": 12,
+    "evaluator_smoke_steps": 1
+  },
+  "agent_metrics": null,
+  "world_model_agent_metrics": {
+    "episodes": 3,
+    "successes": 2,
+    "success_rate": 0.6666666666666666,
+    "action_execution_rate": 1.0,
+    "average_steps": 1.3333333333333333,
+    "average_latency_seconds": 12.916844184999983
+  },
+  "per_site_metrics": {
+    "world-model": {
+      "gitlab": {
+        "episodes": 3,
+        "successes": 2,
+        "success_rate": 0.6666666666666666,
+        "action_execution_rate": 1.0,
+        "average_steps": 1.3333333333333333,
+        "average_latency_seconds": 12.916844184999983
+      }
+    }
+  },
+  "paired_online_comparison": null,
+  "evaluator_integrity_metrics": null,
+  "agent_success_rate_excludes_answer_injection": true,
+  "scope_limit": "GitLab partition of the frozen 9-task formal subset; not a standalone benchmark claim.",
+  "results": {
+    "world-model": [
+      {
+        "env_id": "browsergym/webarena.44",
+        "seed": 0,
+        "success": true,
+        "terminated": true,
+        "truncated": false,
+        "steps": 1,
+        "total_reward": 1.0,
+        "last_action_error": "TimeoutError: Locator.click: Timeout 500ms exceeded.\nCall log:\nwaiting for get_by_test_id(\"171\")\n  -   locator resolved to <a bid=\"171\" title=\"To-Do List\" data-toggle=\"toolti…>…</a>\n  - attempting click action\n  -   waiting for element to be visible, enabled and stable\n  -   element is visible, enabled and stable\n  -   scrolling into view if needed\n  -   done scrolling\n  -   performing click action\n",
+        "trajectory_path": "/home/filp/agent_world_model/data/trajectories_webarena_formal/gitlab/world-model/world-model/20260812T173532Z_browsergym_webarena.44_seed0_61961531.jsonl",
+        "final_state_id": "786db746ce859e1a",
+        "elapsed_seconds": 15.266556769999966,
+        "attempted_actions": 1,
+        "action_execution_successes": 1,
+        "mode": "world-model",
+        "task_id": 44,
+        "site": "gitlab",
+        "uses_expected_answer": false
+      },
+      {
+        "env_id": "browsergym/webarena.45",
+        "seed": 0,
+        "success": false,
+        "terminated": true,
+        "truncated": false,
+        "steps": 2,
+        "total_reward": 0.0,
+        "last_action_error": "",
+        "trajectory_path": "/home/filp/agent_world_model/data/trajectories_webarena_formal/gitlab/world-model/world-model/20260812T173544Z_browsergym_webarena.45_seed0_bd2f92d0.jsonl",
+        "final_state_id": "3f2c05837012802f",
+        "elapsed_seconds": 13.660929936999992,
+        "attempted_actions": 2,
+        "action_execution_successes": 2,
+        "mode": "world-model",
+        "task_id": 45,
+        "site": "gitlab",
+        "uses_expected_answer": false
+      },
+      {
+        "env_id": "browsergym/webarena.258",
+        "seed": 0,
+        "success": true,
+        "terminated": true,
+        "truncated": false,
+        "steps": 1,
+        "total_reward": 1.0,
+        "last_action_error": "TimeoutError: Locator.click: Timeout 500ms exceeded.\nCall log:\nwaiting for get_by_test_id(\"264\")\n  -   locator resolved to <a bid=\"264\" href=\"/explore\" data-placement=\"right\"…>Explore</a>\n  - attempting click action\n  -   waiting for element to be visible, enabled and stable\n  -   element is visible, enabled and stable\n  -   scrolling into view if needed\n  -   done scrolling\n  -   performing click action\n",
+        "trajectory_path": "/home/filp/agent_world_model/data/trajectories_webarena_formal/gitlab/world-model/world-model/20260812T173555Z_browsergym_webarena.258_seed0_a5892886.jsonl",
+        "final_state_id": "39849b4f581bc510",
+        "elapsed_seconds": 9.823045847999992,
+        "attempted_actions": 1,
+        "action_execution_successes": 1,
+        "mode": "world-model",
+        "task_id": 258,
+        "site": "gitlab",
+        "uses_expected_answer": false
+      }
+    ]
+  },
+  "failures": []
+}

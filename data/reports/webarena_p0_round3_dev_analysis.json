@@ -1,0 +1,383 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-08-15T07:48:54.692016+00:00",
+  "scope": "Round-3 development split; policy iteration allowed; never a holdout claim.",
+  "complete": true,
+  "expected_task_count": 30,
+  "missing_task_ids": {
+    "reactive": [],
+    "world-model": []
+  },
+  "evaluator_blocked_task_ids": {
+    "reactive": {
+      "168": "ValueError('OPENAI_API_KEY environment variable must be set when using OpenAI API.')",
+      "313": "ValueError('OPENAI_API_KEY environment variable must be set when using OpenAI API.')"
+    },
+    "world-model": {
+      "168": "ValueError('OPENAI_API_KEY environment variable must be set when using OpenAI API.')",
+      "313": "ValueError('OPENAI_API_KEY environment variable must be set when using OpenAI API.')"
+    }
+  },
+  "evaluator_block_note": "Tasks whose evaluator cannot initialize without an external API key are excluded from success-rate denominators and are not counted as agent failures.",
+  "configs": [
+    {
+      "path": "configs/webarena_p0_round3_dev_gitlab.json",
+      "sha256": "262cf298b824a93541ecf78467c37eb9a0ea96d96664b989f43e4810f39054a4",
+      "freeze_sha256": "c4cf401b0d0003920e7c1454c9d7515c95173565d1a6b21162d68189baabf8a4",
+      "task_count": 10
+    },
+    {
+      "path": "configs/webarena_p0_round3_dev_reddit.json",
+      "sha256": "9a420125bc2a97406c386d559a939919870fbb7af722d508266f15210ea85d83",
+      "freeze_sha256": "8c17df4ea62444a9ce0f42ee4adfa11b7bcb20c20a96b0e1dabbd7518c7c562b",
+      "task_count": 10
+    },
+    {
+      "path": "configs/webarena_p0_round3_dev_shopping.json",
+      "sha256": "82de557d256d4ae7c3116d20562564edafece98dc0dd55067ede396ebc69731b",
+      "freeze_sha256": "3119e5aaa32a05ba98b3bd83243861fdbdb765a99218cd7233003f8587972465",
+      "task_count": 10
+    }
+  ],
+  "source_reports": [
+    {
+      "path": "data/reports/webarena_p0_round3_dev_v2_gitlab_reactive.json",
+      "sha256": "f3ea976a74730be5eb42f39f09c7f1cfd043391c917359df02f23ec6bc44545c",
+      "mode": "reactive",
+      "result_rows": 9,
+      "failure_rows": 1,
+      "remote_agent_health": null,
+      "validation_adapter": null
+    },
+    {
+      "path": "data/reports/webarena_p0_round3_dev_v3_reddit_reactive.json",
+      "sha256": "40eb33591e283e1cb7ab553bd7657b41be24f98f0c2a32b6e7ec60ad9b9c478c",
+      "mode": "reactive",
+      "result_rows": 10,
+      "failure_rows": 0,
+      "remote_agent_health": null,
+      "validation_adapter": null
+    },
+    {
+      "path": "data/reports/webarena_p0_round3_dev_v2_shopping_reactive.json",
+      "sha256": "100adc6860c6b846759785398f5b41bb74dba2c18f7a0634b97a2048924dc5e7",
+      "mode": "reactive",
+      "result_rows": 9,
+      "failure_rows": 1,
+      "remote_agent_health": null,
+      "validation_adapter": null
+    },
+    {
+      "path": "data/reports/webarena_p0_round3_dev_gitlab_world-model.json",
+      "sha256": "11fe26abdbf5650644e719867db4041d6e3814913b91d979313fe64fd9a69e26",
+      "mode": "world-model",
+      "result_rows": 9,
+      "failure_rows": 1,
+      "remote_agent_health": {
+        "status": "ok",
+        "device": "cuda",
+        "navigation_guard": "on",
+        "semantic_goal_priority": false,
+        "release_fingerprint_sha256": "e6c524b8b42beaba5ca5c7bc56c1354bbc7a326e6ef89ea2a1fcf2a0e3b7b1a7",
+        "authentication_required": false
+      },
+      "validation_adapter": null
+    },
+    {
+      "path": "data/reports/webarena_p0_round3_dev_reddit_world-model.json",
+      "sha256": "9a18eac65edd713719ed31d317d4b6680d14fc8a8d5fc7c6472ddd94aa7a8773",
+      "mode": "world-model",
+      "result_rows": 10,
+      "failure_rows": 0,
+      "remote_agent_health": {
+        "status": "ok",
+        "device": "cuda",
+        "navigation_guard": "on",
+        "semantic_goal_priority": false,
+        "release_fingerprint_sha256": "e6c524b8b42beaba5ca5c7bc56c1354bbc7a326e6ef89ea2a1fcf2a0e3b7b1a7",
+        "authentication_required": false
+      },
+      "validation_adapter": null
+    },
+    {
+      "path": "data/reports/webarena_p0_round3_dev_v4_shopping_world-model.json",
+      "sha256": "20115f5a3c512bb25ec98224bf7a9cca47d489ce93160b2095b7f0dc266b8d47",
+      "mode": "world-model",
+      "result_rows": 9,
+      "failure_rows": 1,
+      "remote_agent_health": {
+        "status": "ok",
+        "device": "cuda",
+        "navigation_guard": "on",
+        "semantic_goal_priority": false,
+        "release_fingerprint_sha256": "f12e304eacf9b150d786b31143231b463dcac49f32ad4b3e85f59567a6a4f947",
+        "authentication_required": false
+      },
+      "validation_adapter": null
+    }
+  ],
+  "metrics": {
+    "reactive": {
+      "episodes": 28,
+      "successes": 2,
+      "success_rate": 0.07142857142857142,
+      "action_execution_rate": 0.9230769230769231,
+      "average_steps": 9.75
+    },
+    "world-model": {
+      "episodes": 28,
+      "successes": 2,
+      "success_rate": 0.07142857142857142,
+      "action_execution_rate": 0.9311475409836065,
+      "average_steps": 10.892857142857142
+    }
+  },
+  "paired_online_comparison": {
+    "paired_task_count": 28,
+    "baseline_success_rate": 0.07142857142857142,
+    "candidate_success_rate": 0.07142857142857142,
+    "baseline_success_rate_95ci": [
+      0.0,
+      0.17857142857142858
+    ],
+    "candidate_success_rate_95ci": [
+      0.0,
+      0.17857142857142858
+    ],
+    "absolute_improvement_points": 0.0,
+    "absolute_improvement_95ci_points": [
+      0.0,
+      0.0
+    ],
+    "relative_improvement": 0.0,
+    "baseline_only_success": 0,
+    "candidate_only_success": 0,
+    "scope": "complete_30_task_development_pair"
+  },
+  "paired_rows": [
+    {
+      "task_id": 118,
+      "site": "shopping",
+      "reactive_success": true,
+      "world_model_success": true,
+      "reactive_trajectory_sha256": "fa5c0c880b0a9edf8b49c9a27bf0b9f31d411bf0ba5662a21517e0507431a851",
+      "world_model_trajectory_sha256": "fcbb1af5ab52479ee86a6c9c84088f575fc1bdefc3f6f07e43af940cdbe7e3ba"
+    },
+    {
+      "task_id": 160,
+      "site": "shopping",
+      "reactive_success": false,
+      "world_model_success": false,
+      "reactive_trajectory_sha256": "c18d8baf98c8cff938cae6a992b9a0a2b9c9f616a74d4857293b07d05ffef8d7",
+      "world_model_trajectory_sha256": "ec3b57645f4cd79bb416112bf743888f27728651c6e8c8716ce428f438d532eb"
+    },
+    {
+      "task_id": 172,
+      "site": "gitlab",
+      "reactive_success": false,
+      "world_model_success": false,
+      "reactive_trajectory_sha256": "eb92bc964a505932059f20cfa4f04708162324e0c51972909a0d6b7d01073c43",
+      "world_model_trajectory_sha256": "ac1118ab3db3259d38ce557a2b47e2c30412c076d96e78426e0d1c169f09b829"
+    },
+    {
+      "task_id": 188,
+      "site": "shopping",
+      "reactive_success": false,
+      "world_model_success": false,
+      "reactive_trajectory_sha256": "3bdedb5ab19849566f5994b7b738ad651379e79ad5bfb1b8e1a5fd2eab948499",
+      "world_model_trajectory_sha256": "1dc2e8825cc9b5a4dc37d46c0f5b645263e61e5d209e4261dcbcc72f6d664389"
+    },
+    {
+      "task_id": 189,
+      "site": "shopping",
+      "reactive_success": false,
+      "world_model_success": false,
+      "reactive_trajectory_sha256": "c27f6a62d8ef2a77db6f6a80235c022b8db8031b8d9875a934db3c875b8cc788",
+      "world_model_trajectory_sha256": "5eb678c5eaa5c17afdcbbe03a175bd49b9c8a07bdc45a3c5ab2f9bac060c1e3b"
+    },
+    {
+      "task_id": 286,
+      "site": "shopping",
+      "reactive_success": false,
+      "world_model_success": false,
+      "reactive_trajectory_sha256": "fc68c2e1729b6d86efd1da04f3d6d6b167b819c464d218eff504356eb0bbe097",
+      "world_model_trajectory_sha256": "3dcfef3a066258438ae9580008cfa8735aa27bdb83aa909c1f638e7307b923c6"
+    },
+    {
+      "task_id": 308,
+      "site": "gitlab",
+      "reactive_success": false,
+      "world_model_success": false,
+      "reactive_trajectory_sha256": "6e23e8ec08f8cc08b7e975feeef832477af46b35aeb654fe61ca0f535920e171",
+      "world_model_trajectory_sha256": "e46b032944c0c92d48c6b16bae82e11803db06b54e4e9f23451afaa742a9abbb"
+    },
+    {
+      "task_id": 342,
+      "site": "gitlab",
+      "reactive_success": false,
+      "world_model_success": false,
+      "reactive_trajectory_sha256": "9291c8ed3fe38206b20d7775a92c41654db733375bcf2e2f402107fdd5de6eb4",
+      "world_model_trajectory_sha256": "e5978d7847f349db8f1a28e5ba2cd8f454816406dd3f7a0cae52f5c8b338a845"
+    },
+    {
+      "task_id": 349,
+      "site": "gitlab",
+      "reactive_success": false,
+      "world_model_success": false,
+      "reactive_trajectory_sha256": "d03b973bca8f18d0821adaeb9a31ad8313d1e78ce9cc2e73dd90104dff950f1f",
+      "world_model_trajectory_sha256": "9304f900faa535803d955284294971b9e7e85280064ff795ca2dc50f7e88e06d"
+    },
+    {
+      "task_id": 401,
+      "site": "reddit",
+      "reactive_success": false,
+      "world_model_success": false,
+      "reactive_trajectory_sha256": "ff5ebc1fea0024f1ce69934f15c58333548c41a2497d50c269abd32efd7d2737",
+      "world_model_trajectory_sha256": "b38fb3b281e3adc9705f357765fe5c4517592c1ad5a0fef68a149a1e31304085"
+    },
+    {
+      "task_id": 404,
+      "site": "reddit",
+      "reactive_success": false,
+      "world_model_success": false,
+      "reactive_trajectory_sha256": "d0c52185237a61e1349b2745c704d241e9fd381d5f0ef7aecb26e0e5b2bd5fb1",
+      "world_model_trajectory_sha256": "b7d9a539fb09e898b9783966686bec37bd68a2bad4fa7a084cd94549ca3f3585"
+    },
+    {
+      "task_id": 417,
+      "site": "gitlab",
+      "reactive_success": false,
+      "world_model_success": false,
+      "reactive_trajectory_sha256": "071826ddaac117611e31a3439ddce82370b00831b8db61e62c18d59b5b666047",
+      "world_model_trajectory_sha256": "bb495190ae6f86df211940e46d6fdfa7ec1bb924a439daf97052efbe2dc447b9"
+    },
+    {
+      "task_id": 484,
+      "site": "gitlab",
+      "reactive_success": false,
+      "world_model_success": false,
+      "reactive_trajectory_sha256": "e1b4e9f7c0dcca003bc504148e98128712ca3466c27dc8c4a76cd6cef372dac0",
+      "world_model_trajectory_sha256": "e40951fc7ccf68bdb543ef818abba5213788d280d772682daa48f8e500e8e76c"
+    },
+    {
+      "task_id": 516,
+      "site": "shopping",
+      "reactive_success": true,
+      "world_model_success": true,
+      "reactive_trajectory_sha256": "4b1c67f23d7a58ad51924bd311b7e1447b98df17a9a01bc9e2e6aa6d16a35727",
+      "world_model_trajectory_sha256": "9f878cdacb6e2d531c4bd259d162b3b71dc2ab75e593d13b1584dd96d80bf955"
+    },
+    {
+      "task_id": 593,
+      "site": "gitlab",
+      "reactive_success": false,
+      "world_model_success": false,
+      "reactive_trajectory_sha256": "846f23a23b8083d08e1abc8d4a7ad2969413c41de7988ec2b0cd6d58b149cb83",
+      "world_model_trajectory_sha256": "0051ecdf162feb2391b3feb513012e66b3626dbed4902d0169a93c5af79306f4"
+    },
+    {
+      "task_id": 602,
+      "site": "reddit",
+      "reactive_success": false,
+      "world_model_success": false,
+      "reactive_trajectory_sha256": "c60d4d9b832a2cfcc27eba805501b220bd86229eedb34f9a67d347e4a28825dd",
+      "world_model_trajectory_sha256": "962e6d94f99ac52123379e7ae08856d9ae6d74507d1fdcb0d15e324489a0c646"
+    },
+    {
+      "task_id": 613,
+      "site": "reddit",
+      "reactive_success": false,
+      "world_model_success": false,
+      "reactive_trajectory_sha256": "fce5e02ac5b885cb750557d7ebfc7a8dab00c671f94a856e8f53dd514fc4e395",
+      "world_model_trajectory_sha256": "418cf73206da0664452efe53bef3d84d3441604d29e9cc527afad269cedf0c89"
+    },
+    {
+      "task_id": 621,
+      "site": "reddit",
+      "reactive_success": false,
+      "world_model_success": false,
+      "reactive_trajectory_sha256": "daa7bac431498d70f6f12897e4c0513f401d8174dad40bf4df7c8464b3dd2b29",
+      "world_model_trajectory_sha256": "7abea07095ab66a345603dab4a083d548760c9049747fd0ac9a7ab04fda7ad3d"
+    },
+    {
+      "task_id": 628,
+      "site": "reddit",
+      "reactive_success": false,
+      "world_model_success": false,
+      "reactive_trajectory_sha256": "20c0c413248a4f7708d4b9b685ae4a6a544edb30638c60efef0f42ab24feb35f",
+      "world_model_trajectory_sha256": "9888334b76c8292fa2dec02997244d848f6975892ed69fb0f6be035eaae42793"
+    },
+    {
+      "task_id": 631,
+      "site": "reddit",
+      "reactive_success": false,
+      "world_model_success": false,
+      "reactive_trajectory_sha256": "d2e28970925d191f6dcf0e0ad12b19e92f3f817be6d68e825b19754d63e20f8b",
+      "world_model_trajectory_sha256": "61feeccc687942f1a6568328936452776f84ad765773b0d2f31dc68c77fa0fba"
+    },
+    {
+      "task_id": 632,
+      "site": "reddit",
+      "reactive_success": false,
+      "world_model_success": false,
+      "reactive_trajectory_sha256": "316056889ddd0fd330b14d8481a2bcd6cbec0ec93292e83245c229468978938a",
+      "world_model_trajectory_sha256": "a3aca84652b5c5896d9ce159a351444a2c393ff425d96208207b59b9337a59a5"
+    },
+    {
+      "task_id": 650,
+      "site": "reddit",
+      "reactive_success": false,
+      "world_model_success": false,
+      "reactive_trajectory_sha256": "a096c08beb3b769094be6a20cb0a702c2482d2416d4c26df7d63870679643a84",
+      "world_model_trajectory_sha256": "ae5c7c0e381810218febe9fbd66e99aca59bb2d66958668a06d6152503fb6cfa"
+    },
+    {
+      "task_id": 657,
+      "site": "shopping",
+      "reactive_success": false,
+      "world_model_success": false,
+      "reactive_trajectory_sha256": "e8f4be2d447c60daa9479bb55966178cc47eb21c201fc6444f89ddf6a422dc96",
+      "world_model_trajectory_sha256": "66fd96475c950b2678f6e8c54abf1766923ee53e81be128cbd0ccf4766637cfe"
+    },
+    {
+      "task_id": 689,
+      "site": "shopping",
+      "reactive_success": false,
+      "world_model_success": false,
+      "reactive_trajectory_sha256": "68f34880f30bd1c46ca3e92bb4c6bb4a4a73dd76ef48201211f503089bfa09ba",
+      "world_model_trajectory_sha256": "9cca701f493e63aa4f09e99339ca533fa4dbfc0de0cf1f87bb08ccf5f2bc1a66"
+    },
+    {
+      "task_id": 690,
+      "site": "shopping",
+      "reactive_success": false,
+      "world_model_success": false,
+      "reactive_trajectory_sha256": "6455ac929d69dfad1049e70dd98500239f8857e5a2abddd55f3e4df26a9c20c0",
+      "world_model_trajectory_sha256": "a1bfb930f142467dc7f741e902ca828a66d185cb4df4e043d26de14fd19056b5"
+    },
+    {
+      "task_id": 722,
+      "site": "reddit",
+      "reactive_success": false,
+      "world_model_success": false,
+      "reactive_trajectory_sha256": "43375a3d8bb50b4598c86382ca161ee606798889f581bd838262493944fe6205",
+      "world_model_trajectory_sha256": "25e2436638cc8f35d3398540b4bf52235d7d182223f1f79844533d75b5d55885"
+    },
+    {
+      "task_id": 743,
+      "site": "gitlab",
+      "reactive_success": false,
+      "world_model_success": false,
+      "reactive_trajectory_sha256": "d1ac08270596c17014355bcd099682e94161bbe8b8661c382661a60d3635235e",
+      "world_model_trajectory_sha256": "2e30e8ea8c56e517ae45566010aff3110eb990d4c7e5ccaf8580ae700ef12ee2"
+    },
+    {
+      "task_id": 788,
+      "site": "gitlab",
+      "reactive_success": false,
+      "world_model_success": false,
+      "reactive_trajectory_sha256": "a95738007bd370faad4ae2e9a9a1a70a0c8c1077c84428177d153b0d41177652",
+      "world_model_trajectory_sha256": "8db9a80cc872b537c2ad80373a5cd9383bd4541ac3157e49003e29fce8dd9ab3"
+    }
+  ]
+}

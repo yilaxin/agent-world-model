@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "benchmark": "WebArena Verified Shopping URL pilot",
+  "required_sites": ["shopping"],
+  "task_ids": [274, 275, 276],
+  "task_sites": {
+    "274": "shopping",
+    "275": "shopping",
+    "276": "shopping"
+  },
+  "seeds": [0],
+  "reactive_step_budget": 2,
+  "world_model_step_budget": 2,
+  "evaluator_smoke_step_budget": 1,
+  "evaluator_smoke_answers": {},
+  "scope_limit": "Three-task site integration pilot; not the formal multi-site result."
+}

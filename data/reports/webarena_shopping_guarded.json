@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-08-12T13:39:45.280475+00:00",
+  "benchmark": "WebArena Verified Shopping URL pilot",
+  "fixed_task_ids": [
+    274,
+    275,
+    276
+  ],
+  "task_sites": {
+    "274": "shopping",
+    "275": "shopping",
+    "276": "shopping"
+  },
+  "required_sites": [
+    "shopping"
+  ],
+  "fixed_seeds": [
+    0
+  ],
+  "budgets": {
+    "reactive_steps": 2,
+    "world_model_steps": 2,
+    "evaluator_smoke_steps": 1
+  },
+  "agent_metrics": null,
+  "world_model_agent_metrics": {
+    "episodes": 3,
+    "successes": 3,
+    "success_rate": 1.0,
+    "action_execution_rate": 0.5,
+    "average_steps": 2.0,
+    "average_latency_seconds": 14.03351077799986
+  },
+  "per_site_metrics": {
+    "world-model": {
+      "shopping": {
+        "episodes": 3,
+        "successes": 3,
+        "success_rate": 1.0,
+        "action_execution_rate": 0.5,
+        "average_steps": 2.0,
+        "average_latency_seconds": 14.03351077799986
+      }
+    }
+  },
+  "paired_online_comparison": null,
+  "evaluator_integrity_metrics": null,
+  "agent_success_rate_excludes_answer_injection": true,
+  "scope_limit": "Three-task site integration pilot; not the formal multi-site result.",
+  "results": {
+    "world-model": [
+      {
+        "env_id": "browsergym/webarena.274",
+        "seed": 0,
+        "success": true,
+        "terminated": true,
+        "truncated": false,
+        "steps": 2,
+        "total_reward": 1.0,
+        "last_action_error": "TimeoutError: Locator.click: Timeout 500ms exceeded.\nCall log:\nwaiting for get_by_test_id(\"391\")\n  -   locator resolved to <button value=\"\" bid=\"391\" type=\"submit\" title=\"Search\" …>…</button>\n  - attempting click action\n  -   waiting for element to be visible, enabled and stable\n  -   element is visible, enabled and stable\n  -   scrolling into view if needed\n  -   done scrolling\n  -   performing click action\n  -   click action done\n  -   waiting for scheduled navigations to finish\n",
+        "trajectory_path": "/home/filp/agent_world_model/data/trajectories_webarena_shopping_guarded/world-model/20260812T133912Z_browsergym_webarena.274_seed0_7d376c93.jsonl",
+        "final_state_id": "53762d292522cff1",
+        "elapsed_seconds": 15.295055112999762,
+        "attempted_actions": 2,
+        "action_execution_successes": 1,
+        "mode": "world-model",
+        "task_id": 274,
+        "site": "shopping",
+        "uses_expected_answer": false
+      },
+      {
+        "env_id": "browsergym/webarena.275",
+        "seed": 0,
+        "success": true,
+        "terminated": true,
+        "truncated": false,
+        "steps": 2,
+        "total_reward": 1.0,
+        "last_action_error": "TimeoutError: Locator.click: Timeout 500ms exceeded.\nCall log:\nwaiting for get_by_test_id(\"391\")\n  -   locator resolved to <button value=\"\" bid=\"391\" type=\"submit\" title=\"Search\" …>…</button>\n  - attempting click action\n  -   waiting for element to be visible, enabled and stable\n  -   element is visible, enabled and stable\n  -   scrolling into view if needed\n  -   done scrolling\n  -   performing click action\n  -   click action done\n  -   waiting for scheduled navigations to finish\n",
+        "trajectory_path": "/home/filp/agent_world_model/data/trajectories_webarena_shopping_guarded/world-model/20260812T133926Z_browsergym_webarena.275_seed0_83cf2732.jsonl",
+        "final_state_id": "0e3de3e0a5bc1f97",
+        "elapsed_seconds": 13.356241777999458,
+        "attempted_actions": 2,
+        "action_execution_successes": 1,
+        "mode": "world-model",
+        "task_id": 275,
+        "site": "shopping",
+        "uses_expected_answer": false
+      },
+      {
+        "env_id": "browsergym/webarena.276",
+        "seed": 0,
+        "success": true,
+        "terminated": true,
+        "truncated": false,
+        "steps": 2,
+        "total_reward": 1.0,
+        "last_action_error": "TimeoutError: Locator.click: Timeout 500ms exceeded.\nCall log:\nwaiting for get_by_test_id(\"391\")\n  -   locator resolved to <button value=\"\" bid=\"391\" type=\"submit\" title=\"Search\" …>…</button>\n  - attempting click action\n  -   waiting for element to be visible, enabled and stable\n  -   element is visible, enabled and stable\n  -   scrolling into view if needed\n  -   done scrolling\n  -   performing click action\n",
+        "trajectory_path": "/home/filp/agent_world_model/data/trajectories_webarena_shopping_guarded/world-model/20260812T133939Z_browsergym_webarena.276_seed0_17e271de.jsonl",
+        "final_state_id": "0c817ee34d475f3f",
+        "elapsed_seconds": 13.449235443000362,
+        "attempted_actions": 2,
+        "action_execution_successes": 1,
+        "mode": "world-model",
+        "task_id": 276,
+        "site": "shopping",
+        "uses_expected_answer": false
+      }
+    ]
+  },
+  "failures": []
+}

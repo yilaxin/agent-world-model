@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-08-12T14:47:10.355764+00:00",
+  "benchmark": "WebArena Verified Reddit navigation pilot",
+  "fixed_task_ids": [
+    595,
+    596,
+    597
+  ],
+  "task_sites": {
+    "595": "reddit",
+    "596": "reddit",
+    "597": "reddit"
+  },
+  "required_sites": [
+    "reddit"
+  ],
+  "fixed_seeds": [
+    0
+  ],
+  "budgets": {
+    "reactive_steps": 1,
+    "world_model_steps": 12,
+    "evaluator_smoke_steps": 1
+  },
+  "agent_metrics": null,
+  "world_model_agent_metrics": {
+    "episodes": 3,
+    "successes": 3,
+    "success_rate": 1.0,
+    "action_execution_rate": 1.0,
+    "average_steps": 3.0,
+    "average_latency_seconds": 31.384570995333586
+  },
+  "per_site_metrics": {
+    "world-model": {
+      "reddit": {
+        "episodes": 3,
+        "successes": 3,
+        "success_rate": 1.0,
+        "action_execution_rate": 1.0,
+        "average_steps": 3.0,
+        "average_latency_seconds": 31.384570995333586
+      }
+    }
+  },
+  "paired_online_comparison": null,
+  "evaluator_integrity_metrics": null,
+  "agent_success_rate_excludes_answer_injection": true,
+  "scope_limit": "Three-task site integration pilot; not the formal multi-site result.",
+  "results": {
+    "world-model": [
+      {
+        "env_id": "browsergym/webarena.595",
+        "seed": 0,
+        "success": true,
+        "terminated": true,
+        "truncated": false,
+        "steps": 1,
+        "total_reward": 1.0,
+        "last_action_error": "",
+        "trajectory_path": "/home/filp/agent_world_model/data/trajectories_webarena_eval/world-model/20260812T144546Z_browsergym_webarena.595_seed0_08205bd0.jsonl",
+        "final_state_id": "dab8478922746658",
+        "elapsed_seconds": 17.98582173899922,
+        "attempted_actions": 1,
+        "action_execution_successes": 1,
+        "mode": "world-model",
+        "task_id": 595,
+        "site": "reddit",
+        "uses_expected_answer": false
+      },
+      {
+        "env_id": "browsergym/webarena.596",
+        "seed": 0,
+        "success": true,
+        "terminated": true,
+        "truncated": false,
+        "steps": 4,
+        "total_reward": 1.0,
+        "last_action_error": "",
+        "trajectory_path": "/home/filp/agent_world_model/data/trajectories_webarena_eval/world-model/20260812T144602Z_browsergym_webarena.596_seed0_819edc99.jsonl",
+        "final_state_id": "f1409cdd3c59f8d1",
+        "elapsed_seconds": 39.62565928100048,
+        "attempted_actions": 4,
+        "action_execution_successes": 4,
+        "mode": "world-model",
+        "task_id": 596,
+        "site": "reddit",
+        "uses_expected_answer": false
+      },
+      {
+        "env_id": "browsergym/webarena.597",
+        "seed": 0,
+        "success": true,
+        "terminated": true,
+        "truncated": false,
+        "steps": 4,
+        "total_reward": 1.0,
+        "last_action_error": "",
+        "trajectory_path": "/home/filp/agent_world_model/data/trajectories_webarena_eval/world-model/20260812T144642Z_browsergym_webarena.597_seed0_f18a3e66.jsonl",
+        "final_state_id": "e7164fcf114ac936",
+        "elapsed_seconds": 36.542231966001054,
+        "attempted_actions": 4,
+        "action_execution_successes": 4,
+        "mode": "world-model",
+        "task_id": 597,
+        "site": "reddit",
+        "uses_expected_answer": false
+      }
+    ]
+  },
+  "failures": []
+}

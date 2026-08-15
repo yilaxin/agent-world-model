@@ -1,0 +1,421 @@
+{
+  "schema_version": 2,
+  "benchmark": "Classic WebArena P0 unseen hash-selected three-site holdout",
+  "frozen_at_utc": "2026-08-13T08:47:08.537751+00:00",
+  "selection_salt": "p0-holdout-v1",
+  "selection_rule": "Single-site tasks only; exclude every historical config/report/trajectory task ID; sort by SHA256(salt|site|task_id); take first N.",
+  "source": {
+    "browsergym_webarena_version": "0.14.3",
+    "libwebarena_version": "0.0.4",
+    "webarena_verified_version": "1.2.3",
+    "task_count": 812,
+    "task_source_sha256": "7b50386fd69163dbc05d615d834df4c6ed2c35596e97a1b10d17451c02537652",
+    "source_wheel_sha256": "9ebee3b4371502c4f0f7e727a72e5846235d6750d420db9a3b8a168107654feb"
+  },
+  "required_sites": [
+    "gitlab"
+  ],
+  "task_ids": [
+    579,
+    570,
+    578,
+    446,
+    343,
+    104,
+    394,
+    304,
+    787,
+    576,
+    799,
+    742,
+    179,
+    450,
+    746,
+    660,
+    480,
+    444,
+    316,
+    171,
+    389,
+    173,
+    134,
+    339,
+    658,
+    102,
+    205,
+    591,
+    350,
+    803
+  ],
+  "task_sites": {
+    "579": "gitlab",
+    "570": "gitlab",
+    "578": "gitlab",
+    "446": "gitlab",
+    "343": "gitlab",
+    "104": "gitlab",
+    "394": "gitlab",
+    "304": "gitlab",
+    "787": "gitlab",
+    "576": "gitlab",
+    "799": "gitlab",
+    "742": "gitlab",
+    "179": "gitlab",
+    "450": "gitlab",
+    "746": "gitlab",
+    "660": "gitlab",
+    "480": "gitlab",
+    "444": "gitlab",
+    "316": "gitlab",
+    "171": "gitlab",
+    "389": "gitlab",
+    "173": "gitlab",
+    "134": "gitlab",
+    "339": "gitlab",
+    "658": "gitlab",
+    "102": "gitlab",
+    "205": "gitlab",
+    "591": "gitlab",
+    "350": "gitlab",
+    "803": "gitlab"
+  },
+  "task_audit": {
+    "579": {
+      "site": "gitlab",
+      "task_record_sha256": "c834a6b9f307f3fe6396cd72a125236ea2c09fe47ce7d7ba5a751da79e050113",
+      "intent_template_id": 351,
+      "eval_types": [
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "570": {
+      "site": "gitlab",
+      "task_record_sha256": "d4a34f1d8e927f0076d3c3df9d96a85983bc9e06533f70a1498843361bcc7257",
+      "intent_template_id": 293,
+      "eval_types": [
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "578": {
+      "site": "gitlab",
+      "task_record_sha256": "084e678637bd4432e475170dfa86c9a73b532744d7ece2038cd9971b733bb9f3",
+      "intent_template_id": 351,
+      "eval_types": [
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "446": {
+      "site": "gitlab",
+      "task_record_sha256": "11cef465a937b5d29c636d29cae4b001fd00cd222a82788f057b4271a384a27a",
+      "intent_template_id": 999,
+      "eval_types": [
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "343": {
+      "site": "gitlab",
+      "task_record_sha256": "48b2daef5b22a2538cd57f98c6922c3dd8a37f27111e0a922babaed0baf3469a",
+      "intent_template_id": 299,
+      "eval_types": [
+        "url_match"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "104": {
+      "site": "gitlab",
+      "task_record_sha256": "c5a8a2e2ffca184a82c405fdb05aaccffa8c921d0d3b5fa60940fd50b3bc05f2",
+      "intent_template_id": 349,
+      "eval_types": [
+        "url_match"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "394": {
+      "site": "gitlab",
+      "task_record_sha256": "dd42558d5504d3483808754d75199678af6c417bfe4785457155de99c6212852",
+      "intent_template_id": 352,
+      "eval_types": [
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "304": {
+      "site": "gitlab",
+      "task_record_sha256": "b8f458b2aa2947d9cb4c927002a2e08882f41e934b2c08d35ea0d5add5aab71b",
+      "intent_template_id": 321,
+      "eval_types": [
+        "string_match"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "787": {
+      "site": "gitlab",
+      "task_record_sha256": "8bf2c2448017e3ec66cf219f086afd3da65a8e464fd8b277458abb21f6124944",
+      "intent_template_id": 316,
+      "eval_types": [
+        "string_match"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "576": {
+      "site": "gitlab",
+      "task_record_sha256": "ebd1ca33e305cf541141d79540b56ed69450637d925a9a73a9cdd817b6da0317",
+      "intent_template_id": 351,
+      "eval_types": [
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "799": {
+      "site": "gitlab",
+      "task_record_sha256": "80e90abe3b7e1ad7f0c24d3304eac7ee7df40349ea7e75c25d2a4280ed28fe76",
+      "intent_template_id": 600,
+      "eval_types": [
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "742": {
+      "site": "gitlab",
+      "task_record_sha256": "a97c1081112b06f776a334b1f713fc4abf76a172445b844fdeecc59a3c5e5f9b",
+      "intent_template_id": 332,
+      "eval_types": [
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "179": {
+      "site": "gitlab",
+      "task_record_sha256": "a2d18f8a2c6ce3e94c9aa9364234505f54cd8c94b035d0acff273426bd388dee",
+      "intent_template_id": 500,
+      "eval_types": [
+        "string_match",
+        "url_match"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "450": {
+      "site": "gitlab",
+      "task_record_sha256": "c3acdf3ec0eaf46a1050b447f31aeddbe0b0828ccec3fe5dadc7d41763c32e81",
+      "intent_template_id": 331,
+      "eval_types": [
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "746": {
+      "site": "gitlab",
+      "task_record_sha256": "651c9df3c22eeb2c5686b36507534bcae297124ec5afbf60d4e810767b274d85",
+      "intent_template_id": 332,
+      "eval_types": [
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "660": {
+      "site": "gitlab",
+      "task_record_sha256": "c5f071308f5a052098dc43be3881ad2b8350694a4d9683f7fd6ce741e419283c",
+      "intent_template_id": 327,
+      "eval_types": [
+        "url_match",
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "480": {
+      "site": "gitlab",
+      "task_record_sha256": "76e99324fd194789115aee8e665a35ffbfa9d11292ac47ff8033a2d15d20c1db",
+      "intent_template_id": 293,
+      "eval_types": [
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "444": {
+      "site": "gitlab",
+      "task_record_sha256": "a90e214dd82071c347ed9ec7d887b71d2d4760f11b5706e4931184985637c4ac",
+      "intent_template_id": 308,
+      "eval_types": [
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "316": {
+      "site": "gitlab",
+      "task_record_sha256": "02b753c233f7575466697bf1910b58484bab1718f70d0bfc83c6dad55b3a629e",
+      "intent_template_id": 324,
+      "eval_types": [
+        "string_match"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "171": {
+      "site": "gitlab",
+      "task_record_sha256": "69b96f56147f887154af0c6913893fb17aa7fcc99d1c4c60346683b3a26f6dfa",
+      "intent_template_id": 289,
+      "eval_types": [
+        "string_match"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "389": {
+      "site": "gitlab",
+      "task_record_sha256": "fff15a03c5e01c2de6a2a40a396c43a8e10a984b282b7f8b96de72bbe1ddefb1",
+      "intent_template_id": 348,
+      "eval_types": [
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "173": {
+      "site": "gitlab",
+      "task_record_sha256": "41433c83099ea6d6c244f2cd2264930e09cd6be6519d864098e21a11f86fc549",
+      "intent_template_id": 310,
+      "eval_types": [
+        "string_match",
+        "url_match"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "134": {
+      "site": "gitlab",
+      "task_record_sha256": "4ab35490da403ff7f7570ec23de7249041b914acd501ee2e6805aa0dc0920345",
+      "intent_template_id": 322,
+      "eval_types": [
+        "string_match"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "339": {
+      "site": "gitlab",
+      "task_record_sha256": "27385f8636a91a428b51cf5e699da34b80a4d0e8fee8a64056cfa56c90098c54",
+      "intent_template_id": 299,
+      "eval_types": [
+        "url_match"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "658": {
+      "site": "gitlab",
+      "task_record_sha256": "63bb5a460e26ae88687b527478fa3c446a8d3c998b5db84a7a31e532c662602b",
+      "intent_template_id": 327,
+      "eval_types": [
+        "url_match",
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "102": {
+      "site": "gitlab",
+      "task_record_sha256": "48ce5b3353ed657731a6a6a1c14ef6575c8dedd0442f1660c737e4b0e4ef9c62",
+      "intent_template_id": 349,
+      "eval_types": [
+        "url_match"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "205": {
+      "site": "gitlab",
+      "task_record_sha256": "b50b1f403a5f3e029401a00a33cb2afbc4f82b80dff57383fde0f9f476b89423",
+      "intent_template_id": 320,
+      "eval_types": [
+        "string_match"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "591": {
+      "site": "gitlab",
+      "task_record_sha256": "68599d06c89cc61e3c1a30f590db22460c7586927566ad61779be931113c9365",
+      "intent_template_id": 339,
+      "eval_types": [
+        "url_match",
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "350": {
+      "site": "gitlab",
+      "task_record_sha256": "134815a0a04532a8d25cb07a2295ee8d51588f2430c225bb82493dcb75112e07",
+      "intent_template_id": 298,
+      "eval_types": [
+        "string_match"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "803": {
+      "site": "gitlab",
+      "task_record_sha256": "c6a245d2eb5324ce962fe1806d2dacebb60fbbf67fcf637bf55f3ba892e4930c",
+      "intent_template_id": 600,
+      "eval_types": [
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    }
+  },
+  "historical_excluded_task_ids": [
+    27,
+    28,
+    29,
+    30,
+    31,
+    44,
+    45,
+    157,
+    258,
+    274,
+    275,
+    276,
+    595,
+    596,
+    597,
+    676,
+    677
+  ],
+  "seeds": [
+    0
+  ],
+  "reactive_step_budget": 12,
+  "world_model_step_budget": 12,
+  "episode_max_attempts": 2,
+  "evaluator_smoke_step_budget": 1,
+  "evaluator_smoke_answers": {},
+  "release_fingerprint_sha256": "427049583ec231a5f6c49450cd2da51da36ea255ae42ccb1770a9a027b956652",
+  "task_feedback_used": false,
+  "post_freeze_policy_changes_allowed": false,
+  "scope_limit": "Thirty unseen, hash-selected, single-site gitlab tasks; paired 2x2 evaluation only, not the full 812-task WebArena benchmark.",
+  "freeze_sha256": "6d4828096e93375407c15a4c21b250b3e1c4982130786f14ee330c94a6149562"
+}

@@ -21,6 +21,7 @@ class WorldModelConfig:
     task_signal_dim: int = 2
     risk_dim: int = 4
     dropout: float = 0.10
+    residual_dynamics: bool = False
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
@@ -115,6 +116,9 @@ class ActionConditionedWorldModel(nn.Module):
         )
         next_latent_prior = self.prior_head(next_hidden)
         predicted_next_state = self.state_decoder(next_latent_prior)
+        if self.config.residual_dynamics:
+            # Predict the one-step residual and add it to the observed state.
+            predicted_next_state = state + predicted_next_state
         shared = self.shared_head(torch.cat([next_hidden, state_latent], dim=-1))
         result = {
             "hidden": next_hidden,

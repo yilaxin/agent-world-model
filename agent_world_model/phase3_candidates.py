@@ -14,15 +14,29 @@ from dataclasses import asdict, dataclass, field
 from typing import Any, Callable, Mapping, Sequence
 
 from .phase2_schema import encode_action
-from .reactive_agent import ReactiveAgent, parse_elements
+from .reactive_agent import (
+    ReactiveAgent,
+    _CART_WORDS,
+    _NO_SUBMIT_WORDS,
+    _PRODUCT_VERBS,
+    _WISHLIST_WORDS,
+    _extract_product_phrase,
+    _named_control,
+    _page_contains,
+    _prefixed_control,
+    goal_conflicts_with_control,
+    parse_elements,
+)
 
 
 _ALLOWED_ACTION_TYPES = {
     "click",
     "fill",
     "go_back",
+    "keyboard_press",
     "noop",
     "press",
+    "send_msg_to_user",
     "scroll",
     "select_option",
     "type",
@@ -52,9 +66,16 @@ _STOPWORDS = {
 }
 
 
-_FORUM_QUERY_RE = re.compile(
-    r"\b(?:on|in|from)\s+(?:the\s+)?([A-Za-z0-9_-]+)\s+(?:forum|subreddit)\b",
-    re.IGNORECASE,
+_FORUM_QUERY_PATTERNS = (
+    re.compile(
+        r"\b(?:on|in|from)\s+(?:the\s+)?(?:r/)?([A-Za-z0-9_-]+)\s+(?:forum|subreddit)\b",
+        re.IGNORECASE,
+    ),
+    re.compile(
+        r"\b(?:forum|subreddit)\s+[\"'](?:r/)?([^\"']+)[\"']",
+        re.IGNORECASE,
+    ),
+    re.compile(r"\br/([A-Za-z0-9_-]+)\b", re.IGNORECASE),
 )
 
 
@@ -98,8 +119,18 @@ def _input_value(goal: str) -> str:
 
 
 def _forum_query(goal: str) -> str:
-    match = _FORUM_QUERY_RE.search(goal)
-    return match.group(1).strip() if match else ""
+    ordered = (
+        _FORUM_QUERY_PATTERNS[1],
+        _FORUM_QUERY_PATTERNS[0],
+        *_FORUM_QUERY_PATTERNS[2:],
+    )
+    for pattern in ordered:
+        match = pattern.search(goal)
+        if match:
+            forum = match.group(1).strip()
+            if len(forum) >= 2 and forum.lower() not in {"a", "an", "the"}:
+                return forum
+    return ""
 
 
 def validate_action(action: str, visible_element_ids: set[str] | None = None) -> tuple[bool, str]:
@@ -205,11 +236,18 @@ class AXTreeCandidateGenerator:
 
     generator_name = "axtree_structure_v2_task_query"
 
-    def __init__(self, max_candidates: int = 8, alignment_scorer: Any | None = None) -> None:
+    def __init__(
+        self,
+        max_candidates: int = 8,
+        alignment_scorer: Any | None = None,
+        *,
+        navigation_guard: bool = True,
+    ) -> None:
         if not 2 <= max_candidates <= 32:
             raise ValueError("max_candidates must be in [2, 32]")
         self.max_candidates = max_candidates
-        self.reactive = ReactiveAgent()
+        self.navigation_guard = bool(navigation_guard)
+        self.reactive = ReactiveAgent(navigation_guard=self.navigation_guard)
         self.alignment_scorer = alignment_scorer
 
     def generate(
@@ -218,6 +256,7 @@ class AXTreeCandidateGenerator:
         recent_actions: Sequence[str] = (),
     ) -> list[CandidateAction]:
         goal = str(_snapshot_value(state, "goal") or "")
+        current_url = str(_snapshot_value(state, "url") or "")
         axtree = _nested_text(_snapshot_value(state, "axtree"))
         elements = parse_elements(axtree)
         visible_ids = {element.bid for element in elements}
@@ -239,6 +278,69 @@ class AXTreeCandidateGenerator:
                 baseline.target_name,
             )
         )
+
+        # Product search / add-to-wish-list / add-to-cart flow (One Stop Market).
+        lowered_goal = goal.casefold()
+        product_phrase = _extract_product_phrase(goal)
+        if product_phrase and _PRODUCT_VERBS.search(lowered_goal):
+            if not _NO_SUBMIT_WORDS.search(goal):
+                completion = self.reactive._completion_decision(goal, current_url, elements)
+                if completion is not None and completion.action.startswith(
+                    "send_msg_to_user("
+                ):
+                    raw.append(
+                        (
+                            completion.action,
+                            "task_query",
+                            completion.rationale,
+                            "",
+                            "Done",
+                        )
+                    )
+            if _WISHLIST_WORDS.search(lowered_goal) or _CART_WORDS.search(lowered_goal):
+                add_name = (
+                    "Add to Wish List" if _WISHLIST_WORDS.search(lowered_goal) else "Add to Cart"
+                )
+                add_button = _named_control(elements, add_name) or _prefixed_control(
+                    elements, add_name
+                )
+                if add_button is not None:
+                    raw.append(
+                        (
+                            f"click({_json_arg(add_button.bid)}, \"left\")",
+                            "task_query",
+                            f"Add the visible product via {add_name}.",
+                            add_button.bid,
+                            add_button.name,
+                        )
+                    )
+            searchboxes = [
+                element for element in elements if element.role in _INPUT_ROLES
+            ]
+            if (
+                recent_actions
+                and recent_actions[-1].lstrip().startswith("fill(")
+                and searchboxes
+            ):
+                raw.append(
+                    (
+                        'keyboard_press("Enter")',
+                        "task_query",
+                        "Submit the product query entered in the previous step.",
+                        searchboxes[0].bid,
+                        searchboxes[0].name,
+                    )
+                )
+            elif searchboxes:
+                raw.append(
+                    (
+                        f"fill({_json_arg(searchboxes[0].bid)}, {_json_arg(product_phrase)})",
+                        "task_query",
+                        "Fill the site search with the product requested by the task.",
+                        searchboxes[0].bid,
+                        searchboxes[0].name,
+                    )
+                )
 
         value = _input_value(goal)
         if value and _INPUT_RE.search(goal):
@@ -267,18 +369,47 @@ class AXTreeCandidateGenerator:
                         )
                     )
             if recent_actions and recent_actions[-1].lstrip().startswith("fill("):
-                raw.append(
-                    (
-                        'press("ENTER")',
-                        "task_query",
-                        "Submit the previously filled forum query.",
-                        "",
-                        "",
+                for element in elements:
+                    if element.role == "searchbox":
+                        raw.append(
+                            (
+                                'keyboard_press("Enter")',
+                                "task_query",
+                                "Submit the previously filled forum query.",
+                                element.bid,
+                                element.name,
+                            )
+                        )
+
+            if (
+                self.navigation_guard
+                and f"/f/{forum_query.lower()}" in current_url.lower()
+            ):
+                for element in elements:
+                    normalized_name = element.name.strip().lower()
+                    is_subscribe = (
+                        normalized_name.startswith("subscribe")
+                        and "rss" not in normalized_name
                     )
-                )
+                    if is_subscribe or re.search(
+                        r"\b(?:no|\d+)\s+comments?\b", normalized_name
+                    ):
+                        raw.append(
+                            (
+                                f"click({_json_arg(element.bid)}, \"left\")",
+                                "task_query",
+                                "Advance the observed forum subscribe-and-open-thread workflow.",
+                                element.bid,
+                                element.name,
+                            )
+                        )
 
         for element in elements:
-            if element.role in _CLICK_ROLES:
+            if (
+                element.role in _CLICK_ROLES
+                and "disabled" not in element.raw_line.lower()
+                and not goal_conflicts_with_control(goal, element.name)
+            ):
                 raw.append(
                     (
                         f"click({_json_arg(element.bid)}, \"left\")",
@@ -300,25 +431,50 @@ class AXTreeCandidateGenerator:
 
         candidates: list[CandidateAction] = []
         seen: set[str] = set()
+        recent = set(recent_actions[-6:])
         for action, source, rationale, target_bid, target_name in raw:
             if action in seen:
+                continue
+            if action in recent and source not in {"task_query"}:
                 continue
             valid, reason = validate_action(action, visible_ids)
             if not valid:
                 continue
             seen.add(action)
             _, parsed = encode_action(action)
+            rule_score, rule_components = structural_consistency(goal, axtree, action)
             if self.alignment_scorer is None:
-                score, components = structural_consistency(goal, axtree, action)
+                score, components = rule_score, rule_components
             else:
-                score, components = self.alignment_scorer.score(
+                learned_score, learned_components = self.alignment_scorer.score(
                     state, action, recent_actions
                 )
+                # The learned alignment head is useful as an additional signal,
+                # but must not erase exact visible task/control matches.  The P0
+                # failure set exposed near-identical learned scores for
+                # "My Account", "Sign Out" and unrelated product categories.
+                score = max(float(learned_score), float(rule_score))
+                components = {
+                    **learned_components,
+                    "learned_score": float(learned_score),
+                    "rule_score": float(rule_score),
+                    "rule_semantic_overlap": rule_components.get(
+                        "semantic_overlap", 0.0
+                    ),
+                    "combined_by": "max_preserve_observed_semantics",
+                }
             if source == "task_query":
-                score = max(
-                    score,
-                    0.98 if parsed["action_type"] == "fill" else 0.96,
-                )
+                normalized_target = target_name.strip().lower()
+                if (
+                    normalized_target.startswith("subscribe")
+                    and "rss" not in normalized_target
+                ):
+                    task_query_score = 1.0
+                elif re.search(r"\b(?:no|\d+)\s+comments?\b", normalized_target):
+                    task_query_score = 0.99
+                else:
+                    task_query_score = 0.98 if parsed["action_type"] == "fill" else 0.96
+                score = max(score, task_query_score)
                 components = {**components, "task_query_match": 1.0}
             candidates.append(
                 CandidateAction(
@@ -380,7 +536,7 @@ class LLMCandidateGenerator:
                 "action_syntax_examples": [
                     'click("VISIBLE_BID", "left")',
                     'fill("VISIBLE_BID", "text to enter")',
-                    'press("ENTER")',
+                    'keyboard_press("Enter")',
                     "scroll(0, 600)",
                     "go_back()",
                 ],

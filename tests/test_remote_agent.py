@@ -29,7 +29,7 @@ class RemoteAgentTests(unittest.TestCase):
 
         state = {"state_id": "s1", "axtree": {"text": "[1] link 'Home'"}}
         with patch("agent_world_model.remote_agent.urlopen", side_effect=fake_urlopen):
-            decision = RemotePhase3Agent("http://gpu:8765", timeout_seconds=4.0).decide(
+            decision = RemotePhase3Agent("http://127.0.0.1:8765", timeout_seconds=4.0).decide(
                 state,
                 ['click("1", "left")'],
             )

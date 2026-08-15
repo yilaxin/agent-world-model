@@ -1,6 +1,6 @@
 # 阶段三完成报告：候选动作前瞻决策
 
-更新日期：2026-08-08
+更新日期：2026-08-08（阶段三首次验收；在线结果为历史快照）
 
 ## 结论
 
@@ -43,6 +43,11 @@
 
 GPU Agent 已通过 HTTP 推理服务与 SSH 转发连接本机真实 Reddit/WebArena。固定任务 27–31 共执行 30 个动作，动作执行率 100%、运行失败 0；但 5 个任务自主成功率仍为 0%。这证明系统链路可运行，不代表任务能力达标。
 
+> 后续进展：阶段四已完成 Reddit、Shopping、GitLab 三站 9 题的 post-fix 回归，
+> reactive 与 W4 均为 9/9。由于两者共享使用同题失败反馈修复的导航护栏，该结果不是
+> 未见任务泛化估计，也不能证明世界模型带来在线增益；最终口径见
+> `PHASE4_COMPLETION_REPORT.md`。
+
 ## 交付物
 
 - `agent_world_model/structure_alignment.py`
@@ -59,6 +64,6 @@ GPU Agent 已通过 HTTP 推理服务与 SSH 转发连接本机真实 Reddit/Web
 - `data/reports/phase3_evaluation_ensemble_gpu.json`
 - `data/reports/webarena_phase3_online_evaluation_gpu.json`
 
-## 遗留问题
+## 遗留问题（阶段三首次验收时）
 
 真实 WebArena 成功率仍未提高，观察反事实规模不足，多步偏差明显；完整多站点 WebArena、相对 SR +10% 和执行反馈遗憾闭环应在阶段四继续完成。

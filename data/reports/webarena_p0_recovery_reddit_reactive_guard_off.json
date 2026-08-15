@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-08-13T16:08:19.657303+00:00",
+  "purpose": "recover trajectories blocked by no-answer fuzzy evaluator initialization",
+  "site": "reddit",
+  "mode": "reactive",
+  "navigation_guard": "off",
+  "task_ids": [
+    723
+  ],
+  "seed": 0,
+  "step_budget": 12,
+  "freeze_sha256": "cfd7547da262a9a678f43925c301e5acb3cd54efffa753a0bdd46e290288d9fb",
+  "site_config_freeze_sha256": "e4b6c2dc2c12397e2c6c4da4bc91f27a8a2524060c2960a979ac898abbab1d46",
+  "release_fingerprint_sha256": "427049583ec231a5f6c49450cd2da51da36ea255ae42ccb1770a9a027b956652",
+  "remote_agent_health": null,
+  "uses_expected_answer": false,
+  "validation_adapter": {
+    "rule": "Only no-answer validation is short-circuited to score=0, done=false; any submitted answer delegates to the original official evaluator.",
+    "reference_answers_read": false,
+    "local_answer_judge_used": false
+  },
+  "results": [
+    {
+      "env_id": "browsergym/webarena.723",
+      "seed": 0,
+      "success": false,
+      "terminated": false,
+      "truncated": false,
+      "steps": 12,
+      "total_reward": 0.0,
+      "last_action_error": "",
+      "trajectory_path": "/home/filp/agent_world_model/data/trajectories_webarena_p0_recovery/reddit/reactive_guard_off/reactive/20260813T160755Z_browsergym_webarena.723_seed0_10c0171f.jsonl",
+      "final_state_id": "edf5ea2111fdd78e",
+      "elapsed_seconds": 72.484498051,
+      "attempted_actions": 12,
+      "action_execution_successes": 12,
+      "episode_attempts": 2,
+      "mode": "reactive",
+      "task_id": 723,
+      "site": "reddit",
+      "uses_expected_answer": false,
+      "recovery_validation_adapter": "no_answer_is_nonterminal_zero"
+    }
+  ],
+  "failures": []
+}

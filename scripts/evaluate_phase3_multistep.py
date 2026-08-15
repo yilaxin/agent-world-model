@@ -18,6 +18,7 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 import torch  # noqa: E402
+from torch import nn  # noqa: E402
 from torch.nn import functional as F  # noqa: E402
 
 from agent_world_model.multistep import (  # noqa: E402
@@ -27,6 +28,7 @@ from agent_world_model.multistep import (  # noqa: E402
 from agent_world_model.phase2_ensemble import EnsembleWorldModelPredictor  # noqa: E402
 from agent_world_model.phase2_schema import RISK_LABELS, TASK_SIGNAL_LABELS, encode_action  # noqa: E402
 from agent_world_model.phase2_training import WorldModelPredictor, load_jsonl  # noqa: E402
+from scripts.train_delta_baseline import LearnedDeltaBaseline  # noqa: E402
 
 
 def parse_args() -> argparse.Namespace:
@@ -35,6 +37,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--split", default="test")
     parser.add_argument("--checkpoint", type=Path)
     parser.add_argument("--ensemble-manifest", type=Path, default=PROJECT_ROOT / "artifacts" / "phase2" / "world_model_ensemble_p1.json")
+    parser.add_argument("--delta-checkpoint", type=Path)
     parser.add_argument("--device", default="auto")
     parser.add_argument("--limit-per-horizon", type=int)
     parser.add_argument("--minimum-h2-windows", type=int, default=100)
@@ -65,6 +68,7 @@ def evaluate_windows(
     windows: Mapping[int, Sequence[Sequence[Mapping[str, Any]]]],
     *,
     limit_per_horizon: int | None = None,
+    delta_model: nn.Module | None = None,
 ) -> dict[str, Any]:
     model = predictor.model
     device = predictor.device
@@ -83,11 +87,13 @@ def evaluate_windows(
         severe_probability: list[float] = []
         severe_label: list[float] = []
         progress_mae: list[float] = []
+        learned_delta_mse: list[float] = []
         for window in rows:
             state = torch.tensor(
                 window[0]["state_vector"], dtype=torch.float32, device=device
             ).unsqueeze(0)
             initial_state = state
+            delta_state = state
             hidden = None
             outputs = None
             for step in window:
@@ -100,6 +106,8 @@ def evaluate_windows(
                 outputs = model(state, action, hidden=hidden)
                 state = outputs["predicted_next_state"]
                 hidden = outputs["hidden"]
+                if delta_model is not None:
+                    delta_state = delta_state + delta_model(delta_state, action)
             assert outputs is not None
             target = torch.tensor(
                 window[-1]["next_state_vector"], dtype=torch.float32, device=device
@@ -107,6 +115,8 @@ def evaluate_windows(
             mse.append(float(F.mse_loss(state, target)))
             cosine.append(float(F.cosine_similarity(state, target, dim=-1)[0]))
             persistence_mse.append(float(F.mse_loss(initial_state, target)))
+            if delta_model is not None:
+                learned_delta_mse.append(float(F.mse_loss(delta_state, target)))
             terminal_probability.append(
                 float(torch.sigmoid(outputs["task_signal_logits"])[0, terminal_index])
             )
@@ -124,7 +134,7 @@ def evaluate_windows(
             )
         latent_mse = _mean(mse)
         baseline_mse = _mean(persistence_mse)
-        by_horizon[str(horizon)] = {
+        horizon_report: dict[str, Any] = {
             "window_count": len(rows),
             "latent_mse": latent_mse,
             "latent_cosine_similarity": _mean(cosine),
@@ -136,6 +146,16 @@ def evaluate_windows(
             "severe_failure_brier": _brier(severe_probability, severe_label),
             "progress_mae": _mean(progress_mae),
         }
+        if delta_model is not None:
+            delta_baseline_mse = _mean(learned_delta_mse)
+            horizon_report["learned_delta_baseline_mse"] = delta_baseline_mse
+            horizon_report["latent_mse_not_worse_than_learned_delta"] = (
+                latent_mse <= delta_baseline_mse
+            )
+        horizon_report["latent_mse_not_worse_than_persistence"] = (
+            latent_mse <= baseline_mse
+        )
+        by_horizon[str(horizon)] = horizon_report
     return by_horizon
 
 
@@ -154,8 +174,29 @@ def main() -> int:
         checkpoint = checkpoint if checkpoint.is_absolute() else PROJECT_ROOT / checkpoint
         predictor = WorldModelPredictor(checkpoint, device=args.device)
         model_source = _display_path(checkpoint)
+    delta_model: nn.Module | None = None
+    delta_source: str | None = None
+    if args.delta_checkpoint is not None:
+        delta_path = (
+            args.delta_checkpoint
+            if args.delta_checkpoint.is_absolute()
+            else PROJECT_ROOT / args.delta_checkpoint
+        )
+        payload = torch.load(delta_path, map_location=predictor.device, weights_only=False)
+        state_dict = payload["state_dict"] if isinstance(payload, dict) and "state_dict" in payload else payload
+        delta_model = LearnedDeltaBaseline(
+            int(payload["state_dim"]),
+            int(payload["action_dim"]),
+            int(payload["hidden_dim"]),
+        ).to(predictor.device)
+        delta_model.load_state_dict(state_dict)
+        delta_model.eval()
+        delta_source = _display_path(delta_path)
     metrics = evaluate_windows(
-        predictor, windows, limit_per_horizon=args.limit_per_horizon
+        predictor,
+        windows,
+        limit_per_horizon=args.limit_per_horizon,
+        delta_model=delta_model,
     )
     h1_mse = float(metrics.get("1", {}).get("latent_mse", math.inf))
     h3_mse = float(metrics.get("3", {}).get("latent_mse", math.inf))
@@ -165,6 +206,12 @@ def main() -> int:
         "long_horizon_terminal_coverage": coverage["quality_gates"]["long_horizon_terminal_ge_25"],
         "long_horizon_severe_failure_coverage": coverage["quality_gates"]["long_horizon_severe_failure_ge_10"],
         "h3_mse_ratio_bounded": bool(h1_mse > 0 and h3_mse / h1_mse <= args.maximum_h3_to_h1_mse_ratio),
+        "h2_not_worse_than_persistence": bool(
+            metrics.get("2", {}).get("latent_mse_not_worse_than_persistence", False)
+        ),
+        "h3_not_worse_than_persistence": bool(
+            metrics.get("3", {}).get("latent_mse_not_worse_than_persistence", False)
+        ),
     }
     report = {
         "schema_version": 1,
@@ -173,6 +220,7 @@ def main() -> int:
         "evaluation": "observed_contiguous_horizon_1_to_3",
         "dataset": _display_path(dataset_dir / f"{args.split}.jsonl"),
         "model_source": model_source,
+        "delta_baseline_source": delta_source,
         "device": str(predictor.device),
         "coverage": coverage,
         "metrics": metrics,

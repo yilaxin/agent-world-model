@@ -46,6 +46,73 @@ class CandidateGenerationTests(unittest.TestCase):
         self.assertTrue(components["target_visible"])
         self.assertFalse(bad_components["target_visible"])
 
+    def test_disabled_controls_are_not_click_candidates(self) -> None:
+        state = {
+            "goal": 'Search for "usb wifi"',
+            "axtree": {
+                "text": (
+                    "RootWebArea 'Shop'\n"
+                    "  [386] combobox 'Search', clickable\n"
+                    "  [391] button 'Search', disabled=True"
+                )
+            },
+        }
+        actions = [
+            row.action for row in AXTreeCandidateGenerator(max_candidates=6).generate(state)
+        ]
+        self.assertNotIn('click("391", "left")', actions)
+
+    def test_unrequested_logout_is_removed_from_candidate_pool(self) -> None:
+        state = {
+            "goal": "Change the delivery address for my most recent order.",
+            "axtree": {
+                "text": (
+                    "RootWebArea 'Shop'\n"
+                    "  [227] link 'My Account', clickable\n"
+                    "  [231] link 'Sign Out', clickable"
+                )
+            },
+        }
+        rows = AXTreeCandidateGenerator(max_candidates=6).generate(state)
+        self.assertIn('click("227", "left")', [row.action for row in rows])
+        self.assertNotIn('click("231", "left")', [row.action for row in rows])
+
+    def test_recent_generic_action_is_suppressed(self) -> None:
+        rows = AXTreeCandidateGenerator(max_candidates=6).generate(
+            STATE, ('click("13", "left")',)
+        )
+        self.assertNotIn('click("13", "left")', [row.action for row in rows])
+
+    def test_learned_alignment_cannot_erase_observed_semantic_match(self) -> None:
+        class FlatAlignment:
+            def score(self, state, action, recent_actions):
+                return 0.57, {"learned": True}
+
+        state = {
+            "goal": "Change my account address.",
+            "axtree": {
+                "text": (
+                    "RootWebArea 'Shop'\n"
+                    "  [227] link 'My Account', clickable\n"
+                    "  [618] link 'Sports & Outdoors', clickable"
+                )
+            },
+        }
+        rows = AXTreeCandidateGenerator(
+            max_candidates=4, alignment_scorer=FlatAlignment()
+        ).generate(state)
+        by_action = {row.action: row for row in rows}
+        self.assertGreater(
+            by_action['click("227", "left")'].structure_score,
+            by_action['click("618", "left")'].structure_score,
+        )
+        self.assertEqual(
+            by_action['click("227", "left")'].metadata["structure_components"][
+                "combined_by"
+            ],
+            "max_preserve_observed_semantics",
+        )
+
     def test_llm_adapter_requires_strict_json_and_visible_targets(self) -> None:
         payload = json.dumps(
             {
@@ -97,7 +164,9 @@ class CandidateGenerationTests(unittest.TestCase):
         follow_up = generator.generate(
             state, ('fill("54", "Showerthoughts")',)
         )
-        self.assertIn('press("ENTER")', [row.action for row in follow_up])
+        self.assertIn(
+            'keyboard_press("Enter")', [row.action for row in follow_up]
+        )
 
 
 if __name__ == "__main__":

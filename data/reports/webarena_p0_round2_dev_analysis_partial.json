@@ -1,0 +1,277 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-08-14T08:10:22.573498+00:00",
+  "scope": "Round-2 development split; policy iteration allowed; never a holdout claim.",
+  "complete": false,
+  "expected_task_count": 30,
+  "missing_task_ids": {
+    "reactive": [],
+    "world-model": [
+      225,
+      233,
+      263,
+      272,
+      321,
+      334,
+      398,
+      415,
+      434,
+      442,
+      449,
+      468,
+      512,
+      520,
+      736
+    ]
+  },
+  "configs": [
+    {
+      "path": "configs/webarena_p0_round2_dev_gitlab.json",
+      "sha256": "b43d27abbd766440f7316add6127ef7aff77ec9158c8d74a8f05e2fe860cb42c",
+      "freeze_sha256": "9468edaa854866b8a8cec633ee6d1f8509c45db37ea76578bb7fb96d18c4d52f",
+      "task_count": 10
+    },
+    {
+      "path": "configs/webarena_p0_round2_dev_reddit.json",
+      "sha256": "3a0516293f92767fa698ed24ed62c4ba39466be27c5bcf6e345c2d2c5439f816",
+      "freeze_sha256": "0a6b5620cc6184cba1ad2dfbaac5ebd815dab2288efa7f1ef0b9fff412828fe0",
+      "task_count": 10
+    },
+    {
+      "path": "configs/webarena_p0_round2_dev_shopping.json",
+      "sha256": "001a5bcfa4a77199bffc548b0d5b330ef14636d3983c817016ba4224a98e85c9",
+      "freeze_sha256": "477627118f5d5da55810beadfc42f61c36149623d594ea5a8fb612b9b2872153",
+      "task_count": 10
+    }
+  ],
+  "source_reports": [
+    {
+      "path": "data/reports/webarena_p0_round2_dev_gitlab_reactive.json",
+      "sha256": "2d153632d2c421847f298ce60d5b7a77452a6d102acbce39ce6d32bc25b204ee",
+      "mode": "reactive",
+      "result_rows": 10,
+      "failure_rows": 0,
+      "remote_agent_health": null,
+      "validation_adapter": null
+    },
+    {
+      "path": "data/reports/webarena_p0_round2_dev_reddit_reactive.json",
+      "sha256": "7bd644e0d0cd0ce0af2f4c564d2d12ef43065bb9daebea14088d361d5c3c3d43",
+      "mode": "reactive",
+      "result_rows": 10,
+      "failure_rows": 0,
+      "remote_agent_health": null,
+      "validation_adapter": null
+    },
+    {
+      "path": "data/reports/webarena_p0_round2_dev_shopping_reactive.json",
+      "sha256": "614b44660149e5252d1db8f0144c1d7079bdbd35c78533c2c29c9f3e3f73de7c",
+      "mode": "reactive",
+      "result_rows": 8,
+      "failure_rows": 2,
+      "remote_agent_health": null,
+      "validation_adapter": null
+    },
+    {
+      "path": "data/reports/webarena_p0_round2_dev_shopping_recovery.json",
+      "sha256": "18e1c4ef089c60e10939a0a68e6456dae4f218a5355d415643a5f73251e1fa75",
+      "mode": "reactive",
+      "result_rows": 2,
+      "failure_rows": 0,
+      "remote_agent_health": null,
+      "validation_adapter": "No-answer validation returns score=0, done=false; submitted answers use the official evaluator."
+    },
+    {
+      "path": "data/reports/webarena_p0_round2_dev_reddit_world-model_v2.json",
+      "sha256": "61316fb7ebd14148a89ba43b4c5475af9c4ce9108ef65a57460fb023c84fda4b",
+      "mode": "world-model",
+      "result_rows": 10,
+      "failure_rows": 0,
+      "remote_agent_health": {
+        "status": "ok",
+        "device": "cuda",
+        "navigation_guard": "on",
+        "semantic_goal_priority": false,
+        "release_fingerprint_sha256": "fe52d922a891ca9464b2691781b2f3d4594eecf3eaed82ff315d849b34118a24",
+        "authentication_required": false
+      },
+      "validation_adapter": null
+    },
+    {
+      "path": "data/reports/webarena_p0_round2_dev_gitlab_world-model_v2.json",
+      "sha256": "1db62c474f7ac321a11c47b4c0732c465cb099b73f7fe081d7aedb17963e3211",
+      "mode": "world-model",
+      "result_rows": 5,
+      "failure_rows": 5,
+      "remote_agent_health": {
+        "status": "ok",
+        "device": "cuda",
+        "navigation_guard": "on",
+        "semantic_goal_priority": false,
+        "release_fingerprint_sha256": "fe52d922a891ca9464b2691781b2f3d4594eecf3eaed82ff315d849b34118a24",
+        "authentication_required": false
+      },
+      "validation_adapter": null
+    }
+  ],
+  "metrics": {
+    "reactive": {
+      "episodes": 30,
+      "successes": 1,
+      "success_rate": 0.03333333333333333,
+      "action_execution_rate": 0.9209039548022598,
+      "average_steps": 11.8
+    },
+    "world-model": {
+      "episodes": 15,
+      "successes": 1,
+      "success_rate": 0.06666666666666667,
+      "action_execution_rate": 0.8908045977011494,
+      "average_steps": 11.6
+    }
+  },
+  "paired_online_comparison": {
+    "paired_task_count": 15,
+    "baseline_success_rate": 0.06666666666666667,
+    "candidate_success_rate": 0.06666666666666667,
+    "baseline_success_rate_95ci": [
+      0.0,
+      0.2
+    ],
+    "candidate_success_rate_95ci": [
+      0.0,
+      0.2
+    ],
+    "absolute_improvement_points": 0.0,
+    "absolute_improvement_95ci_points": [
+      0.0,
+      0.0
+    ],
+    "relative_improvement": 0.0,
+    "baseline_only_success": 0,
+    "candidate_only_success": 0,
+    "scope": "partial_intersection_only_not_a_complete_development_result"
+  },
+  "paired_rows": [
+    {
+      "task_id": 67,
+      "site": "reddit",
+      "reactive_success": false,
+      "world_model_success": false,
+      "reactive_trajectory_sha256": "78640d79adde9637c0e8bf9d292094a08cc97582669dc920ac37e0346a42deb1",
+      "world_model_trajectory_sha256": "c749d1c94a82d6fa14167da11c77f12d0db1c94974340c76f67ce674223e6ea0"
+    },
+    {
+      "task_id": 315,
+      "site": "gitlab",
+      "reactive_success": false,
+      "world_model_success": false,
+      "reactive_trajectory_sha256": "c81c3d23b0a411b159b4a8be5971fb3684be50845733ba70b28e41e9f00a766b",
+      "world_model_trajectory_sha256": "8c7041b9db7c10b1e52bbcb25f6365da25b06ec4ed41edfef371297bf0f78d71"
+    },
+    {
+      "task_id": 317,
+      "site": "gitlab",
+      "reactive_success": false,
+      "world_model_success": false,
+      "reactive_trajectory_sha256": "fa8481db7cc21526201333eabcf6bd3bdee668949f31f56db3d3c971bb379ebd",
+      "world_model_trajectory_sha256": "b1934009424379f34565a10b2ef04154fc9cf8276237bed267ead6f340d9bcd4"
+    },
+    {
+      "task_id": 407,
+      "site": "reddit",
+      "reactive_success": true,
+      "world_model_success": true,
+      "reactive_trajectory_sha256": "7e1f267b6f9b23fd6a0e371d78c18b745e8a76a2b479d58e3684cb60889f9a42",
+      "world_model_trajectory_sha256": "e1960dc16ced1fcc0a191837e06a5896632d96c0ee8d095ca7dd864497b0bfb2"
+    },
+    {
+      "task_id": 476,
+      "site": "gitlab",
+      "reactive_success": false,
+      "world_model_success": false,
+      "reactive_trajectory_sha256": "667f0a1e876248aff241276699cb4f54d9f3bfe615b7ef04157df32fcd059839",
+      "world_model_trajectory_sha256": "305829284e7c9fc38a746e95fc1121a2faf705f754ca3f455aa9703d0d818b3a"
+    },
+    {
+      "task_id": 568,
+      "site": "gitlab",
+      "reactive_success": false,
+      "world_model_success": false,
+      "reactive_trajectory_sha256": "5d0def855d76e4fee01992a5bb310ea2135c738c96e206946aed293b5937a8a1",
+      "world_model_trajectory_sha256": "097f87100f3d685114e4438b61aa760f61e7cf4fc6719eadbbe4130b61e13a9c"
+    },
+    {
+      "task_id": 583,
+      "site": "reddit",
+      "reactive_success": false,
+      "world_model_success": false,
+      "reactive_trajectory_sha256": "772cedd9a7cb686ca9371428a218e432d9dc8b969dbdd226bdf380536b405546",
+      "world_model_trajectory_sha256": "2ebad8b07ed060ad69d16da3edc6f8bf83720bdd36ec49f247427d6e2dad6b7d"
+    },
+    {
+      "task_id": 612,
+      "site": "reddit",
+      "reactive_success": false,
+      "world_model_success": false,
+      "reactive_trajectory_sha256": "917bb3aeba2e193c3b115ef241ba89f16bc5ea98ea44098273bdd760af0e7765",
+      "world_model_trajectory_sha256": "1b2255ae7bc6f8a722acac88f542b33693f0164ee8518e73d224151e4422b88a"
+    },
+    {
+      "task_id": 625,
+      "site": "reddit",
+      "reactive_success": false,
+      "world_model_success": false,
+      "reactive_trajectory_sha256": "21c5afe0ef59f22b65a5bd9f8b938b46c691d63aa9e7c6fb7aa96be1380f72b9",
+      "world_model_trajectory_sha256": "13aab6d00c28b96848994b58175b38f4f5fe901b2cbca544bec5ab930e907e9d"
+    },
+    {
+      "task_id": 629,
+      "site": "reddit",
+      "reactive_success": false,
+      "world_model_success": false,
+      "reactive_trajectory_sha256": "2efcfd83a605c7235fa5e600d40fa661e0829b930fab087d1d29c6e7e279e1ad",
+      "world_model_trajectory_sha256": "d5db43f734612ca2b5f0d4de1bbb35a80adac5cd242d7d0e5654235406218dc2"
+    },
+    {
+      "task_id": 648,
+      "site": "reddit",
+      "reactive_success": false,
+      "world_model_success": false,
+      "reactive_trajectory_sha256": "2899e5df93c6783c6e7509cc6ab54fa52c56ee24f5e096b673267977d3df2cd6",
+      "world_model_trajectory_sha256": "e882ca82701418a70515467308a43bfac1f5128bde5de16e700e2bb823e0babd"
+    },
+    {
+      "task_id": 721,
+      "site": "reddit",
+      "reactive_success": false,
+      "world_model_success": false,
+      "reactive_trajectory_sha256": "8f02a4eb4eef977dccec5764fd7407b7a8ab2c4eb4780691ef5d7609be8f8087",
+      "world_model_trajectory_sha256": "617b416b6a0fe23868a0e8235aaad229cea2c90a1c08927604afa303afb224d2"
+    },
+    {
+      "task_id": 725,
+      "site": "reddit",
+      "reactive_success": false,
+      "world_model_success": false,
+      "reactive_trajectory_sha256": "30108e7dc5dd0edca6469d406942fdc2d3218a23d9aadcf390f2581c58ad482c",
+      "world_model_trajectory_sha256": "f56e9d75bb8fcbbd38588ff71b4dd610223878691dbb93e5bd8bfaf5ab4f9186"
+    },
+    {
+      "task_id": 733,
+      "site": "reddit",
+      "reactive_success": false,
+      "world_model_success": false,
+      "reactive_trajectory_sha256": "10041e1ba3644592f850fd884cd9bdb59a067d909b01bf0888d4047337ab14bb",
+      "world_model_trajectory_sha256": "e82154b549c0edf3a309aa1207f7d3a8cb58ab255a28d1d5e6f8d759692abfaf"
+    },
+    {
+      "task_id": 756,
+      "site": "gitlab",
+      "reactive_success": false,
+      "world_model_success": false,
+      "reactive_trajectory_sha256": "02057840e4e57101d17946a87b186c04698ca106905c6d931671be56068b8ddf",
+      "world_model_trajectory_sha256": "5fd0cdaa53e83f2662be142e5b18ce7c6944be11a319cb2e966c11447ea3cebb"
+    }
+  ]
+}

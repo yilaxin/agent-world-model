@@ -1,0 +1,417 @@
+{
+  "schema_version": 2,
+  "benchmark": "Classic WebArena P0 unseen hash-selected three-site holdout",
+  "frozen_at_utc": "2026-08-13T08:47:08.537751+00:00",
+  "selection_salt": "p0-holdout-v1",
+  "selection_rule": "Single-site tasks only; exclude every historical config/report/trajectory task ID; sort by SHA256(salt|site|task_id); take first N.",
+  "source": {
+    "browsergym_webarena_version": "0.14.3",
+    "libwebarena_version": "0.0.4",
+    "webarena_verified_version": "1.2.3",
+    "task_count": 812,
+    "task_source_sha256": "7b50386fd69163dbc05d615d834df4c6ed2c35596e97a1b10d17451c02537652",
+    "source_wheel_sha256": "9ebee3b4371502c4f0f7e727a72e5846235d6750d420db9a3b8a168107654feb"
+  },
+  "required_sites": [
+    "shopping"
+  ],
+  "task_ids": [
+    23,
+    320,
+    530,
+    574,
+    693,
+    358,
+    384,
+    440,
+    575,
+    431,
+    21,
+    795,
+    332,
+    437,
+    158,
+    519,
+    150,
+    301,
+    300,
+    239,
+    126,
+    144,
+    47,
+    385,
+    164,
+    330,
+    438,
+    24,
+    360,
+    240
+  ],
+  "task_sites": {
+    "23": "shopping",
+    "320": "shopping",
+    "530": "shopping",
+    "574": "shopping",
+    "693": "shopping",
+    "358": "shopping",
+    "384": "shopping",
+    "440": "shopping",
+    "575": "shopping",
+    "431": "shopping",
+    "21": "shopping",
+    "795": "shopping",
+    "332": "shopping",
+    "437": "shopping",
+    "158": "shopping",
+    "519": "shopping",
+    "150": "shopping",
+    "301": "shopping",
+    "300": "shopping",
+    "239": "shopping",
+    "126": "shopping",
+    "144": "shopping",
+    "47": "shopping",
+    "385": "shopping",
+    "164": "shopping",
+    "330": "shopping",
+    "438": "shopping",
+    "24": "shopping",
+    "360": "shopping",
+    "240": "shopping"
+  },
+  "task_audit": {
+    "23": {
+      "site": "shopping",
+      "task_record_sha256": "d9e92b673263b215c64fe3a31fa2b96afe66cf93c634c003d20d012757efb5da",
+      "intent_template_id": 222,
+      "eval_types": [
+        "string_match"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "320": {
+      "site": "shopping",
+      "task_record_sha256": "8665873e1c22674331d17d44a71a38ac42298e4d6f793214340ad3a26efba859",
+      "intent_template_id": 160,
+      "eval_types": [
+        "string_match"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "530": {
+      "site": "shopping",
+      "task_record_sha256": "afed3c6a586624078e096446d81fbca90aa48dc55fa2bf50496b909314c5d37f",
+      "intent_template_id": 154,
+      "eval_types": [
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "574": {
+      "site": "shopping",
+      "task_record_sha256": "514adb378b0191fca556a144952ed2e7b91b21948e7a35643215991b708fdd18",
+      "intent_template_id": 165,
+      "eval_types": [
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "693": {
+      "site": "shopping",
+      "task_record_sha256": "6c26d16de24b6efcd6a5b0fd9453dbd63fc8b715f44fdcb2bd4b7dd3239b7800",
+      "intent_template_id": 163,
+      "eval_types": [
+        "url_match",
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "358": {
+      "site": "shopping",
+      "task_record_sha256": "05b172cc48431ad41afa6cab00de5a7a8b0600870507c1603832b900e3813074",
+      "intent_template_id": 206,
+      "eval_types": [
+        "string_match"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "384": {
+      "site": "shopping",
+      "task_record_sha256": "daf40d4f21b01d3914f4437703864f327ec52a22a188f8963ddeb833703c5858",
+      "intent_template_id": 666,
+      "eval_types": [
+        "string_match"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "440": {
+      "site": "shopping",
+      "task_record_sha256": "c1e0c83ed6e73f8ae32575f4443a1d5f86031712362ec96920d16e1e0e04daab",
+      "intent_template_id": 156,
+      "eval_types": [
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "575": {
+      "site": "shopping",
+      "task_record_sha256": "b058dba4dd6924c0ab495aba54de5f0519b4b96ae266863be1ec99e50cae5a9c",
+      "intent_template_id": 165,
+      "eval_types": [
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "431": {
+      "site": "shopping",
+      "task_record_sha256": "0418d4b2a1ab11dcc60b4639377307c742b128ab9e8704791c86e2156e6df7e9",
+      "intent_template_id": 145,
+      "eval_types": [
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "21": {
+      "site": "shopping",
+      "task_record_sha256": "1c114b77bac5f429e22ef78d2445de55a6360ba142d1a6192b8001715b423492",
+      "intent_template_id": 222,
+      "eval_types": [
+        "string_match"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "795": {
+      "site": "shopping",
+      "task_record_sha256": "2dbf333e5392f45a47445002e4fd8c43dd9f3d4ead2fb12626828591a2cee53a",
+      "intent_template_id": 191,
+      "eval_types": [
+        "string_match"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "332": {
+      "site": "shopping",
+      "task_record_sha256": "e86ea97f4626211bd9173a4caaf86865a3fa4d10dafa566f2a9fd65ecca2f24d",
+      "intent_template_id": 147,
+      "eval_types": [
+        "string_match"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "437": {
+      "site": "shopping",
+      "task_record_sha256": "fc0a99b9c2be3e816c817a03d42c18b56f793f724cbe4d97869b44ace41cf51b",
+      "intent_template_id": 156,
+      "eval_types": [
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "158": {
+      "site": "shopping",
+      "task_record_sha256": "f27d484640ca8ca041d38b78c43ddce34a0473df36c828f77cd6f73c2e5f2da5",
+      "intent_template_id": 171,
+      "eval_types": [
+        "url_match"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "519": {
+      "site": "shopping",
+      "task_record_sha256": "415919681d02b58cf0474af462dcde3ddb685f507a460f4794c4ad5b3b1d9061",
+      "intent_template_id": 196,
+      "eval_types": [
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "150": {
+      "site": "shopping",
+      "task_record_sha256": "9f53c90f0075af67e1a71f520037e264a4436fa0ba41229a8565151a5942448a",
+      "intent_template_id": 155,
+      "eval_types": [
+        "string_match"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "301": {
+      "site": "shopping",
+      "task_record_sha256": "9e83f9bfdce111822fbfa8a6e40333d9d80ebd088be7dfcf73a9135dc5c2f0fd",
+      "intent_template_id": 180,
+      "eval_types": [
+        "string_match"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "300": {
+      "site": "shopping",
+      "task_record_sha256": "aaf0bdd1e73a336f5792745ec476e903ae0c1ed6dca996a8dceaa7cdf6a211e3",
+      "intent_template_id": 180,
+      "eval_types": [
+        "url_match"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "239": {
+      "site": "shopping",
+      "task_record_sha256": "ea5e1977988a0256a57b78e8b91c5d0ecff67ecc783014cab29e97c7abfe7f0b",
+      "intent_template_id": 138,
+      "eval_types": [
+        "url_match"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "126": {
+      "site": "shopping",
+      "task_record_sha256": "273c501213876117baa3ccc7ea218677d889120ec72b38905712478f913021e2",
+      "intent_template_id": 159,
+      "eval_types": [
+        "string_match"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "144": {
+      "site": "shopping",
+      "task_record_sha256": "12694080193615eb297dba2e828f2879d1450d8636ac60f10b3d9985ab7a52aa",
+      "intent_template_id": 162,
+      "eval_types": [
+        "string_match"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "47": {
+      "site": "shopping",
+      "task_record_sha256": "d6b8677bf9a4c42f62b2ce7722aee200f08faae3d84231fd9182cd73aaf48324",
+      "intent_template_id": 197,
+      "eval_types": [
+        "string_match"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "385": {
+      "site": "shopping",
+      "task_record_sha256": "22a5599d6776ff407fd4473f95dd3de18e9917c07a5f58659b3ebe7255677c0b",
+      "intent_template_id": 666,
+      "eval_types": [
+        "string_match"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "164": {
+      "site": "shopping",
+      "task_record_sha256": "5e313391c05832c1f6cb1a228420bd86a27b658654ef839226365a159e070a12",
+      "intent_template_id": 136,
+      "eval_types": [
+        "string_match"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "330": {
+      "site": "shopping",
+      "task_record_sha256": "9d6625f9427e438696d8399bdcff06f30dd5945626d5cb5810ddfcafe7f87704",
+      "intent_template_id": 147,
+      "eval_types": [
+        "string_match"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "438": {
+      "site": "shopping",
+      "task_record_sha256": "624661c076a9d22f9f2d44267c07bfe529ace430e751eb35db3ed4b28d1f9056",
+      "intent_template_id": 156,
+      "eval_types": [
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "24": {
+      "site": "shopping",
+      "task_record_sha256": "feb9ade59568f784de2cc227805199c3e1e52fa66d1201ca1e2409a31dad6953",
+      "intent_template_id": 222,
+      "eval_types": [
+        "string_match"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "360": {
+      "site": "shopping",
+      "task_record_sha256": "4554d37e51b18e1de33ea0bf962b885b24f744c5ddf1d1c5c7339997c69fb406",
+      "intent_template_id": 206,
+      "eval_types": [
+        "string_match"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "240": {
+      "site": "shopping",
+      "task_record_sha256": "9240708bc5bbfd941ec2b3ed69c5ce1aca10c3774dabcdcb1ee042d502ebade9",
+      "intent_template_id": 138,
+      "eval_types": [
+        "url_match"
+      ],
+      "require_login": true,
+      "require_reset": false
+    }
+  },
+  "historical_excluded_task_ids": [
+    27,
+    28,
+    29,
+    30,
+    31,
+    44,
+    45,
+    157,
+    258,
+    274,
+    275,
+    276,
+    595,
+    596,
+    597,
+    676,
+    677
+  ],
+  "seeds": [
+    0
+  ],
+  "reactive_step_budget": 12,
+  "world_model_step_budget": 12,
+  "episode_max_attempts": 2,
+  "evaluator_smoke_step_budget": 1,
+  "evaluator_smoke_answers": {},
+  "release_fingerprint_sha256": "427049583ec231a5f6c49450cd2da51da36ea255ae42ccb1770a9a027b956652",
+  "task_feedback_used": false,
+  "post_freeze_policy_changes_allowed": false,
+  "scope_limit": "Thirty unseen, hash-selected, single-site shopping tasks; paired 2x2 evaluation only, not the full 812-task WebArena benchmark.",
+  "freeze_sha256": "9e7813b93a834ce95af7ed437afdd1166d09c6d2989f87d5216d0e4d0951e474"
+}

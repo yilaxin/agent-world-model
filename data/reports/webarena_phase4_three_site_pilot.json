@@ -1,0 +1,363 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-08-12T13:01:26.230730+00:00",
+  "benchmark": "WebArena Verified three-site pilot",
+  "fixed_task_ids": [
+    595,
+    596,
+    597,
+    274,
+    275,
+    276,
+    157,
+    676,
+    677
+  ],
+  "task_sites": {
+    "595": "reddit",
+    "596": "reddit",
+    "597": "reddit",
+    "274": "shopping",
+    "275": "shopping",
+    "276": "shopping",
+    "157": "shopping_admin",
+    "676": "shopping_admin",
+    "677": "shopping_admin"
+  },
+  "required_sites": [
+    "reddit",
+    "shopping",
+    "shopping_admin"
+  ],
+  "fixed_seeds": [
+    0
+  ],
+  "budgets": {
+    "reactive_steps": 12,
+    "evaluator_smoke_steps": 1
+  },
+  "agent_metrics": {
+    "episodes": 6,
+    "successes": 0,
+    "success_rate": 0.0,
+    "action_execution_rate": 0.46153846153846156,
+    "average_steps": 6.5,
+    "average_latency_seconds": 43.98980281966669
+  },
+  "world_model_agent_metrics": {
+    "episodes": 4,
+    "successes": 0,
+    "success_rate": 0.0,
+    "action_execution_rate": 0.8,
+    "average_steps": 3.75,
+    "average_latency_seconds": 29.811622854000007
+  },
+  "per_site_metrics": {
+    "reactive": {
+      "reddit": {
+        "episodes": 3,
+        "successes": 0,
+        "success_rate": 0.0,
+        "action_execution_rate": 0.5,
+        "average_steps": 12.0,
+        "average_latency_seconds": 77.4308490746668
+      },
+      "shopping": {
+        "episodes": 3,
+        "successes": 0,
+        "success_rate": 0.0,
+        "action_execution_rate": 0.0,
+        "average_steps": 1.0,
+        "average_latency_seconds": 10.548756564666595
+      }
+    },
+    "world-model": {
+      "reddit": {
+        "episodes": 1,
+        "successes": 0,
+        "success_rate": 0.0,
+        "action_execution_rate": 1.0,
+        "average_steps": 12.0,
+        "average_latency_seconds": 86.90133326099931
+      },
+      "shopping": {
+        "episodes": 3,
+        "successes": 0,
+        "success_rate": 0.0,
+        "action_execution_rate": 0.0,
+        "average_steps": 1.0,
+        "average_latency_seconds": 10.781719385000239
+      }
+    }
+  },
+  "paired_online_comparison": {
+    "paired_task_count": 4,
+    "baseline_success_rate": 0.0,
+    "candidate_success_rate": 0.0,
+    "baseline_success_rate_95ci": [
+      0.0,
+      0.0
+    ],
+    "candidate_success_rate_95ci": [
+      0.0,
+      0.0
+    ],
+    "absolute_improvement_points": 0.0,
+    "absolute_improvement_95ci_points": [
+      0.0,
+      0.0
+    ],
+    "relative_improvement": null,
+    "baseline_only_success": 0,
+    "candidate_only_success": 0
+  },
+  "evaluator_integrity_metrics": null,
+  "agent_success_rate_excludes_answer_injection": true,
+  "scope_limit": "Nine-task environment and policy pilot; the frozen four-site report is the formal online result.",
+  "results": {
+    "reactive": [
+      {
+        "env_id": "browsergym/webarena.595",
+        "seed": 0,
+        "success": false,
+        "terminated": false,
+        "truncated": false,
+        "steps": 12,
+        "total_reward": 0.0,
+        "last_action_error": "TypeError: press() missing 1 required positional argument: 'key_comb'",
+        "trajectory_path": "/home/filp/agent_world_model/data/trajectories_webarena_phase4_pilot/reactive/20260812T125341Z_browsergym_webarena.595_seed0_3506a538.jsonl",
+        "final_state_id": "642a7cb8647f8c42",
+        "elapsed_seconds": 83.76658736399986,
+        "attempted_actions": 12,
+        "action_execution_successes": 6,
+        "mode": "reactive",
+        "task_id": 595,
+        "site": "reddit",
+        "uses_expected_answer": false
+      },
+      {
+        "env_id": "browsergym/webarena.596",
+        "seed": 0,
+        "success": false,
+        "terminated": false,
+        "truncated": false,
+        "steps": 12,
+        "total_reward": 0.0,
+        "last_action_error": "TypeError: press() missing 1 required positional argument: 'key_comb'",
+        "trajectory_path": "/home/filp/agent_world_model/data/trajectories_webarena_phase4_pilot/reactive/20260812T125456Z_browsergym_webarena.596_seed0_d2b51a1f.jsonl",
+        "final_state_id": "c26fcf98b4584427",
+        "elapsed_seconds": 74.0046339770006,
+        "attempted_actions": 12,
+        "action_execution_successes": 6,
+        "mode": "reactive",
+        "task_id": 596,
+        "site": "reddit",
+        "uses_expected_answer": false
+      },
+      {
+        "env_id": "browsergym/webarena.597",
+        "seed": 0,
+        "success": false,
+        "terminated": false,
+        "truncated": false,
+        "steps": 12,
+        "total_reward": 0.0,
+        "last_action_error": "TypeError: press() missing 1 required positional argument: 'key_comb'",
+        "trajectory_path": "/home/filp/agent_world_model/data/trajectories_webarena_phase4_pilot/reactive/20260812T125610Z_browsergym_webarena.597_seed0_201eeee8.jsonl",
+        "final_state_id": "788993c7a4e75356",
+        "elapsed_seconds": 74.52132588299992,
+        "attempted_actions": 12,
+        "action_execution_successes": 6,
+        "mode": "reactive",
+        "task_id": 597,
+        "site": "reddit",
+        "uses_expected_answer": false
+      },
+      {
+        "env_id": "browsergym/webarena.274",
+        "seed": 0,
+        "success": false,
+        "terminated": true,
+        "truncated": false,
+        "steps": 1,
+        "total_reward": 0.0,
+        "last_action_error": "TimeoutError: Locator.click: Timeout 500ms exceeded.\nCall log:\nwaiting for get_by_test_id(\"391\")\n  -   locator resolved to <button disabled value=\"\" bid=\"391\" type=\"submit\" title=…>…</button>\n  - attempting click action\n  -   waiting for element to be visible, enabled and stable\n  -   element is not enabled\n  - retrying click action, attempt #1\n  -   waiting for element to be visible, enabled and stable\n  -   element is not enabled\n  - retrying click action, attempt #2\n  -   waiting 20ms\n  -   waiting for element to be visible, enabled and stable\n  -   element is not enabled\n  - retrying click action, attempt #3\n  -   waiting 100ms\n  -   waiting for element to be visible, enabled and stable\n  -   element is not enabled\n  - retrying click action, attempt #4\n  -   waiting 100ms\n  -   waiting for element to be visible, enabled and stable\n  -   element is not enabled\n  - retrying click action, attempt #5\n  -   waiting 500ms\n",
+        "trajectory_path": "/home/filp/agent_world_model/data/trajectories_webarena_phase4_pilot/reactive/20260812T125724Z_browsergym_webarena.274_seed0_d0fd156e.jsonl",
+        "final_state_id": "e0aaf5cf782875b5",
+        "elapsed_seconds": 10.666809327999545,
+        "attempted_actions": 1,
+        "action_execution_successes": 0,
+        "mode": "reactive",
+        "task_id": 274,
+        "site": "shopping",
+        "uses_expected_answer": false
+      },
+      {
+        "env_id": "browsergym/webarena.275",
+        "seed": 0,
+        "success": false,
+        "terminated": true,
+        "truncated": false,
+        "steps": 1,
+        "total_reward": 0.0,
+        "last_action_error": "TimeoutError: Locator.click: Timeout 500ms exceeded.\nCall log:\nwaiting for get_by_test_id(\"391\")\n  -   locator resolved to <button disabled value=\"\" bid=\"391\" type=\"submit\" title=…>…</button>\n  - attempting click action\n  -   waiting for element to be visible, enabled and stable\n  -   element is not enabled\n  - retrying click action, attempt #1\n  -   waiting for element to be visible, enabled and stable\n  -   element is not enabled\n  - retrying click action, attempt #2\n  -   waiting 20ms\n  -   waiting for element to be visible, enabled and stable\n  -   element is not enabled\n  - retrying click action, attempt #3\n  -   waiting 100ms\n  -   waiting for element to be visible, enabled and stable\n  -   element is not enabled\n  - retrying click action, attempt #4\n  -   waiting 100ms\n  -   waiting for element to be visible, enabled and stable\n  -   element is not enabled\n  - retrying click action, attempt #5\n  -   waiting 500ms\n",
+        "trajectory_path": "/home/filp/agent_world_model/data/trajectories_webarena_phase4_pilot/reactive/20260812T125735Z_browsergym_webarena.275_seed0_55ab5d91.jsonl",
+        "final_state_id": "01ccf29893ec8f60",
+        "elapsed_seconds": 10.533691081000143,
+        "attempted_actions": 1,
+        "action_execution_successes": 0,
+        "mode": "reactive",
+        "task_id": 275,
+        "site": "shopping",
+        "uses_expected_answer": false
+      },
+      {
+        "env_id": "browsergym/webarena.276",
+        "seed": 0,
+        "success": false,
+        "terminated": true,
+        "truncated": false,
+        "steps": 1,
+        "total_reward": 0.0,
+        "last_action_error": "TimeoutError: Locator.click: Timeout 500ms exceeded.\nCall log:\nwaiting for get_by_test_id(\"391\")\n  -   locator resolved to <button disabled value=\"\" bid=\"391\" type=\"submit\" title=…>…</button>\n  - attempting click action\n  -   waiting for element to be visible, enabled and stable\n  -   element is not enabled\n  - retrying click action, attempt #1\n  -   waiting for element to be visible, enabled and stable\n  -   element is not enabled\n  - retrying click action, attempt #2\n  -   waiting 20ms\n  -   waiting for element to be visible, enabled and stable\n  -   element is not enabled\n  - retrying click action, attempt #3\n  -   waiting 100ms\n  -   waiting for element to be visible, enabled and stable\n  -   element is not enabled\n  - retrying click action, attempt #4\n  -   waiting 100ms\n  -   waiting for element to be visible, enabled and stable\n  -   element is not enabled\n  - retrying click action, attempt #5\n  -   waiting 500ms\n",
+        "trajectory_path": "/home/filp/agent_world_model/data/trajectories_webarena_phase4_pilot/reactive/20260812T125745Z_browsergym_webarena.276_seed0_fd8279c8.jsonl",
+        "final_state_id": "07ac40e0cc6a6c28",
+        "elapsed_seconds": 10.445769285000097,
+        "attempted_actions": 1,
+        "action_execution_successes": 0,
+        "mode": "reactive",
+        "task_id": 276,
+        "site": "shopping",
+        "uses_expected_answer": false
+      }
+    ],
+    "world-model": [
+      {
+        "env_id": "browsergym/webarena.597",
+        "seed": 0,
+        "success": false,
+        "terminated": false,
+        "truncated": false,
+        "steps": 12,
+        "total_reward": 0.0,
+        "last_action_error": "",
+        "trajectory_path": "/home/filp/agent_world_model/data/trajectories_webarena_phase4_pilot/world-model/20260812T125855Z_browsergym_webarena.597_seed0_0b6cca15.jsonl",
+        "final_state_id": "1aae359dde22d0dc",
+        "elapsed_seconds": 86.90133326099931,
+        "attempted_actions": 12,
+        "action_execution_successes": 12,
+        "mode": "world-model",
+        "task_id": 597,
+        "site": "reddit",
+        "uses_expected_answer": false
+      },
+      {
+        "env_id": "browsergym/webarena.274",
+        "seed": 0,
+        "success": false,
+        "terminated": true,
+        "truncated": false,
+        "steps": 1,
+        "total_reward": 0.0,
+        "last_action_error": "TimeoutError: Locator.click: Timeout 500ms exceeded.\nCall log:\nwaiting for get_by_test_id(\"391\")\n  -   locator resolved to <button disabled value=\"\" bid=\"391\" type=\"submit\" title=…>…</button>\n  - attempting click action\n  -   waiting for element to be visible, enabled and stable\n  -   element is not enabled\n  - retrying click action, attempt #1\n  -   waiting for element to be visible, enabled and stable\n  -   element is not enabled\n  - retrying click action, attempt #2\n  -   waiting 20ms\n  -   waiting for element to be visible, enabled and stable\n  -   element is not enabled\n  - retrying click action, attempt #3\n  -   waiting 100ms\n  -   waiting for element to be visible, enabled and stable\n  -   element is not enabled\n  - retrying click action, attempt #4\n  -   waiting 100ms\n  -   waiting for element to be visible, enabled and stable\n  -   element is not enabled\n  - retrying click action, attempt #5\n  -   waiting 500ms\n",
+        "trajectory_path": "/home/filp/agent_world_model/data/trajectories_webarena_phase4_pilot/world-model/20260812T130022Z_browsergym_webarena.274_seed0_29107769.jsonl",
+        "final_state_id": "e0aaf5cf782875b5",
+        "elapsed_seconds": 10.879525138000645,
+        "attempted_actions": 1,
+        "action_execution_successes": 0,
+        "mode": "world-model",
+        "task_id": 274,
+        "site": "shopping",
+        "uses_expected_answer": false
+      },
+      {
+        "env_id": "browsergym/webarena.275",
+        "seed": 0,
+        "success": false,
+        "terminated": true,
+        "truncated": false,
+        "steps": 1,
+        "total_reward": 0.0,
+        "last_action_error": "TimeoutError: Locator.click: Timeout 500ms exceeded.\nCall log:\nwaiting for get_by_test_id(\"391\")\n  -   locator resolved to <button disabled value=\"\" bid=\"391\" type=\"submit\" title=…>…</button>\n  - attempting click action\n  -   waiting for element to be visible, enabled and stable\n  -   element is not enabled\n  - retrying click action, attempt #1\n  -   waiting for element to be visible, enabled and stable\n  -   element is not enabled\n  - retrying click action, attempt #2\n  -   waiting 20ms\n  -   waiting for element to be visible, enabled and stable\n  -   element is not enabled\n  - retrying click action, attempt #3\n  -   waiting 100ms\n  -   waiting for element to be visible, enabled and stable\n  -   element is not enabled\n  - retrying click action, attempt #4\n  -   waiting 100ms\n  -   waiting for element to be visible, enabled and stable\n  -   element is not enabled\n  - retrying click action, attempt #5\n  -   waiting 500ms\n",
+        "trajectory_path": "/home/filp/agent_world_model/data/trajectories_webarena_phase4_pilot/world-model/20260812T130033Z_browsergym_webarena.275_seed0_30cd6ae1.jsonl",
+        "final_state_id": "01ccf29893ec8f60",
+        "elapsed_seconds": 10.67606347200035,
+        "attempted_actions": 1,
+        "action_execution_successes": 0,
+        "mode": "world-model",
+        "task_id": 275,
+        "site": "shopping",
+        "uses_expected_answer": false
+      },
+      {
+        "env_id": "browsergym/webarena.276",
+        "seed": 0,
+        "success": false,
+        "terminated": true,
+        "truncated": false,
+        "steps": 1,
+        "total_reward": 0.0,
+        "last_action_error": "TimeoutError: Locator.click: Timeout 500ms exceeded.\nCall log:\nwaiting for get_by_test_id(\"391\")\n  -   locator resolved to <button disabled value=\"\" bid=\"391\" type=\"submit\" title=…>…</button>\n  - attempting click action\n  -   waiting for element to be visible, enabled and stable\n  -   element is not enabled\n  - retrying click action, attempt #1\n  -   waiting for element to be visible, enabled and stable\n  -   element is not enabled\n  - retrying click action, attempt #2\n  -   waiting 20ms\n  -   waiting for element to be visible, enabled and stable\n  -   element is not enabled\n  - retrying click action, attempt #3\n  -   waiting 100ms\n  -   waiting for element to be visible, enabled and stable\n  -   element is not enabled\n  - retrying click action, attempt #4\n  -   waiting 100ms\n  -   waiting for element to be visible, enabled and stable\n  -   element is not enabled\n  - retrying click action, attempt #5\n  -   waiting 500ms\n",
+        "trajectory_path": "/home/filp/agent_world_model/data/trajectories_webarena_phase4_pilot/world-model/20260812T130043Z_browsergym_webarena.276_seed0_af105d96.jsonl",
+        "final_state_id": "07ac40e0cc6a6c28",
+        "elapsed_seconds": 10.789569544999722,
+        "attempted_actions": 1,
+        "action_execution_successes": 0,
+        "mode": "world-model",
+        "task_id": 276,
+        "site": "shopping",
+        "uses_expected_answer": false
+      }
+    ]
+  },
+  "failures": [
+    {
+      "mode": "reactive",
+      "task_id": 157,
+      "seed": 0,
+      "error": "TimeoutError('Locator.fill: Timeout 10000ms exceeded.\\nCall log:\\nwaiting for get_by_label(\"Username\")\\n')"
+    },
+    {
+      "mode": "reactive",
+      "task_id": 676,
+      "seed": 0,
+      "error": "TimeoutError('Locator.fill: Timeout 10000ms exceeded.\\nCall log:\\nwaiting for get_by_label(\"Username\")\\n')"
+    },
+    {
+      "mode": "reactive",
+      "task_id": 677,
+      "seed": 0,
+      "error": "TimeoutError('Locator.fill: Timeout 10000ms exceeded.\\nCall log:\\nwaiting for get_by_label(\"Username\")\\n')"
+    },
+    {
+      "mode": "world-model",
+      "task_id": 595,
+      "seed": 0,
+      "error": "URLError(ConnectionRefusedError(111, 'Connection refused'))"
+    },
+    {
+      "mode": "world-model",
+      "task_id": 596,
+      "seed": 0,
+      "error": "URLError(ConnectionRefusedError(111, 'Connection refused'))"
+    },
+    {
+      "mode": "world-model",
+      "task_id": 157,
+      "seed": 0,
+      "error": "TimeoutError('Locator.fill: Timeout 10000ms exceeded.\\nCall log:\\nwaiting for get_by_label(\"Username\")\\n')"
+    },
+    {
+      "mode": "world-model",
+      "task_id": 676,
+      "seed": 0,
+      "error": "TimeoutError('Locator.fill: Timeout 10000ms exceeded.\\nCall log:\\nwaiting for get_by_label(\"Username\")\\n')"
+    },
+    {
+      "mode": "world-model",
+      "task_id": 677,
+      "seed": 0,
+      "error": "TimeoutError('Locator.fill: Timeout 10000ms exceeded.\\nCall log:\\nwaiting for get_by_label(\"Username\")\\n')"
+    }
+  ]
+}

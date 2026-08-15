@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-08-14T20:16:47.031176+00:00",
+  "purpose": "recover frozen holdout episodes blocked by no-answer fuzzy initialization",
+  "site": "gitlab",
+  "mode": "world-model",
+  "navigation_guard": "off",
+  "task_ids": [
+    176,
+    783
+  ],
+  "seed": 0,
+  "step_budget": 12,
+  "master_freeze_sha256": "a772943ee036958f48ec17249a25865d7a779217797618ef10a03881661230b9",
+  "site_config_freeze_sha256": "377445fbcbe2db2fb0f310290710e4703a2e3e8f61c8e1304d054db747aa3e87",
+  "failure_config_freeze_sha256": "377445fbcbe2db2fb0f310290710e4703a2e3e8f61c8e1304d054db747aa3e87",
+  "failure_report_path": "data/reports/webarena_p0_round2_holdout_gitlab_world-model_guard_off.json",
+  "release_fingerprint_sha256": "fe52d922a891ca9464b2691781b2f3d4594eecf3eaed82ff315d849b34118a24",
+  "remote_agent_health": {
+    "status": "ok",
+    "device": "cuda",
+    "navigation_guard": "off",
+    "semantic_goal_priority": false,
+    "release_fingerprint_sha256": "fe52d922a891ca9464b2691781b2f3d4594eecf3eaed82ff315d849b34118a24",
+    "authentication_required": false
+  },
+  "uses_expected_answer": false,
+  "validation_adapter": {
+    "rule": "Only no-answer validation returns score=0, done=false; submitted answers delegate to the original official evaluator.",
+    "reference_answers_read": false,
+    "local_answer_judge_used": false
+  },
+  "results": [
+    {
+      "env_id": "browsergym/webarena.176",
+      "seed": 0,
+      "success": false,
+      "terminated": false,
+      "truncated": false,
+      "steps": 12,
+      "total_reward": 0.0,
+      "last_action_error": "",
+      "trajectory_path": "/home/filp/agent_world_model/data/trajectories_webarena_p0_round2_recovery/gitlab/world-model_guard_off/world-model/20260814T201531Z_browsergym_webarena.176_seed0_ea179198.jsonl",
+      "final_state_id": "5f76bff47bfbe8c5",
+      "elapsed_seconds": 54.18579447400043,
+      "attempted_actions": 12,
+      "action_execution_successes": 7,
+      "episode_attempts": 1,
+      "mode": "world-model",
+      "task_id": 176,
+      "site": "gitlab",
+      "uses_expected_answer": false,
+      "recovery_validation_adapter": "no_answer_is_nonterminal_zero"
+    },
+    {
+      "env_id": "browsergym/webarena.783",
+      "seed": 0,
+      "success": false,
+      "terminated": false,
+      "truncated": false,
+      "steps": 12,
+      "total_reward": 0.0,
+      "last_action_error": "",
+      "trajectory_path": "/home/filp/agent_world_model/data/trajectories_webarena_p0_round2_recovery/gitlab/world-model_guard_off/world-model/20260814T201618Z_browsergym_webarena.783_seed0_19da9f8c.jsonl",
+      "final_state_id": "d825996bcf65e63f",
+      "elapsed_seconds": 37.02515008699993,
+      "attempted_actions": 12,
+      "action_execution_successes": 12,
+      "episode_attempts": 1,
+      "mode": "world-model",
+      "task_id": 783,
+      "site": "gitlab",
+      "uses_expected_answer": false,
+      "recovery_validation_adapter": "no_answer_is_nonterminal_zero"
+    }
+  ],
+  "failures": []
+}

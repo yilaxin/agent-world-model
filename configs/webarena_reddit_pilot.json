@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "benchmark": "WebArena Verified Reddit navigation pilot",
+  "required_sites": ["reddit"],
+  "task_ids": [595, 596, 597],
+  "task_sites": {
+    "595": "reddit",
+    "596": "reddit",
+    "597": "reddit"
+  },
+  "seeds": [0],
+  "reactive_step_budget": 1,
+  "world_model_step_budget": 8,
+  "evaluator_smoke_step_budget": 1,
+  "evaluator_smoke_answers": {},
+  "scope_limit": "Three-task site integration pilot; not the formal multi-site result."
+}
