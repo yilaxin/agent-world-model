@@ -11,8 +11,10 @@
 - 阶段三多步：独立测试 H2=619、H3=329，长视野终止=94、严重失败=47，全部覆盖门禁通过。
 - 阶段四反馈：困难样本池 9,388 条，完成预测误差、regret、rank flip、stall 与结构错误反馈；8 个主实验/消融变体完成离线重训练与验证集选型。
 - W4 独立测试：MSE 0.002466、pairwise accuracy 97.47%、regret 0.05619、risk F1 94.20%、ECE 0.00896；W3/W4 来源权重各占 50%，成员权重经验证集校准。
-- WebArena P0 未见任务：修复前冻结 Reddit/Shopping/GitLab 各 30 题，完成 Reactive/W4 × 导航护栏关/开共 360 episodes。四单元均为 0/90，W4-Reactive 绝对差为 0 个百分点；Reactive 基线为 0 使相对提升不可定义，申报书 SR +10% 目标未达成。世界模型、护栏及交互效应均为 0 个百分点。早期三站 9 题 9/9 仍只作 post-fix 回归历史对照。
-- AndroidWorld 小样本迁移：W4 在 7 个任务、每题 1 个 episode 上完成 5/7，动作执行率 100%；该样本量不足以声称统计显著改进。
+- 多步动力学（第三轮）：direct-residual 状态/动作头 H2 MSE 5.52e-05、H3 MSE 7.97e-05，优于 persistence（H2 1.10e-04、H3 2.08e-04），2,891 个连续窗口及终止/严重失败覆盖门禁全部通过；接入在线规划器前仍需独立 WebArena 开发集回归。
+- WebArena P0 未见任务（三轮）：Round-1 冻结 90 题 × 4 单元（360 episodes）四单元均 0/90；Round-2 90 题 × 4 单元 W4−Reactive 为 0.00pp；Round-3 冻结 78 题 × 4 单元（312 episodes），Reactive 3/78（3.85%）、W4+护栏 4/78（5.13%），主对比相对 +33.3%（点估计达到申报书 +10% 目标，配对 CI 下界为 0，跨护栏世界模型主效应仍为 0）。早期三站 9 题 9/9 仍只作 post-fix 回归历史对照。
+- AndroidWorld 迁移（第三轮）：W4 在 7 个任务 × 5 episode = 35 集上完成 27/35（77.1%，Wilson 95% CI [61.0%, 87.9%]），动作执行率 100%；仍属少量迁移检查。
+- 安全：Codex Security 完成 53 个运行时文件复核；4 个中危候选全部修复（checkpoint 安全加载、非回环 token/TLS 强制、CSV 公式中和、单动作解析），相关测试 31 项通过。
 
 完整结果：
 
@@ -20,9 +22,12 @@
 - [阶段四反馈优化与实验报告](PHASE4_COMPLETION_REPORT.md)
 - [WebArena P0 未见任务 2×2 验收报告](P0_WEBARENA_COMPLETION_REPORT.md)
 - [WebArena P0 验收 PDF](output/pdf/WebArena_P0未见任务2x2验收报告_2026-08-14.pdf)
-- [项目完整总结与结题评估 PDF](output/pdf/大创项目完整总结与结题评估_2026-08-14.pdf)
+- [第三轮补充报告 PDF](output/pdf/大创第三轮补充报告_2026-08-16.pdf)
+- [项目完整总结与结题评估 PDF](output/pdf/大创项目完整总结与结题评估_2026-08-15.pdf)
 - `data/reports/phase4_feedback_experiment_gpu.json`
 - `data/reports/webarena_online_evaluation_w4.json`
+- `data/reports/webarena_p0_round3_2x2_analysis.json`
+- `data/reports/phase3_multistep_direct_residual_round3_gpu.json`
 - `output/pdf/阶段二阶段三最终进度与遗留问题报告_2026-08-10.pdf`
 - 私有看板：`agent-world-model-phase23-lzk.zhengkunlu4.chatgpt.site`
 
@@ -78,4 +83,4 @@ bash scripts/run_phase23_improvement.sh
 
 ## 结果边界
 
-阶段二至阶段四的离线指标衡量预测、校准、反事实排序与有限步轨迹漂移，不等于完整 WebArena 在线任务成功率。三站 9 题结果是使用同题失败反馈修复后的回归；P0 另行冻结 90 个未见任务并完成 2×2 因果评估，但四单元均为 0/90，没有观察到世界模型或共享护栏的成功率收益，也未达到相对 SR +10%。该 90 题仍不是完整 812 题 benchmark。AndroidWorld 5/7 同样只作少量迁移检查。
+阶段二至阶段四的离线指标衡量预测、校准、反事实排序与有限步轨迹漂移，不等于完整 WebArena 在线任务成功率。三站 9 题结果是使用同题失败反馈修复后的回归；P0 三轮冻结未见集合中，Round-3 主对比（W4+护栏 vs Reactive+护栏）点估计相对 +33.3%（3/78 → 4/78），达到申报书相对 +10% 目标，但该增益仅由 1 个额外成功支撑，配对 CI 下界为 0，跨护栏的世界模型主效应仍为 0，不能视为稳健结论。该 78 题仍不是完整 812 题 benchmark。AndroidWorld 27/35 同样只作少量迁移检查。
