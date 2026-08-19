@@ -26,6 +26,7 @@ data/trajectories_webarena_round3_dev/
 data/trajectories_webarena_round3_dev_v2/
 data/trajectories_webarena_round3_dev_v3/
 data/trajectories_webarena_round3_dev_v4/
+data/trajectories_webarena_dr_regress/
 data/trajectories_androidworld_round3_w4/
 data/trajectories_androidworld_w4/
 data/phase2/*.jsonl
