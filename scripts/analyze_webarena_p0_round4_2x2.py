@@ -65,16 +65,16 @@ def _wilson(successes: int, episodes: int) -> list[float]:
     return [max(0.0, centre - half), min(1.0, centre + half)]
 
 
-def _load_cell(report_dir: Path, site: str, mode: str, guard: str) -> dict[int, dict[int, bool]]:
+def _load_cell(
+    report_dir: Path, site: str, mode: str, guard: str
+) -> tuple[dict[int, dict[int, bool]], list[dict[str, Any]]]:
     path = report_dir / f"webarena_p0_round4_holdout_{site}_{mode}_guard_{guard}.json"
     payload = json.loads(path.read_text(encoding="utf-8"))
     rows = payload.get("results", {}).get(mode, [])
-    if payload.get("failures"):
-        raise ValueError(f"cell report has evaluator failures: {path}")
     by_task: dict[int, dict[int, bool]] = {}
     for row in rows:
         by_task.setdefault(int(row["task_id"]), {})[int(row["seed"])] = bool(row["success"])
-    return by_task
+    return by_task, list(payload.get("failures", []))
 
 
 def _paired_ci(
@@ -101,14 +101,16 @@ def main() -> int:
     rng = random.Random(args.bootstrap_seed)
 
     cells: dict[str, dict[str, dict[int, dict[int, bool]]]] = {}
+    exclusions: dict[str, list[dict[str, Any]]] = {}
     per_cell_metrics: dict[str, dict[str, Any]] = {}
     for site in SITES:
         cells[site] = {}
         for cell, (mode, guard) in CELL_SPECS.items():
-            by_task = _load_cell(args.report_dir, site, mode, guard)
+            by_task, failures = _load_cell(args.report_dir, site, mode, guard)
+            exclusions[f"{site}/{cell}"] = failures
             expected = int(manifest["tasks_per_site"][site])
-            if len(by_task) != expected:
-                raise ValueError(f"{site}/{cell}: expected {expected} tasks, got {len(by_task)}")
+            if len(by_task) > expected:
+                raise ValueError(f"{site}/{cell}: more judged tasks than frozen")
             for task, seed_map in by_task.items():
                 if sorted(seed_map) != seeds:
                     raise ValueError(f"{site}/{cell}: seed mismatch for task {task}")
@@ -121,14 +123,29 @@ def main() -> int:
                 "successes": successes,
                 "success_rate": successes / episodes if episodes else 0.0,
                 "success_rate_95ci_wilson": _wilson(successes, episodes),
+                "excluded_episodes": len(failures),
+                "excluded_task_seeds": sorted(
+                    (int(f["task_id"]), int(f.get("seed", -1)))
+                    for f in failures
+                ),
             }
             cells[site][cell] = by_task
 
     paired: dict[str, Any] = {}
+    excluded_from_pairing: dict[str, list[int]] = {}
     for site in SITES:
         site_paired: dict[str, Any] = {}
         base = cells[site]
-        tasks = sorted(base["reactive_guard_off"])
+        common = set(base["reactive_guard_off"])
+        for cell in CELL_SPECS:
+            common &= set(base[cell].keys())
+        tasks = sorted(common)
+        frozen_tasks = sorted(
+            int(task_id) for task_id in manifest["selected_task_ids_by_site"][site]
+        )
+        excluded_from_pairing[site] = [
+            task_id for task_id in frozen_tasks if task_id not in common
+        ]
         for label, left, right in (
             ("w4_minus_reactive_guard_off", "reactive_guard_off", "w4_guard_off"),
             ("w4_minus_reactive_guard_on", "reactive_guard_on", "w4_guard_on"),
@@ -156,18 +173,30 @@ def main() -> int:
             seeds,
         )
         paired[site] = site_paired
+        paired[site]["excluded_from_pairing_task_ids"] = excluded_from_pairing[site]
+
+    common_all: set[tuple[str, int]] | None = None
+    for site in SITES:
+        site_tasks: set[tuple[str, int]] = set()
+        for cell in CELL_SPECS:
+            for task in cells[site][cell]:
+                site_tasks.add((site, task))
+        common_all = site_tasks if common_all is None else (common_all & site_tasks)
+    common_all = common_all or set()
 
     pool_left = {cell: {} for cell in CELL_SPECS}
     for site in SITES:
         for cell in CELL_SPECS:
             for task, seed_map in cells[site][cell].items():
-                pool_left[cell].setdefault((site, task), {})[tuple(seeds)] = {
+                if (site, task) not in common_all:
+                    continue
+                pool_left[cell][(site, task)] = {
                     seed: seed_map[seed] for seed in seeds
                 }
     pool_diffs = {
         label: [
-            float(pool_left[right][key][tuple(seeds)][seed])
-            - float(pool_left[left][key][tuple(seeds)][seed])
+            float(pool_left[right][key][seed])
+            - float(pool_left[left][key][seed])
             for key in sorted(pool_left[right])
             for seed in seeds
         ]
@@ -200,7 +229,18 @@ def main() -> int:
         "sites": list(SITES),
         "seeds": seeds,
         "cell_metrics": per_cell_metrics,
+        "exclusions": exclusions,
+        "exclusion_note": (
+            "Episodes recorded as evaluator/environment failures (e.g. page "
+            "navigation timeouts or missing external API keys) are excluded "
+            "from success-rate denominators and are not counted as agent "
+            "capability failures."
+        ),
         "paired_per_site": paired,
+        "paired_task_count_note": (
+            "Pairing uses the intersection of tasks judged in all four cells "
+            "per site; tasks with any missing seed are excluded and listed."
+        ),
         "paired_pooled": pooled,
         "scope_limit": (
             "Two-site (GitLab/Shopping) 80-task holdout with seeds 0/1/2; Reddit "
