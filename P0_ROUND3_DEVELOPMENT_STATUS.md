@@ -88,11 +88,17 @@
 - 多步动力学（P1）：
   - persistence/learned-delta 对照已跑通；learned-delta H3 MSE 6.7e-05，
     显著优于 persistence 2.08e-04（约 3 倍）。
+  - 新增 direct-residual state/action 动力学头并在 RTX 4090 重训；正式测试
+    `data/reports/phase3_multistep_direct_residual_round3_gpu.json` 的 H2 MSE
+    5.52e-05、H3 MSE 7.97e-05，均优于 persistence（H2 1.10e-04、H3 2.08e-04），
+    2,891 个连续窗口及终止/严重失败覆盖门禁全部通过。
   - 残差动力学单模型重训完成（best epoch 18）：H1 4.5e-05 已优于 persistence 9.5e-05；
     H2 1.35e-04（原版 2.87e-04）、H3 2.74e-04（原版 4.85e-04），漂移较原版减半，
-    但仍略高于 persistence（H2 1.1e-04、H3 2.08e-04），"不劣于 persistence" 门槛未达成。
-  - 结论：多步动力学尚未形成相对 persistence 的优势；learned-delta 累积是当前最稳的
-    动力学候选，接入规划器为后续工作，本阶段如实记录负结果。
+    但仍略高于 persistence（H2 1.1e-04、H3 2.08e-04）；该旧残差模型门槛未达成。
+  - 结论：direct-residual 候选已满足本阶段多步动力学验收；旧模型保留为负结果，
+    direct-residual 接入在线规划器前仍需独立 WebArena 开发集回归。
 - AndroidWorld（P1）：已完成 W4 扩展 7 任务 × 5 episode = 35 集，
   总体 27/35 = 77.1%（Wilson 95% CI [61.0%, 87.9%]），统一重置 + ADB 状态判读。
-- 安全加固（P2）：推理服务已增加可选 TLS、客户端 IP 白名单、每 IP 限流与异常脱敏（含单测）。
+- 安全加固（P2）：Codex Security 已完成 53 个运行时工作项复核；4 个中危候选均已
+  修复，包括 checkpoint 安全加载、非回环 token/TLS 强制、CSV 公式中和和单动作解析。
+  推理服务同时保留客户端 IP 白名单、每 IP 限流、响应大小限制与异常脱敏。
