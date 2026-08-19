@@ -68,7 +68,7 @@ _ROLE_PRIORITY = {
     "menuitem": 14,
     "tab": 14,
 }
-_INPUT_ROLES = {"textbox", "searchbox", "combobox"}
+_INPUT_ROLES = {"textbox", "searchbox", "combobox", "textarea"}
 _CLICK_ROLES = {
     "button",
     "link",
@@ -702,6 +702,7 @@ class ReactiveAgent:
         goal: str,
         current_url: str,
         elements: Sequence[ElementRef],
+        recent_actions: Sequence[str],
     ) -> ActionDecision | None:
         """Navigate to the visible Contact Us page for contact/refund tasks."""
         lowered_goal = goal.casefold()
@@ -716,27 +717,118 @@ class ReactiveAgent:
         if not wants_contact:
             return None
         on_contact_page = "/contact" in lowered_url
-        if on_contact_page:
+        if not on_contact_page:
+            contact = next(
+                (
+                    element
+                    for element in elements
+                    if element.role in _CLICK_ROLES
+                    and element.name.strip().lower() == "contact us"
+                    and "disabled" not in element.raw_line.lower()
+                ),
+                None,
+            )
+            if contact is not None:
+                return ActionDecision(
+                    action=f"click({_json_arg(contact.bid)}, \"left\")",
+                    action_type="click",
+                    rationale="Open the visible Contact Us page requested by the task.",
+                    target_bid=contact.bid,
+                    target_name=contact.name,
+                    confidence=0.97,
+                    navigation_guard_applied=True,
+                )
+            searchboxes = [
+                item for item in elements if item.role in {"searchbox", "combobox"}
+            ]
+            if searchboxes:
+                if recent_actions and recent_actions[-1].lstrip().startswith("fill("):
+                    target = searchboxes[0]
+                    return ActionDecision(
+                        action='keyboard_press("Enter")',
+                        action_type="press",
+                        rationale="Submit the Contact Us query entered in the previous step.",
+                        target_bid=target.bid,
+                        target_name=target.name,
+                        confidence=0.95,
+                        navigation_guard_applied=True,
+                    )
+                target = searchboxes[0]
+                return ActionDecision(
+                    action=f"fill({_json_arg(target.bid)}, \"contact us\")",
+                    action_type="input",
+                    rationale="Search the site for the Contact Us page requested by the task.",
+                    target_bid=target.bid,
+                    target_name=target.name,
+                    confidence=0.96,
+                    navigation_guard_applied=True,
+                )
             return None
-        contact = next(
-            (
-                element
-                for element in elements
-                if element.role in _CLICK_ROLES
-                and element.name.strip().lower() == "contact us"
-                and "disabled" not in element.raw_line.lower()
-            ),
-            None,
-        )
-        if contact is None:
+
+        # On the contact page: draft the email body from observable goal text.
+        quoted = re.findall(r"""["'“”‘’]([^"'“”‘’]+)["'“”‘’]""", goal)
+        if "coupon" in lowered_goal and quoted:
+            message = quoted[0].strip()
+        elif "coupon" in lowered_goal:
+            message = "I am a loyal customer and I would like a coupon."
+        else:
+            message = ""
+        if not message:
             return None
+        comment_boxes = [
+            element
+            for element in elements
+            if element.role in _INPUT_ROLES
+            and (
+                "comment" in element.name.casefold()
+                or "message" in element.name.casefold()
+                or "enquiry" in element.name.casefold()
+                or "question" in element.name.casefold()
+            )
+        ]
+        if not comment_boxes:
+            return None
+        comment_box = max(comment_boxes, key=lambda element: element.depth)
+        if recent_actions and recent_actions[-1].lstrip().startswith("fill("):
+            send = next(
+                (
+                    element
+                    for element in elements
+                    if element.role in _CLICK_ROLES
+                    and any(
+                        token in element.name.casefold()
+                        for token in ("send", "submit")
+                    )
+                    and "disabled" not in element.raw_line.lower()
+                ),
+                None,
+            )
+            if send is not None:
+                return ActionDecision(
+                    action=f"click({_json_arg(send.bid)}, \"left\")",
+                    action_type="click",
+                    rationale="Submit the contact email drafted in the previous step.",
+                    target_bid=send.bid,
+                    target_name=send.name,
+                    confidence=0.95,
+                    navigation_guard_applied=True,
+                )
+            return ActionDecision(
+                action='keyboard_press("Enter")',
+                action_type="press",
+                rationale="Submit the contact email drafted in the previous step.",
+                target_bid=comment_box.bid,
+                target_name=comment_box.name,
+                confidence=0.9,
+                navigation_guard_applied=True,
+            )
         return ActionDecision(
-            action=f"click({_json_arg(contact.bid)}, \"left\")",
-            action_type="click",
-            rationale="Open the visible Contact Us page requested by the task.",
-            target_bid=contact.bid,
-            target_name=contact.name,
-            confidence=0.97,
+            action=f"fill({_json_arg(comment_box.bid)}, {_json_arg(message)})",
+            action_type="input",
+            rationale="Fill the contact message with the coupon request from the goal.",
+            target_bid=comment_box.bid,
+            target_name=comment_box.name,
+            confidence=0.95,
             navigation_guard_applied=True,
         )
 
@@ -937,34 +1029,13 @@ class ReactiveAgent:
         if comment_box is None:
             return None
         if recent_actions and recent_actions[-1].lstrip().startswith("fill("):
-            submit = next(
-                (
-                    element
-                    for element in elements
-                    if element.role in _CLICK_ROLES
-                    and element.name.strip().lower()
-                    in {"comment", "reply", "submit"}
-                    and "disabled" not in element.raw_line.lower()
-                ),
-                None,
-            )
-            if submit is not None:
-                return ActionDecision(
-                    action=f"click({_json_arg(submit.bid)}, \"left\")",
-                    action_type="click",
-                    rationale="Submit the comment entered in the previous step.",
-                    target_bid=submit.bid,
-                    target_name=submit.name,
-                    confidence=0.96,
-                    navigation_guard_applied=True,
-                )
             return ActionDecision(
                 action='keyboard_press("Enter")',
                 action_type="press",
                 rationale="Submit the comment entered in the previous step.",
                 target_bid=comment_box.bid,
                 target_name=comment_box.name,
-                confidence=0.94,
+                confidence=0.95,
                 navigation_guard_applied=True,
             )
         return ActionDecision(
@@ -1180,7 +1251,12 @@ class ReactiveAgent:
         if reddit_reply is not None:
             return reddit_reply
 
-        contact = self._shopping_contact_decision(goal, current_url, elements)
+        contact = self._shopping_contact_decision(
+            goal,
+            current_url,
+            elements,
+            recent_actions,
+        )
         if contact is not None:
             return contact
 
