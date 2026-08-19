@@ -51,6 +51,29 @@ class WorldModelTests(unittest.TestCase):
             "reward",
         })
 
+    def test_direct_residual_dynamics_preserves_state_plus_delta_contract(self) -> None:
+        import torch
+
+        from agent_world_model.world_model import (
+            ActionConditionedWorldModel,
+            WorldModelConfig,
+        )
+
+        config = WorldModelConfig(
+            state_dim=16,
+            action_dim=8,
+            latent_dim=12,
+            action_latent_dim=4,
+            hidden_dim=20,
+            direct_residual_dynamics=True,
+        )
+        model = ActionConditionedWorldModel(config)
+        state = torch.randn(3, 16)
+        action = torch.randn(3, 8)
+        outputs = model(state, action)
+        expected = state + model.direct_residual_head(torch.cat([state, action], dim=-1))
+        self.assertTrue(torch.allclose(outputs["predicted_next_state"], expected))
+
 
 if __name__ == "__main__":
     unittest.main()

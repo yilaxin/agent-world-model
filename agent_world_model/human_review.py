@@ -56,6 +56,25 @@ REVIEW_FIELDNAMES = (
     "notes",
 )
 
+_TEXT_REVIEW_FIELDS = frozenset(
+    {
+        "reviewer",
+        "reason_codes",
+        "env_id",
+        "task_id",
+        "episode_id",
+        "instruction",
+        "action",
+        "state_url",
+        "state_title",
+        "state_excerpt",
+        "next_state_url",
+        "next_state_title",
+        "next_state_excerpt",
+        "notes",
+    }
+)
+
 
 def _nested_text(value: Any) -> str:
     if isinstance(value, Mapping):
@@ -178,7 +197,15 @@ def write_review_csv(path: str | Path, rows: Iterable[Mapping[str, Any]]) -> Non
         writer = csv.DictWriter(file, fieldnames=REVIEW_FIELDNAMES, extrasaction="ignore")
         writer.writeheader()
         for row in rows:
-            writer.writerow({name: row.get(name, "") for name in REVIEW_FIELDNAMES})
+            cells: dict[str, Any] = {}
+            for name in REVIEW_FIELDNAMES:
+                value = row.get(name, "")
+                if name in _TEXT_REVIEW_FIELDS and isinstance(value, str):
+                    # Keep page/trajectory text inert when opened by spreadsheet software.
+                    if value.lstrip().startswith(("=", "+", "-", "@")):
+                        value = "'" + value
+                cells[name] = value
+            writer.writerow(cells)
 
 
 def read_review_csv(path: str | Path) -> list[dict[str, str]]:

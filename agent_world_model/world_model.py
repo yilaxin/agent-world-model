@@ -22,6 +22,7 @@ class WorldModelConfig:
     risk_dim: int = 4
     dropout: float = 0.10
     residual_dynamics: bool = False
+    direct_residual_dynamics: bool = False
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
@@ -80,6 +81,15 @@ class ActionConditionedWorldModel(nn.Module):
             nn.GELU(),
             nn.Linear(cfg.hidden_dim, cfg.state_dim),
         )
+        # A direct state/action residual head matches the learned-delta
+        # baseline while retaining the shared recurrent heads for planning.
+        self.direct_residual_head = nn.Sequential(
+            nn.Linear(cfg.state_dim + cfg.action_dim, cfg.hidden_dim),
+            nn.SiLU(),
+            nn.Linear(cfg.hidden_dim, cfg.hidden_dim),
+            nn.SiLU(),
+            nn.Linear(cfg.hidden_dim, cfg.state_dim),
+        )
         head_input = cfg.hidden_dim + cfg.latent_dim
         self.shared_head = nn.Sequential(
             nn.LayerNorm(head_input),
@@ -116,7 +126,11 @@ class ActionConditionedWorldModel(nn.Module):
         )
         next_latent_prior = self.prior_head(next_hidden)
         predicted_next_state = self.state_decoder(next_latent_prior)
-        if self.config.residual_dynamics:
+        if self.config.direct_residual_dynamics:
+            predicted_next_state = state + self.direct_residual_head(
+                torch.cat([state, action], dim=-1)
+            )
+        elif self.config.residual_dynamics:
             # Predict the one-step residual and add it to the observed state.
             predicted_next_state = state + predicted_next_state
         shared = self.shared_head(torch.cat([next_hidden, state_latent], dim=-1))

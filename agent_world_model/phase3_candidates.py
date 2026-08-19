@@ -7,6 +7,7 @@ strict JSON-producing callable when an LLM/VLM backend is available.
 
 from __future__ import annotations
 
+import ast
 import json
 import math
 import re
@@ -136,6 +137,12 @@ def _forum_query(goal: str) -> str:
 def validate_action(action: str, visible_element_ids: set[str] | None = None) -> tuple[bool, str]:
     """Validate the supported BrowserGym subset without executing an action."""
 
+    try:
+        parsed_ast = ast.parse(str(action).strip(), mode="eval")
+    except SyntaxError:
+        return False, "action must be one Python-style function call"
+    if not isinstance(parsed_ast.body, ast.Call) or not isinstance(parsed_ast.body.func, ast.Name):
+        return False, "action must be one Python-style function call"
     _, parsed = encode_action(action)
     action_type = parsed["action_type"]
     if action_type not in _ALLOWED_ACTION_TYPES:

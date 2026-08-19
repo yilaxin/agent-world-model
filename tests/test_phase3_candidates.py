@@ -46,6 +46,11 @@ class CandidateGenerationTests(unittest.TestCase):
         self.assertTrue(components["target_visible"])
         self.assertFalse(bad_components["target_visible"])
 
+    def test_validation_rejects_multi_action_payloads(self) -> None:
+        self.assertFalse(
+            validate_action('click("11") goto("https://example.invalid")', {"11"})[0]
+        )
+
     def test_disabled_controls_are_not_click_candidates(self) -> None:
         state = {
             "goal": 'Search for "usb wifi"',

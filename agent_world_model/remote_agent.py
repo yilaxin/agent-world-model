@@ -23,6 +23,7 @@ class RemotePhase3Agent:
     """Expose the normal ``decide`` API while inference runs on the GPU host."""
 
     policy_name = "remote_phase3_world_model_v1"
+    max_response_bytes = 2_000_000
 
     def __init__(
         self,
@@ -73,7 +74,7 @@ class RemotePhase3Agent:
     def health(self) -> dict[str, Any]:
         request = Request(f"{self.endpoint}/health", headers=self._headers())
         with urlopen(request, timeout=self.timeout_seconds) as response:
-            payload = json.loads(response.read().decode("utf-8"))
+            payload = self._read_json_response(response)
         if payload.get("status") != "ok":
             raise RuntimeError(f"remote Agent is not healthy: {payload}")
         return payload
@@ -105,8 +106,25 @@ class RemotePhase3Agent:
             method="POST",
         )
         with urlopen(request, timeout=self.timeout_seconds) as response:
-            payload = json.loads(response.read().decode("utf-8"))
+            payload = self._read_json_response(response)
         if not payload.get("action"):
             raise RuntimeError(f"remote Agent returned no action: {payload}")
         return RemoteAgentDecision(action=str(payload["action"]), payload=payload)
+
+    def _read_json_response(self, response: Any) -> dict[str, Any]:
+        headers = getattr(response, "headers", {})
+        content_length = headers.get("Content-Length")
+        if content_length is not None and int(content_length) > self.max_response_bytes:
+            raise ValueError("remote response exceeds the 2 MB limit")
+        try:
+            body = response.read(self.max_response_bytes + 1)
+        except TypeError:
+            # Lightweight test doubles and adapters may expose read() without a size.
+            body = response.read()
+        if len(body) > self.max_response_bytes:
+            raise ValueError("remote response exceeds the 2 MB limit")
+        payload = json.loads(body.decode("utf-8"))
+        if not isinstance(payload, dict):
+            raise ValueError("remote response must be a JSON object")
+        return payload
 

@@ -62,6 +62,25 @@ def _display_path(path: Path) -> str:
         return str(path)
 
 
+def _load_delta_checkpoint(path: Path, *, device: torch.device) -> tuple[dict[str, Any], dict[str, torch.Tensor]]:
+    """Load the evaluator baseline without executing checkpoint pickle payloads."""
+    payload = torch.load(path, map_location=device, weights_only=True)
+    if not isinstance(payload, dict):
+        raise ValueError("delta checkpoint must contain a mapping payload")
+    required_dimensions = ("state_dim", "action_dim", "hidden_dim")
+    if any(not isinstance(payload.get(name), int) or isinstance(payload.get(name), bool) for name in required_dimensions):
+        raise ValueError("delta checkpoint dimensions must be integers")
+    if any(payload[name] <= 0 for name in required_dimensions):
+        raise ValueError("delta checkpoint dimensions must be positive")
+    state_dict = payload.get("state_dict")
+    if not isinstance(state_dict, dict) or not state_dict or any(
+        not isinstance(name, str) or not isinstance(value, torch.Tensor)
+        for name, value in state_dict.items()
+    ):
+        raise ValueError("delta checkpoint state_dict must map names to tensors")
+    return payload, state_dict
+
+
 @torch.no_grad()
 def evaluate_windows(
     predictor: WorldModelPredictor | EnsembleWorldModelPredictor,
@@ -182,8 +201,7 @@ def main() -> int:
             if args.delta_checkpoint.is_absolute()
             else PROJECT_ROOT / args.delta_checkpoint
         )
-        payload = torch.load(delta_path, map_location=predictor.device, weights_only=False)
-        state_dict = payload["state_dict"] if isinstance(payload, dict) and "state_dict" in payload else payload
+        payload, state_dict = _load_delta_checkpoint(delta_path, device=predictor.device)
         delta_model = LearnedDeltaBaseline(
             int(payload["state_dim"]),
             int(payload["action_dim"]),

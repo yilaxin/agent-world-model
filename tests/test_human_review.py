@@ -41,6 +41,19 @@ class HumanReviewTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             validated_human_labels(row)
 
+    def test_csv_neutralizes_formula_leading_text(self) -> None:
+        row = build_review_queue([sample_record()])[0]
+        row["instruction"] = "=HYPERLINK(\"https://example.invalid\",\"open\")"
+        row["state_excerpt"] = "  +SUM(1,1)"
+        row["reward"] = "-1"
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "review.csv"
+            write_review_csv(path, [row])
+            loaded = read_review_csv(path)
+        self.assertEqual(loaded[0]["instruction"], "'=HYPERLINK(\"https://example.invalid\",\"open\")")
+        self.assertEqual(loaded[0]["state_excerpt"], "'  +SUM(1,1)")
+        self.assertEqual(loaded[0]["reward"], "-1")
+
     def test_evidence_review_never_claims_human_signoff(self) -> None:
         record = sample_record()
         row = build_review_queue([record])[0]

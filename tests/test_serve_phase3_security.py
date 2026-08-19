@@ -22,6 +22,13 @@ class RateLimiterTests(unittest.TestCase):
         self.assertFalse(limiter.allow("10.0.0.1"))
         self.assertTrue(limiter.allow("10.0.0.2"))
 
+    def test_rate_limit_caps_client_bucket_memory(self) -> None:
+        limiter = RateLimiter(1.0, max_clients=2)
+        self.assertTrue(limiter.allow("10.0.0.1"))
+        self.assertTrue(limiter.allow("10.0.0.2"))
+        self.assertTrue(limiter.allow("10.0.0.3"))
+        self.assertLessEqual(len(limiter.buckets), 2)
+
 
 if __name__ == "__main__":
     unittest.main()

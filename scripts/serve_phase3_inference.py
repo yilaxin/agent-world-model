@@ -12,7 +12,7 @@ import sys
 import threading
 import time
 import ipaddress
-from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+from http.server import BaseHTTPRequestHandler, HTTPServer
 from pathlib import Path
 
 
@@ -29,6 +29,15 @@ from agent_world_model.release_fingerprint import (  # noqa: E402
 )
 
 
+def _is_loopback_bind(host: str) -> bool:
+    if host.strip().lower() == "localhost":
+        return True
+    try:
+        return ipaddress.ip_address(host).is_loopback
+    except ValueError:
+        return False
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
     parser.add_argument("--ensemble-manifest", type=Path, required=True)
@@ -40,7 +49,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--auth-token-env",
         default="AGENT_WORLD_MODEL_AUTH_TOKEN",
-        help="Environment variable holding the optional bearer token.",
+        help="Environment variable holding the bearer token required beyond loopback.",
     )
     parser.add_argument("--max-concurrent-requests", type=int, default=1)
     parser.add_argument(
@@ -105,6 +114,15 @@ def main() -> int:
     if args.max_concurrent_requests != 1:
         raise ValueError("this deterministic inference server supports one request at a time")
     auth_token = os.environ.get(args.auth_token_env, "")
+    loopback_bind = _is_loopback_bind(args.host)
+    if not loopback_bind and not auth_token:
+        raise ValueError(
+            "AGENT_WORLD_MODEL_AUTH_TOKEN is required when inference binds beyond loopback"
+        )
+    if not loopback_bind and not args.tls_cert:
+        raise ValueError(
+            "--tls-cert and --tls-key are required when inference binds beyond loopback"
+        )
     config = json.loads(args.planning_config.read_text(encoding="utf-8"))
     agent = Phase3WorldModelAgent(
         ensemble_manifest=args.ensemble_manifest,
@@ -226,7 +244,8 @@ def main() -> int:
                 # terminal. Request handling must not depend on stdout.
                 pass
 
-    server = ThreadingHTTPServer((args.host, args.port), Handler)
+    # Keep the service single-threaded so the declared concurrency invariant is real.
+    server = HTTPServer((args.host, args.port), Handler)
     if args.tls_cert is not None:
         context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
         context.load_cert_chain(certfile=str(args.tls_cert), keyfile=str(args.tls_key))
