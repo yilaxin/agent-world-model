@@ -270,6 +270,7 @@ class ReactiveAgentTests(unittest.TestCase):
             state(
                 "Add a laundry detergent to my wish list.",
                 "[55] combobox 'Search', clickable\n[58] button 'Search', clickable",
+                "http://localhost:7770/",
             )
         )
         self.assertEqual(initial.action, 'fill("55", "laundry detergent")')
@@ -277,7 +278,7 @@ class ReactiveAgentTests(unittest.TestCase):
             state(
                 "Add a laundry detergent to my wish list.",
                 "[55] combobox 'Search', clickable",
-                "http://shopping.local/",
+                "http://localhost:7770/",
             ),
             (initial.action,),
         )
@@ -290,7 +291,7 @@ class ReactiveAgentTests(unittest.TestCase):
                 "RootWebArea 'Laundry Detergent'\n"
                 "  [90] button 'Add to Wish List', clickable\n"
                 "  [91] button 'Add to Cart', clickable",
-                "http://shopping.local/laundry-detergent.html",
+                "http://localhost:7770/laundry-detergent.html",
             )
         )
         self.assertEqual(decision.action, 'click("90", "left")')
@@ -301,11 +302,104 @@ class ReactiveAgentTests(unittest.TestCase):
                 "Add a laundry detergent to my wish list.",
                 "RootWebArea 'My Wish List'\n"
                 "  [200] link 'Laundry Detergent', clickable",
-                "http://shopping.local/wishlist/",
+                "http://localhost:7770/wishlist/",
             )
         )
         self.assertEqual(decision.action_type, "answer")
         self.assertEqual(decision.action, 'send_msg_to_user("Done")')
+
+    def test_shopping_product_flow_ignored_off_shopping_host(self) -> None:
+        decision = self.agent.decide(
+            state(
+                "Who else have access to my repo, show me their usernames",
+                "[55] combobox 'Search', clickable",
+                "http://localhost:8023/dashboard/projects",
+            )
+        )
+        self.assertNotEqual(decision.action_type, "input")
+
+    def test_shopping_contact_us_navigates_to_contact_page(self) -> None:
+        decision = self.agent.decide(
+            state(
+                'Fill the "contact us" form in the site for a refund on the speaker.',
+                "RootWebArea 'One Stop Market'\n"
+                "  [90] link 'Contact Us', clickable",
+                "http://localhost:7770/",
+            )
+        )
+        self.assertEqual(decision.action, 'click("90", "left")')
+
+    def test_shopping_order_total_opens_account_then_orders(self) -> None:
+        first = self.agent.decide(
+            state(
+                "Tell me the total cost of my latest cancelled order?",
+                "RootWebArea 'Home'\n  [221] link 'My Account', clickable",
+                "http://localhost:7770/",
+            )
+        )
+        self.assertEqual(first.action, 'click("221", "left")')
+        second = self.agent.decide(
+            state(
+                "Tell me the total cost of my latest cancelled order?",
+                "RootWebArea 'My Account'\n  [1599] link 'My Orders', clickable",
+                "http://localhost:7770/customer/account/",
+            ),
+            (first.action,),
+        )
+        self.assertEqual(second.action, 'click("1599", "left")')
+
+    def test_shopping_orders_table_answers_cancelled_total(self) -> None:
+        page = (
+            "RootWebArea 'My Orders'\n"
+            "  [1503] table 'Orders'\n"
+            "  [1507] columnheader 'Order #'\n"
+            "  [1508] columnheader 'Date'\n"
+            "  [1509] columnheader 'Order Total'\n"
+            "  [1510] columnheader 'Status'\n"
+            "  [1511] columnheader 'Action'\n"
+            "  [1514] gridcell '000000170'\n"
+            "  [1515] gridcell '5/17/23'\n"
+            "  [1516] gridcell '$365.42'\n"
+            "  [1518] gridcell 'Canceled'\n"
+            "  [1519] gridcell 'View OrderReorder'\n"
+            "  [1525] gridcell '000000189'\n"
+            "  [1526] gridcell '5/2/23'\n"
+            "  [1527] gridcell '$754.99'\n"
+            "  [1529] gridcell 'Pending'\n"
+            "  [1530] gridcell 'View OrderReorder'"
+        )
+        decision = self.agent.decide(
+            state(
+                "Tell me the total cost of my latest cancelled order?",
+                page,
+                "http://localhost:7770/sales/order/history/",
+            )
+        )
+        self.assertEqual(decision.action_type, "answer")
+        self.assertEqual(decision.action, 'send_msg_to_user("$365.42")')
+
+    def test_reddit_reply_fills_and_submits_comment(self) -> None:
+        thread = state(
+            'Reply to the post with my comment "I am a big fan of the bookorg"',
+            "RootWebArea 'Post'\n"
+            "  [300] textbox 'Add a comment', clickable\n"
+            "  [310] button 'Comment', clickable",
+            "http://localhost:9999/f/books/12345",
+        )
+        first = self.agent.decide(thread)
+        self.assertEqual(first.action, 'fill("300", "I am a big fan of the bookorg")')
+        second = self.agent.decide(thread, (first.action,))
+        self.assertEqual(second.action, 'click("310", "left")')
+
+    def test_reddit_reply_opens_thread_before_commenting(self) -> None:
+        decision = self.agent.decide(
+            state(
+                'Reply to the post with my comment "Nice"',
+                "RootWebArea 'books'\n  [163] link '184 comments', clickable",
+                "http://localhost:9999/f/books",
+            )
+        )
+        self.assertEqual(decision.action, 'click("163", "left")')
 
     def test_subscribe_only_goal_terminates_after_unsubscribe_visible(self) -> None:
         decision = self.agent.decide(

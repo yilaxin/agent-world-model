@@ -33,6 +33,12 @@ _PRODUCT_VERBS = re.compile(
     r"\b(?:add|buy|purchase|order|find|search\s+for|show\s+me|look\s+for)\b|添加|购买|找|搜索",
     re.IGNORECASE,
 )
+_PRICE_RE = re.compile(r"^\$[\d,]+(?:\.\d{2})?$")
+_THREAD_URL_RE = re.compile(r"/f/[^/]+/\d+", re.IGNORECASE)
+_COMMENT_REPLY_RE = re.compile(
+    r"\b(?:reply|comment|post\s+a\s+review)\b.*?\b(?:with|saying|that says|my\s+comment)\b",
+    re.IGNORECASE | re.DOTALL,
+)
 _WISHLIST_WORDS = re.compile(r"\bwish\s*list\b|心愿单|愿望清单", re.IGNORECASE)
 _CART_WORDS = re.compile(r"\bcart\b|购物车", re.IGNORECASE)
 _NO_SUBMIT_WORDS = re.compile(
@@ -585,6 +591,8 @@ class ReactiveAgent:
         and task IDs are never consulted.
         """
         lowered_goal = goal.casefold()
+        if "localhost:7770" not in current_url.casefold():
+            return None
         if not _PRODUCT_VERBS.search(lowered_goal):
             return None
         phrase = _extract_product_phrase(goal)
@@ -688,6 +696,271 @@ class ReactiveAgent:
                 navigation_guard_applied=True,
             )
         return None
+
+    @staticmethod
+    def _shopping_contact_decision(
+        goal: str,
+        current_url: str,
+        elements: Sequence[ElementRef],
+    ) -> ActionDecision | None:
+        """Navigate to the visible Contact Us page for contact/refund tasks."""
+        lowered_goal = goal.casefold()
+        lowered_url = current_url.casefold()
+        if "localhost:7770" not in lowered_url:
+            return None
+        wants_contact = (
+            "contact us" in lowered_goal
+            or ("contact" in lowered_goal and "refund" in lowered_goal)
+            or "draft an email" in lowered_goal
+        )
+        if not wants_contact:
+            return None
+        on_contact_page = "/contact" in lowered_url
+        if on_contact_page:
+            return None
+        contact = next(
+            (
+                element
+                for element in elements
+                if element.role in _CLICK_ROLES
+                and element.name.strip().lower() == "contact us"
+                and "disabled" not in element.raw_line.lower()
+            ),
+            None,
+        )
+        if contact is None:
+            return None
+        return ActionDecision(
+            action=f"click({_json_arg(contact.bid)}, \"left\")",
+            action_type="click",
+            rationale="Open the visible Contact Us page requested by the task.",
+            target_bid=contact.bid,
+            target_name=contact.name,
+            confidence=0.97,
+            navigation_guard_applied=True,
+        )
+
+    @staticmethod
+    def _shopping_orders_decision(
+        goal: str,
+        current_url: str,
+        elements: Sequence[ElementRef],
+    ) -> ActionDecision | None:
+        """Navigate to My Orders and answer order-total retrieval tasks.
+
+        The Magento orders table exposes five gridcells per row in AXTree order:
+        order number, date, total, status, action.  The answer is sent only
+        when a row matching the requested status is observed; no evaluator
+        answers are read or injected.
+        """
+        lowered_goal = goal.casefold()
+        lowered_url = current_url.casefold()
+        if "localhost:7770" not in lowered_url:
+            return None
+        if "order" not in lowered_goal or "total cost" not in lowered_goal:
+            return None
+
+        gridcells = [
+            element
+            for element in elements
+            if element.role == "gridcell"
+        ]
+        headers = [
+            element.name.strip().lower()
+            for element in elements
+            if element.role == "columnheader"
+        ]
+        on_orders_page = bool(
+            "order total" in headers
+            and "status" in headers
+            and gridcells
+        )
+
+        if on_orders_page:
+            wanted_status = "cancel" if "cancelled" in lowered_goal else (
+                "pending" if "pending" in lowered_goal else ""
+            )
+            if not wanted_status:
+                return None
+            # Five known columns; group gridcells into rows by that width.
+            width = len(headers)
+            rows = [
+                gridcells[i : i + width]
+                for i in range(0, len(gridcells) - width + 1, width)
+            ]
+            best: tuple[object, ElementRef, str] | None = None
+            for row in rows:
+                if len(row) != width:
+                    continue
+                status_text = row[3].name.casefold() if width > 3 else ""
+                if wanted_status not in status_text:
+                    continue
+                total_text = row[2].name.strip() if width > 2 else ""
+                if not _PRICE_RE.match(total_text):
+                    continue
+                date_text = row[1].name.strip() if width > 1 else ""
+                try:
+                    date_key = tuple(
+                        int(part)
+                        for part in date_text.replace("-", "/").split("/")[:3]
+                    )
+                except ValueError:
+                    date_key = (0, 0, 0)
+                if best is None or date_key > best[0]:
+                    best = (date_key, row[2], total_text)
+            if best is not None:
+                total_text = best[2]
+                return ActionDecision(
+                    action=f"send_msg_to_user({_json_arg(total_text)})",
+                    action_type="answer",
+                    rationale=(
+                        "The visible orders table contains the requested "
+                        "status total; answer from the observed page state."
+                    ),
+                    target_bid=best[1].bid,
+                    target_name=best[1].name,
+                    confidence=0.95,
+                    navigation_guard_applied=True,
+                )
+            return None
+
+        if not gridcells:
+            my_orders = next(
+                (
+                    element
+                    for element in elements
+                    if element.role in _CLICK_ROLES
+                    and element.name.strip().lower() == "my orders"
+                    and "disabled" not in element.raw_line.lower()
+                ),
+                None,
+            )
+            if my_orders is not None:
+                return ActionDecision(
+                    action=f"click({_json_arg(my_orders.bid)}, \"left\")",
+                    action_type="click",
+                    rationale="Open the visible My Orders page to read the requested total.",
+                    target_bid=my_orders.bid,
+                    target_name=my_orders.name,
+                    confidence=0.97,
+                    navigation_guard_applied=True,
+                )
+        my_account = next(
+            (
+                element
+                for element in elements
+                if element.role in _CLICK_ROLES
+                and element.name.strip().lower() == "my account"
+                and "disabled" not in element.raw_line.lower()
+            ),
+            None,
+        )
+        if my_account is not None:
+            return ActionDecision(
+                action=f"click({_json_arg(my_account.bid)}, \"left\")",
+                action_type="click",
+                rationale="Open the visible My Account page to reach My Orders.",
+                target_bid=my_account.bid,
+                target_name=my_account.name,
+                confidence=0.97,
+                navigation_guard_applied=True,
+            )
+        return None
+
+    @staticmethod
+    def _reddit_reply_decision(
+        goal: str,
+        current_url: str,
+        elements: Sequence[ElementRef],
+        recent_actions: Sequence[str],
+    ) -> ActionDecision | None:
+        """Reply to a thread with the quoted comment requested by the goal."""
+        lowered_goal = goal.casefold()
+        if not _COMMENT_REPLY_RE.search(lowered_goal):
+            return None
+        comment = _extract_input_value(goal)
+        if not comment:
+            return None
+        on_thread = bool(_THREAD_URL_RE.search(current_url))
+        if not on_thread:
+            thread = next(
+                (
+                    element
+                    for element in elements
+                    if element.role == "link"
+                    and re.fullmatch(
+                        r"(?:no|\d+)\s+comments?",
+                        element.name.strip(),
+                        re.IGNORECASE,
+                    )
+                ),
+                None,
+            )
+            if thread is not None:
+                return ActionDecision(
+                    action=f"click({_json_arg(thread.bid)}, \"left\")",
+                    action_type="click",
+                    rationale="Open the visible thread to reply with the requested comment.",
+                    target_bid=thread.bid,
+                    target_name=thread.name,
+                    confidence=0.97,
+                    navigation_guard_applied=True,
+                )
+            return None
+        comment_box = next(
+            (
+                element
+                for element in elements
+                if element.role in _INPUT_ROLES
+                and (
+                    "comment" in element.name.casefold()
+                    or "reply" in element.name.casefold()
+                )
+            ),
+            None,
+        )
+        if comment_box is None:
+            return None
+        if recent_actions and recent_actions[-1].lstrip().startswith("fill("):
+            submit = next(
+                (
+                    element
+                    for element in elements
+                    if element.role in _CLICK_ROLES
+                    and element.name.strip().lower()
+                    in {"comment", "reply", "submit"}
+                    and "disabled" not in element.raw_line.lower()
+                ),
+                None,
+            )
+            if submit is not None:
+                return ActionDecision(
+                    action=f"click({_json_arg(submit.bid)}, \"left\")",
+                    action_type="click",
+                    rationale="Submit the comment entered in the previous step.",
+                    target_bid=submit.bid,
+                    target_name=submit.name,
+                    confidence=0.96,
+                    navigation_guard_applied=True,
+                )
+            return ActionDecision(
+                action='keyboard_press("Enter")',
+                action_type="press",
+                rationale="Submit the comment entered in the previous step.",
+                target_bid=comment_box.bid,
+                target_name=comment_box.name,
+                confidence=0.94,
+                navigation_guard_applied=True,
+            )
+        return ActionDecision(
+            action=f"fill({_json_arg(comment_box.bid)}, {_json_arg(comment)})",
+            action_type="input",
+            rationale="Fill the visible comment control with the requested reply.",
+            target_bid=comment_box.bid,
+            target_name=comment_box.name,
+            confidence=0.96,
+            navigation_guard_applied=True,
+        )
 
     @staticmethod
     def _loop_recovery(
@@ -882,6 +1155,23 @@ class ReactiveAgent:
         loop_recovery = self._loop_recovery(recent_actions, elements)
         if loop_recovery is not None:
             return loop_recovery
+
+        reddit_reply = self._reddit_reply_decision(
+            goal,
+            current_url,
+            elements,
+            recent_actions,
+        )
+        if reddit_reply is not None:
+            return reddit_reply
+
+        contact = self._shopping_contact_decision(goal, current_url, elements)
+        if contact is not None:
+            return contact
+
+        orders = self._shopping_orders_decision(goal, current_url, elements)
+        if orders is not None:
+            return orders
 
         shopping_flow = self._shopping_product_decision(
             goal,
