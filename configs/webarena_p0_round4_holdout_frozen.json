@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "benchmark": "Classic WebArena P0 round-4 unseen paired holdout (expanded tasks and seeds)",
-  "frozen_at_utc": "2026-08-19T06:01:50.447969+00:00",
+  "frozen_at_utc": "2026-08-19T07:09:02.881260+00:00",
   "frozen_before_any_holdout_episode": true,
   "selection_salt": "p0-round4-holdout-v1",
   "sites": [
@@ -135,7 +135,7 @@
     "round4_reactive_episodes": 28
   },
   "release": {
-    "sha256": "3ec2d962a753aa0face1694c39d97ad11545cedf2504c5326f83ea6e9228b2e4",
+    "sha256": "8e2afe4a0c9705d715c6377bc0bbaf0b6496087ad6ac707c8df38be2ba04cf10",
     "files": [
       {
         "path": "agent_world_model/__init__.py",
@@ -209,8 +209,8 @@
       },
       {
         "path": "agent_world_model/reactive_agent.py",
-        "bytes": 51247,
-        "sha256": "b1212566b72b3802c7fc619359d93de81bb108783fd8c5b68175776494adebee"
+        "bytes": 48912,
+        "sha256": "9ae96bb620e3b4847e367579290c118e59efb98d09c1a5312ddf0192a5be068e"
       },
       {
         "path": "agent_world_model/release_fingerprint.py",
@@ -305,5 +305,5 @@
     "source_wheel_sha256": "9ebee3b4371502c4f0f7e727a72e5846235d6750d420db9a3b8a168107654feb"
   },
   "claim_rule": "Report absolute pp, relative SR, and paired CI per seed and pooled; claim +10% only if established on this frozen holdout.",
-  "freeze_sha256": "66b9c6ef6e9bcf4a599169e51d84c50d9c7a9717b20d0cc025b7714ce95fe3e0"
+  "freeze_sha256": "afe773545c68ea1b98c2a64d862572da141106d644386305bde901e6c2e1cc91"
 }
