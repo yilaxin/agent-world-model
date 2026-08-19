@@ -401,6 +401,18 @@ class ReactiveAgentTests(unittest.TestCase):
         )
         self.assertEqual(decision.action, 'click("163", "left")')
 
+    def test_reddit_review_uses_quoted_text_after_with(self) -> None:
+        thread = state(
+            'Post a review of my recent reading "Love story" in the r/books '
+            'with my review "I loved every chapter"',
+            "RootWebArea 'Post'\n"
+            "  [300] textbox 'Add a comment', clickable\n"
+            "  [310] button 'Comment', clickable",
+            "http://localhost:9999/f/books/12345",
+        )
+        first = self.agent.decide(thread)
+        self.assertEqual(first.action, 'fill("300", "I loved every chapter")')
+
     def test_subscribe_only_goal_terminates_after_unsubscribe_visible(self) -> None:
         decision = self.agent.decide(
             state(

@@ -878,7 +878,22 @@ class ReactiveAgent:
         lowered_goal = goal.casefold()
         if not _COMMENT_REPLY_RE.search(lowered_goal):
             return None
-        comment = _extract_input_value(goal)
+        quotes = re.findall(r"""["'“”‘’]([^"'“”‘’]+)["'“”‘’]""", goal)
+        comment = ""
+        for cue in ("with", "saying", "comment", "reply"):
+            match = re.search(
+                cue
+                + r"""\s*(?:my\s+)?["'“”‘’]([^"'“”‘’]+)["'“”‘’]""",
+                goal,
+                re.IGNORECASE,
+            )
+            if match:
+                comment = match.group(1).strip()
+                break
+        if not comment and len(quotes) > 1:
+            comment = quotes[-1].strip()
+        elif not comment and quotes:
+            comment = quotes[0].strip()
         if not comment:
             return None
         on_thread = bool(_THREAD_URL_RE.search(current_url))
