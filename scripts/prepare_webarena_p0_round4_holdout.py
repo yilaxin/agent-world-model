@@ -78,13 +78,13 @@ def parse_args() -> argparse.Namespace:
         default=ROOT / "configs/webarena_p0_round3_dev.json",
     )
     parser.add_argument(
-        "--v5-reactive-reports",
+        "--reactive-dev-reports",
         type=Path,
         nargs="+",
         default=[
-            ROOT / "data/reports/webarena_r3dev_v5_gitlab_reactive.json",
-            ROOT / "data/reports/webarena_r3dev_v5_reddit_reactive.json",
-            ROOT / "data/reports/webarena_r3dev_v5_shopping_reactive.json",
+            ROOT / "data/reports/webarena_r3dev_v7_gitlab_reactive.json",
+            ROOT / "data/reports/webarena_r3dev_v7_reddit_reactive.json",
+            ROOT / "data/reports/webarena_r3dev_v7_shopping_reactive.json",
         ],
     )
     parser.add_argument(
@@ -155,7 +155,7 @@ def main() -> int:
     excluded = set(historical) | dev_tasks
     w4_successes, w4_episodes = dev_gate_round3(args.dev_analysis)
     reactive_successes, reactive_episodes = dev_gate_reactive_v5(
-        args.v5_reactive_reports
+        args.reactive_dev_reports
     )
 
     selected_holdout: dict[str, list[int]] = {}
@@ -226,9 +226,9 @@ def main() -> int:
                 "round3_w4_analysis": args.dev_analysis.relative_to(ROOT).as_posix(),
                 "round3_w4_successes": w4_successes,
                 "round3_w4_episodes": w4_episodes,
-                "round4_reactive_reports": [
+                "round4_reactive_dev_reports": [
                     path.relative_to(ROOT).as_posix()
-                    for path in args.v5_reactive_reports
+                    for path in args.reactive_dev_reports
                 ],
                 "round4_reactive_successes": reactive_successes,
                 "round4_reactive_episodes": reactive_episodes,

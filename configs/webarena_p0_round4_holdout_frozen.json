@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "benchmark": "Classic WebArena P0 round-4 unseen paired holdout (expanded tasks and seeds)",
-  "frozen_at_utc": "2026-08-19T07:09:02.881260+00:00",
+  "frozen_at_utc": "2026-08-19T10:58:06.030881+00:00",
   "frozen_before_any_holdout_episode": true,
   "selection_salt": "p0-round4-holdout-v1",
   "sites": [
@@ -126,16 +126,16 @@
     "round3_w4_analysis": "data/reports/webarena_p0_round3_dev_analysis.json",
     "round3_w4_successes": 2,
     "round3_w4_episodes": 28,
-    "round4_reactive_reports": [
-      "data/reports/webarena_r3dev_v5_gitlab_reactive.json",
-      "data/reports/webarena_r3dev_v5_reddit_reactive.json",
-      "data/reports/webarena_r3dev_v5_shopping_reactive.json"
+    "round4_reactive_dev_reports": [
+      "data/reports/webarena_r3dev_v7_gitlab_reactive.json",
+      "data/reports/webarena_r3dev_v7_reddit_reactive.json",
+      "data/reports/webarena_r3dev_v7_shopping_reactive.json"
     ],
-    "round4_reactive_successes": 4,
+    "round4_reactive_successes": 5,
     "round4_reactive_episodes": 28
   },
   "release": {
-    "sha256": "8e2afe4a0c9705d715c6377bc0bbaf0b6496087ad6ac707c8df38be2ba04cf10",
+    "sha256": "7e34a1e3c74252e8c3ab6ff6b29e2e40eda934e58d27a589c2e528d37c117f32",
     "files": [
       {
         "path": "agent_world_model/__init__.py",
@@ -209,8 +209,8 @@
       },
       {
         "path": "agent_world_model/reactive_agent.py",
-        "bytes": 48912,
-        "sha256": "9ae96bb620e3b4847e367579290c118e59efb98d09c1a5312ddf0192a5be068e"
+        "bytes": 52514,
+        "sha256": "446e4736e7525a9aa7886ce11e5837ebfc9fbd192cdc768ffdd1eb6a79713d7f"
       },
       {
         "path": "agent_world_model/release_fingerprint.py",
@@ -305,5 +305,5 @@
     "source_wheel_sha256": "9ebee3b4371502c4f0f7e727a72e5846235d6750d420db9a3b8a168107654feb"
   },
   "claim_rule": "Report absolute pp, relative SR, and paired CI per seed and pooled; claim +10% only if established on this frozen holdout.",
-  "freeze_sha256": "afe773545c68ea1b98c2a64d862572da141106d644386305bde901e6c2e1cc91"
+  "freeze_sha256": "6082307e650afa7a4249d29053ad28b508bcbd3eb294357f123d814397f2ed5e"
 }
