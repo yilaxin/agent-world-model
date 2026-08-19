@@ -1,0 +1,309 @@
+{
+  "schema_version": 1,
+  "benchmark": "Classic WebArena P0 round-4 unseen paired holdout (expanded tasks and seeds)",
+  "frozen_at_utc": "2026-08-19T06:01:50.447969+00:00",
+  "frozen_before_any_holdout_episode": true,
+  "selection_salt": "p0-round4-holdout-v1",
+  "sites": [
+    "gitlab",
+    "reddit",
+    "shopping"
+  ],
+  "target_tasks_per_site": 40,
+  "tasks_per_site": {
+    "gitlab": 40,
+    "reddit": 0,
+    "shopping": 40
+  },
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "depleted_site_note": "Reddit's pool is exhausted by earlier rounds (round-1/2/3 holdouts, round-2/3 dev, regression rounds, fuzzy-evaluator exclusion); round-4 uses the maximum eligible Reddit tasks instead of 40.",
+  "selected_task_ids_by_site": {
+    "gitlab": [
+      478,
+      527,
+      46,
+      451,
+      664,
+      805,
+      661,
+      310,
+      662,
+      156,
+      182,
+      666,
+      569,
+      748,
+      522,
+      785,
+      311,
+      533,
+      667,
+      391,
+      180,
+      207,
+      753,
+      786,
+      479,
+      312,
+      297,
+      314,
+      670,
+      105,
+      420,
+      307,
+      590,
+      801,
+      523,
+      206,
+      526,
+      169,
+      810,
+      747
+    ],
+    "reddit": [],
+    "shopping": [
+      190,
+      282,
+      333,
+      147,
+      232,
+      589,
+      388,
+      319,
+      531,
+      507,
+      587,
+      271,
+      145,
+      242,
+      148,
+      572,
+      323,
+      143,
+      514,
+      506,
+      167,
+      326,
+      26,
+      322,
+      146,
+      260,
+      273,
+      362,
+      285,
+      230,
+      125,
+      228,
+      25,
+      653,
+      436,
+      433,
+      278,
+      352,
+      465,
+      508
+    ]
+  },
+  "cells": [
+    "reactive_guard_off",
+    "reactive_guard_on",
+    "w4_guard_off",
+    "w4_guard_on"
+  ],
+  "step_budget_per_episode": 12,
+  "total_planned_episodes": 960,
+  "task_feedback_used": false,
+  "post_freeze_policy_changes_allowed": false,
+  "excluded_evaluator_types": [
+    "fuzzy_match"
+  ],
+  "exclusion_note": "Tasks whose official evaluator requires OpenAI fuzzy matching are excluded because no OPENAI_API_KEY is available; the holdout is fully judgeable with local evaluators only.",
+  "development_gate": {
+    "round3_w4_analysis": "data/reports/webarena_p0_round3_dev_analysis.json",
+    "round3_w4_successes": 2,
+    "round3_w4_episodes": 28,
+    "round4_reactive_reports": [
+      "data/reports/webarena_r3dev_v5_gitlab_reactive.json",
+      "data/reports/webarena_r3dev_v5_reddit_reactive.json",
+      "data/reports/webarena_r3dev_v5_shopping_reactive.json"
+    ],
+    "round4_reactive_successes": 4,
+    "round4_reactive_episodes": 28
+  },
+  "release": {
+    "sha256": "3ec2d962a753aa0face1694c39d97ad11545cedf2504c5326f83ea6e9228b2e4",
+    "files": [
+      {
+        "path": "agent_world_model/__init__.py",
+        "bytes": 1793,
+        "sha256": "f240c27da3e4b55ada259207b84d8fdf9a8a2aecb3e8605e12158252e044fc18"
+      },
+      {
+        "path": "agent_world_model/baseline.py",
+        "bytes": 5124,
+        "sha256": "89256ab526dfedb9fbf042ac1a70d10a9febda655d7f2a395a79ef10d83a2876"
+      },
+      {
+        "path": "agent_world_model/encoder.py",
+        "bytes": 5897,
+        "sha256": "cc8ec71cff583f146f3d422e11c7caffa6a75d031d1cf1c322cc51a5a6f3d835"
+      },
+      {
+        "path": "agent_world_model/experiment_stats.py",
+        "bytes": 2389,
+        "sha256": "d27429859a4ae1d35c4d2a3abe9391d95601e242b79001f8a3c09a0b14303dde"
+      },
+      {
+        "path": "agent_world_model/phase2_dataset.py",
+        "bytes": 13256,
+        "sha256": "b65fc573966743c3c92ff769205392c8b37b69f288c7390d3706f6c004064a32"
+      },
+      {
+        "path": "agent_world_model/phase2_ensemble.py",
+        "bytes": 15695,
+        "sha256": "4cbd5876e0619dff7ca465f17ff781608b6e8bf523bfdbed72ee4e0724568b18"
+      },
+      {
+        "path": "agent_world_model/phase2_losses.py",
+        "bytes": 4227,
+        "sha256": "cb01729c4cf4f1c97134eceaae45652c40c45913237876dffbe505a401f36303"
+      },
+      {
+        "path": "agent_world_model/phase2_metrics.py",
+        "bytes": 9764,
+        "sha256": "e63ecee641b2fe8ecd9f4db34457cf37e9e709f4221a013a78607d5a043f177b"
+      },
+      {
+        "path": "agent_world_model/phase2_schema.py",
+        "bytes": 14714,
+        "sha256": "2483b5b6beb7714e91488a2c200cd4a214eee8553db7b108127f18b295bc2644"
+      },
+      {
+        "path": "agent_world_model/phase2_training.py",
+        "bytes": 23649,
+        "sha256": "5c2b328cf3745fb26026e58d8447721ff6b0253f952a8231e6ba817313876754"
+      },
+      {
+        "path": "agent_world_model/phase3_agent.py",
+        "bytes": 17725,
+        "sha256": "375847ce249458369e8be01be1197f525059cc14650f26a7fd98ce2879f1b0f5"
+      },
+      {
+        "path": "agent_world_model/phase3_candidates.py",
+        "bytes": 26549,
+        "sha256": "952ef1268d6d4822b67bc94a7f8c816533bc7b5dffeb82939721ee990a8d183f"
+      },
+      {
+        "path": "agent_world_model/phase3_planning.py",
+        "bytes": 16318,
+        "sha256": "b0897f3853299d86b34d5f0f1d7428c1cfc89a22f24b2751fccafec72838b813"
+      },
+      {
+        "path": "agent_world_model/rate_limiter.py",
+        "bytes": 1675,
+        "sha256": "4ad0b206a168b2aa8cf186adb0a658879208e16066344e5fd8a54a7bbdd6cf81"
+      },
+      {
+        "path": "agent_world_model/reactive_agent.py",
+        "bytes": 51247,
+        "sha256": "b1212566b72b3802c7fc619359d93de81bb108783fd8c5b68175776494adebee"
+      },
+      {
+        "path": "agent_world_model/release_fingerprint.py",
+        "bytes": 2942,
+        "sha256": "99a4ec72c86f87d029bddcad8fb1c2b35e4d5786a747ae93186d18c43344274d"
+      },
+      {
+        "path": "agent_world_model/remote_agent.py",
+        "bytes": 4929,
+        "sha256": "e8083faa544a3fb9a97d93d90cf785ab1494da9fc7d86a944de654d870336de3"
+      },
+      {
+        "path": "agent_world_model/state.py",
+        "bytes": 11809,
+        "sha256": "3550958452da5ff2b8eae69ad87d922c929adae7913d223f6fe57b291c57a56e"
+      },
+      {
+        "path": "agent_world_model/structure_alignment.py",
+        "bytes": 6322,
+        "sha256": "915b0d4676ee1af9772f55ed6a64c691bfc83fe101230524029cdb48cbe37785"
+      },
+      {
+        "path": "agent_world_model/trajectory.py",
+        "bytes": 8025,
+        "sha256": "d721bdb2715b5eb90e81989b8d775be2bfbb23b9aa0ef2a4662cdce73b9fb89f"
+      },
+      {
+        "path": "agent_world_model/world_model.py",
+        "bytes": 7721,
+        "sha256": "645e6920e16d542c6f75fe559c2c2225141003ebc4ee2f492758db642d1549ee"
+      },
+      {
+        "path": "artifacts/phase2/p2_multiseed/world_model_rank_balanced_a_seed29.pt",
+        "bytes": 5533698,
+        "sha256": "bcd0ae6738c308edf67bb00b29d909bc8426a27fddf5f81fa56c7f610bf64f3a"
+      },
+      {
+        "path": "artifacts/phase2/p2_multiseed/world_model_rank_base_a_seed17.pt",
+        "bytes": 5533426,
+        "sha256": "19618056007572ad84099794ace489f5906d4301f158678a20527599f6feb000"
+      },
+      {
+        "path": "artifacts/phase2/p2_multiseed/world_model_rank_regularized_seed73.pt",
+        "bytes": 5533750,
+        "sha256": "adbce45480a6c783e49b2d9ac8666d8fbdb529b3cc0e016ddb38780091209f0b"
+      },
+      {
+        "path": "artifacts/phase3/structure_aligner_best.pt",
+        "bytes": 3480,
+        "sha256": "9959d67826d12f2c898247c91c5f688073c625e13c386b74ec383fd4f0d751ef"
+      },
+      {
+        "path": "artifacts/phase4/priority/member_seed17.pt",
+        "bytes": 5532478,
+        "sha256": "cdc21e44ad8bfebdfb91c8cdd4c0c3ceae55a4756c3ae36c233413d3cb74adfd"
+      },
+      {
+        "path": "artifacts/phase4/priority/member_seed29.pt",
+        "bytes": 5532478,
+        "sha256": "c37c2a58c0571edb858fd15f687168eb12020978709b352eadef591d824dce18"
+      },
+      {
+        "path": "artifacts/phase4/priority/member_seed73.pt",
+        "bytes": 5532478,
+        "sha256": "ffbbcf1f3b81c6f7624b8204276396555b9f34c2ecc01691dd36a404066f47f9"
+      },
+      {
+        "path": "artifacts/phase4/world_model_ensemble_w4.json",
+        "bytes": 1388,
+        "sha256": "3822be90e35cb1a4d3c5d6247b6fdaf821623fe86825ee567aaca0e55045075c"
+      },
+      {
+        "path": "configs/phase3_planner.json",
+        "bytes": 1960,
+        "sha256": "1c7b80b05daf168cdec9683663836f264c12af8b44afa0e0451f1c5f37acebe7"
+      },
+      {
+        "path": "scripts/evaluate_webarena_online.py",
+        "bytes": 15218,
+        "sha256": "9b5056660487ab507e9bab6a57b6e45e94c8aa3e4aba476d24da3562864e5de5"
+      },
+      {
+        "path": "scripts/serve_phase3_inference.py",
+        "bytes": 10940,
+        "sha256": "d7c3a69823ba2328c22e4d328ad9a51fbe6f641168129120241c5ba981a21e98"
+      }
+    ]
+  },
+  "source": {
+    "task_count": 812,
+    "task_source_sha256": "7b50386fd69163dbc05d615d834df4c6ed2c35596e97a1b10d17451c02537652",
+    "source_wheel_sha256": "9ebee3b4371502c4f0f7e727a72e5846235d6750d420db9a3b8a168107654feb"
+  },
+  "claim_rule": "Report absolute pp, relative SR, and paired CI per seed and pooled; claim +10% only if established on this frozen holdout.",
+  "freeze_sha256": "66b9c6ef6e9bcf4a599169e51d84c50d9c7a9717b20d0cc025b7714ce95fe3e0"
+}
