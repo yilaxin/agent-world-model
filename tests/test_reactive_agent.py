@@ -329,6 +329,57 @@ class ReactiveAgentTests(unittest.TestCase):
         )
         self.assertEqual(decision.action, 'click("90", "left")')
 
+    def test_shopping_contact_scrolls_to_reveal_footer(self) -> None:
+        decision = self.agent.decide(
+            state(
+                "Draft an email to the shop owner via their contact us function "
+                "for a coupon",
+                "RootWebArea 'One Stop Market'\n"
+                "  [386] combobox 'Search', clickable",
+                "http://localhost:7770/",
+            )
+        )
+        self.assertEqual(decision.action_type, "scroll")
+
+    def test_shopping_contact_coupon_fills_and_submits_message(self) -> None:
+        page = state(
+            "Draft an email to the shop owner via their contact us function for a "
+            "coupon as I am a loyal customer",
+            "RootWebArea 'Contact Us'\n"
+            "  [40] textbox 'Name', clickable\n"
+            "  [50] textbox 'Email', clickable\n"
+            "  [60] textarea 'Comment', clickable\n"
+            "  [70] button 'Submit', clickable",
+            "http://localhost:7770/contact/",
+        )
+        first = self.agent.decide(page)
+        self.assertEqual(
+            first.action,
+            'fill("60", "I am a loyal customer and I would like a coupon.")',
+        )
+        second = self.agent.decide(page, (first.action,))
+        self.assertEqual(second.action, 'click("70", "left")')
+
+    def test_shopping_contact_refund_composes_message(self) -> None:
+        page = state(
+            'Fill the "contact us" form in the site for a refund on the speaker '
+            "I bought, stating that it broke after just three days of use. "
+            "Also, ensure to include the order number #148 and the product SKU. "
+            "Don't submit yet, I will check.",
+            "RootWebArea 'Contact Us'\n"
+            "  [40] textbox 'Name', clickable\n"
+            "  [50] textbox 'Email', clickable\n"
+            "  [60] textarea 'Comment', clickable\n"
+            "  [70] button 'Submit', clickable",
+            "http://localhost:7770/contact/",
+        )
+        decision = self.agent.decide(page)
+        self.assertEqual(
+            decision.action,
+            'fill("60", "It broke after just three days of use. '
+            'I bought a speaker. Order number #148.")',
+        )
+
     def test_shopping_order_total_opens_account_then_orders(self) -> None:
         first = self.agent.decide(
             state(
@@ -389,7 +440,21 @@ class ReactiveAgentTests(unittest.TestCase):
         first = self.agent.decide(thread)
         self.assertEqual(first.action, 'fill("300", "I am a big fan of the bookorg")')
         second = self.agent.decide(thread, (first.action,))
-        self.assertEqual(second.action, 'click("310", "left")')
+        self.assertEqual(second.action, 'keyboard_press("Enter")')
+
+    def test_reddit_reply_enter_loop_guard(self) -> None:
+        thread = state(
+            'Reply to the post with my comment "Nice"',
+            "RootWebArea 'Post'\n"
+            "  [300] textbox 'Add a comment', clickable\n"
+            "  [310] button 'Comment', clickable",
+            "http://localhost:9999/f/books/12345",
+        )
+        decision = self.agent.decide(
+            thread,
+            ('fill("300", "Nice")', 'keyboard_press("Enter")'),
+        )
+        self.assertNotEqual(decision.action, 'keyboard_press("Enter")')
 
     def test_reddit_reply_opens_thread_before_commenting(self) -> None:
         decision = self.agent.decide(
