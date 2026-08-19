@@ -30,6 +30,7 @@ data/trajectories_webarena_r3dev_v5/
 data/trajectories_webarena_r3dev_v6/
 data/trajectories_webarena_r3dev_v7/
 data/trajectories_webarena_dr_regress/
+data/trajectories_webarena_p0_round4_holdout/
 data/trajectories_androidworld_round3_w4/
 data/trajectories_androidworld_w4/
 data/phase2/*.jsonl
