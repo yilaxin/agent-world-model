@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-08-08T12:33:47.356034+00:00",
+  "source_directories": [
+    "data/trajectories_phase2_expansion"
+  ],
+  "trajectory_file_count": 300,
+  "transition_count": 542,
+  "episode_count": 300,
+  "task_count": 10,
+  "task_counts": {
+    "browsergym/miniwob.click-button": 37,
+    "browsergym/miniwob.click-link": 90,
+    "browsergym/miniwob.click-option": 67,
+    "browsergym/miniwob.click-test": 37,
+    "browsergym/miniwob.click-test-2": 39,
+    "browsergym/miniwob.click-collapsible": 73,
+    "browsergym/miniwob.click-collapsible-2": 90,
+    "browsergym/miniwob.click-dialog": 38,
+    "browsergym/miniwob.click-dialog-2": 36,
+    "browsergym/miniwob.click-tab": 35
+  },
+  "positive_label_counts": {
+    "success": 222,
+    "stalled": 177,
+    "goal_deviation": 4,
+    "severe_failure": 12,
+    "invalid_action": 4,
+    "terminal": 234
+  },
+  "counterfactual_pair_count": 0
+}

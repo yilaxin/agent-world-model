@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "benchmark": "WebArena Verified Reddit-only retrieval subset",
+  "task_ids": [27, 28, 29, 30, 31],
+  "seeds": [0],
+  "reactive_step_budget": 12,
+  "world_model_step_budget": 12,
+  "evaluator_smoke_step_budget": 1,
+  "evaluator_smoke_answers": {
+    "27": "0",
+    "28": "0",
+    "29": "0",
+    "30": "0",
+    "31": "0"
+  },
+  "notes": [
+    "All selected tasks depend only on the deployed Reddit site.",
+    "Evaluator-smoke answers are deliberately excluded from Agent SR because they verify evaluator plumbing, not autonomous browsing.",
+    "The reactive run is the current honest online baseline and uses no expected answer.",
+    "The phase3 mode calls the GPU ensemble through a local SSH-forwarded inference endpoint and also uses no expected answer."
+  ]
+}

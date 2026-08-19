@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-08-12T03:43:48.287713+00:00",
+  "platform": "androidworld_api33_whpx_local",
+  "tasks": [
+    "open_calendar"
+  ],
+  "agents": [
+    "reactive"
+  ],
+  "max_steps": 12,
+  "episodes_per_task": 1,
+  "summary": {
+    "reactive": {
+      "success_rate": 1.0,
+      "avg_steps": 12,
+      "action_execution_rate": 1.0,
+      "per_task": {
+        "open_calendar": {
+          "episodes": 1,
+          "success_rate": 1.0,
+          "avg_steps": 12,
+          "action_execution_rate": 1.0,
+          "invalid_actions_total": 0,
+          "semantic_overrides_total": 0,
+          "sequence_steps_total": 0,
+          "launcher_steps_total": 7,
+          "sparse_states_total": 1,
+          "recoveries_total": 0
+        }
+      }
+    }
+  },
+  "episodes": [
+    {
+      "task": "open_calendar",
+      "agent": "reactive",
+      "episode": 1,
+      "goal": "Open the Calendar app.",
+      "success": 1.0,
+      "steps": 12,
+      "actions": 12,
+      "invalid_actions": 0,
+      "semantic_overrides": 0,
+      "sequence_steps": 0,
+      "launcher_steps": 7,
+      "sparse_states": 1,
+      "recoveries": 0,
+      "terminal": false,
+      "duration_sec": 35.4549298286438,
+      "trajectory_file": "C:\\Users\\卢政坤\\OneDrive\\ドキュメント\\大创 2\\implementation\\agent_world_model\\data\\trajectories_androidworld\\reactive_open_calendar_ep1.jsonl"
+    }
+  ],
+  "trajectory_dir": "C:\\Users\\卢政坤\\OneDrive\\ドキュメント\\大创 2\\implementation\\agent_world_model\\data\\trajectories_androidworld",
+  "trajectory_files": 42,
+  "notes": [
+    "Success is read from Android system settings (wifi_on) via ADB; no LLM judge.",
+    "Phase-three planner uses the local CPU ensemble and structure aligner.",
+    "Launcher paging policy enabled (launcher_app): opens the app drawer for apps not on the home page."
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "benchmark": "WebArena Verified Reddit action-interface pilot",
+  "required_sites": ["reddit"],
+  "task_ids": [595],
+  "task_sites": {"595": "reddit"},
+  "seeds": [0],
+  "reactive_step_budget": 8,
+  "world_model_step_budget": 8,
+  "evaluator_smoke_step_budget": 1,
+  "evaluator_smoke_answers": {},
+  "scope_limit": "Single-task action-interface pilot; not a benchmark result."
+}

@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-08-12T17:25:30.084244+00:00",
+  "benchmark": "WebArena Verified frozen three-site navigation subset",
+  "fixed_task_ids": [
+    44,
+    45,
+    258
+  ],
+  "task_sites": {
+    "44": "gitlab",
+    "45": "gitlab",
+    "258": "gitlab"
+  },
+  "required_sites": [
+    "gitlab"
+  ],
+  "fixed_seeds": [
+    0
+  ],
+  "budgets": {
+    "reactive_steps": 12,
+    "world_model_steps": 12,
+    "evaluator_smoke_steps": 1
+  },
+  "agent_metrics": {
+    "episodes": 3,
+    "successes": 0,
+    "success_rate": 0.0,
+    "action_execution_rate": 0.7777777777777778,
+    "average_steps": 12.0,
+    "average_latency_seconds": 44.108269439
+  },
+  "world_model_agent_metrics": null,
+  "per_site_metrics": {
+    "reactive": {
+      "gitlab": {
+        "episodes": 3,
+        "successes": 0,
+        "success_rate": 0.0,
+        "action_execution_rate": 0.7777777777777778,
+        "average_steps": 12.0,
+        "average_latency_seconds": 44.108269439
+      }
+    }
+  },
+  "paired_online_comparison": null,
+  "evaluator_integrity_metrics": null,
+  "agent_success_rate_excludes_answer_injection": true,
+  "scope_limit": "GitLab partition of the frozen 9-task formal subset; not a standalone benchmark claim.",
+  "results": {
+    "reactive": [
+      {
+        "env_id": "browsergym/webarena.44",
+        "seed": 0,
+        "success": false,
+        "terminated": false,
+        "truncated": false,
+        "steps": 12,
+        "total_reward": 0.0,
+        "last_action_error": "",
+        "trajectory_path": "/home/filp/agent_world_model/data/trajectories_webarena_formal/gitlab/reactive/reactive/20260812T172338Z_browsergym_webarena.44_seed0_1074495e.jsonl",
+        "final_state_id": "bb2f63f3928cd036",
+        "elapsed_seconds": 59.16682855099998,
+        "attempted_actions": 12,
+        "action_execution_successes": 9,
+        "mode": "reactive",
+        "task_id": 44,
+        "site": "gitlab",
+        "uses_expected_answer": false
+      },
+      {
+        "env_id": "browsergym/webarena.45",
+        "seed": 0,
+        "success": false,
+        "terminated": false,
+        "truncated": false,
+        "steps": 12,
+        "total_reward": 0.0,
+        "last_action_error": "",
+        "trajectory_path": "/home/filp/agent_world_model/data/trajectories_webarena_formal/gitlab/reactive/reactive/20260812T172426Z_browsergym_webarena.45_seed0_3b3f05ee.jsonl",
+        "final_state_id": "5600b1c43e993858",
+        "elapsed_seconds": 38.13428662800001,
+        "attempted_actions": 12,
+        "action_execution_successes": 11,
+        "mode": "reactive",
+        "task_id": 45,
+        "site": "gitlab",
+        "uses_expected_answer": false
+      },
+      {
+        "env_id": "browsergym/webarena.258",
+        "seed": 0,
+        "success": false,
+        "terminated": false,
+        "truncated": false,
+        "steps": 12,
+        "total_reward": 0.0,
+        "last_action_error": "TimeoutError: Locator.click: Timeout 500ms exceeded.\nCall log:\nwaiting for get_by_test_id(\"425\")\n  -   locator resolved to <a bid=\"425\" class=\"project\" browsergym_set_of_mark…>…</a>\n  - attempting click action\n  -   waiting for element to be visible, enabled and stable\n  -   element is visible, enabled and stable\n  -   scrolling into view if needed\n  -   done scrolling\n  -   performing click action\n",
+        "trajectory_path": "/home/filp/agent_world_model/data/trajectories_webarena_formal/gitlab/reactive/reactive/20260812T172502Z_browsergym_webarena.258_seed0_c0374e3b.jsonl",
+        "final_state_id": "f5c818b84516a5f1",
+        "elapsed_seconds": 35.023693138,
+        "attempted_actions": 12,
+        "action_execution_successes": 8,
+        "mode": "reactive",
+        "task_id": 258,
+        "site": "gitlab",
+        "uses_expected_answer": false
+      }
+    ]
+  },
+  "failures": []
+}

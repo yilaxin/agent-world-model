@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-08-14T15:34:51.943675+00:00",
+  "purpose": "recover frozen holdout episodes blocked by no-answer fuzzy initialization",
+  "site": "gitlab",
+  "mode": "reactive",
+  "navigation_guard": "on",
+  "task_ids": [
+    176,
+    783
+  ],
+  "seed": 0,
+  "step_budget": 12,
+  "master_freeze_sha256": "a772943ee036958f48ec17249a25865d7a779217797618ef10a03881661230b9",
+  "site_config_freeze_sha256": "377445fbcbe2db2fb0f310290710e4703a2e3e8f61c8e1304d054db747aa3e87",
+  "release_fingerprint_sha256": "fe52d922a891ca9464b2691781b2f3d4594eecf3eaed82ff315d849b34118a24",
+  "remote_agent_health": null,
+  "uses_expected_answer": false,
+  "validation_adapter": {
+    "rule": "Only no-answer validation returns score=0, done=false; submitted answers delegate to the original official evaluator.",
+    "reference_answers_read": false,
+    "local_answer_judge_used": false
+  },
+  "results": [
+    {
+      "env_id": "browsergym/webarena.176",
+      "seed": 0,
+      "success": false,
+      "terminated": false,
+      "truncated": false,
+      "steps": 12,
+      "total_reward": 0.0,
+      "last_action_error": "",
+      "trajectory_path": "/home/filp/agent_world_model/data/trajectories_webarena_p0_round2_recovery/gitlab/reactive_guard_on/reactive/20260814T153351Z_browsergym_webarena.176_seed0_c72c2e91.jsonl",
+      "final_state_id": "ee973af88df05f16",
+      "elapsed_seconds": 37.35373597199941,
+      "attempted_actions": 12,
+      "action_execution_successes": 11,
+      "episode_attempts": 1,
+      "mode": "reactive",
+      "task_id": 176,
+      "site": "gitlab",
+      "uses_expected_answer": false,
+      "recovery_validation_adapter": "no_answer_is_nonterminal_zero"
+    },
+    {
+      "env_id": "browsergym/webarena.783",
+      "seed": 0,
+      "success": false,
+      "terminated": false,
+      "truncated": false,
+      "steps": 12,
+      "total_reward": 0.0,
+      "last_action_error": "",
+      "trajectory_path": "/home/filp/agent_world_model/data/trajectories_webarena_p0_round2_recovery/gitlab/reactive_guard_on/reactive/20260814T153428Z_browsergym_webarena.783_seed0_37b71c8a.jsonl",
+      "final_state_id": "2fe9b421b3805cf8",
+      "elapsed_seconds": 31.720229108999774,
+      "attempted_actions": 12,
+      "action_execution_successes": 12,
+      "episode_attempts": 1,
+      "mode": "reactive",
+      "task_id": 783,
+      "site": "gitlab",
+      "uses_expected_answer": false,
+      "recovery_validation_adapter": "no_answer_is_nonterminal_zero"
+    }
+  ],
+  "failures": []
+}

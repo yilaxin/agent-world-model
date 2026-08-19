@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-08-14T20:13:44.515589+00:00",
+  "purpose": "recover frozen holdout episodes blocked by no-answer fuzzy initialization",
+  "site": "reddit",
+  "mode": "world-model",
+  "navigation_guard": "on",
+  "task_ids": [
+    726
+  ],
+  "seed": 0,
+  "step_budget": 12,
+  "master_freeze_sha256": "a772943ee036958f48ec17249a25865d7a779217797618ef10a03881661230b9",
+  "site_config_freeze_sha256": "7d36393b46e71c3538c41b784d0f07012b9baff1293e8a6e7bcc22fbe0bfd1db",
+  "failure_config_freeze_sha256": "f75be0bcc0c71c95ad870e98596aebb812445862cee092a8e4cae4d7853fef13",
+  "failure_report_path": "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_on_transport_recovery.json",
+  "release_fingerprint_sha256": "fe52d922a891ca9464b2691781b2f3d4594eecf3eaed82ff315d849b34118a24",
+  "remote_agent_health": {
+    "status": "ok",
+    "device": "cuda",
+    "navigation_guard": "on",
+    "semantic_goal_priority": false,
+    "release_fingerprint_sha256": "fe52d922a891ca9464b2691781b2f3d4594eecf3eaed82ff315d849b34118a24",
+    "authentication_required": false
+  },
+  "uses_expected_answer": false,
+  "validation_adapter": {
+    "rule": "Only no-answer validation returns score=0, done=false; submitted answers delegate to the original official evaluator.",
+    "reference_answers_read": false,
+    "local_answer_judge_used": false
+  },
+  "results": [
+    {
+      "env_id": "browsergym/webarena.726",
+      "seed": 0,
+      "success": false,
+      "terminated": false,
+      "truncated": false,
+      "steps": 12,
+      "total_reward": 0.0,
+      "last_action_error": "",
+      "trajectory_path": "/home/filp/agent_world_model/data/trajectories_webarena_p0_round2_recovery/reddit/world-model_guard_on/world-model/20260814T201316Z_browsergym_webarena.726_seed0_f6966f11.jsonl",
+      "final_state_id": "19b00a371c4b9b6c",
+      "elapsed_seconds": 37.19400463099919,
+      "attempted_actions": 12,
+      "action_execution_successes": 12,
+      "episode_attempts": 1,
+      "mode": "world-model",
+      "task_id": 726,
+      "site": "reddit",
+      "uses_expected_answer": false,
+      "recovery_validation_adapter": "no_answer_is_nonterminal_zero"
+    }
+  ],
+  "failures": []
+}

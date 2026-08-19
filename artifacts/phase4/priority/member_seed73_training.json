@@ -1,0 +1,579 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-08-12T11:37:40.383578+00:00",
+  "device": "cuda",
+  "cuda_available": true,
+  "cuda_device_name": "NVIDIA GeForce RTX 4090",
+  "amp_enabled": true,
+  "model_config": {
+    "state_dim": 512,
+    "action_dim": 128,
+    "latent_dim": 192,
+    "action_latent_dim": 64,
+    "hidden_dim": 256,
+    "state_delta_dim": 5,
+    "task_signal_dim": 2,
+    "risk_dim": 4,
+    "dropout": 0.15
+  },
+  "training_config": {
+    "epochs": 12,
+    "batch_size": 96,
+    "learning_rate": 0.0001,
+    "weight_decay": 0.0001,
+    "gradient_clip": 1.0,
+    "patience": 4,
+    "num_workers": 0,
+    "seed": 73,
+    "device": "cuda",
+    "amp": true,
+    "focal_gamma": 1.5,
+    "pairwise_rank_weight": 0.7,
+    "pairwise_batch_size": 64,
+    "pairwise_minimum_utility_gap": 0.05
+  },
+  "loss_weights": {
+    "reconstruction": 1.0,
+    "dynamics": 1.0,
+    "uncertainty": 0.1,
+    "state_delta": 0.75,
+    "task_signal": 1.2,
+    "risk": 1.5,
+    "progress": 1.0,
+    "reward": 0.5
+  },
+  "initial_checkpoint": "/root/autodl-tmp/agent_world_model_phase23_latest/artifacts/phase2/p2_multiseed/world_model_rank_regularized_seed73.pt",
+  "train_examples": 9388,
+  "validation_examples": 2017,
+  "train_counterfactual_pairs": 2160,
+  "validation_counterfactual_pairs": 494,
+  "best_epoch": 1,
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": -0.5307538378603605,
+      "train_pairwise_rank_loss": 0.045604877287940104,
+      "validation_loss": -0.40476881375218915,
+      "validation_pairwise_accuracy": 0.9797570859855004
+    },
+    {
+      "epoch": 2,
+      "train_loss": -0.5352165394899796,
+      "train_pairwise_rank_loss": 0.04600595306529074,
+      "validation_loss": -0.3984133025064357,
+      "validation_pairwise_accuracy": 0.9777327940048959
+    },
+    {
+      "epoch": 3,
+      "train_loss": -0.538736784032413,
+      "train_pairwise_rank_loss": 0.04520608568373991,
+      "validation_loss": -0.3955614123533195,
+      "validation_pairwise_accuracy": 0.9777327940048959
+    },
+    {
+      "epoch": 4,
+      "train_loss": -0.5399273259907352,
+      "train_pairwise_rank_loss": 0.04590741252260549,
+      "validation_loss": -0.3918972150566256,
+      "validation_pairwise_accuracy": 0.9777327940048959
+    },
+    {
+      "epoch": 5,
+      "train_loss": -0.5416952037081426,
+      "train_pairwise_rank_loss": 0.04583554581872055,
+      "validation_loss": -0.38845836741189593,
+      "validation_pairwise_accuracy": 0.9777327940048959
+    }
+  ],
+  "validation": {
+    "loss": {
+      "total": -0.4720874767411839,
+      "reconstruction": 0.00019253067661007992,
+      "dynamics": 0.00346779056285,
+      "uncertainty": -5.358093814416365,
+      "state_delta": 0.008333235472222937,
+      "task_signal": 0.00431938345710177,
+      "risk": 0.017627836607392634,
+      "progress": 0.008589236457324163,
+      "reward": 0.02719481582541696
+    },
+    "progress": {
+      "mae": 0.10929851902292158,
+      "mse": 0.03512522842031433,
+      "rmse": 0.1874172575306616
+    },
+    "reward": {
+      "mae": 0.23262948709541859,
+      "mse": 0.10484646252386845,
+      "rmse": 0.3238000347805238
+    },
+    "state_delta": {
+      "per_label": {
+        "url_changed": {
+          "accuracy": 1.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "auroc": 0.0,
+          "auprc": 0.0,
+          "brier": 4.683830875688323e-10,
+          "ece": 7.2373831192193415e-06,
+          "nll": 7.2399148456728265e-06,
+          "coverage_risk": {
+            "points": [
+              {
+                "coverage": 0.25037183936539414,
+                "risk": 0.0,
+                "count": 505.0
+              },
+              {
+                "coverage": 0.5002478929102627,
+                "risk": 0.0,
+                "count": 1009.0
+              },
+              {
+                "coverage": 0.7501239464551314,
+                "risk": 0.0,
+                "count": 1513.0
+              },
+              {
+                "coverage": 1.0,
+                "risk": 0.0,
+                "count": 2017.0
+              }
+            ],
+            "aurc": 0.0
+          },
+          "support_positive": 0.0,
+          "support_negative": 2017.0
+        },
+        "title_changed": {
+          "accuracy": 1.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "auroc": 0.0,
+          "auprc": 0.0,
+          "brier": 5.254976274912207e-10,
+          "ece": 7.6214348752627394e-06,
+          "nll": 7.623313740022098e-06,
+          "coverage_risk": {
+            "points": [
+              {
+                "coverage": 0.25037183936539414,
+                "risk": 0.0,
+                "count": 505.0
+              },
+              {
+                "coverage": 0.5002478929102627,
+                "risk": 0.0,
+                "count": 1009.0
+              },
+              {
+                "coverage": 0.7501239464551314,
+                "risk": 0.0,
+                "count": 1513.0
+              },
+              {
+                "coverage": 1.0,
+                "risk": 0.0,
+                "count": 2017.0
+              }
+            ],
+            "aurc": 0.0
+          },
+          "support_positive": 0.0,
+          "support_negative": 2017.0
+        },
+        "axtree_changed": {
+          "accuracy": 0.9955379276152702,
+          "precision": 0.992018244013683,
+          "recall": 0.9977064220183486,
+          "f1": 0.9948542024013721,
+          "auroc": 0.9997415968911502,
+          "auprc": 0.9996592088527907,
+          "brier": 0.0038917580484546257,
+          "ece": 0.003962718978479908,
+          "nll": 0.017692718124720144,
+          "coverage_risk": {
+            "points": [
+              {
+                "coverage": 0.25037183936539414,
+                "risk": 0.0,
+                "count": 505.0
+              },
+              {
+                "coverage": 0.5002478929102627,
+                "risk": 0.0,
+                "count": 1009.0
+              },
+              {
+                "coverage": 0.7501239464551314,
+                "risk": 0.0,
+                "count": 1513.0
+              },
+              {
+                "coverage": 1.0,
+                "risk": 0.004462072384729797,
+                "count": 2017.0
+              }
+            ],
+            "aurc": 0.0011155180961824492
+          },
+          "support_positive": 872.0,
+          "support_negative": 1145.0
+        },
+        "dom_changed": {
+          "accuracy": 0.9910758552305404,
+          "precision": 0.9818511796733213,
+          "recall": 0.9854280510018215,
+          "f1": 0.9836363636363636,
+          "auroc": 0.9994230282455592,
+          "auprc": 0.9985397534114205,
+          "brier": 0.006784196342582902,
+          "ece": 0.005012621051075769,
+          "nll": 0.025595834987637144,
+          "coverage_risk": {
+            "points": [
+              {
+                "coverage": 0.25037183936539414,
+                "risk": 0.0,
+                "count": 505.0
+              },
+              {
+                "coverage": 0.5002478929102627,
+                "risk": 0.0,
+                "count": 1009.0
+              },
+              {
+                "coverage": 0.7501239464551314,
+                "risk": 0.0,
+                "count": 1513.0
+              },
+              {
+                "coverage": 1.0,
+                "risk": 0.008924144769459593,
+                "count": 2017.0
+              }
+            ],
+            "aurc": 0.0022310361923648984
+          },
+          "support_positive": 549.0,
+          "support_negative": 1468.0
+        },
+        "target_available": {
+          "accuracy": 1.0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "auroc": 1.0,
+          "auprc": 1.0,
+          "brier": 7.947026056358499e-06,
+          "ece": 0.000319693953215333,
+          "nll": 0.00032386857808349204,
+          "coverage_risk": {
+            "points": [
+              {
+                "coverage": 0.25037183936539414,
+                "risk": 0.0,
+                "count": 505.0
+              },
+              {
+                "coverage": 0.5002478929102627,
+                "risk": 0.0,
+                "count": 1009.0
+              },
+              {
+                "coverage": 0.7501239464551314,
+                "risk": 0.0,
+                "count": 1513.0
+              },
+              {
+                "coverage": 1.0,
+                "risk": 0.0,
+                "count": 2017.0
+              }
+            ],
+            "aurc": 0.0
+          },
+          "support_positive": 1042.0,
+          "support_negative": 975.0
+        }
+      },
+      "macro_f1": 0.5956981132075472,
+      "macro_f1_supported": 0.9928301886792452,
+      "macro_auroc_supported": 0.9997215417122365,
+      "macro_auprc_supported": 0.9993996540880704,
+      "macro_ece": 0.0018619785601530984,
+      "macro_brier": 0.0021367804821949203,
+      "macro_nll": 0.008725456983805294,
+      "macro_aurc": 0.0006693108577094694,
+      "supported_label_count": 3
+    },
+    "task_signal": {
+      "per_label": {
+        "invalid_action": {
+          "accuracy": 0.999008428358949,
+          "precision": 1.0,
+          "recall": 0.9952718676122931,
+          "f1": 0.9976303317535545,
+          "auroc": 0.9999851689699256,
+          "auprc": 0.9999615152014953,
+          "brier": 0.0020910628958580673,
+          "ece": 0.011316715100043295,
+          "nll": 0.014086932789928302,
+          "coverage_risk": {
+            "points": [
+              {
+                "coverage": 0.25037183936539414,
+                "risk": 0.0,
+                "count": 505.0
+              },
+              {
+                "coverage": 0.5002478929102627,
+                "risk": 0.0,
+                "count": 1009.0
+              },
+              {
+                "coverage": 0.7501239464551314,
+                "risk": 0.0,
+                "count": 1513.0
+              },
+              {
+                "coverage": 1.0,
+                "risk": 0.0009915716410510659,
+                "count": 2017.0
+              }
+            ],
+            "aurc": 0.00024789291026276647
+          },
+          "support_positive": 423.0,
+          "support_negative": 1594.0
+        },
+        "terminal": {
+          "accuracy": 0.9950421417947447,
+          "precision": 0.9833333333333333,
+          "recall": 0.9927884615384616,
+          "f1": 0.9880382775119617,
+          "auroc": 0.9997072142410993,
+          "auprc": 0.9988377412475907,
+          "brier": 0.005083849495445883,
+          "ece": 0.012641787132304783,
+          "nll": 0.025621057121532585,
+          "coverage_risk": {
+            "points": [
+              {
+                "coverage": 0.25037183936539414,
+                "risk": 0.0,
+                "count": 505.0
+              },
+              {
+                "coverage": 0.5002478929102627,
+                "risk": 0.0,
+                "count": 1009.0
+              },
+              {
+                "coverage": 0.7501239464551314,
+                "risk": 0.0,
+                "count": 1513.0
+              },
+              {
+                "coverage": 1.0,
+                "risk": 0.00495785820525533,
+                "count": 2017.0
+              }
+            ],
+            "aurc": 0.0012394645513138325
+          },
+          "support_positive": 416.0,
+          "support_negative": 1601.0
+        }
+      },
+      "macro_f1": 0.9928343046327581,
+      "macro_f1_supported": 0.9928343046327581,
+      "macro_auroc_supported": 0.9998461916055125,
+      "macro_auprc_supported": 0.999399628224543,
+      "macro_ece": 0.011979251116174039,
+      "macro_brier": 0.003587456195651975,
+      "macro_nll": 0.019853994955730443,
+      "macro_aurc": 0.0007436787307882995,
+      "supported_label_count": 2
+    },
+    "risk": {
+      "per_label": {
+        "success": {
+          "accuracy": 0.9707486365889936,
+          "precision": 0.8962655601659751,
+          "recall": 0.864,
+          "f1": 0.879837067209776,
+          "auroc": 0.9874114318053198,
+          "auprc": 0.9335753791381103,
+          "brier": 0.031706683945416196,
+          "ece": 0.05922691754914687,
+          "nll": 0.12850808946477446,
+          "coverage_risk": {
+            "points": [
+              {
+                "coverage": 0.25037183936539414,
+                "risk": 0.0,
+                "count": 505.0
+              },
+              {
+                "coverage": 0.5002478929102627,
+                "risk": 0.0,
+                "count": 1009.0
+              },
+              {
+                "coverage": 0.7501239464551314,
+                "risk": 0.006609385327164574,
+                "count": 1513.0
+              },
+              {
+                "coverage": 1.0,
+                "risk": 0.029251363411006447,
+                "count": 2017.0
+              }
+            ],
+            "aurc": 0.008965187184542756
+          },
+          "support_positive": 250.0,
+          "support_negative": 1767.0
+        },
+        "stalled": {
+          "accuracy": 0.9975210708973723,
+          "precision": 0.9990999099909991,
+          "recall": 0.9964093357271095,
+          "f1": 0.997752808988764,
+          "auroc": 0.9999403544140716,
+          "auprc": 0.9999550202973836,
+          "brier": 0.004094985404458595,
+          "ece": 0.023103660173999098,
+          "nll": 0.029174843572724304,
+          "coverage_risk": {
+            "points": [
+              {
+                "coverage": 0.25037183936539414,
+                "risk": 0.0,
+                "count": 505.0
+              },
+              {
+                "coverage": 0.5002478929102627,
+                "risk": 0.0,
+                "count": 1009.0
+              },
+              {
+                "coverage": 0.7501239464551314,
+                "risk": 0.0,
+                "count": 1513.0
+              },
+              {
+                "coverage": 1.0,
+                "risk": 0.002478929102627665,
+                "count": 2017.0
+              }
+            ],
+            "aurc": 0.0006197322756569162
+          },
+          "support_positive": 1114.0,
+          "support_negative": 903.0
+        },
+        "goal_deviation": {
+          "accuracy": 0.9985126425384234,
+          "precision": 1.0,
+          "recall": 0.9929078014184397,
+          "f1": 0.9964412811387899,
+          "auroc": 0.999986652072933,
+          "auprc": 0.9999669361371488,
+          "brier": 0.0019312645742080167,
+          "ece": 0.01060207593902358,
+          "nll": 0.013327878329550243,
+          "coverage_risk": {
+            "points": [
+              {
+                "coverage": 0.25037183936539414,
+                "risk": 0.0,
+                "count": 505.0
+              },
+              {
+                "coverage": 0.5002478929102627,
+                "risk": 0.0,
+                "count": 1009.0
+              },
+              {
+                "coverage": 0.7501239464551314,
+                "risk": 0.0,
+                "count": 1513.0
+              },
+              {
+                "coverage": 1.0,
+                "risk": 0.001487357461576599,
+                "count": 2017.0
+              }
+            ],
+            "aurc": 0.0003718393653941497
+          },
+          "support_positive": 423.0,
+          "support_negative": 1594.0
+        },
+        "severe_failure": {
+          "accuracy": 0.9737233515121467,
+          "precision": 0.8509316770186336,
+          "recall": 0.8253012048192772,
+          "f1": 0.8379204892966361,
+          "auroc": 0.9881177871941575,
+          "auprc": 0.9198801482594731,
+          "brier": 0.02045514375731321,
+          "ece": 0.02205323736769333,
+          "nll": 0.07719122290380367,
+          "coverage_risk": {
+            "points": [
+              {
+                "coverage": 0.25037183936539414,
+                "risk": 0.0,
+                "count": 505.0
+              },
+              {
+                "coverage": 0.5002478929102627,
+                "risk": 0.0,
+                "count": 1009.0
+              },
+              {
+                "coverage": 0.7501239464551314,
+                "risk": 0.0019828155981493722,
+                "count": 1513.0
+              },
+              {
+                "coverage": 1.0,
+                "risk": 0.026276648487853247,
+                "count": 2017.0
+              }
+            ],
+            "aurc": 0.007064866021500655
+          },
+          "support_positive": 166.0,
+          "support_negative": 1851.0
+        }
+      },
+      "macro_f1": 0.9279879116584915,
+      "macro_f1_supported": 0.9279879116584915,
+      "macro_auroc_supported": 0.9938640563716206,
+      "macro_auprc_supported": 0.9633443709580289,
+      "macro_ece": 0.028746472757465724,
+      "macro_brier": 0.014547019420349003,
+      "macro_nll": 0.062050508567713165,
+      "macro_aurc": 0.004255406211773619,
+      "supported_label_count": 4
+    },
+    "latent": {
+      "mse": 0.0035131130537055942,
+      "cosine_similarity": 0.9869936141981958
+    },
+    "example_count": 2017,
+    "pairwise_ranking": {
+      "informative_pair_count": 494,
+      "log_loss": 0.09616951855570681,
+      "accuracy": 0.9797570859855004
+    }
+  },
+  "checkpoint": "artifacts/phase4/priority/member_seed73.pt"
+}

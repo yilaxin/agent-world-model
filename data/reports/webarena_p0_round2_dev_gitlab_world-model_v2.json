@@ -1,0 +1,211 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-08-14T08:00:48.959688+00:00",
+  "benchmark": "Classic WebArena P0 round-2 development split",
+  "fixed_task_ids": [
+    568,
+    756,
+    476,
+    317,
+    315,
+    442,
+    736,
+    449,
+    415,
+    398
+  ],
+  "task_sites": {
+    "568": "gitlab",
+    "756": "gitlab",
+    "476": "gitlab",
+    "317": "gitlab",
+    "315": "gitlab",
+    "442": "gitlab",
+    "736": "gitlab",
+    "449": "gitlab",
+    "415": "gitlab",
+    "398": "gitlab"
+  },
+  "required_sites": [
+    "gitlab"
+  ],
+  "fixed_seeds": [
+    0
+  ],
+  "navigation_guard": "on",
+  "remote_agent_health": {
+    "status": "ok",
+    "device": "cuda",
+    "navigation_guard": "on",
+    "semantic_goal_priority": false,
+    "release_fingerprint_sha256": "fe52d922a891ca9464b2691781b2f3d4594eecf3eaed82ff315d849b34118a24",
+    "authentication_required": false
+  },
+  "freeze_sha256": "9468edaa854866b8a8cec633ee6d1f8509c45db37ea76578bb7fb96d18c4d52f",
+  "budgets": {
+    "reactive_steps": 12,
+    "world_model_steps": 12,
+    "evaluator_smoke_steps": 1
+  },
+  "agent_metrics": null,
+  "world_model_agent_metrics": {
+    "episodes": 5,
+    "successes": 0,
+    "success_rate": 0.0,
+    "action_execution_rate": 0.85,
+    "average_steps": 12.0,
+    "average_latency_seconds": 89.20670922240024
+  },
+  "per_site_metrics": {
+    "world-model": {
+      "gitlab": {
+        "episodes": 5,
+        "successes": 0,
+        "success_rate": 0.0,
+        "action_execution_rate": 0.85,
+        "average_steps": 12.0,
+        "average_latency_seconds": 89.20670922240024
+      }
+    }
+  },
+  "paired_online_comparison": null,
+  "evaluator_integrity_metrics": null,
+  "agent_success_rate_excludes_answer_injection": true,
+  "scope_limit": "Round-2 gitlab development tasks; policy iteration is allowed and results are not eligible for the final holdout claim.",
+  "results": {
+    "world-model": [
+      {
+        "env_id": "browsergym/webarena.568",
+        "seed": 0,
+        "success": false,
+        "terminated": false,
+        "truncated": false,
+        "steps": 12,
+        "total_reward": 0.0,
+        "last_action_error": "",
+        "trajectory_path": "/home/filp/agent_world_model/data/trajectories_webarena_round2_dev/gitlab/world-model_v2/world-model/20260814T075308Z_browsergym_webarena.568_seed0_8fc39e18.jsonl",
+        "final_state_id": "a79ff50b03073fe3",
+        "elapsed_seconds": 143.11598202799905,
+        "attempted_actions": 12,
+        "action_execution_successes": 6,
+        "episode_attempts": 2,
+        "mode": "world-model",
+        "task_id": 568,
+        "site": "gitlab",
+        "uses_expected_answer": false
+      },
+      {
+        "env_id": "browsergym/webarena.756",
+        "seed": 0,
+        "success": false,
+        "terminated": false,
+        "truncated": false,
+        "steps": 12,
+        "total_reward": 0.0,
+        "last_action_error": "",
+        "trajectory_path": "/home/filp/agent_world_model/data/trajectories_webarena_round2_dev/gitlab/world-model_v2/world-model/20260814T075458Z_browsergym_webarena.756_seed0_7b88568d.jsonl",
+        "final_state_id": "24c97924a499eca9",
+        "elapsed_seconds": 139.29339094200077,
+        "attempted_actions": 12,
+        "action_execution_successes": 12,
+        "episode_attempts": 1,
+        "mode": "world-model",
+        "task_id": 756,
+        "site": "gitlab",
+        "uses_expected_answer": false
+      },
+      {
+        "env_id": "browsergym/webarena.476",
+        "seed": 0,
+        "success": false,
+        "terminated": false,
+        "truncated": false,
+        "steps": 12,
+        "total_reward": 0.0,
+        "last_action_error": "",
+        "trajectory_path": "/home/filp/agent_world_model/data/trajectories_webarena_round2_dev/gitlab/world-model_v2/world-model/20260814T075720Z_browsergym_webarena.476_seed0_0ed825d4.jsonl",
+        "final_state_id": "5cf62057f865fb7c",
+        "elapsed_seconds": 90.52078471800087,
+        "attempted_actions": 12,
+        "action_execution_successes": 10,
+        "episode_attempts": 1,
+        "mode": "world-model",
+        "task_id": 476,
+        "site": "gitlab",
+        "uses_expected_answer": false
+      },
+      {
+        "env_id": "browsergym/webarena.317",
+        "seed": 0,
+        "success": false,
+        "terminated": false,
+        "truncated": false,
+        "steps": 12,
+        "total_reward": 0.0,
+        "last_action_error": "",
+        "trajectory_path": "/home/filp/agent_world_model/data/trajectories_webarena_round2_dev/gitlab/world-model_v2/world-model/20260814T075852Z_browsergym_webarena.317_seed0_290659d8.jsonl",
+        "final_state_id": "4f45e5c60f3ad0da",
+        "elapsed_seconds": 37.2553561120003,
+        "attempted_actions": 12,
+        "action_execution_successes": 11,
+        "episode_attempts": 1,
+        "mode": "world-model",
+        "task_id": 317,
+        "site": "gitlab",
+        "uses_expected_answer": false
+      },
+      {
+        "env_id": "browsergym/webarena.315",
+        "seed": 0,
+        "success": false,
+        "terminated": false,
+        "truncated": false,
+        "steps": 12,
+        "total_reward": 0.0,
+        "last_action_error": "",
+        "trajectory_path": "/home/filp/agent_world_model/data/trajectories_webarena_round2_dev/gitlab/world-model_v2/world-model/20260814T075929Z_browsergym_webarena.315_seed0_23f8329a.jsonl",
+        "final_state_id": "7aec38f154e25b10",
+        "elapsed_seconds": 35.848032312000214,
+        "attempted_actions": 12,
+        "action_execution_successes": 12,
+        "episode_attempts": 1,
+        "mode": "world-model",
+        "task_id": 315,
+        "site": "gitlab",
+        "uses_expected_answer": false
+      }
+    ]
+  },
+  "failures": [
+    {
+      "mode": "world-model",
+      "task_id": 442,
+      "seed": 0,
+      "error": "URLError(ConnectionRefusedError(111, 'Connection refused'))"
+    },
+    {
+      "mode": "world-model",
+      "task_id": 736,
+      "seed": 0,
+      "error": "URLError(ConnectionRefusedError(111, 'Connection refused'))"
+    },
+    {
+      "mode": "world-model",
+      "task_id": 449,
+      "seed": 0,
+      "error": "URLError(ConnectionRefusedError(111, 'Connection refused'))"
+    },
+    {
+      "mode": "world-model",
+      "task_id": 415,
+      "seed": 0,
+      "error": "URLError(ConnectionRefusedError(111, 'Connection refused'))"
+    },
+    {
+      "mode": "world-model",
+      "task_id": 398,
+      "seed": 0,
+      "error": "URLError(ConnectionRefusedError(111, 'Connection refused'))"
+    }
+  ]
+}

@@ -1,0 +1,4170 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-08-08T12:51:43.536487+00:00",
+  "phase": 3,
+  "device": "cuda",
+  "cuda_available": true,
+  "cuda_device_name": "NVIDIA GeForce RTX 4090",
+  "checkpoint": "artifacts/phase2/world_model_p1_best.pt",
+  "candidate_generator": "axtree_structure_v1",
+  "planner": "confidence_adaptive_beam_v1",
+  "planning_config": {
+    "min_horizon": 1,
+    "max_horizon": 3,
+    "beam_width": 4,
+    "discount": 0.85,
+    "long_term_weight": 0.8,
+    "uncertainty_weight": 0.4,
+    "structure_weight": 2.0,
+    "progress_weight": 1.0,
+    "reward_weight": 0.5,
+    "target_available_weight": 0.2,
+    "invalid_action_weight": 0.8,
+    "stalled_weight": 0.6,
+    "goal_deviation_weight": 1.0,
+    "severe_failure_weight": 1.5,
+    "high_confidence": 0.72,
+    "medium_confidence": 0.52,
+    "low_confidence": 0.3
+  },
+  "metrics": {
+    "examples_requested": 515,
+    "examples_evaluated": 515,
+    "raw_state_match_rate": 1.0,
+    "candidate_schema_valid_rate": 1.0,
+    "recorded_action_recall_at_k": 0.9495145631067962,
+    "safe_recorded_action_recall_at_k": 1.0,
+    "average_candidate_count": 4.376699029126214,
+    "average_candidate_type_entropy": 0.4276188086768396,
+    "positive_example_count": 77,
+    "risky_example_count": 284,
+    "methods": {
+      "reactive": {
+        "recorded_action_agreement": 0.6407766990291263,
+        "positive_recorded_action_agreement": 0.7402597402597403,
+        "risky_recorded_action_diversion": 0.45774647887323944
+      },
+      "w0_one_step": {
+        "recorded_action_agreement": 0.3533980582524272,
+        "positive_recorded_action_agreement": 0.6753246753246753,
+        "risky_recorded_action_diversion": 0.6373239436619719
+      },
+      "phase3": {
+        "recorded_action_agreement": 0.40388349514563104,
+        "positive_recorded_action_agreement": 0.7792207792207793,
+        "risky_recorded_action_diversion": 0.647887323943662
+      }
+    },
+    "decision_modes": {
+      "planned": 425,
+      "planned_short": 90
+    },
+    "horizon_distribution": {
+      "1": 90,
+      "3": 425
+    },
+    "planned_decision_rate": 1.0,
+    "finite_horizon_compliance": 1.0,
+    "explanation_completeness": 1.0,
+    "average_confidence": 0.8245754032725875,
+    "average_chosen_structure_score": 0.8089320388349515,
+    "latency_ms": {
+      "mean": 32.462322795130675,
+      "median": 27.699063532054424,
+      "p95": 77.76312343776226
+    }
+  },
+  "acceptance": {
+    "passed": true,
+    "checks": {
+      "raw_state_match_rate": {
+        "actual": 1.0,
+        "operator": ">=",
+        "target": 0.99,
+        "passed": true
+      },
+      "candidate_schema_valid_rate": {
+        "actual": 1.0,
+        "operator": ">=",
+        "target": 1.0,
+        "passed": true
+      },
+      "safe_recorded_action_recall_at_k": {
+        "actual": 1.0,
+        "operator": ">=",
+        "target": 0.95,
+        "passed": true
+      },
+      "explanation_completeness": {
+        "actual": 1.0,
+        "operator": ">=",
+        "target": 1.0,
+        "passed": true
+      },
+      "planned_decision_rate": {
+        "actual": 1.0,
+        "operator": ">=",
+        "target": 0.8,
+        "passed": true
+      },
+      "finite_horizon_compliance": {
+        "actual": 1.0,
+        "operator": ">=",
+        "target": 1.0,
+        "passed": true
+      }
+    }
+  },
+  "interpretation_limits": [
+    "The held-out benchmark measures decision consistency and model-predicted counterfactuals, not live WebArena task success.",
+    "Alternative rollout outcomes remain model predictions; a separate paired dataset provides observed factual/counterfactual outcomes for 100 initial states.",
+    "The deterministic AXTree generator remains the planner default; a separate RTX 4090 ablation binds local Qwen2.5-3B-Instruct as a constrained semantic selector.",
+    "The P1 test split contains observed severe_failure positives, so the severe-failure risk head is now evaluated rather than omitted."
+  ],
+  "examples": [
+    {
+      "example_id": "6061b0fc16d83a813c99",
+      "task_id": "browsergym/miniwob.click-button",
+      "instruction": "Click on the \"okay\" button.",
+      "recorded_action": "click(\"12\", \"left\")",
+      "recorded_labels": {
+        "success": true,
+        "risky": false
+      },
+      "candidate_count": 6,
+      "reactive_action": "click(\"12\", \"left\")",
+      "w0_action": "click(\"13\", \"left\")",
+      "phase3_decision": {
+        "action": "click(\"12\", \"left\")",
+        "mode": "planned",
+        "confidence": 0.8853773221484649,
+        "horizon": 3,
+        "should_execute": true,
+        "requires_reobservation": false,
+        "rationale": "Selected after H=3 rollout using short/long outcome, uncertainty and task-element structural consistency.",
+        "fallback_action": "click(\"12\", \"left\")",
+        "ranked_plans": [
+          {
+            "action": "click(\"12\", \"left\")",
+            "total_score": 4.476095199584961,
+            "short_term_score": 1.5942564010620117,
+            "long_term_score": 1.1045606136322021,
+            "uncertainty": 0.0045235902070999146,
+            "structure_score": 1.0,
+            "world_model_influence": 1.0,
+            "action_sequence": [
+              "click(\"12\", \"left\")",
+              "click(\"12\", \"left\")",
+              "click(\"13\", \"left\")"
+            ],
+            "rollout_steps": [
+              {
+                "depth": 1,
+                "progress": 0.9000264406204224,
+                "reward": 0.9600011706352234,
+                "uncertainty": 0.004572935868054628,
+                "short_step": 1.539463996887207,
+                "long_step": 0.9749339818954468,
+                "state_delta_probabilities": {
+                  "url_changed": 0.00012314243940636516,
+                  "title_changed": 6.630445568589494e-05,
+                  "axtree_changed": 0.999832034111023,
+                  "dom_changed": 6.630546704400331e-05,
+                  "target_available": 0.9999953508377075
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.04085026681423187,
+                  "terminal": 0.966459333896637
+                },
+                "risk_probabilities": {
+                  "success": 0.9165049195289612,
+                  "stalled": 0.01313638873398304,
+                  "goal_deviation": 0.021125713363289833,
+                  "severe_failure": 0.07057013362646103
+                }
+              },
+              {
+                "depth": 2,
+                "progress": 1.1275107860565186,
+                "reward": 1.1872711181640625,
+                "uncertainty": 0.003072102088481188,
+                "short_step": 1.8950896263122559,
+                "long_step": 1.0846279859542847,
+                "state_delta_probabilities": {
+                  "url_changed": 6.708111322950572e-05,
+                  "title_changed": 3.19348146149423e-05,
+                  "axtree_changed": 0.9998094439506531,
+                  "dom_changed": 6.99931406415999e-05,
+                  "target_available": 0.9999978542327881
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.025625066831707954,
+                  "terminal": 0.9830423593521118
+                },
+                "risk_probabilities": {
+                  "success": 0.9623051881790161,
+                  "stalled": 0.009260429069399834,
+                  "goal_deviation": 0.013098938390612602,
+                  "severe_failure": 0.03708699345588684
+                }
+              },
+              {
+                "depth": 3,
+                "progress": 1.128572940826416,
+                "reward": 1.165860652923584,
+                "uncertainty": 0.0033606640063226223,
+                "short_step": 1.8596450090408325,
+                "long_step": 1.1045606136322021,
+                "state_delta_probabilities": {
+                  "url_changed": 9.121609764406458e-05,
+                  "title_changed": 4.805597200174816e-05,
+                  "axtree_changed": 0.9986302852630615,
+                  "dom_changed": 1.8915312466560863e-05,
+                  "target_available": 0.9999840259552002
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.049867600202560425,
+                  "terminal": 0.9817834496498108
+                },
+                "risk_probabilities": {
+                  "success": 0.9791760444641113,
+                  "stalled": 0.01993504725396633,
+                  "goal_deviation": 0.02783017046749592,
+                  "severe_failure": 0.020787278190255165
+                }
+              }
+            ]
+          },
+          {
+            "action": "click(\"13\", \"left\")",
+            "total_score": 3.8640189170837402,
+            "short_term_score": 1.5895929336547852,
+            "long_term_score": 1.0948187112808228,
+            "uncertainty": 0.003572516143321991,
+            "structure_score": 0.7,
+            "world_model_influence": 1.0,
+            "action_sequence": [
+              "click(\"13\", \"left\")",
+              "click(\"12\", \"left\")",
+              "click(\"13\", \"left\")"
+            ],
+            "rollout_steps": [
+              {
+                "depth": 1,
+                "progress": 0.9366655349731445,
+                "reward": 1.0129938125610352,
+                "uncertainty": 0.0036138289142400026,
+                "short_step": 1.5333609580993652,
+                "long_step": 1.00857412815094,
+                "state_delta_probabilities": {
+                  "url_changed": 0.00011720543989213184,
+                  "title_changed": 6.983166531426832e-05,
+                  "axtree_changed": 0.9975103139877319,
+                  "dom_changed": 4.505073775362689e-06,
+                  "target_available": 0.9999756813049316
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.10595661401748657,
+                  "terminal": 0.9662192463874817
+                },
+                "risk_probabilities": {
+                  "success": 0.9600447416305542,
+                  "stalled": 0.04171894118189812,
+                  "goal_deviation": 0.06798821687698364,
+                  "severe_failure": 0.03446335345506668
+                }
+              },
+              {
+                "depth": 2,
+                "progress": 1.1610339879989624,
+                "reward": 1.2192729711532593,
+                "uncertainty": 0.002364950720220804,
+                "short_step": 1.931089997291565,
+                "long_step": 1.0919368267059326,
+                "state_delta_probabilities": {
+                  "url_changed": 6.076417776057497e-05,
+                  "title_changed": 2.8363749152049422e-05,
+                  "axtree_changed": 0.9993730187416077,
+                  "dom_changed": 1.519403940619668e-05,
+                  "target_available": 0.999997615814209
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.03825514763593674,
+                  "terminal": 0.9827678799629211
+                },
+                "risk_probabilities": {
+                  "success": 0.9703853726387024,
+                  "stalled": 0.01495984848588705,
+                  "goal_deviation": 0.0197138749063015,
+                  "severe_failure": 0.030874911695718765
+                }
+              },
+              {
+                "depth": 3,
+                "progress": 1.1371313333511353,
+                "reward": 1.1802823543548584,
+                "uncertainty": 0.002679139142856002,
+                "short_step": 1.8623641729354858,
+                "long_step": 1.0948187112808228,
+                "state_delta_probabilities": {
+                  "url_changed": 8.777234324952587e-05,
+                  "title_changed": 4.5512220822274685e-05,
+                  "axtree_changed": 0.9976316690444946,
+                  "dom_changed": 1.2325966963544488e-05,
+                  "target_available": 0.9999853372573853
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.06154261529445648,
+                  "terminal": 0.9792146682739258
+                },
+                "risk_probabilities": {
+                  "success": 0.9794894456863403,
+                  "stalled": 0.026118937879800797,
+                  "goal_deviation": 0.03406152129173279,
+                  "severe_failure": 0.02052050456404686
+                }
+              }
+            ]
+          },
+          {
+            "action": "click(\"18\", \"left\")",
+            "total_score": 3.562559127807617,
+            "short_term_score": 1.2891501188278198,
+            "long_term_score": 1.094597339630127,
+            "uncertainty": 0.005672031547874212,
+            "structure_score": 0.7,
+            "world_model_influence": 1.0,
+            "action_sequence": [
+              "click(\"18\", \"left\")",
+              "click(\"12\", \"left\")",
+              "click(\"13\", \"left\")"
+            ],
+            "rollout_steps": [
+              {
+                "depth": 1,
+                "progress": 0.6811175346374512,
+                "reward": 0.6688433885574341,
+                "uncertainty": 0.006217850372195244,
+                "short_step": 0.9818054437637329,
+                "long_step": 0.5591645836830139,
+                "state_delta_probabilities": {
+                  "url_changed": 0.0005214125849306583,
+                  "title_changed": 0.00029429365531541407,
+                  "axtree_changed": 0.9914621710777283,
+                  "dom_changed": 0.000157574875629507,
+                  "target_available": 0.999910831451416
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.20906437933444977,
+                  "terminal": 0.802269458770752
+                },
+                "risk_probabilities": {
+                  "success": 0.7607327699661255,
+                  "stalled": 0.11077399551868439,
+                  "goal_deviation": 0.16183343529701233,
+                  "severe_failure": 0.08914951980113983
+                }
+              },
+              {
+                "depth": 2,
+                "progress": 1.0770238637924194,
+                "reward": 1.1089727878570557,
+                "uncertainty": 0.002970312489196658,
+                "short_step": 1.7910683155059814,
+                "long_step": 1.056050419807434,
+                "state_delta_probabilities": {
+                  "url_changed": 9.114028216572478e-05,
+                  "title_changed": 4.4422209612093866e-05,
+                  "axtree_changed": 0.9994138479232788,
+                  "dom_changed": 5.4557171097258106e-05,
+                  "target_available": 0.9999967813491821
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.03827247768640518,
+                  "terminal": 0.9757615327835083
+                },
+                "risk_probabilities": {
+                  "success": 0.9544980525970459,
+                  "stalled": 0.01637217402458191,
+                  "goal_deviation": 0.021377434954047203,
+                  "severe_failure": 0.04159944877028465
+                }
+              },
+              {
+                "depth": 3,
+                "progress": 1.1125801801681519,
+                "reward": 1.149748682975769,
+                "uncertainty": 0.003250422887504101,
+                "short_step": 1.8245935440063477,
+                "long_step": 1.094597339630127,
+                "state_delta_probabilities": {
+                  "url_changed": 0.00010465818922966719,
+                  "title_changed": 5.6367862271144986e-05,
+                  "axtree_changed": 0.9979584217071533,
+                  "dom_changed": 1.8690332581172697e-05,
+                  "target_available": 0.9999793767929077
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.060270387679338455,
+                  "terminal": 0.9801843762397766
+                },
+                "risk_probabilities": {
+                  "success": 0.9792916178703308,
+                  "stalled": 0.02440081350505352,
+                  "goal_deviation": 0.03424874693155289,
+                  "severe_failure": 0.021227968856692314
+                }
+              }
+            ]
+          },
+          {
+            "action": "click(\"21\", \"left\")",
+            "total_score": 3.551745891571045,
+            "short_term_score": 1.2789802551269531,
+            "long_term_score": 1.0943650007247925,
+            "uncertainty": 0.006815705448389053,
+            "structure_score": 0.7,
+            "world_model_influence": 1.0,
+            "action_sequence": [
+              "click(\"21\", \"left\")",
+              "click(\"13\", \"left\")",
+              "click(\"12\", \"left\")"
+            ],
+            "rollout_steps": [
+              {
+                "depth": 1,
+                "progress": 0.5568958520889282,
+                "reward": 0.5812146663665771,
+                "uncertainty": 0.007507781032472849,
+                "short_step": 0.9951954483985901,
+                "long_step": 0.47665101289749146,
+                "state_delta_probabilities": {
+                  "url_changed": 0.00042377947829663754,
+                  "title_changed": 0.00022182906104717404,
+                  "axtree_changed": 0.999776303768158,
+                  "dom_changed": 0.006090708542615175,
+                  "target_available": 0.9999808073043823
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.048115331679582596,
+                  "terminal": 0.8236546516418457
+                },
+                "risk_probabilities": {
+                  "success": 0.6174712777137756,
+                  "stalled": 0.02301921881735325,
+                  "goal_deviation": 0.02975274808704853,
+                  "severe_failure": 0.17465797066688538
+                }
+              },
+              {
+                "depth": 2,
+                "progress": 1.1323447227478027,
+                "reward": 1.1824170351028442,
+                "uncertainty": 0.0029728112276643515,
+                "short_step": 1.8579132556915283,
+                "long_step": 1.0742732286453247,
+                "state_delta_probabilities": {
+                  "url_changed": 8.582368900533766e-05,
+                  "title_changed": 4.295624967198819e-05,
+                  "axtree_changed": 0.998390793800354,
+                  "dom_changed": 1.231209171237424e-05,
+                  "target_available": 0.9999903440475464
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.06287557631731033,
+                  "terminal": 0.9778439998626709
+                },
+                "risk_probabilities": {
+                  "success": 0.9731437563896179,
+                  "stalled": 0.025562427937984467,
+                  "goal_deviation": 0.03706027567386627,
+                  "severe_failure": 0.028027784079313278
+                }
+              },
+              {
+                "depth": 3,
+                "progress": 1.1278176307678223,
+                "reward": 1.1733222007751465,
+                "uncertainty": 0.0031305563170462847,
+                "short_step": 1.8759268522262573,
+                "long_step": 1.0943650007247925,
+                "state_delta_probabilities": {
+                  "url_changed": 9.660187060944736e-05,
+                  "title_changed": 4.698230986832641e-05,
+                  "axtree_changed": 0.9994572997093201,
+                  "dom_changed": 4.1892239096341655e-05,
+                  "target_available": 0.999991774559021
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.0379890501499176,
+                  "terminal": 0.9821188449859619
+                },
+                "risk_probabilities": {
+                  "success": 0.9711303114891052,
+                  "stalled": 0.013598494231700897,
+                  "goal_deviation": 0.019314412027597427,
+                  "severe_failure": 0.030477147549390793
+                }
+              }
+            ]
+          },
+          {
+            "action": "scroll(0, 600)",
+            "total_score": 1.9033972024917603,
+            "short_term_score": 0.5563584566116333,
+            "long_term_score": 1.0863298177719116,
+            "uncertainty": 0.005062856245785952,
+            "structure_score": 0.24,
+            "world_model_influence": 1.0,
+            "action_sequence": [
+              "scroll(0, 600)",
+              "click(\"12\", \"left\")",
+              "click(\"13\", \"left\")"
+            ],
+            "rollout_steps": [
+              {
+                "depth": 1,
+                "progress": -0.03708731755614281,
+                "reward": -0.006881221663206816,
+                "uncertainty": 0.005990603473037481,
+                "short_step": -0.649316668510437,
+                "long_step": -0.5889946222305298,
+                "state_delta_probabilities": {
+                  "url_changed": 3.8575148209929466e-05,
+                  "title_changed": 6.508803926408291e-05,
+                  "axtree_changed": 0.0001659895497141406,
+                  "dom_changed": 5.038421591052611e-07,
+                  "target_available": 0.005213671829551458
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.038990650326013565,
+                  "terminal": 0.017878487706184387
+                },
+                "risk_probabilities": {
+                  "success": 0.03519538789987564,
+                  "stalled": 0.9643982648849487,
+                  "goal_deviation": 0.028471432626247406,
+                  "severe_failure": 0.013770222663879395
+                }
+              },
+              {
+                "depth": 2,
+                "progress": 0.7873104810714722,
+                "reward": 0.8271161317825317,
+                "uncertainty": 0.004205453209578991,
+                "short_step": 1.3530604839324951,
+                "long_step": 0.923449695110321,
+                "state_delta_probabilities": {
+                  "url_changed": 0.00011459772213129327,
+                  "title_changed": 6.528104859171435e-05,
+                  "axtree_changed": 0.99041348695755,
+                  "dom_changed": 2.8027669031871483e-05,
+                  "target_available": 0.9998507499694824
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.02458910457789898,
+                  "terminal": 0.9363120794296265
+                },
+                "risk_probabilities": {
+                  "success": 0.8713892102241516,
+                  "stalled": 0.04684484377503395,
+                  "goal_deviation": 0.017890531569719315,
+                  "severe_failure": 0.059469662606716156
+                }
+              },
+              {
+                "depth": 3,
+                "progress": 1.014198660850525,
+                "reward": 1.0481250286102295,
+                "uncertainty": 0.0036931680515408516,
+                "short_step": 1.6847223043441772,
+                "long_step": 1.0863298177719116,
+                "state_delta_probabilities": {
+                  "url_changed": 0.00012285978300496936,
+                  "title_changed": 6.632114673266187e-05,
+                  "axtree_changed": 0.997015118598938,
+                  "dom_changed": 5.093809522804804e-05,
+                  "target_available": 0.9999216794967651
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.04687008634209633,
+                  "terminal": 0.9759417772293091
+                },
+                "risk_probabilities": {
+                  "success": 0.9727296233177185,
+                  "stalled": 0.02671177312731743,
+                  "goal_deviation": 0.02837531268596649,
+                  "severe_failure": 0.024790529161691666
+                }
+              }
+            ]
+          },
+          {
+            "action": "scroll(0, -600)",
+            "total_score": 1.8781211376190186,
+            "short_term_score": 0.5314497947692871,
+            "long_term_score": 1.086011528968811,
+            "uncertainty": 0.0053446535021066666,
+            "structure_score": 0.24,
+            "world_model_influence": 1.0,
+            "action_sequence": [
+              "scroll(0, -600)",
+              "click(\"12\", \"left\")",
+              "click(\"13\", \"left\")"
+            ],
+            "rollout_steps": [
+              {
+                "depth": 1,
+                "progress": -0.04248204827308655,
+                "reward": -0.020824825391173363,
+                "uncertainty": 0.006221132352948189,
+                "short_step": -0.6743069291114807,
+                "long_step": -0.6081297397613525,
+                "state_delta_probabilities": {
+                  "url_changed": 4.5192002289695665e-05,
+                  "title_changed": 7.438025932060555e-05,
+                  "axtree_changed": 0.00011574548989301547,
+                  "dom_changed": 6.371487302203604e-07,
+                  "target_available": 0.0024544517509639263
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.049096204340457916,
+                  "terminal": 0.01307095680385828
+                },
+                "risk_probabilities": {
+                  "success": 0.02727728709578514,
+                  "stalled": 0.9710439443588257,
+                  "goal_deviation": 0.035397905856370926,
+                  "severe_failure": 0.013331306166946888
+                }
+              },
+              {
+                "depth": 2,
+                "progress": 0.7839887142181396,
+                "reward": 0.8138638138771057,
+                "uncertainty": 0.004573827609419823,
+                "short_step": 1.3367010354995728,
+                "long_step": 0.9360877871513367,
+                "state_delta_probabilities": {
+                  "url_changed": 0.00016283280274365097,
+                  "title_changed": 8.503875869791955e-05,
+                  "axtree_changed": 0.9908522963523865,
+                  "dom_changed": 5.4627762438030913e-05,
+                  "target_available": 0.9997654557228088
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.0318460576236248,
+                  "terminal": 0.9292131066322327
+                },
+                "risk_probabilities": {
+                  "success": 0.8808082342147827,
+                  "stalled": 0.04782635346055031,
+                  "goal_deviation": 0.022159039974212646,
+                  "severe_failure": 0.05313875898718834
+                }
+              },
+              {
+                "depth": 3,
+                "progress": 1.0116066932678223,
+                "reward": 1.0395628213882446,
+                "uncertainty": 0.0036881144624203444,
+                "short_step": 1.6723493337631226,
+                "long_step": 1.086011528968811,
+                "state_delta_probabilities": {
+                  "url_changed": 0.00014603417366743088,
+                  "title_changed": 7.58504174882546e-05,
+                  "axtree_changed": 0.9971745014190674,
+                  "dom_changed": 8.351117139682174e-05,
+                  "target_available": 0.9998985528945923
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.05363242328166962,
+                  "terminal": 0.9743602871894836
+                },
+                "risk_probabilities": {
+                  "success": 0.9742239713668823,
+                  "stalled": 0.026854118332266808,
+                  "goal_deviation": 0.03193681687116623,
+                  "severe_failure": 0.023356864228844643
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "example_id": "7da1a64bd6905360261e",
+      "task_id": "browsergym/miniwob.click-button",
+      "instruction": "Click on the \"previous\" button.",
+      "recorded_action": "click(\"19\", \"left\")",
+      "recorded_labels": {
+        "success": true,
+        "risky": false
+      },
+      "candidate_count": 5,
+      "reactive_action": "click(\"19\", \"left\")",
+      "w0_action": "click(\"17\", \"left\")",
+      "phase3_decision": {
+        "action": "click(\"19\", \"left\")",
+        "mode": "planned",
+        "confidence": 0.8220444961702436,
+        "horizon": 3,
+        "should_execute": true,
+        "requires_reobservation": false,
+        "rationale": "Selected after H=3 rollout using short/long outcome, uncertainty and task-element structural consistency.",
+        "fallback_action": "click(\"19\", \"left\")",
+        "ranked_plans": [
+          {
+            "action": "click(\"19\", \"left\")",
+            "total_score": 4.776028633117676,
+            "short_term_score": 1.8449068069458008,
+            "long_term_score": 1.1656596660614014,
+            "uncertainty": 0.0035140779800713062,
+            "structure_score": 1.0,
+            "world_model_influence": 1.0,
+            "action_sequence": [
+              "click(\"19\", \"left\")",
+              "click(\"17\", \"left\")",
+              "click(\"17\", \"left\")"
+            ],
+            "rollout_steps": [
+              {
+                "depth": 1,
+                "progress": 1.0757150650024414,
+                "reward": 1.153408408164978,
+                "uncertainty": 0.0035296366550028324,
+                "short_step": 1.8220908641815186,
+                "long_step": 1.1200480461120605,
+                "state_delta_probabilities": {
+                  "url_changed": 6.764099089195952e-05,
+                  "title_changed": 3.31852279487066e-05,
+                  "axtree_changed": 0.9996607303619385,
+                  "dom_changed": 2.4142200345522724e-05,
+                  "target_available": 0.9999889135360718
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.030981585383415222,
+                  "terminal": 0.9880145192146301
+                },
+                "risk_probabilities": {
+                  "success": 0.9795413613319397,
+                  "stalled": 0.00923489686101675,
+                  "goal_deviation": 0.019081423059105873,
+                  "severe_failure": 0.021649202331900597
+                }
+              },
+              {
+                "depth": 2,
+                "progress": 1.3072314262390137,
+                "reward": 1.4769196510314941,
+                "uncertainty": 0.002220478840172291,
+                "short_step": 2.2304415702819824,
+                "long_step": 1.1656596660614014,
+                "state_delta_probabilities": {
+                  "url_changed": 2.18630248127738e-05,
+                  "title_changed": 1.0826383913808968e-05,
+                  "axtree_changed": 0.9998719692230225,
+                  "dom_changed": 1.706229340925347e-05,
+                  "target_available": 0.9999978542327881
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.015897884964942932,
+                  "terminal": 0.9950088262557983
+                },
+                "risk_probabilities": {
+                  "success": 0.9916999936103821,
+                  "stalled": 0.004218240734189749,
+                  "goal_deviation": 0.007670991122722626,
+                  "severe_failure": 0.009893457405269146
+                }
+              },
+              {
+                "depth": 3,
+                "progress": 1.256898283958435,
+                "reward": 1.4210489988327026,
+                "uncertainty": 0.0026100000832229853,
+                "short_step": 2.1513259410858154,
+                "long_step": 1.1604256629943848,
+                "state_delta_probabilities": {
+                  "url_changed": 2.702107303775847e-05,
+                  "title_changed": 1.4937767446099315e-05,
+                  "axtree_changed": 0.9998369216918945,
+                  "dom_changed": 1.2497393072408158e-05,
+                  "target_available": 0.9999969005584717
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.016447296366095543,
+                  "terminal": 0.9941015839576721
+                },
+                "risk_probabilities": {
+                  "success": 0.9895191192626953,
+                  "stalled": 0.004896996077150106,
+                  "goal_deviation": 0.007595866918563843,
+                  "severe_failure": 0.011586489155888557
+                }
+              }
+            ]
+          },
+          {
+            "action": "click(\"17\", \"left\")",
+            "total_score": 4.6095967292785645,
+            "short_term_score": 2.274313449859619,
+            "long_term_score": 1.1707483530044556,
+            "uncertainty": 0.0032885242253541946,
+            "structure_score": 0.7,
+            "world_model_influence": 1.0,
+            "action_sequence": [
+              "click(\"17\", \"left\")",
+              "click(\"17\", \"left\")",
+              "click(\"17\", \"left\")"
+            ],
+            "rollout_steps": [
+              {
+                "depth": 1,
+                "progress": 1.337789535522461,
+                "reward": 1.4930022954940796,
+                "uncertainty": 0.0032939002849161625,
+                "short_step": 2.2649097442626953,
+                "long_step": 1.1567401885986328,
+                "state_delta_probabilities": {
+                  "url_changed": 3.790912887779996e-05,
+                  "title_changed": 1.8631106286193244e-05,
+                  "axtree_changed": 0.9998923540115356,
+                  "dom_changed": 3.048553662665654e-05,
+                  "target_available": 0.9999929666519165
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.0209637563675642,
+                  "terminal": 0.995376706123352
+                },
+                "risk_probabilities": {
+                  "success": 0.9910123348236084,
+                  "stalled": 0.004347679670900106,
+                  "goal_deviation": 0.010893472470343113,
+                  "severe_failure": 0.013230282813310623
+                }
+              },
+              {
+                "depth": 2,
+                "progress": 1.398478388786316,
+                "reward": 1.603663444519043,
+                "uncertainty": 0.002128876280039549,
+                "short_step": 2.3856401443481445,
+                "long_step": 1.1707483530044556,
+                "state_delta_probabilities": {
+                  "url_changed": 1.7039237718563527e-05,
+                  "title_changed": 8.620088919997215e-06,
+                  "axtree_changed": 0.9998904466629028,
+                  "dom_changed": 8.998672456073109e-06,
+                  "target_available": 0.9999986886978149
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.015506085939705372,
+                  "terminal": 0.996131181716919
+                },
+                "risk_probabilities": {
+                  "success": 0.993394672870636,
+                  "stalled": 0.0037749651819467545,
+                  "goal_deviation": 0.006865036673843861,
+                  "severe_failure": 0.00849498063325882
+                }
+              },
+              {
+                "depth": 3,
+                "progress": 1.294093132019043,
+                "reward": 1.4715347290039062,
+                "uncertainty": 0.002461477415636182,
+                "short_step": 2.2134597301483154,
+                "long_step": 1.1640713214874268,
+                "state_delta_probabilities": {
+                  "url_changed": 2.3936334400787018e-05,
+                  "title_changed": 1.3170722013455816e-05,
+                  "axtree_changed": 0.9998106360435486,
+                  "dom_changed": 7.914408342912793e-06,
+                  "target_available": 0.9999977350234985
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.01678553782403469,
+                  "terminal": 0.9945933222770691
+                },
+                "risk_probabilities": {
+                  "success": 0.9908142685890198,
+                  "stalled": 0.004953327123075724,
+                  "goal_deviation": 0.00742764538154006,
+                  "severe_failure": 0.01017460785806179
+                }
+              }
+            ]
+          },
+          {
+            "action": "click(\"12\", \"left\")",
+            "total_score": 4.219368934631348,
+            "short_term_score": 1.8887816667556763,
+            "long_term_score": 1.1651443243026733,
+            "uncertainty": 0.003820932237431407,
+            "structure_score": 0.7,
+            "world_model_influence": 1.0,
+            "action_sequence": [
+              "click(\"12\", \"left\")",
+              "click(\"17\", \"left\")",
+              "click(\"17\", \"left\")"
+            ],
+            "rollout_steps": [
+              {
+                "depth": 1,
+                "progress": 1.1035027503967285,
+                "reward": 1.177250862121582,
+                "uncertainty": 0.003840438323095441,
+                "short_step": 1.8651611804962158,
+                "long_step": 1.1126823425292969,
+                "state_delta_probabilities": {
+                  "url_changed": 8.708636596566066e-05,
+                  "title_changed": 4.330784213379957e-05,
+                  "axtree_changed": 0.9997681975364685,
+                  "dom_changed": 0.00010148563160328194,
+                  "target_available": 0.9999903440475464
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.027586381882429123,
+                  "terminal": 0.9878206849098206
+                },
+                "risk_probabilities": {
+                  "success": 0.9762508273124695,
+                  "stalled": 0.008159933611750603,
+                  "goal_deviation": 0.016527092084288597,
+                  "severe_failure": 0.026473132893443108
+                }
+              },
+              {
+                "depth": 2,
+                "progress": 1.3321126699447632,
+                "reward": 1.5083367824554443,
+                "uncertainty": 0.0022252677008509636,
+                "short_step": 2.272287130355835,
+                "long_step": 1.1651443243026733,
+                "state_delta_probabilities": {
+                  "url_changed": 2.2651734980172478e-05,
+                  "title_changed": 1.0866880984394811e-05,
+                  "axtree_changed": 0.9999117851257324,
+                  "dom_changed": 2.7984218831988983e-05,
+                  "target_available": 0.9999979734420776
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.014672785997390747,
+                  "terminal": 0.9949451088905334
+                },
+                "risk_probabilities": {
+                  "success": 0.9910558462142944,
+                  "stalled": 0.0037586851976811886,
+                  "goal_deviation": 0.007000466343015432,
+                  "severe_failure": 0.010429967194795609
+                }
+              },
+              {
+                "depth": 3,
+                "progress": 1.2700525522232056,
+                "reward": 1.4411240816116333,
+                "uncertainty": 0.0026511114556342363,
+                "short_step": 2.1750247478485107,
+                "long_step": 1.1608995199203491,
+                "state_delta_probabilities": {
+                  "url_changed": 2.8066426239092834e-05,
+                  "title_changed": 1.535040428279899e-05,
+                  "axtree_changed": 0.9998589754104614,
+                  "dom_changed": 1.551704372104723e-05,
+                  "target_available": 0.9999966621398926
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.015958230942487717,
+                  "terminal": 0.9941900968551636
+                },
+                "risk_probabilities": {
+                  "success": 0.9895338416099548,
+                  "stalled": 0.004704420920461416,
+                  "goal_deviation": 0.007380095310509205,
+                  "severe_failure": 0.011513102799654007
+                }
+              }
+            ]
+          },
+          {
+            "action": "scroll(0, 600)",
+            "total_score": 2.216130495071411,
+            "short_term_score": 0.8121384978294373,
+            "long_term_score": 1.1571407318115234,
+            "uncertainty": 0.004301446955651045,
+            "structure_score": 0.24,
+            "world_model_influence": 1.0,
+            "action_sequence": [
+              "scroll(0, 600)",
+              "click(\"17\", \"left\")",
+              "click(\"17\", \"left\")"
+            ],
+            "rollout_steps": [
+              {
+                "depth": 1,
+                "progress": -0.02510712295770645,
+                "reward": 0.01448018103837967,
+                "uncertainty": 0.005660537164658308,
+                "short_step": -0.6062614321708679,
+                "long_step": -0.5116729736328125,
+                "state_delta_probabilities": {
+                  "url_changed": 3.699242006405257e-05,
+                  "title_changed": 5.646033605444245e-05,
+                  "axtree_changed": 0.0002165066689485684,
+                  "dom_changed": 6.964275485188409e-07,
+                  "target_available": 0.005047942046076059
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.03272051364183426,
+                  "terminal": 0.039626751095056534
+                },
+                "risk_probabilities": {
+                  "success": 0.08922743052244186,
+                  "stalled": 0.9387125968933105,
+                  "goal_deviation": 0.02898465469479561,
+                  "severe_failure": 0.011075648479163647
+                }
+              },
+              {
+                "depth": 2,
+                "progress": 0.9752362966537476,
+                "reward": 1.116439700126648,
+                "uncertainty": 0.0029054151382297277,
+                "short_step": 1.7137181758880615,
+                "long_step": 1.1203612089157104,
+                "state_delta_probabilities": {
+                  "url_changed": 3.65693740604911e-05,
+                  "title_changed": 2.3812250219634734e-05,
+                  "axtree_changed": 0.9968461394309998,
+                  "dom_changed": 9.39242363529047e-06,
+                  "target_available": 0.9999237060546875
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.013610191643238068,
+                  "terminal": 0.9863225221633911
+                },
+                "risk_probabilities": {
+                  "success": 0.9746298789978027,
+                  "stalled": 0.014724254608154297,
+                  "goal_deviation": 0.009061800315976143,
+                  "severe_failure": 0.022424526512622833
+                }
+              },
+              {
+                "depth": 3,
+                "progress": 1.1823028326034546,
+                "reward": 1.3669202327728271,
+                "uncertainty": 0.002902273554354906,
+                "short_step": 2.050731897354126,
+                "long_step": 1.1571407318115234,
+                "state_delta_probabilities": {
+                  "url_changed": 3.4582473745103925e-05,
+                  "title_changed": 1.92584193428047e-05,
+                  "axtree_changed": 0.9997144341468811,
+                  "dom_changed": 2.8554981327033602e-05,
+                  "target_available": 0.9999879598617554
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.014553164131939411,
+                  "terminal": 0.9934685230255127
+                },
+                "risk_probabilities": {
+                  "success": 0.9886166453361511,
+                  "stalled": 0.0056436019949615,
+                  "goal_deviation": 0.007027706131339073,
+                  "severe_failure": 0.01317047979682684
+                }
+              }
+            ]
+          },
+          {
+            "action": "scroll(0, -600)",
+            "total_score": 2.168363332748413,
+            "short_term_score": 0.7644073963165283,
+            "long_term_score": 1.1571787595748901,
+            "uncertainty": 0.004467852413654327,
+            "structure_score": 0.24,
+            "world_model_influence": 1.0,
+            "action_sequence": [
+              "scroll(0, -600)",
+              "click(\"17\", \"left\")",
+              "click(\"17\", \"left\")"
+            ],
+            "rollout_steps": [
+              {
+                "depth": 1,
+                "progress": -0.045036591589450836,
+                "reward": -0.008976181969046593,
+                "uncertainty": 0.005907413549721241,
+                "short_step": -0.6544400453567505,
+                "long_step": -0.5543522238731384,
+                "state_delta_probabilities": {
+                  "url_changed": 4.40319963672664e-05,
+                  "title_changed": 6.554665742442012e-05,
+                  "axtree_changed": 0.0001464417582610622,
+                  "dom_changed": 8.612156534582027e-07,
+                  "target_available": 0.0023865532130002975
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.042367201298475266,
+                  "terminal": 0.027898021042346954
+                },
+                "risk_probabilities": {
+                  "success": 0.06559661030769348,
+                  "stalled": 0.9524981379508972,
+                  "goal_deviation": 0.0373506173491478,
+                  "severe_failure": 0.011119276285171509
+                }
+              },
+              {
+                "depth": 2,
+                "progress": 0.9639040231704712,
+                "reward": 1.0964069366455078,
+                "uncertainty": 0.0030108955688774586,
+                "short_step": 1.689393401145935,
+                "long_step": 1.1185426712036133,
+                "state_delta_probabilities": {
+                  "url_changed": 4.665966844186187e-05,
+                  "title_changed": 2.8871489121229388e-05,
+                  "axtree_changed": 0.9971229434013367,
+                  "dom_changed": 1.5722576790722087e-05,
+                  "target_available": 0.9999039173126221
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.017044981941580772,
+                  "terminal": 0.9841004610061646
+                },
+                "risk_probabilities": {
+                  "success": 0.974359393119812,
+                  "stalled": 0.015097998082637787,
+                  "goal_deviation": 0.010803415440022945,
+                  "severe_failure": 0.021849708631634712
+                }
+              },
+              {
+                "depth": 3,
+                "progress": 1.188718318939209,
+                "reward": 1.361748456954956,
+                "uncertainty": 0.002963509177789092,
+                "short_step": 2.0528526306152344,
+                "long_step": 1.1571787595748901,
+                "state_delta_probabilities": {
+                  "url_changed": 3.976906737079844e-05,
+                  "title_changed": 2.1574485799646936e-05,
+                  "axtree_changed": 0.9997363686561584,
+                  "dom_changed": 4.0196067857323214e-05,
+                  "target_available": 0.9999858140945435
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.016594206914305687,
+                  "terminal": 0.9930394291877747
+                },
+                "risk_probabilities": {
+                  "success": 0.9889034628868103,
+                  "stalled": 0.0057691968977451324,
+                  "goal_deviation": 0.007899335585534573,
+                  "severe_failure": 0.012647895142436028
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "example_id": "e63efbbdae59094e98f9",
+      "task_id": "browsergym/miniwob.click-link",
+      "instruction": "Click on the link \"lorem\".",
+      "recorded_action": "scroll(0, 600)",
+      "recorded_labels": {
+        "success": false,
+        "risky": true
+      },
+      "candidate_count": 2,
+      "reactive_action": "scroll(0, 600)",
+      "w0_action": "scroll(0, 600)",
+      "phase3_decision": {
+        "action": "scroll(0, 600)",
+        "mode": "planned_short",
+        "confidence": 0.6063036769263771,
+        "horizon": 1,
+        "should_execute": true,
+        "requires_reobservation": false,
+        "rationale": "Selected after H=1 rollout using short/long outcome, uncertainty and task-element structural consistency.",
+        "fallback_action": "scroll(0, 600)",
+        "ranked_plans": [
+          {
+            "action": "scroll(0, 600)",
+            "total_score": -0.11486080288887024,
+            "short_term_score": -0.5679051280021667,
+            "long_term_score": -0.6364121437072754,
+            "uncertainty": 0.011325591243803501,
+            "structure_score": 0.24,
+            "world_model_influence": 0.55,
+            "action_sequence": [
+              "scroll(0, 600)"
+            ],
+            "rollout_steps": [
+              {
+                "depth": 1,
+                "progress": 0.036336738616228104,
+                "reward": 0.029685532674193382,
+                "uncertainty": 0.011325591243803501,
+                "short_step": -0.5679051280021667,
+                "long_step": -0.6364121437072754,
+                "state_delta_probabilities": {
+                  "url_changed": 0.00012735402560792863,
+                  "title_changed": 0.00010304363968316466,
+                  "axtree_changed": 2.926606612163596e-05,
+                  "dom_changed": 9.506906644674018e-05,
+                  "target_available": 0.00015239267668221146
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.034159231930971146,
+                  "terminal": 0.0011880253441631794
+                },
+                "risk_probabilities": {
+                  "success": 0.0044125281274318695,
+                  "stalled": 0.9863129258155823,
+                  "goal_deviation": 0.03962945565581322,
+                  "severe_failure": 0.006430037319660187
+                }
+              }
+            ]
+          },
+          {
+            "action": "scroll(0, -600)",
+            "total_score": -0.12177243828773499,
+            "short_term_score": -0.5756636261940002,
+            "long_term_score": -0.6423695087432861,
+            "uncertainty": 0.011431076563894749,
+            "structure_score": 0.24,
+            "world_model_influence": 0.55,
+            "action_sequence": [
+              "scroll(0, -600)"
+            ],
+            "rollout_steps": [
+              {
+                "depth": 1,
+                "progress": 0.03723520040512085,
+                "reward": 0.025070833042263985,
+                "uncertainty": 0.011431076563894749,
+                "short_step": -0.5756636261940002,
+                "long_step": -0.6423695087432861,
+                "state_delta_probabilities": {
+                  "url_changed": 0.00012926742783747613,
+                  "title_changed": 9.885638428386301e-05,
+                  "axtree_changed": 2.7947280614171177e-05,
+                  "dom_changed": 9.30461537791416e-05,
+                  "target_available": 0.00013594451593235135
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.04141053929924965,
+                  "terminal": 0.0010091892909258604
+                },
+                "risk_probabilities": {
+                  "success": 0.003883502446115017,
+                  "stalled": 0.9872216582298279,
+                  "goal_deviation": 0.04518812522292137,
+                  "severe_failure": 0.005955818109214306
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "example_id": "ec2637327f4cdedf9837",
+      "task_id": "browsergym/miniwob.click-link",
+      "instruction": "Click on the link \"lorem\".",
+      "recorded_action": "scroll(0, 600)",
+      "recorded_labels": {
+        "success": false,
+        "risky": true
+      },
+      "candidate_count": 2,
+      "reactive_action": "scroll(0, 600)",
+      "w0_action": "scroll(0, 600)",
+      "phase3_decision": {
+        "action": "scroll(0, 600)",
+        "mode": "planned_short",
+        "confidence": 0.6069947073012738,
+        "horizon": 1,
+        "should_execute": true,
+        "requires_reobservation": false,
+        "rationale": "Selected after H=1 rollout using short/long outcome, uncertainty and task-element structural consistency.",
+        "fallback_action": "scroll(0, 600)",
+        "ranked_plans": [
+          {
+            "action": "scroll(0, 600)",
+            "total_score": -0.11098799109458923,
+            "short_term_score": -0.5693912506103516,
+            "long_term_score": -0.6269059181213379,
+            "uncertainty": 0.009019038639962673,
+            "structure_score": 0.24,
+            "world_model_influence": 0.55,
+            "action_sequence": [
+              "scroll(0, 600)"
+            ],
+            "rollout_steps": [
+              {
+                "depth": 1,
+                "progress": 0.029989805072546005,
+                "reward": 0.02702278085052967,
+                "uncertainty": 0.009019038639962673,
+                "short_step": -0.5693912506103516,
+                "long_step": -0.6269059181213379,
+                "state_delta_probabilities": {
+                  "url_changed": 8.60809741425328e-05,
+                  "title_changed": 7.088921847753227e-05,
+                  "axtree_changed": 1.4719499631610233e-05,
+                  "dom_changed": 8.041677210712805e-05,
+                  "target_available": 0.00011905661813216284
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.024388739839196205,
+                  "terminal": 0.001012984081171453
+                },
+                "risk_probabilities": {
+                  "success": 0.003938144538551569,
+                  "stalled": 0.9890087246894836,
+                  "goal_deviation": 0.02929086983203888,
+                  "severe_failure": 0.0055670365691185
+                }
+              }
+            ]
+          },
+          {
+            "action": "scroll(0, -600)",
+            "total_score": -0.11632922291755676,
+            "short_term_score": -0.5757595896720886,
+            "long_term_score": -0.6310425400733948,
+            "uncertainty": 0.009103458374738693,
+            "structure_score": 0.24,
+            "world_model_influence": 0.55,
+            "action_sequence": [
+              "scroll(0, -600)"
+            ],
+            "rollout_steps": [
+              {
+                "depth": 1,
+                "progress": 0.030613012611865997,
+                "reward": 0.02166646532714367,
+                "uncertainty": 0.009103458374738693,
+                "short_step": -0.5757595896720886,
+                "long_step": -0.6310425400733948,
+                "state_delta_probabilities": {
+                  "url_changed": 8.725078805582598e-05,
+                  "title_changed": 6.756705261068419e-05,
+                  "axtree_changed": 1.3965515790914651e-05,
+                  "dom_changed": 7.903502410044894e-05,
+                  "target_available": 0.00010515777103137225
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.029194694012403488,
+                  "terminal": 0.0008661658503115177
+                },
+                "risk_probabilities": {
+                  "success": 0.003480449551716447,
+                  "stalled": 0.9897851347923279,
+                  "goal_deviation": 0.033029574900865555,
+                  "severe_failure": 0.005197031889110804
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "example_id": "1374929403771571fd21",
+      "task_id": "browsergym/miniwob.click-link",
+      "instruction": "Click on the link \"lorem\".",
+      "recorded_action": "scroll(0, 600)",
+      "recorded_labels": {
+        "success": false,
+        "risky": true
+      },
+      "candidate_count": 2,
+      "reactive_action": "scroll(0, 600)",
+      "w0_action": "scroll(0, 600)",
+      "phase3_decision": {
+        "action": "scroll(0, 600)",
+        "mode": "planned_short",
+        "confidence": 0.6070763709053066,
+        "horizon": 1,
+        "should_execute": true,
+        "requires_reobservation": false,
+        "rationale": "Selected after H=1 rollout using short/long outcome, uncertainty and task-element structural consistency.",
+        "fallback_action": "scroll(0, 600)",
+        "ranked_plans": [
+          {
+            "action": "scroll(0, 600)",
+            "total_score": -0.106233149766922,
+            "short_term_score": -0.5661014318466187,
+            "long_term_score": -0.620701014995575,
+            "uncertainty": 0.008040492422878742,
+            "structure_score": 0.24,
+            "world_model_influence": 0.55,
+            "action_sequence": [
+              "scroll(0, 600)"
+            ],
+            "rollout_steps": [
+              {
+                "depth": 1,
+                "progress": 0.028498375788331032,
+                "reward": 0.027853958308696747,
+                "uncertainty": 0.008040492422878742,
+                "short_step": -0.5661014318466187,
+                "long_step": -0.620701014995575,
+                "state_delta_probabilities": {
+                  "url_changed": 6.967475201236084e-05,
+                  "title_changed": 5.7951230701291934e-05,
+                  "axtree_changed": 9.468698408454657e-06,
+                  "dom_changed": 8.18858970887959e-05,
+                  "target_available": 0.00011637631541816518
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.018375029787421227,
+                  "terminal": 0.0009333897614851594
+                },
+                "risk_probabilities": {
+                  "success": 0.003432255005463958,
+                  "stalled": 0.9897499680519104,
+                  "goal_deviation": 0.022168898954987526,
+                  "severe_failure": 0.005534060299396515
+                }
+              }
+            ]
+          },
+          {
+            "action": "scroll(0, -600)",
+            "total_score": -0.11032077670097351,
+            "short_term_score": -0.5712025165557861,
+            "long_term_score": -0.6235708594322205,
+            "uncertainty": 0.008128191344439983,
+            "structure_score": 0.24,
+            "world_model_influence": 0.55,
+            "action_sequence": [
+              "scroll(0, -600)"
+            ],
+            "rollout_steps": [
+              {
+                "depth": 1,
+                "progress": 0.029485350474715233,
+                "reward": 0.021762514486908913,
+                "uncertainty": 0.008128191344439983,
+                "short_step": -0.5712025165557861,
+                "long_step": -0.6235708594322205,
+                "state_delta_probabilities": {
+                  "url_changed": 7.05644633853808e-05,
+                  "title_changed": 5.50457916688174e-05,
+                  "axtree_changed": 9.036641131388023e-06,
+                  "dom_changed": 8.137610711855814e-05,
+                  "target_available": 0.00010508039122214541
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.02168087102472782,
+                  "terminal": 0.0008069635950960219
+                },
+                "risk_probabilities": {
+                  "success": 0.0030627762898802757,
+                  "stalled": 0.9904090166091919,
+                  "goal_deviation": 0.02472558058798313,
+                  "severe_failure": 0.005216024350374937
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "example_id": "133fe5d8d94142d0f207",
+      "task_id": "browsergym/miniwob.click-link",
+      "instruction": "Click on the link \"ullamcorper\".",
+      "recorded_action": "scroll(0, 600)",
+      "recorded_labels": {
+        "success": false,
+        "risky": true
+      },
+      "candidate_count": 2,
+      "reactive_action": "scroll(0, 600)",
+      "w0_action": "scroll(0, -600)",
+      "phase3_decision": {
+        "action": "scroll(0, 600)",
+        "mode": "planned_short",
+        "confidence": 0.6073111621022133,
+        "horizon": 1,
+        "should_execute": true,
+        "requires_reobservation": false,
+        "rationale": "Selected after H=1 rollout using short/long outcome, uncertainty and task-element structural consistency.",
+        "fallback_action": "scroll(0, 600)",
+        "ranked_plans": [
+          {
+            "action": "scroll(0, 600)",
+            "total_score": -0.11144384741783142,
+            "short_term_score": -0.5751287341117859,
+            "long_term_score": -0.6223156452178955,
+            "uncertainty": 0.005927926395088434,
+            "structure_score": 0.24,
+            "world_model_influence": 0.55,
+            "action_sequence": [
+              "scroll(0, 600)"
+            ],
+            "rollout_steps": [
+              {
+                "depth": 1,
+                "progress": 0.02117650955915451,
+                "reward": 0.03587643802165985,
+                "uncertainty": 0.005927926395088434,
+                "short_step": -0.5751287341117859,
+                "long_step": -0.6223156452178955,
+                "state_delta_probabilities": {
+                  "url_changed": 4.666736276703887e-05,
+                  "title_changed": 4.831268961424939e-05,
+                  "axtree_changed": 3.992563051724574e-06,
+                  "dom_changed": 3.295346687082201e-05,
+                  "target_available": 2.29628240049351e-05
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.023845799267292023,
+                  "terminal": 0.0007253042422235012
+                },
+                "risk_probabilities": {
+                  "success": 0.0029821523930877447,
+                  "stalled": 0.9919522404670715,
+                  "goal_deviation": 0.02570241130888462,
+                  "severe_failure": 0.0030460257548838854
+                }
+              }
+            ]
+          },
+          {
+            "action": "scroll(0, -600)",
+            "total_score": -0.11299118399620056,
+            "short_term_score": -0.5755137801170349,
+            "long_term_score": -0.6253761053085327,
+            "uncertainty": 0.005877544172108173,
+            "structure_score": 0.24,
+            "world_model_influence": 0.55,
+            "action_sequence": [
+              "scroll(0, -600)"
+            ],
+            "rollout_steps": [
+              {
+                "depth": 1,
+                "progress": 0.021338053047657013,
+                "reward": 0.04317063093185425,
+                "uncertainty": 0.005877544172108173,
+                "short_step": -0.5755137801170349,
+                "long_step": -0.6253761053085327,
+                "state_delta_probabilities": {
+                  "url_changed": 4.6270579332485795e-05,
+                  "title_changed": 4.392521805129945e-05,
+                  "axtree_changed": 3.695124860314536e-06,
+                  "dom_changed": 3.085453136009164e-05,
+                  "target_available": 1.847840212576557e-05
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.028481250628829002,
+                  "terminal": 0.0005897402879782021
+                },
+                "risk_probabilities": {
+                  "success": 0.00258050998672843,
+                  "stalled": 0.9927597045898438,
+                  "goal_deviation": 0.028309103101491928,
+                  "severe_failure": 0.0027397351805120707
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "example_id": "42d7655367e020fee1a0",
+      "task_id": "browsergym/miniwob.click-link",
+      "instruction": "Click on the link \"ullamcorper\".",
+      "recorded_action": "scroll(0, 600)",
+      "recorded_labels": {
+        "success": false,
+        "risky": true
+      },
+      "candidate_count": 2,
+      "reactive_action": "scroll(0, 600)",
+      "w0_action": "scroll(0, -600)",
+      "phase3_decision": {
+        "action": "scroll(0, 600)",
+        "mode": "planned_short",
+        "confidence": 0.6073331984516619,
+        "horizon": 1,
+        "should_execute": true,
+        "requires_reobservation": false,
+        "rationale": "Selected after H=1 rollout using short/long outcome, uncertainty and task-element structural consistency.",
+        "fallback_action": "scroll(0, 600)",
+        "ranked_plans": [
+          {
+            "action": "scroll(0, 600)",
+            "total_score": -0.10652986168861389,
+            "short_term_score": -0.5697786808013916,
+            "long_term_score": -0.6181414127349854,
+            "uncertainty": 0.005315284710377455,
+            "structure_score": 0.24,
+            "world_model_influence": 0.55,
+            "action_sequence": [
+              "scroll(0, 600)"
+            ],
+            "rollout_steps": [
+              {
+                "depth": 1,
+                "progress": 0.021620161831378937,
+                "reward": 0.03830503299832344,
+                "uncertainty": 0.005315284710377455,
+                "short_step": -0.5697786808013916,
+                "long_step": -0.6181414127349854,
+                "state_delta_probabilities": {
+                  "url_changed": 4.49964682047721e-05,
+                  "title_changed": 4.2025083530461416e-05,
+                  "axtree_changed": 4.160319804213941e-06,
+                  "dom_changed": 4.8640496970620006e-05,
+                  "target_available": 2.498585672583431e-05
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.019242824986577034,
+                  "terminal": 0.0007278014090843499
+                },
+                "risk_probabilities": {
+                  "success": 0.003056000219658017,
+                  "stalled": 0.9919368028640747,
+                  "goal_deviation": 0.021695934236049652,
+                  "severe_failure": 0.0029899789951741695
+                }
+              }
+            ]
+          },
+          {
+            "action": "scroll(0, -600)",
+            "total_score": -0.10721465945243835,
+            "short_term_score": -0.5692346096038818,
+            "long_term_score": -0.6204097270965576,
+            "uncertainty": 0.0052513438276946545,
+            "structure_score": 0.24,
+            "world_model_influence": 0.55,
+            "action_sequence": [
+              "scroll(0, -600)"
+            ],
+            "rollout_steps": [
+              {
+                "depth": 1,
+                "progress": 0.02189048007130623,
+                "reward": 0.04506754130125046,
+                "uncertainty": 0.0052513438276946545,
+                "short_step": -0.5692346096038818,
+                "long_step": -0.6204097270965576,
+                "state_delta_probabilities": {
+                  "url_changed": 4.4133266783319414e-05,
+                  "title_changed": 3.7778449041070417e-05,
+                  "axtree_changed": 3.818886852968717e-06,
+                  "dom_changed": 4.557793363346718e-05,
+                  "target_available": 2.0207031411700882e-05
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.022500529885292053,
+                  "terminal": 0.0005874497583135962
+                },
+                "risk_probabilities": {
+                  "success": 0.0026402047369629145,
+                  "stalled": 0.9927707314491272,
+                  "goal_deviation": 0.02346995659172535,
+                  "severe_failure": 0.0026899739168584347
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "example_id": "5a3fa265fdc7649cb0d5",
+      "task_id": "browsergym/miniwob.click-link",
+      "instruction": "Click on the link \"ullamcorper\".",
+      "recorded_action": "scroll(0, 600)",
+      "recorded_labels": {
+        "success": false,
+        "risky": true
+      },
+      "candidate_count": 2,
+      "reactive_action": "scroll(0, 600)",
+      "w0_action": "scroll(0, -600)",
+      "phase3_decision": {
+        "action": "scroll(0, 600)",
+        "mode": "planned_short",
+        "confidence": 0.6073903027057636,
+        "horizon": 1,
+        "should_execute": true,
+        "requires_reobservation": false,
+        "rationale": "Selected after H=1 rollout using short/long outcome, uncertainty and task-element structural consistency.",
+        "fallback_action": "scroll(0, 600)",
+        "ranked_plans": [
+          {
+            "action": "scroll(0, 600)",
+            "total_score": -0.10581472516059875,
+            "short_term_score": -0.5712241530418396,
+            "long_term_score": -0.6147221922874451,
+            "uncertainty": 0.005289243534207344,
+            "structure_score": 0.24,
+            "world_model_influence": 0.55,
+            "action_sequence": [
+              "scroll(0, 600)"
+            ],
+            "rollout_steps": [
+              {
+                "depth": 1,
+                "progress": 0.019417837262153625,
+                "reward": 0.0345136784017086,
+                "uncertainty": 0.005289243534207344,
+                "short_step": -0.5712241530418396,
+                "long_step": -0.6147221922874451,
+                "state_delta_probabilities": {
+                  "url_changed": 4.149598680669442e-05,
+                  "title_changed": 3.800309423240833e-05,
+                  "axtree_changed": 3.1570730243402068e-06,
+                  "dom_changed": 5.035264621255919e-05,
+                  "target_available": 2.6130694095627405e-05
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.015518342144787312,
+                  "terminal": 0.000713586516212672
+                },
+                "risk_probabilities": {
+                  "success": 0.0031876417342573404,
+                  "stalled": 0.9924822449684143,
+                  "goal_deviation": 0.01835647039115429,
+                  "severe_failure": 0.002804489340633154
+                }
+              }
+            ]
+          },
+          {
+            "action": "scroll(0, -600)",
+            "total_score": -0.10661748051643372,
+            "short_term_score": -0.5711550116539001,
+            "long_term_score": -0.6166519522666931,
+            "uncertainty": 0.005251388531178236,
+            "structure_score": 0.24,
+            "world_model_influence": 0.55,
+            "action_sequence": [
+              "scroll(0, -600)"
+            ],
+            "rollout_steps": [
+              {
+                "depth": 1,
+                "progress": 0.01981573924422264,
+                "reward": 0.03858786076307297,
+                "uncertainty": 0.005251388531178236,
+                "short_step": -0.5711550116539001,
+                "long_step": -0.6166519522666931,
+                "state_delta_probabilities": {
+                  "url_changed": 4.081747465534136e-05,
+                  "title_changed": 3.419751737965271e-05,
+                  "axtree_changed": 2.8929773634445155e-06,
+                  "dom_changed": 4.7272762458305806e-05,
+                  "target_available": 2.117406256729737e-05
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.01790057122707367,
+                  "terminal": 0.0005771194701083004
+                },
+                "risk_probabilities": {
+                  "success": 0.0027642736677080393,
+                  "stalled": 0.993247389793396,
+                  "goal_deviation": 0.019751280546188354,
+                  "severe_failure": 0.0025546166580170393
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "example_id": "28d166b5f96592064675",
+      "task_id": "browsergym/miniwob.click-option",
+      "instruction": "Select CA9b and click Submit.",
+      "recorded_action": "click(\"18\", \"left\")",
+      "recorded_labels": {
+        "success": false,
+        "risky": false
+      },
+      "candidate_count": 6,
+      "reactive_action": "click(\"18\", \"left\")",
+      "w0_action": "click(\"21\", \"left\")",
+      "phase3_decision": {
+        "action": "click(\"18\", \"left\")",
+        "mode": "planned",
+        "confidence": 0.8122040269502406,
+        "horizon": 3,
+        "should_execute": true,
+        "requires_reobservation": false,
+        "rationale": "Selected after H=3 rollout using short/long outcome, uncertainty and task-element structural consistency.",
+        "fallback_action": "click(\"18\", \"left\")",
+        "ranked_plans": [
+          {
+            "action": "click(\"18\", \"left\")",
+            "total_score": 3.5530519485473633,
+            "short_term_score": 1.0455751419067383,
+            "long_term_score": 0.6351143717765808,
+            "uncertainty": 0.0015362148405984044,
+            "structure_score": 1.0,
+            "world_model_influence": 1.0,
+            "action_sequence": [
+              "click(\"18\", \"left\")",
+              "click(\"27\", \"left\")",
+              "click(\"27\", \"left\")"
+            ],
+            "rollout_steps": [
+              {
+                "depth": 1,
+                "progress": -0.05046495795249939,
+                "reward": -0.02895137295126915,
+                "uncertainty": 0.002195807872340083,
+                "short_step": 0.10573111474514008,
+                "long_step": -0.03741155564785004,
+                "state_delta_probabilities": {
+                  "url_changed": 3.16774494422134e-05,
+                  "title_changed": 2.5217505026375875e-05,
+                  "axtree_changed": 0.9999731779098511,
+                  "dom_changed": 0.9999262094497681,
+                  "target_available": 0.9999111890792847
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.028648076578974724,
+                  "terminal": 0.0073680393397808075
+                },
+                "risk_probabilities": {
+                  "success": 0.005441844463348389,
+                  "stalled": 0.0106533607468009,
+                  "goal_deviation": 0.017886251211166382,
+                  "severe_failure": 0.01336582750082016
+                }
+              },
+              {
+                "depth": 2,
+                "progress": 0.45115047693252563,
+                "reward": 0.4573443531990051,
+                "uncertainty": 0.0010008950484916568,
+                "short_step": 0.8550539016723633,
+                "long_step": 0.6351143717765808,
+                "state_delta_probabilities": {
+                  "url_changed": 2.3792843421688303e-05,
+                  "title_changed": 1.5473997336812317e-05,
+                  "axtree_changed": 0.9998337030410767,
+                  "dom_changed": 0.17643220722675323,
+                  "target_available": 0.9999955892562866
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.022436022758483887,
+                  "terminal": 0.6039078235626221
+                },
+                "risk_probabilities": {
+                  "success": 0.5846662521362305,
+                  "stalled": 0.011365121230483055,
+                  "goal_deviation": 0.024022696539759636,
+                  "severe_failure": 0.026327775791287422
+                }
+              },
+              {
+                "depth": 3,
+                "progress": 0.39622533321380615,
+                "reward": 0.41981038451194763,
+                "uncertainty": 0.0012101056054234505,
+                "short_step": 0.7688410878181458,
+                "long_step": 0.4917251169681549,
+                "state_delta_probabilities": {
+                  "url_changed": 5.2050752856303006e-05,
+                  "title_changed": 4.187175363767892e-05,
+                  "axtree_changed": 0.9994195699691772,
+                  "dom_changed": 0.012451611459255219,
+                  "target_available": 0.9999889135360718
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.0272089671343565,
+                  "terminal": 0.6884499192237854
+                },
+                "risk_probabilities": {
+                  "success": 0.5421839356422424,
+                  "stalled": 0.025866752490401268,
+                  "goal_deviation": 0.030970700085163116,
+                  "severe_failure": 0.09443873167037964
+                }
+              }
+            ]
+          },
+          {
+            "action": "click(\"27\", \"left\")",
+            "total_score": 3.4995598793029785,
+            "short_term_score": 0.9638621807098389,
+            "long_term_score": 0.6704306602478027,
+            "uncertainty": 0.001616648631170392,
+            "structure_score": 1.0,
+            "world_model_influence": 1.0,
+            "action_sequence": [
+              "click(\"27\", \"left\")",
+              "click(\"27\", \"left\")",
+              "click(\"27\", \"left\")"
+            ],
+            "rollout_steps": [
+              {
+                "depth": 1,
+                "progress": -0.027027426287531853,
+                "reward": -0.029177920892834663,
+                "uncertainty": 0.0022167093120515347,
+                "short_step": 0.1352578103542328,
+                "long_step": -0.16106677055358887,
+                "state_delta_probabilities": {
+                  "url_changed": 4.415254443301819e-05,
+                  "title_changed": 4.558575892588124e-05,
+                  "axtree_changed": 0.9999614953994751,
+                  "dom_changed": 0.9843634963035583,
+                  "target_available": 0.9999468326568604
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.021628977730870247,
+                  "terminal": 0.11552637070417404
+                },
+                "risk_probabilities": {
+                  "success": 0.028621796518564224,
+                  "stalled": 0.009686633013188839,
+                  "goal_deviation": 0.015417289920151234,
+                  "severe_failure": 0.12770971655845642
+                }
+              },
+              {
+                "depth": 2,
+                "progress": 0.4725878834724426,
+                "reward": 0.4971987009048462,
+                "uncertainty": 0.001061196788214147,
+                "short_step": 0.9028973579406738,
+                "long_step": 0.6704306602478027,
+                "state_delta_probabilities": {
+                  "url_changed": 2.26739084610017e-05,
+                  "title_changed": 1.553316724312026e-05,
+                  "axtree_changed": 0.9998700618743896,
+                  "dom_changed": 0.0776229128241539,
+                  "target_available": 0.9999955892562866
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.01577855460345745,
+                  "terminal": 0.6862000823020935
+                },
+                "risk_probabilities": {
+                  "success": 0.6165966391563416,
+                  "stalled": 0.00944354385137558,
+                  "goal_deviation": 0.016696825623512268,
+                  "severe_failure": 0.04069534316658974
+                }
+              },
+              {
+                "depth": 3,
+                "progress": 0.37384361028671265,
+                "reward": 0.41356611251831055,
+                "uncertainty": 0.001224722363986075,
+                "short_step": 0.7470455169677734,
+                "long_step": 0.4391939342021942,
+                "state_delta_probabilities": {
+                  "url_changed": 4.8745761887403205e-05,
+                  "title_changed": 4.107745917281136e-05,
+                  "axtree_changed": 0.9994799494743347,
+                  "dom_changed": 0.010786577127873898,
+                  "target_available": 0.9999866485595703
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.023443249985575676,
+                  "terminal": 0.6687228083610535
+                },
+                "risk_probabilities": {
+                  "success": 0.5053921341896057,
+                  "stalled": 0.024706535041332245,
+                  "goal_deviation": 0.025753553956747055,
+                  "severe_failure": 0.10624350607395172
+                }
+              }
+            ]
+          },
+          {
+            "action": "click(\"24\", \"left\")",
+            "total_score": 3.1151413917541504,
+            "short_term_score": 1.0075395107269287,
+            "long_term_score": 0.8853927850723267,
+            "uncertainty": 0.0017804511589929461,
+            "structure_score": 0.7,
+            "world_model_influence": 1.0,
+            "action_sequence": [
+              "click(\"24\", \"left\")",
+              "click(\"27\", \"left\")",
+              "click(\"27\", \"left\")"
+            ],
+            "rollout_steps": [
+              {
+                "depth": 1,
+                "progress": -0.06720807403326035,
+                "reward": -0.05071525275707245,
+                "uncertainty": 0.0023552195634692907,
+                "short_step": 0.08202128112316132,
+                "long_step": -0.19776614010334015,
+                "state_delta_probabilities": {
+                  "url_changed": 5.325770325725898e-05,
+                  "title_changed": 4.7412362619070336e-05,
+                  "axtree_changed": 0.9999434947967529,
+                  "dom_changed": 0.9843391180038452,
+                  "target_available": 0.9997397065162659
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.02094784937798977,
+                  "terminal": 0.10805564373731613
+                },
+                "risk_probabilities": {
+                  "success": 0.01540241576731205,
+                  "stalled": 0.014337798580527306,
+                  "goal_deviation": 0.014596754685044289,
+                  "severe_failure": 0.14105349779129028
+                }
+              },
+              {
+                "depth": 2,
+                "progress": 0.618416428565979,
+                "reward": 0.6462050676345825,
+                "uncertainty": 0.001209768932312727,
+                "short_step": 1.1195142269134521,
+                "long_step": 0.8853927850723267,
+                "state_delta_probabilities": {
+                  "url_changed": 3.245938933105208e-05,
+                  "title_changed": 2.117517033184413e-05,
+                  "axtree_changed": 0.9996458292007446,
+                  "dom_changed": 0.013350147753953934,
+                  "target_available": 0.9999904632568359
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.01736411638557911,
+                  "terminal": 0.8690958619117737
+                },
+                "risk_probabilities": {
+                  "success": 0.8066530823707581,
+                  "stalled": 0.013519150204956532,
+                  "goal_deviation": 0.020457033067941666,
+                  "severe_failure": 0.04434063658118248
+                }
+              },
+              {
+                "depth": 3,
+                "progress": 0.4867781400680542,
+                "reward": 0.5189038515090942,
+                "uncertainty": 0.00121731695253402,
+                "short_step": 0.9098725914955139,
+                "long_step": 0.6420927047729492,
+                "state_delta_probabilities": {
+                  "url_changed": 5.7122681027976796e-05,
+                  "title_changed": 4.438574978848919e-05,
+                  "axtree_changed": 0.9990978240966797,
+                  "dom_changed": 0.0032139490358531475,
+                  "target_available": 0.9999827146530151
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.024600641801953316,
+                  "terminal": 0.8225955963134766
+                },
+                "risk_probabilities": {
+                  "success": 0.6852392554283142,
+                  "stalled": 0.027789199724793434,
+                  "goal_deviation": 0.029162375256419182,
+                  "severe_failure": 0.10788656026124954
+                }
+              }
+            ]
+          },
+          {
+            "action": "click(\"21\", \"left\")",
+            "total_score": 3.114820957183838,
+            "short_term_score": 1.1226106882095337,
+            "long_term_score": 0.7410072088241577,
+            "uncertainty": 0.0014888925943523645,
+            "structure_score": 0.7,
+            "world_model_influence": 1.0,
+            "action_sequence": [
+              "click(\"21\", \"left\")",
+              "click(\"27\", \"left\")",
+              "click(\"27\", \"left\")"
+            ],
+            "rollout_steps": [
+              {
+                "depth": 1,
+                "progress": -0.012879971414804459,
+                "reward": -0.011881856247782707,
+                "uncertainty": 0.002048858441412449,
+                "short_step": 0.17569346725940704,
+                "long_step": -0.013556623831391335,
+                "state_delta_probabilities": {
+                  "url_changed": 9.34348463488277e-06,
+                  "title_changed": 8.575991159887053e-06,
+                  "axtree_changed": 0.9999988079071045,
+                  "dom_changed": 0.9999946355819702,
+                  "target_available": 0.9999909400939941
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.0047897156327962875,
+                  "terminal": 0.00641402043402195
+                },
+                "risk_probabilities": {
+                  "success": 0.0034837257117033005,
+                  "stalled": 0.0027534097898751497,
+                  "goal_deviation": 0.0024983896873891354,
+                  "severe_failure": 0.009448478929698467
+                }
+              },
+              {
+                "depth": 2,
+                "progress": 0.46919918060302734,
+                "reward": 0.5079578161239624,
+                "uncertainty": 0.0010224302532151341,
+                "short_step": 0.9114717245101929,
+                "long_step": 0.7410072088241577,
+                "state_delta_probabilities": {
+                  "url_changed": 1.8644224837771617e-05,
+                  "title_changed": 1.197387700813124e-05,
+                  "axtree_changed": 0.9999610185623169,
+                  "dom_changed": 0.28029611706733704,
+                  "target_available": 0.9999978542327881
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.010801021009683609,
+                  "terminal": 0.7183860540390015
+                },
+                "risk_probabilities": {
+                  "success": 0.6510014533996582,
+                  "stalled": 0.005108559504151344,
+                  "goal_deviation": 0.010883405804634094,
+                  "severe_failure": 0.026482002809643745
+                }
+              },
+              {
+                "depth": 3,
+                "progress": 0.4532667398452759,
+                "reward": 0.497324138879776,
+                "uncertainty": 0.0011440296657383442,
+                "short_step": 0.8762098550796509,
+                "long_step": 0.6607164144515991,
+                "state_delta_probabilities": {
+                  "url_changed": 4.2910272895824164e-05,
+                  "title_changed": 3.0944640457164496e-05,
+                  "axtree_changed": 0.999648928642273,
+                  "dom_changed": 0.007148858159780502,
+                  "target_available": 0.9999927282333374
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.018820807337760925,
+                  "terminal": 0.770322322845459
+                },
+                "risk_probabilities": {
+                  "success": 0.6547093987464905,
+                  "stalled": 0.017768077552318573,
+                  "goal_deviation": 0.020667746663093567,
+                  "severe_failure": 0.07781928032636642
+                }
+              }
+            ]
+          },
+          {
+            "action": "scroll(0, 600)",
+            "total_score": 0.5216556787490845,
+            "short_term_score": 0.004791229963302612,
+            "long_term_score": 0.04689010977745056,
+            "uncertainty": 0.001619099173694849,
+            "structure_score": 0.24,
+            "world_model_influence": 1.0,
+            "action_sequence": [
+              "scroll(0, 600)",
+              "click(\"27\", \"left\")",
+              "click(\"27\", \"left\")"
+            ],
+            "rollout_steps": [
+              {
+                "depth": 1,
+                "progress": -0.0056902021169662476,
+                "reward": 0.029606416821479797,
+                "uncertainty": 0.0025596902705729008,
+                "short_step": -0.5964400768280029,
+                "long_step": -0.6196050643920898,
+                "state_delta_probabilities": {
+                  "url_changed": 1.8095772247761488e-05,
+                  "title_changed": 2.4264163585030474e-05,
+                  "axtree_changed": 9.087691068998538e-06,
+                  "dom_changed": 1.7276064681936987e-05,
+                  "target_available": 2.2897243979969062e-05
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.01348888874053955,
+                  "terminal": 0.0011561756255105138
+                },
+                "risk_probabilities": {
+                  "success": 0.0012227200204506516,
+                  "stalled": 0.9912775754928589,
+                  "goal_deviation": 0.01448614802211523,
+                  "severe_failure": 0.007870858535170555
+                }
+              },
+              {
+                "depth": 2,
+                "progress": 0.1492353081703186,
+                "reward": 0.14612339437007904,
+                "uncertainty": 0.0011474372586235404,
+                "short_step": 0.2924951910972595,
+                "long_step": -0.1239049881696701,
+                "state_delta_probabilities": {
+                  "url_changed": 2.204002157668583e-05,
+                  "title_changed": 1.974156293726992e-05,
+                  "axtree_changed": 0.8879172801971436,
+                  "dom_changed": 0.04352002218365669,
+                  "target_available": 0.9672824144363403
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.009086625650525093,
+                  "terminal": 0.09609618782997131
+                },
+                "risk_probabilities": {
+                  "success": 0.05904439464211464,
+                  "stalled": 0.19331501424312592,
+                  "goal_deviation": 0.014195087365806103,
+                  "severe_failure": 0.047989677637815475
+                }
+              },
+              {
+                "depth": 3,
+                "progress": 0.24555730819702148,
+                "reward": 0.27336186170578003,
+                "uncertainty": 0.0010991125600412488,
+                "short_step": 0.5409925580024719,
+                "long_step": 0.04689010977745056,
+                "state_delta_probabilities": {
+                  "url_changed": 4.748240462504327e-05,
+                  "title_changed": 4.5380813389783725e-05,
+                  "axtree_changed": 0.9973188042640686,
+                  "dom_changed": 0.02568872645497322,
+                  "target_available": 0.9997891783714294
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.015822267159819603,
+                  "terminal": 0.572638750076294
+                },
+                "risk_probabilities": {
+                  "success": 0.25201544165611267,
+                  "stalled": 0.04757615923881531,
+                  "goal_deviation": 0.02219199202954769,
+                  "severe_failure": 0.17927692830562592
+                }
+              }
+            ]
+          },
+          {
+            "action": "scroll(0, -600)",
+            "total_score": 0.44158896803855896,
+            "short_term_score": -0.04675489664077759,
+            "long_term_score": 0.011322259902954102,
+            "uncertainty": 0.0017848288407549262,
+            "structure_score": 0.24,
+            "world_model_influence": 1.0,
+            "action_sequence": [
+              "scroll(0, -600)",
+              "click(\"27\", \"left\")",
+              "click(\"27\", \"left\")"
+            ],
+            "rollout_steps": [
+              {
+                "depth": 1,
+                "progress": -0.004200178664177656,
+                "reward": 0.03191671147942543,
+                "uncertainty": 0.0026372873689979315,
+                "short_step": -0.5974863171577454,
+                "long_step": -0.6217719912528992,
+                "state_delta_probabilities": {
+                  "url_changed": 1.9285673261038028e-05,
+                  "title_changed": 2.258570930280257e-05,
+                  "axtree_changed": 8.444281775155105e-06,
+                  "dom_changed": 1.689740201982204e-05,
+                  "target_available": 1.9037739548366517e-05
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.01730889268219471,
+                  "terminal": 0.0009529414237476885
+                },
+                "risk_probabilities": {
+                  "success": 0.0010955010075122118,
+                  "stalled": 0.9923352599143982,
+                  "goal_deviation": 0.017053844407200813,
+                  "severe_failure": 0.007068696431815624
+                }
+              },
+              {
+                "depth": 2,
+                "progress": 0.1129751205444336,
+                "reward": 0.10841270536184311,
+                "uncertainty": 0.001406729337759316,
+                "short_step": 0.2633747160434723,
+                "long_step": -0.1021042913198471,
+                "state_delta_probabilities": {
+                  "url_changed": 2.9997150704730302e-05,
+                  "title_changed": 2.6478215659153648e-05,
+                  "axtree_changed": 0.946749210357666,
+                  "dom_changed": 0.1683289110660553,
+                  "target_available": 0.967181384563446
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.011323289014399052,
+                  "terminal": 0.063936747610569
+                },
+                "risk_probabilities": {
+                  "success": 0.0472286157310009,
+                  "stalled": 0.14697401225566864,
+                  "goal_deviation": 0.01577930897474289,
+                  "severe_failure": 0.03877102956175804
+                }
+              },
+              {
+                "depth": 3,
+                "progress": 0.2024988979101181,
+                "reward": 0.2306714653968811,
+                "uncertainty": 0.001277200528420508,
+                "short_step": 0.48408323526382446,
+                "long_step": 0.011322259902954102,
+                "state_delta_probabilities": {
+                  "url_changed": 4.77471221529413e-05,
+                  "title_changed": 4.624415669240989e-05,
+                  "axtree_changed": 0.9988031387329102,
+                  "dom_changed": 0.0703175812959671,
+                  "target_available": 0.9998656511306763
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.016170062124729156,
+                  "terminal": 0.4519708454608917
+                },
+                "risk_probabilities": {
+                  "success": 0.19107306003570557,
+                  "stalled": 0.03464740887284279,
+                  "goal_deviation": 0.01981862634420395,
+                  "severe_failure": 0.15302525460720062
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "example_id": "f188255a9d6e3932b6d8",
+      "task_id": "browsergym/miniwob.click-option",
+      "instruction": "Select CA9b and click Submit.",
+      "recorded_action": "scroll(0, 600)",
+      "recorded_labels": {
+        "success": false,
+        "risky": true
+      },
+      "candidate_count": 6,
+      "reactive_action": "click(\"18\", \"left\")",
+      "w0_action": "click(\"27\", \"left\")",
+      "phase3_decision": {
+        "action": "click(\"27\", \"left\")",
+        "mode": "planned",
+        "confidence": 0.9186052548677088,
+        "horizon": 3,
+        "should_execute": true,
+        "requires_reobservation": false,
+        "rationale": "Selected after H=3 rollout using short/long outcome, uncertainty and task-element structural consistency.",
+        "fallback_action": "click(\"18\", \"left\")",
+        "ranked_plans": [
+          {
+            "action": "click(\"27\", \"left\")",
+            "total_score": 4.327778339385986,
+            "short_term_score": 1.4962494373321533,
+            "long_term_score": 1.0403321981430054,
+            "uncertainty": 0.001842438941821456,
+            "structure_score": 1.0,
+            "world_model_influence": 1.0,
+            "action_sequence": [
+              "click(\"27\", \"left\")",
+              "click(\"27\", \"left\")",
+              "click(\"27\", \"left\")"
+            ],
+            "rollout_steps": [
+              {
+                "depth": 1,
+                "progress": 0.8455302119255066,
+                "reward": 0.8792605996131897,
+                "uncertainty": 0.0018638655310496688,
+                "short_step": 1.4514570236206055,
+                "long_step": 1.0146645307540894,
+                "state_delta_probabilities": {
+                  "url_changed": 5.725929804611951e-05,
+                  "title_changed": 3.9068756450433284e-05,
+                  "axtree_changed": 0.997894823551178,
+                  "dom_changed": 0.0008058574749156833,
+                  "target_available": 0.9999827146530151
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.024947386234998703,
+                  "terminal": 0.9663205146789551
+                },
+                "risk_probabilities": {
+                  "success": 0.9389075040817261,
+                  "stalled": 0.02290365658700466,
+                  "goal_deviation": 0.025399135425686836,
+                  "severe_failure": 0.052243899554014206
+                }
+              },
+              {
+                "depth": 2,
+                "progress": 0.8996446132659912,
+                "reward": 0.9193627238273621,
+                "uncertainty": 0.0012272247113287449,
+                "short_step": 1.5230958461761475,
+                "long_step": 1.0403321981430054,
+                "state_delta_probabilities": {
+                  "url_changed": 3.918106449418701e-05,
+                  "title_changed": 2.7627806048258208e-05,
+                  "axtree_changed": 0.996948778629303,
+                  "dom_changed": 0.0002813926839735359,
+                  "target_available": 0.9999932050704956
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.025645947083830833,
+                  "terminal": 0.9565532803535461
+                },
+                "risk_probabilities": {
+                  "success": 0.9431164860725403,
+                  "stalled": 0.026186613366007805,
+                  "goal_deviation": 0.027410658076405525,
+                  "severe_failure": 0.0339815653860569
+                }
+              },
+              {
+                "depth": 3,
+                "progress": 0.6365339159965515,
+                "reward": 0.6742135882377625,
+                "uncertainty": 0.0013596678618341684,
+                "short_step": 1.1255590915679932,
+                "long_step": 0.8074064254760742,
+                "state_delta_probabilities": {
+                  "url_changed": 6.512324034702033e-05,
+                  "title_changed": 5.535990931093693e-05,
+                  "axtree_changed": 0.9968691468238831,
+                  "dom_changed": 0.0003150080447085202,
+                  "target_available": 0.9999854564666748
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.02979421056807041,
+                  "terminal": 0.9068800806999207
+                },
+                "risk_probabilities": {
+                  "success": 0.8269595503807068,
+                  "stalled": 0.04040543735027313,
+                  "goal_deviation": 0.0340387262403965,
+                  "severe_failure": 0.09509814530611038
+                }
+              }
+            ]
+          },
+          {
+            "action": "click(\"18\", \"left\")",
+            "total_score": 4.154603958129883,
+            "short_term_score": 1.3506866693496704,
+            "long_term_score": 1.0056838989257812,
+            "uncertainty": 0.0015755722997710109,
+            "structure_score": 1.0,
+            "world_model_influence": 1.0,
+            "action_sequence": [
+              "click(\"18\", \"left\")",
+              "click(\"27\", \"left\")",
+              "click(\"27\", \"left\")"
+            ],
+            "rollout_steps": [
+              {
+                "depth": 1,
+                "progress": 0.3037257492542267,
+                "reward": 0.3248998820781708,
+                "uncertainty": 0.001818383578211069,
+                "short_step": 0.5999943017959595,
+                "long_step": 0.41008245944976807,
+                "state_delta_probabilities": {
+                  "url_changed": 7.456169987563044e-05,
+                  "title_changed": 5.3171585022937506e-05,
+                  "axtree_changed": 0.9979815483093262,
+                  "dom_changed": 0.5922717452049255,
+                  "target_available": 0.9999567270278931
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.05134973302483559,
+                  "terminal": 0.3889235556125641
+                },
+                "risk_probabilities": {
+                  "success": 0.43628549575805664,
+                  "stalled": 0.041821565479040146,
+                  "goal_deviation": 0.05314389243721962,
+                  "severe_failure": 0.017167292535305023
+                }
+              },
+              {
+                "depth": 2,
+                "progress": 0.8148190379142761,
+                "reward": 0.8262321949005127,
+                "uncertainty": 0.0011893169721588492,
+                "short_step": 1.3772859573364258,
+                "long_step": 1.0056838989257812,
+                "state_delta_probabilities": {
+                  "url_changed": 4.2289735574740916e-05,
+                  "title_changed": 3.092788392677903e-05,
+                  "axtree_changed": 0.9953237175941467,
+                  "dom_changed": 0.0007458775653503835,
+                  "target_available": 0.9999924898147583
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.03575310856103897,
+                  "terminal": 0.9285116791725159
+                },
+                "risk_probabilities": {
+                  "success": 0.9205411672592163,
+                  "stalled": 0.036741990596055984,
+                  "goal_deviation": 0.03907092288136482,
+                  "severe_failure": 0.026295572519302368
+                }
+              },
+              {
+                "depth": 3,
+                "progress": 0.6416665315628052,
+                "reward": 0.6659003496170044,
+                "uncertainty": 0.0014203762402758002,
+                "short_step": 1.1187231540679932,
+                "long_step": 0.8126481175422668,
+                "state_delta_probabilities": {
+                  "url_changed": 7.255184755194932e-05,
+                  "title_changed": 6.258390931179747e-05,
+                  "axtree_changed": 0.9963908791542053,
+                  "dom_changed": 0.0004005999944638461,
+                  "target_available": 0.9999872446060181
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.03594941273331642,
+                  "terminal": 0.9066557884216309
+                },
+                "risk_probabilities": {
+                  "success": 0.8307284712791443,
+                  "stalled": 0.04521927237510681,
+                  "goal_deviation": 0.041627660393714905,
+                  "severe_failure": 0.08710157871246338
+                }
+              }
+            ]
+          },
+          {
+            "action": "click(\"21\", \"left\")",
+            "total_score": 3.717524528503418,
+            "short_term_score": 1.4604463577270508,
+            "long_term_score": 1.0721746683120728,
+            "uncertainty": 0.0016542109660804272,
+            "structure_score": 0.7,
+            "world_model_influence": 1.0,
+            "action_sequence": [
+              "click(\"21\", \"left\")",
+              "click(\"27\", \"left\")",
+              "click(\"27\", \"left\")"
+            ],
+            "rollout_steps": [
+              {
+                "depth": 1,
+                "progress": 0.17706093192100525,
+                "reward": 0.2105243057012558,
+                "uncertainty": 0.001901976065710187,
+                "short_step": 0.47536328434944153,
+                "long_step": 0.180763378739357,
+                "state_delta_probabilities": {
+                  "url_changed": 2.7061945729656145e-05,
+                  "title_changed": 2.2464255380327813e-05,
+                  "axtree_changed": 0.9999876022338867,
+                  "dom_changed": 0.9982364177703857,
+                  "target_available": 0.999993085861206
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.005714965984225273,
+                  "terminal": 0.2297622263431549
+                },
+                "risk_probabilities": {
+                  "success": 0.163531094789505,
+                  "stalled": 0.003977404907345772,
+                  "goal_deviation": 0.004526293370872736,
+                  "severe_failure": 0.014538290910422802
+                }
+              },
+              {
+                "depth": 2,
+                "progress": 0.843093752861023,
+                "reward": 0.8879550099372864,
+                "uncertainty": 0.001343990908935666,
+                "short_step": 1.4625731706619263,
+                "long_step": 1.0721746683120728,
+                "state_delta_probabilities": {
+                  "url_changed": 4.2153365939157084e-05,
+                  "title_changed": 2.794256215565838e-05,
+                  "axtree_changed": 0.9991208910942078,
+                  "dom_changed": 0.001753051532432437,
+                  "target_available": 0.999995231628418
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.018788734450936317,
+                  "terminal": 0.9608740210533142
+                },
+                "risk_probabilities": {
+                  "success": 0.9481908082962036,
+                  "stalled": 0.015776976943016052,
+                  "goal_deviation": 0.018755203112959862,
+                  "severe_failure": 0.026646383106708527
+                }
+              },
+              {
+                "depth": 3,
+                "progress": 0.7190985083580017,
+                "reward": 0.7651163935661316,
+                "uncertainty": 0.0013614754425361753,
+                "short_step": 1.264532208442688,
+                "long_step": 0.9485829472541809,
+                "state_delta_probabilities": {
+                  "url_changed": 6.054599361959845e-05,
+                  "title_changed": 4.364558481029235e-05,
+                  "axtree_changed": 0.9981348514556885,
+                  "dom_changed": 0.0002738898037932813,
+                  "target_available": 0.9999898672103882
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.024637220427393913,
+                  "terminal": 0.9386432766914368
+                },
+                "risk_probabilities": {
+                  "success": 0.897462010383606,
+                  "stalled": 0.029021039605140686,
+                  "goal_deviation": 0.026238415390253067,
+                  "severe_failure": 0.06197105348110199
+                }
+              }
+            ]
+          },
+          {
+            "action": "click(\"24\", \"left\")",
+            "total_score": 3.5336928367614746,
+            "short_term_score": 1.2902336120605469,
+            "long_term_score": 1.055531620979309,
+            "uncertainty": 0.002415082650259137,
+            "structure_score": 0.7,
+            "world_model_influence": 1.0,
+            "action_sequence": [
+              "click(\"24\", \"left\")",
+              "click(\"27\", \"left\")",
+              "click(\"27\", \"left\")"
+            ],
+            "rollout_steps": [
+              {
+                "depth": 1,
+                "progress": 0.6883245706558228,
+                "reward": 0.7343100309371948,
+                "uncertainty": 0.0024686846882104874,
+                "short_step": 1.2182681560516357,
+                "long_step": 0.9168665409088135,
+                "state_delta_probabilities": {
+                  "url_changed": 7.342087337747216e-05,
+                  "title_changed": 4.863525464315899e-05,
+                  "axtree_changed": 0.9973837733268738,
+                  "dom_changed": 0.0010488328989595175,
+                  "target_available": 0.9998921155929565
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.021070117130875587,
+                  "terminal": 0.9486161470413208
+                },
+                "risk_probabilities": {
+                  "success": 0.8727644085884094,
+                  "stalled": 0.03388964757323265,
+                  "goal_deviation": 0.024136627092957497,
+                  "severe_failure": 0.06743377447128296
+                }
+              },
+              {
+                "depth": 2,
+                "progress": 0.960903525352478,
+                "reward": 0.9895630478858948,
+                "uncertainty": 0.0014061563415452838,
+                "short_step": 1.6126304864883423,
+                "long_step": 1.055531620979309,
+                "state_delta_probabilities": {
+                  "url_changed": 4.52647618658375e-05,
+                  "title_changed": 3.249373912694864e-05,
+                  "axtree_changed": 0.9936161041259766,
+                  "dom_changed": 0.00012741159298457205,
+                  "target_available": 0.9999872446060181
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.028255661949515343,
+                  "terminal": 0.9672806262969971
+                },
+                "risk_probabilities": {
+                  "success": 0.9561812877655029,
+                  "stalled": 0.03407903388142586,
+                  "goal_deviation": 0.029767245054244995,
+                  "severe_failure": 0.029260827228426933
+                }
+              },
+              {
+                "depth": 3,
+                "progress": 0.7314759492874146,
+                "reward": 0.7618005871772766,
+                "uncertainty": 0.0013685210142284632,
+                "short_step": 1.2610108852386475,
+                "long_step": 0.8920864462852478,
+                "state_delta_probabilities": {
+                  "url_changed": 6.795396620873362e-05,
+                  "title_changed": 5.6106313422787935e-05,
+                  "axtree_changed": 0.995091438293457,
+                  "dom_changed": 0.00015395766240544617,
+                  "target_available": 0.9999827146530151
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.031620319932699203,
+                  "terminal": 0.9375956058502197
+                },
+                "risk_probabilities": {
+                  "success": 0.8834581971168518,
+                  "stalled": 0.04344280809164047,
+                  "goal_deviation": 0.03583568334579468,
+                  "severe_failure": 0.07799296081066132
+                }
+              }
+            ]
+          },
+          {
+            "action": "scroll(0, 600)",
+            "total_score": 1.482624888420105,
+            "short_term_score": 0.4884573519229889,
+            "long_term_score": 0.6437386870384216,
+            "uncertainty": 0.0020586338359862566,
+            "structure_score": 0.24,
+            "world_model_influence": 1.0,
+            "action_sequence": [
+              "scroll(0, 600)",
+              "click(\"27\", \"left\")",
+              "click(\"27\", \"left\")"
+            ],
+            "rollout_steps": [
+              {
+                "depth": 1,
+                "progress": 0.03743092343211174,
+                "reward": 0.03238803148269653,
+                "uncertainty": 0.003011150984093547,
+                "short_step": -0.5494698286056519,
+                "long_step": -0.6066568493843079,
+                "state_delta_probabilities": {
+                  "url_changed": 8.667123438499402e-06,
+                  "title_changed": 1.7418551578884944e-05,
+                  "axtree_changed": 1.6026228877308313e-06,
+                  "dom_changed": 1.934068677655887e-06,
+                  "target_available": 3.8876052713021636e-05
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.008191728964447975,
+                  "terminal": 0.0014885354321449995
+                },
+                "risk_probabilities": {
+                  "success": 0.005023187026381493,
+                  "stalled": 0.9942485094070435,
+                  "goal_deviation": 0.00930512323975563,
+                  "severe_failure": 0.004082311876118183
+                }
+              },
+              {
+                "depth": 2,
+                "progress": 0.5414199829101562,
+                "reward": 0.5236561894416809,
+                "uncertainty": 0.001450509880669415,
+                "short_step": 0.8235121965408325,
+                "long_step": 0.39175909757614136,
+                "state_delta_probabilities": {
+                  "url_changed": 2.3533108105766587e-05,
+                  "title_changed": 2.0912937543471344e-05,
+                  "axtree_changed": 0.4354736804962158,
+                  "dom_changed": 5.959998452453874e-05,
+                  "target_available": 0.9932518601417542
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.01428459957242012,
+                  "terminal": 0.5199015140533447
+                },
+                "risk_probabilities": {
+                  "success": 0.5122355818748474,
+                  "stalled": 0.2782641649246216,
+                  "goal_deviation": 0.019499484449625015,
+                  "severe_failure": 0.02533252350986004
+                }
+              },
+              {
+                "depth": 3,
+                "progress": 0.5475490093231201,
+                "reward": 0.5678187608718872,
+                "uncertainty": 0.0013383382465690374,
+                "short_step": 0.9787180423736572,
+                "long_step": 0.6437386870384216,
+                "state_delta_probabilities": {
+                  "url_changed": 5.770049028797075e-05,
+                  "title_changed": 5.296091330819763e-05,
+                  "axtree_changed": 0.9882792234420776,
+                  "dom_changed": 0.0005319526535458863,
+                  "target_available": 0.9998979568481445
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.01951117068529129,
+                  "terminal": 0.8859953880310059
+                },
+                "risk_probabilities": {
+                  "success": 0.7077118754386902,
+                  "stalled": 0.06185176968574524,
+                  "goal_deviation": 0.026902955025434494,
+                  "severe_failure": 0.11810549348592758
+                }
+              }
+            ]
+          },
+          {
+            "action": "scroll(0, -600)",
+            "total_score": 1.3206995725631714,
+            "short_term_score": 0.3163965344429016,
+            "long_term_score": 0.6565674543380737,
+            "uncertainty": 0.0023771889973431826,
+            "structure_score": 0.24,
+            "world_model_influence": 1.0,
+            "action_sequence": [
+              "scroll(0, -600)",
+              "click(\"24\", \"left\")",
+              "click(\"27\", \"left\")"
+            ],
+            "rollout_steps": [
+              {
+                "depth": 1,
+                "progress": 0.02449394203722477,
+                "reward": 0.01986711099743843,
+                "uncertainty": 0.003036865498870611,
+                "short_step": -0.5707935094833374,
+                "long_step": -0.6098501682281494,
+                "state_delta_probabilities": {
+                  "url_changed": 9.249878530681599e-06,
+                  "title_changed": 1.707458432065323e-05,
+                  "axtree_changed": 1.2056869991283747e-06,
+                  "dom_changed": 2.2080735107010696e-06,
+                  "target_available": 2.2563639504369348e-05
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.010007692500948906,
+                  "terminal": 0.0010824337368831038
+                },
+                "risk_probabilities": {
+                  "success": 0.003816636512055993,
+                  "stalled": 0.9953655004501343,
+                  "goal_deviation": 0.011194143444299698,
+                  "severe_failure": 0.0036465362645685673
+                }
+              },
+              {
+                "depth": 2,
+                "progress": 0.34974437952041626,
+                "reward": 0.3433724343776703,
+                "uncertainty": 0.0021107164211571217,
+                "short_step": 0.4594743251800537,
+                "long_step": 0.009646333754062653,
+                "state_delta_probabilities": {
+                  "url_changed": 4.001348133897409e-05,
+                  "title_changed": 3.2107040169648826e-05,
+                  "axtree_changed": 0.36804628372192383,
+                  "dom_changed": 0.00014020965318195522,
+                  "target_available": 0.939565896987915
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.01509134192019701,
+                  "terminal": 0.2937275767326355
+                },
+                "risk_probabilities": {
+                  "success": 0.2571403980255127,
+                  "stalled": 0.3963272273540497,
+                  "goal_deviation": 0.021507425233721733,
+                  "severe_failure": 0.03129052743315697
+                }
+              },
+              {
+                "depth": 3,
+                "progress": 0.5463474988937378,
+                "reward": 0.5647929310798645,
+                "uncertainty": 0.0018194459844380617,
+                "short_step": 0.9751439094543457,
+                "long_step": 0.6565674543380737,
+                "state_delta_probabilities": {
+                  "url_changed": 7.55620130803436e-05,
+                  "title_changed": 6.533036503242329e-05,
+                  "axtree_changed": 0.9901573657989502,
+                  "dom_changed": 0.00036264085792936385,
+                  "target_available": 0.9998874664306641
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.02099473774433136,
+                  "terminal": 0.8894447684288025
+                },
+                "risk_probabilities": {
+                  "success": 0.7123961448669434,
+                  "stalled": 0.061302997171878815,
+                  "goal_deviation": 0.02667895518243313,
+                  "severe_failure": 0.11350461095571518
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "example_id": "0c97ac6d15d5e81dcfa1",
+      "task_id": "browsergym/miniwob.click-option",
+      "instruction": "Select CA9b and click Submit.",
+      "recorded_action": "click(\"27\", \"left\")",
+      "recorded_labels": {
+        "success": true,
+        "risky": false
+      },
+      "candidate_count": 6,
+      "reactive_action": "click(\"18\", \"left\")",
+      "w0_action": "click(\"27\", \"left\")",
+      "phase3_decision": {
+        "action": "click(\"27\", \"left\")",
+        "mode": "planned",
+        "confidence": 0.9219752902123787,
+        "horizon": 3,
+        "should_execute": true,
+        "requires_reobservation": false,
+        "rationale": "Selected after H=3 rollout using short/long outcome, uncertainty and task-element structural consistency.",
+        "fallback_action": "click(\"18\", \"left\")",
+        "ranked_plans": [
+          {
+            "action": "click(\"27\", \"left\")",
+            "total_score": 4.326892852783203,
+            "short_term_score": 1.484072208404541,
+            "long_term_score": 1.0543951988220215,
+            "uncertainty": 0.0017381005454808474,
+            "structure_score": 1.0,
+            "world_model_influence": 1.0,
+            "action_sequence": [
+              "click(\"27\", \"left\")",
+              "click(\"27\", \"left\")",
+              "click(\"27\", \"left\")"
+            ],
+            "rollout_steps": [
+              {
+                "depth": 1,
+                "progress": 0.8420508503913879,
+                "reward": 0.871313750743866,
+                "uncertainty": 0.0017546459566801786,
+                "short_step": 1.4449963569641113,
+                "long_step": 0.9786050319671631,
+                "state_delta_probabilities": {
+                  "url_changed": 4.744578473037109e-05,
+                  "title_changed": 3.6963501770514995e-05,
+                  "axtree_changed": 0.9962678551673889,
+                  "dom_changed": 0.00043856201227754354,
+                  "target_available": 0.9999867677688599
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.020893972367048264,
+                  "terminal": 0.9722734093666077
+                },
+                "risk_probabilities": {
+                  "success": 0.9250831007957458,
+                  "stalled": 0.02665574662387371,
+                  "goal_deviation": 0.022085219621658325,
+                  "severe_failure": 0.06856941431760788
+                }
+              },
+              {
+                "depth": 2,
+                "progress": 0.9657430052757263,
+                "reward": 0.991784930229187,
+                "uncertainty": 0.001154569792561233,
+                "short_step": 1.6290485858917236,
+                "long_step": 1.0543951988220215,
+                "state_delta_probabilities": {
+                  "url_changed": 3.409348209970631e-05,
+                  "title_changed": 2.5590001314412802e-05,
+                  "axtree_changed": 0.9960620999336243,
+                  "dom_changed": 0.00014199898578226566,
+                  "target_available": 0.9999946355819702
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.02208670601248741,
+                  "terminal": 0.972841739654541
+                },
+                "risk_probabilities": {
+                  "success": 0.9529711008071899,
+                  "stalled": 0.02486080676317215,
+                  "goal_deviation": 0.023633206263184547,
+                  "severe_failure": 0.03639635071158409
+                }
+              },
+              {
+                "depth": 3,
+                "progress": 0.7138614654541016,
+                "reward": 0.7653775215148926,
+                "uncertainty": 0.0012522435281425714,
+                "short_step": 1.2554670572280884,
+                "long_step": 0.8398326635360718,
+                "state_delta_probabilities": {
+                  "url_changed": 5.374063766794279e-05,
+                  "title_changed": 4.833292041439563e-05,
+                  "axtree_changed": 0.9963042736053467,
+                  "dom_changed": 0.00013133013271726668,
+                  "target_available": 0.9999901056289673
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.02505248598754406,
+                  "terminal": 0.9492360949516296
+                },
+                "risk_probabilities": {
+                  "success": 0.8612707257270813,
+                  "stalled": 0.03506532311439514,
+                  "goal_deviation": 0.02779253013432026,
+                  "severe_failure": 0.1083022952079773
+                }
+              }
+            ]
+          },
+          {
+            "action": "click(\"18\", \"left\")",
+            "total_score": 4.111432075500488,
+            "short_term_score": 1.290303111076355,
+            "long_term_score": 1.0271700620651245,
+            "uncertainty": 0.0015172000275924802,
+            "structure_score": 1.0,
+            "world_model_influence": 1.0,
+            "action_sequence": [
+              "click(\"18\", \"left\")",
+              "click(\"27\", \"left\")",
+              "click(\"27\", \"left\")"
+            ],
+            "rollout_steps": [
+              {
+                "depth": 1,
+                "progress": 0.31519800424575806,
+                "reward": 0.3326731026172638,
+                "uncertainty": 0.0017379493219777942,
+                "short_step": 0.6141654849052429,
+                "long_step": 0.38365113735198975,
+                "state_delta_probabilities": {
+                  "url_changed": 6.686371489195153e-05,
+                  "title_changed": 5.387250712374225e-05,
+                  "axtree_changed": 0.9955306649208069,
+                  "dom_changed": 0.37494325637817383,
+                  "target_available": 0.9999619722366333
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.04292504861950874,
+                  "terminal": 0.48205891251564026
+                },
+                "risk_probabilities": {
+                  "success": 0.4084114134311676,
+                  "stalled": 0.05503573268651962,
+                  "goal_deviation": 0.047859784215688705,
+                  "severe_failure": 0.026860563084483147
+                }
+              },
+              {
+                "depth": 2,
+                "progress": 0.8846151232719421,
+                "reward": 0.9015301465988159,
+                "uncertainty": 0.001101529342122376,
+                "short_step": 1.489613652229309,
+                "long_step": 1.0271700620651245,
+                "state_delta_probabilities": {
+                  "url_changed": 3.726310023921542e-05,
+                  "title_changed": 2.8691842089756392e-05,
+                  "axtree_changed": 0.9939908385276794,
+                  "dom_changed": 0.0003381355491001159,
+                  "target_available": 0.9999940395355225
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.030683500692248344,
+                  "terminal": 0.95644611120224
+                },
+                "risk_probabilities": {
+                  "success": 0.9349938631057739,
+                  "stalled": 0.03536440432071686,
+                  "goal_deviation": 0.03377541899681091,
+                  "severe_failure": 0.029412593692541122
+                }
+              },
+              {
+                "depth": 3,
+                "progress": 0.7184827923774719,
+                "reward": 0.7549370527267456,
+                "uncertainty": 0.0012753151822835207,
+                "short_step": 1.2476885318756104,
+                "long_step": 0.8458372354507446,
+                "state_delta_probabilities": {
+                  "url_changed": 5.916762529523112e-05,
+                  "title_changed": 5.345930185285397e-05,
+                  "axtree_changed": 0.9958173632621765,
+                  "dom_changed": 0.0001544556871522218,
+                  "target_available": 0.9999914169311523
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.03053220361471176,
+                  "terminal": 0.9483715295791626
+                },
+                "risk_probabilities": {
+                  "success": 0.8636662364006042,
+                  "stalled": 0.03972553089261055,
+                  "goal_deviation": 0.03413994237780571,
+                  "severe_failure": 0.09968537092208862
+                }
+              }
+            ]
+          },
+          {
+            "action": "click(\"21\", \"left\")",
+            "total_score": 3.666902542114258,
+            "short_term_score": 1.4016752243041992,
+            "long_term_score": 1.082327127456665,
+            "uncertainty": 0.0015862510772421956,
+            "structure_score": 0.7,
+            "world_model_influence": 1.0,
+            "action_sequence": [
+              "click(\"21\", \"left\")",
+              "click(\"27\", \"left\")",
+              "click(\"27\", \"left\")"
+            ],
+            "rollout_steps": [
+              {
+                "depth": 1,
+                "progress": 0.1800185739994049,
+                "reward": 0.21963751316070557,
+                "uncertainty": 0.0017749844118952751,
+                "short_step": 0.4827626049518585,
+                "long_step": 0.1685655266046524,
+                "state_delta_probabilities": {
+                  "url_changed": 2.5051973352674395e-05,
+                  "title_changed": 2.3349975890596397e-05,
+                  "axtree_changed": 0.999977707862854,
+                  "dom_changed": 0.996342122554779,
+                  "target_available": 0.9999946355819702
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.005164189729839563,
+                  "terminal": 0.31907549500465393
+                },
+                "risk_probabilities": {
+                  "success": 0.14712168276309967,
+                  "stalled": 0.004903878550976515,
+                  "goal_deviation": 0.004352268297225237,
+                  "severe_failure": 0.023384442552924156
+                }
+              },
+              {
+                "depth": 2,
+                "progress": 0.9052325487136841,
+                "reward": 0.9543175101280212,
+                "uncertainty": 0.001316071837209165,
+                "short_step": 1.5593680143356323,
+                "long_step": 1.082327127456665,
+                "state_delta_probabilities": {
+                  "url_changed": 3.968980672652833e-05,
+                  "title_changed": 2.7497613700688817e-05,
+                  "axtree_changed": 0.9988183379173279,
+                  "dom_changed": 0.0008516085799783468,
+                  "target_available": 0.9999958276748657
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.01676146686077118,
+                  "terminal": 0.9759207963943481
+                },
+                "risk_probabilities": {
+                  "success": 0.9573739171028137,
+                  "stalled": 0.01602238044142723,
+                  "goal_deviation": 0.0168431606143713,
+                  "severe_failure": 0.029182951897382736
+                }
+              },
+              {
+                "depth": 3,
+                "progress": 0.7908711433410645,
+                "reward": 0.8483984470367432,
+                "uncertainty": 0.001295838039368391,
+                "short_step": 1.382086992263794,
+                "long_step": 0.9720135927200317,
+                "state_delta_probabilities": {
+                  "url_changed": 5.1632265240186825e-05,
+                  "title_changed": 3.910957457264885e-05,
+                  "axtree_changed": 0.997796893119812,
+                  "dom_changed": 0.0001261485303984955,
+                  "target_available": 0.9999927282333374
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.021432192996144295,
+                  "terminal": 0.9637936949729919
+                },
+                "risk_probabilities": {
+                  "success": 0.9170702695846558,
+                  "stalled": 0.02639359049499035,
+                  "goal_deviation": 0.0220685675740242,
+                  "severe_failure": 0.06660706549882889
+                }
+              }
+            ]
+          },
+          {
+            "action": "click(\"24\", \"left\")",
+            "total_score": 3.5053772926330566,
+            "short_term_score": 1.2531553506851196,
+            "long_term_score": 1.0664443969726562,
+            "uncertainty": 0.002333893906325102,
+            "structure_score": 0.7,
+            "world_model_influence": 1.0,
+            "action_sequence": [
+              "click(\"24\", \"left\")",
+              "click(\"27\", \"left\")",
+              "click(\"27\", \"left\")"
+            ],
+            "rollout_steps": [
+              {
+                "depth": 1,
+                "progress": 0.6712709665298462,
+                "reward": 0.7111674547195435,
+                "uncertainty": 0.002377798780798912,
+                "short_step": 1.188942551612854,
+                "long_step": 0.8568258285522461,
+                "state_delta_probabilities": {
+                  "url_changed": 6.0900740209035575e-05,
+                  "title_changed": 4.585384886013344e-05,
+                  "axtree_changed": 0.995402455329895,
+                  "dom_changed": 0.0005848249420523643,
+                  "target_available": 0.9999179840087891
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.017574965953826904,
+                  "terminal": 0.9562584757804871
+                },
+                "risk_probabilities": {
+                  "success": 0.8427854180335999,
+                  "stalled": 0.039726242423057556,
+                  "goal_deviation": 0.020586948841810226,
+                  "severe_failure": 0.0885256826877594
+                }
+              },
+              {
+                "depth": 2,
+                "progress": 1.016223430633545,
+                "reward": 1.048017978668213,
+                "uncertainty": 0.0013535936595872045,
+                "short_step": 1.7011429071426392,
+                "long_step": 1.0664443969726562,
+                "state_delta_probabilities": {
+                  "url_changed": 3.9331407606368884e-05,
+                  "title_changed": 3.002239463967271e-05,
+                  "axtree_changed": 0.9920908212661743,
+                  "dom_changed": 7.124603143893182e-05,
+                  "target_available": 0.9999901056289673
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.02459484152495861,
+                  "terminal": 0.9780690670013428
+                },
+                "risk_probabilities": {
+                  "success": 0.9623350501060486,
+                  "stalled": 0.03235279396176338,
+                  "goal_deviation": 0.025622524321079254,
+                  "severe_failure": 0.030980201438069344
+                }
+              },
+              {
+                "depth": 3,
+                "progress": 0.8095026612281799,
+                "reward": 0.8496450185775757,
+                "uncertainty": 0.001265080296434462,
+                "short_step": 1.3905259370803833,
+                "long_step": 0.9243741035461426,
+                "state_delta_probabilities": {
+                  "url_changed": 5.4779458878329024e-05,
+                  "title_changed": 4.766255369759165e-05,
+                  "axtree_changed": 0.9944227337837219,
+                  "dom_changed": 7.034718146314844e-05,
+                  "target_available": 0.9999885559082031
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.026848653331398964,
+                  "terminal": 0.9647735953330994
+                },
+                "risk_probabilities": {
+                  "success": 0.9082164764404297,
+                  "stalled": 0.03719666972756386,
+                  "goal_deviation": 0.029172733426094055,
+                  "severe_failure": 0.08353759348392487
+                }
+              }
+            ]
+          },
+          {
+            "action": "scroll(0, 600)",
+            "total_score": 1.5135079622268677,
+            "short_term_score": 0.5144195556640625,
+            "long_term_score": 0.6499060392379761,
+            "uncertainty": 0.00209135957993567,
+            "structure_score": 0.24,
+            "world_model_influence": 1.0,
+            "action_sequence": [
+              "scroll(0, 600)",
+              "click(\"27\", \"left\")",
+              "click(\"27\", \"left\")"
+            ],
+            "rollout_steps": [
+              {
+                "depth": 1,
+                "progress": 0.04625794291496277,
+                "reward": 0.03309702128171921,
+                "uncertainty": 0.0032814028672873974,
+                "short_step": -0.5390915274620056,
+                "long_step": -0.6063027381896973,
+                "state_delta_probabilities": {
+                  "url_changed": 8.110921044135466e-06,
+                  "title_changed": 1.6862117263372056e-05,
+                  "axtree_changed": 1.3788703654427081e-06,
+                  "dom_changed": 1.6510688283233321e-06,
+                  "target_available": 4.942226587445475e-05
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.006695691961795092,
+                  "terminal": 0.00153140421025455
+                },
+                "risk_probabilities": {
+                  "success": 0.004854384809732437,
+                  "stalled": 0.9942521452903748,
+                  "goal_deviation": 0.008063600398600101,
+                  "severe_failure": 0.004565671551972628
+                }
+              },
+              {
+                "depth": 2,
+                "progress": 0.5782141089439392,
+                "reward": 0.5582789182662964,
+                "uncertainty": 0.0012605850351974368,
+                "short_step": 0.8871496915817261,
+                "long_step": 0.43473130464553833,
+                "state_delta_probabilities": {
+                  "url_changed": 2.0076186046935618e-05,
+                  "title_changed": 1.888859878818039e-05,
+                  "axtree_changed": 0.384054958820343,
+                  "dom_changed": 4.0185448597185314e-05,
+                  "target_available": 0.9949889779090881
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.011928940191864967,
+                  "terminal": 0.6015941500663757
+                },
+                "risk_probabilities": {
+                  "success": 0.5336127281188965,
+                  "stalled": 0.2660975456237793,
+                  "goal_deviation": 0.016797179356217384,
+                  "severe_failure": 0.028496351093053818
+                }
+              },
+              {
+                "depth": 3,
+                "progress": 0.5837544798851013,
+                "reward": 0.6153492331504822,
+                "uncertainty": 0.001185013446956873,
+                "short_step": 1.0458621978759766,
+                "long_step": 0.6499060392379761,
+                "state_delta_probabilities": {
+                  "url_changed": 4.873827856499702e-05,
+                  "title_changed": 4.722693847725168e-05,
+                  "axtree_changed": 0.9874593019485474,
+                  "dom_changed": 0.00033474640804342926,
+                  "target_available": 0.9999347925186157
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.01673162169754505,
+                  "terminal": 0.9260324239730835
+                },
+                "risk_probabilities": {
+                  "success": 0.7294923663139343,
+                  "stalled": 0.053614236414432526,
+                  "goal_deviation": 0.022819185629487038,
+                  "severe_failure": 0.1398700326681137
+                }
+              }
+            ]
+          },
+          {
+            "action": "scroll(0, -600)",
+            "total_score": 1.3783499002456665,
+            "short_term_score": 0.36515411734580994,
+            "long_term_score": 0.6676797866821289,
+            "uncertainty": 0.0023700552992522717,
+            "structure_score": 0.24,
+            "world_model_influence": 1.0,
+            "action_sequence": [
+              "scroll(0, -600)",
+              "click(\"24\", \"left\")",
+              "click(\"27\", \"left\")"
+            ],
+            "rollout_steps": [
+              {
+                "depth": 1,
+                "progress": 0.031334228813648224,
+                "reward": 0.018610086292028427,
+                "uncertainty": 0.003332969266921282,
+                "short_step": -0.563081681728363,
+                "long_step": -0.6090999841690063,
+                "state_delta_probabilities": {
+                  "url_changed": 8.762542165641207e-06,
+                  "title_changed": 1.672456528467592e-05,
+                  "axtree_changed": 1.0271143082718481e-06,
+                  "dom_changed": 1.9532085389073472e-06,
+                  "target_available": 2.7779613446909934e-05
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.008134851232171059,
+                  "terminal": 0.0011048666201531887
+                },
+                "risk_probabilities": {
+                  "success": 0.0036913042422384024,
+                  "stalled": 0.9953643083572388,
+                  "goal_deviation": 0.009630759246647358,
+                  "severe_failure": 0.004108578898012638
+                }
+              },
+              {
+                "depth": 2,
+                "progress": 0.39075908064842224,
+                "reward": 0.3850179612636566,
+                "uncertainty": 0.0018573825946077704,
+                "short_step": 0.541491687297821,
+                "long_step": 0.06304427981376648,
+                "state_delta_probabilities": {
+                  "url_changed": 3.3787000575102866e-05,
+                  "title_changed": 2.811367994581815e-05,
+                  "axtree_changed": 0.3333909213542938,
+                  "dom_changed": 8.807081758277491e-05,
+                  "target_available": 0.9576589465141296
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.012279681861400604,
+                  "terminal": 0.3833646774291992
+                },
+                "risk_probabilities": {
+                  "success": 0.28162825107574463,
+                  "stalled": 0.3724740147590637,
+                  "goal_deviation": 0.01792721450328827,
+                  "severe_failure": 0.03589685633778572
+                }
+              },
+              {
+                "depth": 3,
+                "progress": 0.5885957479476929,
+                "reward": 0.6192231178283691,
+                "uncertainty": 0.0016381700988858938,
+                "short_step": 1.0526926517486572,
+                "long_step": 0.6676797866821289,
+                "state_delta_probabilities": {
+                  "url_changed": 6.325929280137643e-05,
+                  "title_changed": 5.748558396589942e-05,
+                  "axtree_changed": 0.9900230765342712,
+                  "dom_changed": 0.00023968137975316495,
+                  "target_available": 0.999929666519165
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.017823193222284317,
+                  "terminal": 0.9299135804176331
+                },
+                "risk_probabilities": {
+                  "success": 0.7352534532546997,
+                  "stalled": 0.0520702488720417,
+                  "goal_deviation": 0.022083725780248642,
+                  "severe_failure": 0.1334870457649231
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "example_id": "e28e4dcfa761f32d67ea",
+      "task_id": "browsergym/miniwob.click-option",
+      "instruction": "Select uHJ7bD and click Submit.",
+      "recorded_action": "click(\"24\", \"left\")",
+      "recorded_labels": {
+        "success": false,
+        "risky": false
+      },
+      "candidate_count": 7,
+      "reactive_action": "click(\"24\", \"left\")",
+      "w0_action": "click(\"21\", \"left\")",
+      "phase3_decision": {
+        "action": "click(\"24\", \"left\")",
+        "mode": "planned",
+        "confidence": 0.8137896083298789,
+        "horizon": 3,
+        "should_execute": true,
+        "requires_reobservation": false,
+        "rationale": "Selected after H=3 rollout using short/long outcome, uncertainty and task-element structural consistency.",
+        "fallback_action": "click(\"24\", \"left\")",
+        "ranked_plans": [
+          {
+            "action": "click(\"24\", \"left\")",
+            "total_score": 2.821878671646118,
+            "short_term_score": 0.7726770639419556,
+            "long_term_score": 0.06194844841957092,
+            "uncertainty": 0.0008930735057219863,
+            "structure_score": 1.0,
+            "world_model_influence": 1.0,
+            "action_sequence": [
+              "click(\"24\", \"left\")",
+              "click(\"30\", \"left\")",
+              "click(\"30\", \"left\")"
+            ],
+            "rollout_steps": [
+              {
+                "depth": 1,
+                "progress": -0.03819190338253975,
+                "reward": -0.03745165094733238,
+                "uncertainty": 0.001332813990302384,
+                "short_step": 0.1274644285440445,
+                "long_step": -0.03496763855218887,
+                "state_delta_probabilities": {
+                  "url_changed": 2.7695519747794606e-05,
+                  "title_changed": 2.1173978893784806e-05,
+                  "axtree_changed": 0.9999674558639526,
+                  "dom_changed": 0.9997907280921936,
+                  "target_available": 0.9998406171798706
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.012575874105095863,
+                  "terminal": 0.009455082006752491
+                },
+                "risk_probabilities": {
+                  "success": 0.0033990212250500917,
+                  "stalled": 0.009208804927766323,
+                  "goal_deviation": 0.007849187590181828,
+                  "severe_failure": 0.017922136932611465
+                }
+              },
+              {
+                "depth": 2,
+                "progress": 0.22042272984981537,
+                "reward": 0.28634852170944214,
+                "uncertainty": 0.0005897922092117369,
+                "short_step": 0.5499444603919983,
+                "long_step": 0.06194844841957092,
+                "state_delta_probabilities": {
+                  "url_changed": 1.0688413567550015e-05,
+                  "title_changed": 8.61366333992919e-06,
+                  "axtree_changed": 0.9999438524246216,
+                  "dom_changed": 0.24117562174797058,
+                  "target_available": 0.999975323677063
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.008888885378837585,
+                  "terminal": 0.35935747623443604
+                },
+                "risk_probabilities": {
+                  "success": 0.12781351804733276,
+                  "stalled": 0.010894129052758217,
+                  "goal_deviation": 0.009714506566524506,
+                  "severe_failure": 0.08099037408828735
+                }
+              },
+              {
+                "depth": 3,
+                "progress": 0.12807601690292358,
+                "reward": 0.19777797162532806,
+                "uncertainty": 0.000673517759423703,
+                "short_step": 0.39734888076782227,
+                "long_step": -0.1716148406267166,
+                "state_delta_probabilities": {
+                  "url_changed": 3.767041562241502e-05,
+                  "title_changed": 3.8015670725144446e-05,
+                  "axtree_changed": 0.999772846698761,
+                  "dom_changed": 0.11539098620414734,
+                  "target_available": 0.9998466968536377
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.017890656366944313,
+                  "terminal": 0.3588620126247406
+                },
+                "risk_probabilities": {
+                  "success": 0.08954623341560364,
+                  "stalled": 0.025454901158809662,
+                  "goal_deviation": 0.018095742911100388,
+                  "severe_failure": 0.19970986247062683
+                }
+              }
+            ]
+          },
+          {
+            "action": "click(\"30\", \"left\")",
+            "total_score": 2.554042100906372,
+            "short_term_score": 0.5803349018096924,
+            "long_term_score": -0.03243030607700348,
+            "uncertainty": 0.0008713441202417016,
+            "structure_score": 1.0,
+            "world_model_influence": 1.0,
+            "action_sequence": [
+              "click(\"30\", \"left\")",
+              "click(\"30\", \"left\")",
+              "click(\"30\", \"left\")"
+            ],
+            "rollout_steps": [
+              {
+                "depth": 1,
+                "progress": -0.04260620102286339,
+                "reward": -0.030795715749263763,
+                "uncertainty": 0.0013226777082309127,
+                "short_step": 0.11737806349992752,
+                "long_step": -0.116592176258564,
+                "state_delta_probabilities": {
+                  "url_changed": 6.849121564300731e-05,
+                  "title_changed": 5.147725096321665e-05,
+                  "axtree_changed": 0.9999282360076904,
+                  "dom_changed": 0.9956216216087341,
+                  "target_available": 0.9992984533309937
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.020021500065922737,
+                  "terminal": 0.06327497214078903
+                },
+                "risk_probabilities": {
+                  "success": 0.010886804200708866,
+                  "stalled": 0.014100609347224236,
+                  "goal_deviation": 0.014343789778649807,
+                  "severe_failure": 0.07821988314390182
+                }
+              },
+              {
+                "depth": 2,
+                "progress": 0.1251058131456375,
+                "reward": 0.18549561500549316,
+                "uncertainty": 0.0005751504795625806,
+                "short_step": 0.40635111927986145,
+                "long_step": -0.03243030607700348,
+                "state_delta_probabilities": {
+                  "url_changed": 1.5205331692413893e-05,
+                  "title_changed": 1.1283760613878258e-05,
+                  "axtree_changed": 0.9999779462814331,
+                  "dom_changed": 0.8232335448265076,
+                  "target_available": 0.9999234676361084
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.00891205295920372,
+                  "terminal": 0.2474757730960846
+                },
+                "risk_probabilities": {
+                  "success": 0.0739322230219841,
+                  "stalled": 0.007262636907398701,
+                  "goal_deviation": 0.008110057562589645,
+                  "severe_failure": 0.09559336304664612
+                }
+              },
+              {
+                "depth": 3,
+                "progress": 0.041958026587963104,
+                "reward": 0.1037362813949585,
+                "uncertainty": 0.0006246715784072876,
+                "short_step": 0.27373743057250977,
+                "long_step": -0.16448625922203064,
+                "state_delta_probabilities": {
+                  "url_changed": 3.539356112014502e-05,
+                  "title_changed": 3.192126314388588e-05,
+                  "axtree_changed": 0.9999290704727173,
+                  "dom_changed": 0.8256129026412964,
+                  "target_available": 0.9997491240501404
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.013943118043243885,
+                  "terminal": 0.16297850012779236
+                },
+                "risk_probabilities": {
+                  "success": 0.03892925754189491,
+                  "stalled": 0.014806775376200676,
+                  "goal_deviation": 0.01179576013237238,
+                  "severe_failure": 0.14355427026748657
+                }
+              }
+            ]
+          },
+          {
+            "action": "click(\"21\", \"left\")",
+            "total_score": 2.2263236045837402,
+            "short_term_score": 0.8153901100158691,
+            "long_term_score": 0.014146603643894196,
+            "uncertainty": 0.0009594240691512823,
+            "structure_score": 0.7,
+            "world_model_influence": 1.0,
+            "action_sequence": [
+              "click(\"21\", \"left\")",
+              "click(\"30\", \"left\")",
+              "click(\"30\", \"left\")"
+            ],
+            "rollout_steps": [
+              {
+                "depth": 1,
+                "progress": 0.054045822471380234,
+                "reward": -0.001457786071114242,
+                "uncertainty": 0.0016421772306784987,
+                "short_step": 0.24854286015033722,
+                "long_step": -0.006020066328346729,
+                "state_delta_probabilities": {
+                  "url_changed": 7.423432180075906e-06,
+                  "title_changed": 5.675275133398827e-06,
+                  "axtree_changed": 0.9999988079071045,
+                  "dom_changed": 0.9999985694885254,
+                  "target_available": 0.9999918937683105
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.004111393354833126,
+                  "terminal": 0.0017298324964940548
+                },
+                "risk_probabilities": {
+                  "success": 0.0016093358863145113,
+                  "stalled": 0.0024722362868487835,
+                  "goal_deviation": 0.0018876348622143269,
+                  "severe_failure": 0.0030695947352796793
+                }
+              },
+              {
+                "depth": 2,
+                "progress": 0.10073165595531464,
+                "reward": 0.16526830196380615,
+                "uncertainty": 0.0005388345452956855,
+                "short_step": 0.3759952485561371,
+                "long_step": 0.014146603643894196,
+                "state_delta_probabilities": {
+                  "url_changed": 7.671130333619658e-06,
+                  "title_changed": 5.5770997278159484e-06,
+                  "axtree_changed": 0.9999938011169434,
+                  "dom_changed": 0.9465649127960205,
+                  "target_available": 0.9999920129776001
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.006103020627051592,
+                  "terminal": 0.15849612653255463
+                },
+                "risk_probabilities": {
+                  "success": 0.06014407426118851,
+                  "stalled": 0.004144216421991587,
+                  "goal_deviation": 0.006002707872539759,
+                  "severe_failure": 0.046138305217027664
+                }
+              },
+              {
+                "depth": 3,
+                "progress": 0.12745116651058197,
+                "reward": 0.20593149960041046,
+                "uncertainty": 0.0006464762263931334,
+                "short_step": 0.4082879424095154,
+                "long_step": -0.0889682024717331,
+                "state_delta_probabilities": {
+                  "url_changed": 3.1519131880486384e-05,
+                  "title_changed": 2.8468026357586496e-05,
+                  "axtree_changed": 0.999907374382019,
+                  "dom_changed": 0.19568410515785217,
+                  "target_available": 0.9999334812164307
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.015184998512268066,
+                  "terminal": 0.3440925180912018
+                },
+                "risk_probabilities": {
+                  "success": 0.09692398458719254,
+                  "stalled": 0.016612805426120758,
+                  "goal_deviation": 0.01518099196255207,
+                  "severe_failure": 0.15304134786128998
+                }
+              }
+            ]
+          },
+          {
+            "action": "click(\"18\", \"left\")",
+            "total_score": 2.1456246376037598,
+            "short_term_score": 0.7490267753601074,
+            "long_term_score": -0.0038125813007354736,
+            "uncertainty": 0.0008798379567451775,
+            "structure_score": 0.7,
+            "world_model_influence": 1.0,
+            "action_sequence": [
+              "click(\"18\", \"left\")",
+              "click(\"30\", \"left\")",
+              "click(\"30\", \"left\")"
+            ],
+            "rollout_steps": [
+              {
+                "depth": 1,
+                "progress": 0.014750500209629536,
+                "reward": 0.01496809534728527,
+                "uncertainty": 0.0014756136806681752,
+                "short_step": 0.20630083978176117,
+                "long_step": -0.014586376957595348,
+                "state_delta_probabilities": {
+                  "url_changed": 1.594160494278185e-05,
+                  "title_changed": 1.0530416147958022e-05,
+                  "axtree_changed": 0.9999871253967285,
+                  "dom_changed": 0.99998939037323,
+                  "target_available": 0.999951958656311
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.0148873720318079,
+                  "terminal": 0.0016605755081400275
+                },
+                "risk_probabilities": {
+                  "success": 0.0018723300890997052,
+                  "stalled": 0.0066903275437653065,
+                  "goal_deviation": 0.007576523814350367,
+                  "severe_failure": 0.0034667346626520157
+                }
+              },
+              {
+                "depth": 2,
+                "progress": 0.11315696686506271,
+                "reward": 0.15566472709178925,
+                "uncertainty": 0.0004965520929545164,
+                "short_step": 0.37671422958374023,
+                "long_step": -0.0038125813007354736,
+                "state_delta_probabilities": {
+                  "url_changed": 9.156774467555806e-06,
+                  "title_changed": 6.6266652538615745e-06,
+                  "axtree_changed": 0.9999738931655884,
+                  "dom_changed": 0.8757763504981995,
+                  "target_available": 0.9999836683273315
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.011280668899416924,
+                  "terminal": 0.12241562455892563
+                },
+                "risk_probabilities": {
+                  "success": 0.05413684993982315,
+                  "stalled": 0.008745520375669003,
+                  "goal_deviation": 0.01124069094657898,
+                  "severe_failure": 0.04396303370594978
+                }
+              },
+              {
+                "depth": 3,
+                "progress": 0.09986676275730133,
+                "reward": 0.16256996989250183,
+                "uncertainty": 0.0006365784211084247,
+                "short_step": 0.3523695468902588,
+                "long_step": -0.14787141978740692,
+                "state_delta_probabilities": {
+                  "url_changed": 3.5137200029566884e-05,
+                  "title_changed": 3.3132040698546916e-05,
+                  "axtree_changed": 0.9998480081558228,
+                  "dom_changed": 0.2885376214981079,
+                  "target_available": 0.9998841285705566
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.01917911507189274,
+                  "terminal": 0.2623650133609772
+                },
+                "risk_probabilities": {
+                  "success": 0.06935633718967438,
+                  "stalled": 0.022359605878591537,
+                  "goal_deviation": 0.018642447888851166,
+                  "severe_failure": 0.1584283709526062
+                }
+              }
+            ]
+          },
+          {
+            "action": "click(\"27\", \"left\")",
+            "total_score": 2.034064292907715,
+            "short_term_score": 0.650802493095398,
+            "long_term_score": -0.02047169953584671,
+            "uncertainty": 0.000902176252566278,
+            "structure_score": 0.7,
+            "world_model_influence": 1.0,
+            "action_sequence": [
+              "click(\"27\", \"left\")",
+              "click(\"30\", \"left\")",
+              "click(\"30\", \"left\")"
+            ],
+            "rollout_steps": [
+              {
+                "depth": 1,
+                "progress": -0.03397870063781738,
+                "reward": -0.050353821367025375,
+                "uncertainty": 0.0014015708584338427,
+                "short_step": 0.12725712358951569,
+                "long_step": -0.030775869265198708,
+                "state_delta_probabilities": {
+                  "url_changed": 2.7180245524505153e-05,
+                  "title_changed": 2.355724609515164e-05,
+                  "axtree_changed": 0.9999791383743286,
+                  "dom_changed": 0.9998520612716675,
+                  "target_available": 0.9999440908432007
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.012075081467628479,
+                  "terminal": 0.00941800232976675
+                },
+                "risk_probabilities": {
+                  "success": 0.0049170153215527534,
+                  "stalled": 0.006526706274598837,
+                  "goal_deviation": 0.007906374521553516,
+                  "severe_failure": 0.017169391736388206
+                }
+              },
+              {
+                "depth": 2,
+                "progress": 0.11227875202894211,
+                "reward": 0.1637248545885086,
+                "uncertainty": 0.0005826673586852849,
+                "short_step": 0.3817138373851776,
+                "long_step": -0.02047169953584671,
+                "state_delta_probabilities": {
+                  "url_changed": 9.964536729967222e-06,
+                  "title_changed": 8.24433118395973e-06,
+                  "axtree_changed": 0.9999713897705078,
+                  "dom_changed": 0.7338346838951111,
+                  "target_available": 0.9999792575836182
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.009058983065187931,
+                  "terminal": 0.1486291140317917
+                },
+                "risk_probabilities": {
+                  "success": 0.05602646246552467,
+                  "stalled": 0.008626664988696575,
+                  "goal_deviation": 0.0082083223387599,
+                  "severe_failure": 0.06189310923218727
+                }
+              },
+              {
+                "depth": 3,
+                "progress": 0.08450671285390854,
+                "reward": 0.14930538833141327,
+                "uncertainty": 0.0006853101076558232,
+                "short_step": 0.3317526578903198,
+                "long_step": -0.14777877926826477,
+                "state_delta_probabilities": {
+                  "url_changed": 3.2307110814144835e-05,
+                  "title_changed": 3.340653711347841e-05,
+                  "axtree_changed": 0.9998469352722168,
+                  "dom_changed": 0.2966797351837158,
+                  "target_available": 0.9998639822006226
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.01724749617278576,
+                  "terminal": 0.19986535608768463
+                },
+                "risk_probabilities": {
+                  "success": 0.055006664246320724,
+                  "stalled": 0.02263592928647995,
+                  "goal_deviation": 0.01490547601133585,
+                  "severe_failure": 0.14284765720367432
+                }
+              }
+            ]
+          },
+          {
+            "action": "scroll(0, 600)",
+            "total_score": 0.14199835062026978,
+            "short_term_score": -0.31939762830734253,
+            "long_term_score": -0.022811368107795715,
+            "uncertainty": 0.0008872937760315835,
+            "structure_score": 0.24,
+            "world_model_influence": 1.0,
+            "action_sequence": [
+              "scroll(0, 600)",
+              "click(\"27\", \"left\")",
+              "click(\"18\", \"left\")"
+            ],
+            "rollout_steps": [
+              {
+                "depth": 1,
+                "progress": 0.016906412318348885,
+                "reward": 0.02356872335076332,
+                "uncertainty": 0.001390886609442532,
+                "short_step": -0.5657760500907898,
+                "long_step": -0.6005762219429016,
+                "state_delta_probabilities": {
+                  "url_changed": 1.5947169231367297e-05,
+                  "title_changed": 1.2990541108592879e-05,
+                  "axtree_changed": 0.00013769217184744775,
+                  "dom_changed": 0.00043362879659980536,
+                  "target_available": 0.0002698418975342065
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.014346042647957802,
+                  "terminal": 0.0006210218998603523
+                },
+                "risk_probabilities": {
+                  "success": 0.0005402476526796818,
+                  "stalled": 0.9717398881912231,
+                  "goal_deviation": 0.011692771688103676,
+                  "severe_failure": 0.004336007870733738
+                }
+              },
+              {
+                "depth": 2,
+                "progress": -0.017294805496931076,
+                "reward": -0.0009115784196183085,
+                "uncertainty": 0.0006180769996717572,
+                "short_step": 0.1390705406665802,
+                "long_step": -0.05551345646381378,
+                "state_delta_probabilities": {
+                  "url_changed": 5.1279789659020025e-06,
+                  "title_changed": 5.487447651830735e-06,
+                  "axtree_changed": 0.9929293990135193,
+                  "dom_changed": 0.9703628420829773,
+                  "target_available": 0.9950054287910461
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.004579716362059116,
+                  "terminal": 0.004060077480971813
+                },
+                "risk_probabilities": {
+                  "success": 0.0026258768048137426,
+                  "stalled": 0.06419364362955093,
+                  "goal_deviation": 0.004856428597122431,
+                  "severe_failure": 0.010385819710791111
+                }
+              },
+              {
+                "depth": 3,
+                "progress": -0.00991978868842125,
+                "reward": 0.0044374545104801655,
+                "uncertainty": 0.0006516481516882777,
+                "short_step": 0.17833171784877777,
+                "long_step": -0.022811368107795715,
+                "state_delta_probabilities": {
+                  "url_changed": 9.040839358931407e-06,
+                  "title_changed": 7.762316272419412e-06,
+                  "axtree_changed": 0.9999219179153442,
+                  "dom_changed": 0.9998154044151306,
+                  "target_available": 0.9999222755432129
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.008353281766176224,
+                  "terminal": 0.003049088642001152
+                },
+                "risk_probabilities": {
+                  "success": 0.002241600537672639,
+                  "stalled": 0.01211508922278881,
+                  "goal_deviation": 0.0065122926607728004,
+                  "severe_failure": 0.00792095996439457
+                }
+              }
+            ]
+          },
+          {
+            "action": "scroll(0, -600)",
+            "total_score": 0.13738062977790833,
+            "short_term_score": -0.3356555700302124,
+            "long_term_score": -0.008173622190952301,
+            "uncertainty": 0.0010622298577800393,
+            "structure_score": 0.24,
+            "world_model_influence": 1.0,
+            "action_sequence": [
+              "scroll(0, -600)",
+              "click(\"21\", \"left\")",
+              "click(\"18\", \"left\")"
+            ],
+            "rollout_steps": [
+              {
+                "depth": 1,
+                "progress": 0.018799137324094772,
+                "reward": 0.023282412439584732,
+                "uncertainty": 0.001464139437302947,
+                "short_step": -0.568026065826416,
+                "long_step": -0.6028168201446533,
+                "state_delta_probabilities": {
+                  "url_changed": 1.7605225366423838e-05,
+                  "title_changed": 1.2769876775564626e-05,
+                  "axtree_changed": 0.00013855141878593713,
+                  "dom_changed": 0.00047297816490754485,
+                  "target_available": 0.00024221251078415662
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.018167736008763313,
+                  "terminal": 0.0005340403877198696
+                },
+                "risk_probabilities": {
+                  "success": 0.0004926655674353242,
+                  "stalled": 0.973301112651825,
+                  "goal_deviation": 0.013571549206972122,
+                  "severe_failure": 0.003909338265657425
+                }
+              },
+              {
+                "depth": 2,
+                "progress": -0.030247526243329048,
+                "reward": -0.03647110238671303,
+                "uncertainty": 0.00098675477784127,
+                "short_step": 0.14458343386650085,
+                "long_step": -0.008173622190952301,
+                "state_delta_probabilities": {
+                  "url_changed": 4.15013118981733e-06,
+                  "title_changed": 2.7151313588547055e-06,
+                  "axtree_changed": 0.9999699592590332,
+                  "dom_changed": 0.9999808073043823,
+                  "target_available": 0.9998651742935181
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.0028299621772021055,
+                  "terminal": 0.000734714965801686
+                },
+                "risk_probabilities": {
+                  "success": 0.0008813978638499975,
+                  "stalled": 0.007737613283097744,
+                  "goal_deviation": 0.0019223657436668873,
+                  "severe_failure": 0.0017580195562914014
+                }
+              },
+              {
+                "depth": 3,
+                "progress": -0.03316228836774826,
+                "reward": -0.010847785510122776,
+                "uncertainty": 0.0007353404071182013,
+                "short_step": 0.1518053114414215,
+                "long_step": -0.013348128646612167,
+                "state_delta_probabilities": {
+                  "url_changed": 7.759252184769139e-06,
+                  "title_changed": 6.117582870501792e-06,
+                  "axtree_changed": 0.9999823570251465,
+                  "dom_changed": 0.999972939491272,
+                  "target_available": 0.9999665021896362
+                },
+                "task_signal_probabilities": {
+                  "invalid_action": 0.006938440725207329,
+                  "terminal": 0.001994472462683916
+                },
+                "risk_probabilities": {
+                  "success": 0.0018033080268651247,
+                  "stalled": 0.006751730106770992,
+                  "goal_deviation": 0.004897633101791143,
+                  "severe_failure": 0.004401106853038073
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

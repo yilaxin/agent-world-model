@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "base_config": "configs/phase2_world_model_p1.json",
+  "experiment": {
+    "name": "proposal_33_counterfactual_p2",
+    "data_directory": "data/phase2_p2",
+    "ensemble_size": 3,
+    "runs": [
+      {"tag": "rank_base_a", "seed": 17},
+      {
+        "tag": "rank_balanced_a",
+        "seed": 29,
+        "training": {"learning_rate": 0.0002, "focal_gamma": 1.5, "patience": 10, "pairwise_rank_weight": 0.5},
+        "loss_weights": {"risk": 1.5, "task_signal": 1.2, "uncertainty": 0.1}
+      },
+      {"tag": "rank_base_b", "seed": 42},
+      {
+        "tag": "rank_regularized",
+        "seed": 73,
+        "model": {"dropout": 0.15},
+        "training": {"learning_rate": 0.0002, "weight_decay": 0.0002, "patience": 10, "pairwise_rank_weight": 0.7},
+        "loss_weights": {"risk": 1.25, "uncertainty": 0.1}
+      },
+      {
+        "tag": "rank_balanced_b",
+        "seed": 101,
+        "model": {"dropout": 0.08},
+        "training": {"learning_rate": 0.0004, "focal_gamma": 1.5, "pairwise_rank_weight": 0.5},
+        "loss_weights": {"risk": 1.4, "task_signal": 1.1, "uncertainty": 0.08}
+      }
+    ],
+    "selection_weights": {
+      "state_delta_f1": 0.15,
+      "task_signal_f1": 0.15,
+      "risk_f1": 0.25,
+      "latent_cosine": 0.10,
+      "risk_ece_penalty": 0.08,
+      "regression_mae_penalty": 0.04,
+      "pairwise_accuracy": 0.30,
+      "pairwise_log_loss_penalty": 0.12
+    },
+    "extra_acceptance_thresholds": {
+      "risk.macro_nll": {"op": "<=", "value": 0.35},
+      "risk.macro_aurc": {"op": "<=", "value": 0.1}
+    }
+  },
+  "outputs": {
+    "run_directory": "artifacts/phase2/p2_multiseed",
+    "report_directory": "data/reports/phase2_p2_multiseed",
+    "ensemble_manifest": "artifacts/phase2/world_model_ensemble_p2.json",
+    "summary_report": "data/reports/phase2_p2_multiseed_ensemble_gpu.json",
+    "validation_report": "data/reports/phase2_p2_ensemble_evaluation_validation_gpu.json",
+    "test_report": "data/reports/phase2_p2_ensemble_evaluation_test_gpu.json"
+  }
+}

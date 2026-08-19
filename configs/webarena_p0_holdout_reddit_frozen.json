@@ -1,0 +1,432 @@
+{
+  "schema_version": 2,
+  "benchmark": "Classic WebArena P0 unseen hash-selected three-site holdout",
+  "frozen_at_utc": "2026-08-13T08:47:08.537751+00:00",
+  "selection_salt": "p0-holdout-v1",
+  "selection_rule": "Single-site tasks only; exclude every historical config/report/trajectory task ID; sort by SHA256(salt|site|task_id); take first N.",
+  "source": {
+    "browsergym_webarena_version": "0.14.3",
+    "libwebarena_version": "0.0.4",
+    "webarena_verified_version": "1.2.3",
+    "task_count": 812,
+    "task_source_sha256": "7b50386fd69163dbc05d615d834df4c6ed2c35596e97a1b10d17451c02537652",
+    "source_wheel_sha256": "9ebee3b4371502c4f0f7e727a72e5846235d6750d420db9a3b8a168107654feb"
+  },
+  "required_sites": [
+    "reddit"
+  ],
+  "task_ids": [
+    731,
+    68,
+    617,
+    724,
+    637,
+    608,
+    627,
+    402,
+    408,
+    630,
+    618,
+    645,
+    640,
+    730,
+    611,
+    582,
+    626,
+    405,
+    723,
+    605,
+    644,
+    600,
+    720,
+    716,
+    604,
+    614,
+    410,
+    584,
+    634,
+    409
+  ],
+  "task_sites": {
+    "731": "reddit",
+    "68": "reddit",
+    "617": "reddit",
+    "724": "reddit",
+    "637": "reddit",
+    "608": "reddit",
+    "627": "reddit",
+    "402": "reddit",
+    "408": "reddit",
+    "630": "reddit",
+    "618": "reddit",
+    "645": "reddit",
+    "640": "reddit",
+    "730": "reddit",
+    "611": "reddit",
+    "582": "reddit",
+    "626": "reddit",
+    "405": "reddit",
+    "723": "reddit",
+    "605": "reddit",
+    "644": "reddit",
+    "600": "reddit",
+    "720": "reddit",
+    "716": "reddit",
+    "604": "reddit",
+    "614": "reddit",
+    "410": "reddit",
+    "584": "reddit",
+    "634": "reddit",
+    "409": "reddit"
+  },
+  "task_audit": {
+    "731": {
+      "site": "reddit",
+      "task_record_sha256": "281728096379306cce443a53317dc6a81d9f5660b16f89f112d4d83f233a47dd",
+      "intent_template_id": 27,
+      "eval_types": [
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "68": {
+      "site": "reddit",
+      "task_record_sha256": "033ea5596373d2a14df3598d277ddb52331e776f14546e12a69ac84cf0900f24",
+      "intent_template_id": 17,
+      "eval_types": [
+        "string_match"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "617": {
+      "site": "reddit",
+      "task_record_sha256": "6f177913623e31838cd523d3df9a5645b9d7efb50e151b50e416da2e0fc8f781",
+      "intent_template_id": 11,
+      "eval_types": [
+        "url_match",
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "724": {
+      "site": "reddit",
+      "task_record_sha256": "8bd70577c7379dc4a8def849c48a8cff26fc838e2c016d88b7084c6187a7614d",
+      "intent_template_id": 25,
+      "eval_types": [
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "637": {
+      "site": "reddit",
+      "task_record_sha256": "a5ac2a574ad195864157240764d6d5c8a3d4b2fc773179230e9245fa50a8be70",
+      "intent_template_id": 6100,
+      "eval_types": [
+        "url_match",
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "608": {
+      "site": "reddit",
+      "task_record_sha256": "ae53e1cdbfadbbb0e768931dc0e5bb4fd59154ddff1731718c57b37852b9c980",
+      "intent_template_id": 5,
+      "eval_types": [
+        "url_match",
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "627": {
+      "site": "reddit",
+      "task_record_sha256": "78dff980d146fd44095a758131b3dca123765ab4982d89184d07e94cfcea634c",
+      "intent_template_id": 13,
+      "eval_types": [
+        "url_match",
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "402": {
+      "site": "reddit",
+      "task_record_sha256": "f44a47d42b08704a4cc2f1a12f42e2eec35e5d0496d0227f83502414eba1ce6f",
+      "intent_template_id": 6,
+      "eval_types": [
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "408": {
+      "site": "reddit",
+      "task_record_sha256": "5f4c2cb80c936a3334c42292636caa8849e866c22472903e6209f809a1fe4c7d",
+      "intent_template_id": 22,
+      "eval_types": [
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "630": {
+      "site": "reddit",
+      "task_record_sha256": "4a43eb2b9f448734fc3647621465aa66ae91ebc697d854ebab2ed93e98ca3340",
+      "intent_template_id": 15,
+      "eval_types": [
+        "url_match",
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "618": {
+      "site": "reddit",
+      "task_record_sha256": "d81488df6f0fe49bce0d145eb9715e23444653cbcfc947b440139fc6b9e459b6",
+      "intent_template_id": 11,
+      "eval_types": [
+        "url_match",
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "645": {
+      "site": "reddit",
+      "task_record_sha256": "30e47b4936f288647eeb6c2752671588012ecee596e9ee16c4ca77a70c92eed3",
+      "intent_template_id": 19,
+      "eval_types": [
+        "url_match",
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "640": {
+      "site": "reddit",
+      "task_record_sha256": "5215fb55b8ce03b4c73d559dce579658cfe4c8d9671a4a57c0a112726f696158",
+      "intent_template_id": 16,
+      "eval_types": [
+        "url_match",
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "730": {
+      "site": "reddit",
+      "task_record_sha256": "2e6a5b0b198636a415c5b4acf45cebb1d60b4d536c9ed7473fa6c529e365e739",
+      "intent_template_id": 1510,
+      "eval_types": [
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "611": {
+      "site": "reddit",
+      "task_record_sha256": "86d0ae01ea484477c75587c98a02477d624f59826910744ec8c94ac7f1c62f85",
+      "intent_template_id": 9,
+      "eval_types": [
+        "url_match",
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "582": {
+      "site": "reddit",
+      "task_record_sha256": "11065bfed65d3276a9791cfa216b375c01186bfee8c23e52af50fbd6a4e9606b",
+      "intent_template_id": 7,
+      "eval_types": [
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "626": {
+      "site": "reddit",
+      "task_record_sha256": "f1e6cbc3611ea036058c7da331d9263c2111ab145d2702903617c73468f62c8b",
+      "intent_template_id": 13,
+      "eval_types": [
+        "url_match",
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "405": {
+      "site": "reddit",
+      "task_record_sha256": "793d7d2290bbf98ca963ef4691259a7095ff9265e7aef2f432ac1d4006f8c0e4",
+      "intent_template_id": 22,
+      "eval_types": [
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "723": {
+      "site": "reddit",
+      "task_record_sha256": "78f0e76f8fe0cebea92577afc984773c63be0c7ac461fa7b583d1911c35bf1c4",
+      "intent_template_id": 25,
+      "eval_types": [
+        "string_match"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "605": {
+      "site": "reddit",
+      "task_record_sha256": "3231227f2a707888021d54310a9a5678be188a0d12e631ccb61b41c044cfee2b",
+      "intent_template_id": 5,
+      "eval_types": [
+        "url_match",
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "644": {
+      "site": "reddit",
+      "task_record_sha256": "14a2982b4d8b086b6b14dd26eb3708d0e6d80072db0e8b68f3b88e20b5c894dd",
+      "intent_template_id": 16,
+      "eval_types": [
+        "url_match",
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "600": {
+      "site": "reddit",
+      "task_record_sha256": "f49908f9d48b05b6250bada08e493fe65f20e106b076c4346e81552c00695880",
+      "intent_template_id": 3765,
+      "eval_types": [
+        "url_match",
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "720": {
+      "site": "reddit",
+      "task_record_sha256": "4c73ab142cba41a82853eb8a2f0726f8b173779336b65fa45478d9b1323add13",
+      "intent_template_id": 25,
+      "eval_types": [
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "716": {
+      "site": "reddit",
+      "task_record_sha256": "f74748cbdaaddfaa9fc3a98b75ea60253a58b6d9ebec4d513630400ed282bcd6",
+      "intent_template_id": 24,
+      "eval_types": [
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "604": {
+      "site": "reddit",
+      "task_record_sha256": "289373f187a4f7d640553f969d703672d081882ae96a918018c71b3bdf0d62dd",
+      "intent_template_id": 3765,
+      "eval_types": [
+        "url_match",
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "614": {
+      "site": "reddit",
+      "task_record_sha256": "e1d3558238d666a495623e5b45efb66c79cfc8b95cddbd17ad641733b0bef037",
+      "intent_template_id": 9,
+      "eval_types": [
+        "url_match",
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "410": {
+      "site": "reddit",
+      "task_record_sha256": "6b61ea4fb3b582bacdfd767ed04f8a95457481dfdf20c669077aeb5624bc0257",
+      "intent_template_id": 23,
+      "eval_types": [
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "584": {
+      "site": "reddit",
+      "task_record_sha256": "61e3aa69d4a5219ee247dee0b6654c162c2ec56614cbd1c6b63b2de4925f372c",
+      "intent_template_id": 7,
+      "eval_types": [
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "634": {
+      "site": "reddit",
+      "task_record_sha256": "e6a3a92d838bd973978de0e18cb68a4c0e9aced38fcf94d2793ce85329f41dae",
+      "intent_template_id": 15,
+      "eval_types": [
+        "url_match",
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "409": {
+      "site": "reddit",
+      "task_record_sha256": "a1a430b9550ae557731080bf250a160f48f16e47c2ebbe04c73abec4af93e9d3",
+      "intent_template_id": 23,
+      "eval_types": [
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    }
+  },
+  "historical_excluded_task_ids": [
+    27,
+    28,
+    29,
+    30,
+    31,
+    44,
+    45,
+    157,
+    258,
+    274,
+    275,
+    276,
+    595,
+    596,
+    597,
+    676,
+    677
+  ],
+  "seeds": [
+    0
+  ],
+  "reactive_step_budget": 12,
+  "world_model_step_budget": 12,
+  "episode_max_attempts": 2,
+  "evaluator_smoke_step_budget": 1,
+  "evaluator_smoke_answers": {},
+  "release_fingerprint_sha256": "427049583ec231a5f6c49450cd2da51da36ea255ae42ccb1770a9a027b956652",
+  "task_feedback_used": false,
+  "post_freeze_policy_changes_allowed": false,
+  "scope_limit": "Thirty unseen, hash-selected, single-site reddit tasks; paired 2x2 evaluation only, not the full 812-task WebArena benchmark.",
+  "freeze_sha256": "e4b6c2dc2c12397e2c6c4da4bc91f27a8a2524060c2960a979ac898abbab1d46"
+}

@@ -1,0 +1,1154 @@
+{
+  "schema_version": 1,
+  "benchmark": "Classic WebArena P0 round-2 development split",
+  "frozen_at_utc": "2026-08-14T05:26:46.767920+00:00",
+  "selection_salt": "p0-round2-development-v1",
+  "sites": [
+    "gitlab",
+    "reddit",
+    "shopping"
+  ],
+  "tasks_per_site": 10,
+  "selected_task_ids_by_site": {
+    "gitlab": [
+      568,
+      756,
+      476,
+      317,
+      315,
+      442,
+      736,
+      449,
+      415,
+      398
+    ],
+    "reddit": [
+      407,
+      67,
+      625,
+      721,
+      583,
+      733,
+      629,
+      725,
+      612,
+      648
+    ],
+    "shopping": [
+      225,
+      512,
+      434,
+      321,
+      272,
+      520,
+      334,
+      263,
+      468,
+      233
+    ]
+  },
+  "step_budget_per_episode": 12,
+  "task_feedback_allowed": true,
+  "eligible_for_final_claim": false,
+  "historical_excluded_task_ids": [
+    21,
+    23,
+    24,
+    27,
+    28,
+    29,
+    30,
+    31,
+    44,
+    45,
+    47,
+    68,
+    102,
+    104,
+    126,
+    134,
+    144,
+    150,
+    157,
+    158,
+    164,
+    171,
+    173,
+    179,
+    205,
+    239,
+    240,
+    258,
+    274,
+    275,
+    276,
+    300,
+    301,
+    304,
+    316,
+    320,
+    330,
+    332,
+    339,
+    343,
+    350,
+    358,
+    360,
+    384,
+    385,
+    389,
+    394,
+    402,
+    405,
+    408,
+    409,
+    410,
+    431,
+    437,
+    438,
+    440,
+    444,
+    446,
+    450,
+    480,
+    519,
+    530,
+    570,
+    574,
+    575,
+    576,
+    578,
+    579,
+    582,
+    584,
+    591,
+    595,
+    596,
+    597,
+    600,
+    604,
+    605,
+    608,
+    611,
+    614,
+    617,
+    618,
+    626,
+    627,
+    630,
+    634,
+    637,
+    640,
+    644,
+    645,
+    658,
+    660,
+    676,
+    677,
+    693,
+    716,
+    720,
+    723,
+    724,
+    730,
+    731,
+    742,
+    746,
+    787,
+    795,
+    799,
+    803
+  ],
+  "historical_exclusion_evidence": {
+    "21": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_shopping_world-model_guard_on.json"
+    ],
+    "23": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_shopping_world-model_guard_on.json"
+    ],
+    "24": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_recovery_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_recovery_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_recovery_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_recovery_shopping_world-model_guard_on.json",
+      "data/reports/webarena_p0_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_shopping_world-model_guard_on.json"
+    ],
+    "27": [
+      "configs/webarena_reddit_eval.json",
+      "data/reports/webarena_online_evaluation_latest.json",
+      "data/reports/webarena_phase3_online_evaluation_gpu.json",
+      "data/trajectories_webarena_eval/phase3/20260808T151851Z_browsergym_webarena.27_seed0_7a12b820.jsonl"
+    ],
+    "28": [
+      "configs/webarena_reddit_eval.json",
+      "data/reports/webarena_online_evaluation_latest.json",
+      "data/reports/webarena_phase3_online_evaluation_gpu.json",
+      "data/trajectories_webarena_eval/phase3/20260808T151914Z_browsergym_webarena.28_seed0_a413a5c4.jsonl"
+    ],
+    "29": [
+      "configs/webarena_reddit_eval.json",
+      "data/reports/webarena_online_evaluation_latest.json",
+      "data/reports/webarena_phase3_online_evaluation_gpu.json",
+      "data/trajectories_webarena_eval/phase3/20260808T151935Z_browsergym_webarena.29_seed0_162ee2f4.jsonl"
+    ],
+    "30": [
+      "configs/webarena_reddit_eval.json",
+      "data/reports/webarena_online_evaluation_latest.json",
+      "data/reports/webarena_phase3_online_evaluation_gpu.json",
+      "data/trajectories_webarena_eval/phase3/20260808T151957Z_browsergym_webarena.30_seed0_e2fe62e1.jsonl"
+    ],
+    "31": [
+      "configs/webarena_reddit_eval.json",
+      "data/reports/webarena_online_evaluation_latest.json",
+      "data/reports/webarena_phase3_online_evaluation_gpu.json",
+      "data/trajectories_webarena_eval/phase3/20260808T152019Z_browsergym_webarena.31_seed0_0787c4de.jsonl"
+    ],
+    "44": [
+      "configs/webarena_formal_gitlab.json",
+      "configs/webarena_multisite_eval.json",
+      "data/reports/webarena_formal_gitlab_reactive.json",
+      "data/reports/webarena_formal_gitlab_reactive_post_fix_v1.json",
+      "data/reports/webarena_formal_gitlab_reactive_pre_fix.json",
+      "data/reports/webarena_formal_gitlab_world-model.json",
+      "data/reports/webarena_formal_gitlab_world-model_post_fix_v1.json",
+      "data/reports/webarena_formal_gitlab_world-model_pre_fix.json",
+      "data/reports/webarena_online_evaluation_w4.json"
+    ],
+    "45": [
+      "configs/webarena_formal_gitlab.json",
+      "configs/webarena_multisite_eval.json",
+      "data/reports/webarena_formal_gitlab_reactive.json",
+      "data/reports/webarena_formal_gitlab_reactive_post_fix_v1.json",
+      "data/reports/webarena_formal_gitlab_reactive_pre_fix.json",
+      "data/reports/webarena_formal_gitlab_world-model.json",
+      "data/reports/webarena_formal_gitlab_world-model_post_fix_v1.json",
+      "data/reports/webarena_formal_gitlab_world-model_pre_fix.json",
+      "data/reports/webarena_online_evaluation_w4.json"
+    ],
+    "47": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_recovery_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_recovery_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_recovery_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_recovery_shopping_world-model_guard_on.json",
+      "data/reports/webarena_p0_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_shopping_world-model_guard_on.json"
+    ],
+    "68": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_reddit_world-model_guard_on.json"
+    ],
+    "102": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_gitlab_world-model_guard_on.json"
+    ],
+    "104": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_gitlab_world-model_guard_on.json"
+    ],
+    "126": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_shopping_world-model_guard_on.json"
+    ],
+    "134": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_gitlab_world-model_guard_on.json"
+    ],
+    "144": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_shopping_world-model_guard_on.json"
+    ],
+    "150": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_shopping_world-model_guard_on.json"
+    ],
+    "157": [
+      "configs/webarena_three_site_pilot.json",
+      "data/reports/webarena_phase4_three_site_pilot.json"
+    ],
+    "158": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_shopping_world-model_guard_on.json"
+    ],
+    "164": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_shopping_world-model_guard_on.json"
+    ],
+    "171": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_gitlab_world-model_guard_on.json"
+    ],
+    "173": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_gitlab_world-model_guard_on.json",
+      "data/reports/webarena_p0_recovery_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_recovery_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_recovery_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_recovery_gitlab_world-model_guard_on.json"
+    ],
+    "179": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_gitlab_world-model_guard_on.json"
+    ],
+    "205": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_gitlab_world-model_guard_on.json"
+    ],
+    "239": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_shopping_world-model_guard_on.json"
+    ],
+    "240": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_shopping_world-model_guard_on.json"
+    ],
+    "258": [
+      "configs/webarena_formal_gitlab.json",
+      "configs/webarena_multisite_eval.json",
+      "data/reports/webarena_formal_gitlab_reactive.json",
+      "data/reports/webarena_formal_gitlab_reactive_post_fix_v1.json",
+      "data/reports/webarena_formal_gitlab_reactive_pre_fix.json",
+      "data/reports/webarena_formal_gitlab_world-model.json",
+      "data/reports/webarena_formal_gitlab_world-model_post_fix_v1.json",
+      "data/reports/webarena_formal_gitlab_world-model_pre_fix.json",
+      "data/reports/webarena_online_evaluation_w4.json"
+    ],
+    "274": [
+      "configs/webarena_formal_shopping.json",
+      "configs/webarena_multisite_eval.json",
+      "configs/webarena_shopping_pilot.json",
+      "configs/webarena_three_site_pilot.json",
+      "data/reports/webarena_formal_shopping_reactive.json",
+      "data/reports/webarena_formal_shopping_world-model.json",
+      "data/reports/webarena_online_evaluation_w4.json",
+      "data/reports/webarena_phase4_three_site_pilot.json",
+      "data/reports/webarena_shopping_guarded.json"
+    ],
+    "275": [
+      "configs/webarena_formal_shopping.json",
+      "configs/webarena_multisite_eval.json",
+      "configs/webarena_shopping_pilot.json",
+      "configs/webarena_three_site_pilot.json",
+      "data/reports/webarena_formal_shopping_reactive.json",
+      "data/reports/webarena_formal_shopping_world-model.json",
+      "data/reports/webarena_online_evaluation_w4.json",
+      "data/reports/webarena_phase4_three_site_pilot.json",
+      "data/reports/webarena_shopping_guarded.json"
+    ],
+    "276": [
+      "configs/webarena_formal_shopping.json",
+      "configs/webarena_multisite_eval.json",
+      "configs/webarena_shopping_pilot.json",
+      "configs/webarena_three_site_pilot.json",
+      "data/reports/webarena_formal_shopping_reactive.json",
+      "data/reports/webarena_formal_shopping_world-model.json",
+      "data/reports/webarena_online_evaluation_w4.json",
+      "data/reports/webarena_phase4_three_site_pilot.json",
+      "data/reports/webarena_shopping_guarded.json"
+    ],
+    "300": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_shopping_world-model_guard_on.json"
+    ],
+    "301": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_recovery_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_recovery_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_recovery_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_recovery_shopping_world-model_guard_on.json",
+      "data/reports/webarena_p0_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_shopping_world-model_guard_on.json"
+    ],
+    "304": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_gitlab_world-model_guard_on.json"
+    ],
+    "316": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_gitlab_world-model_guard_on.json"
+    ],
+    "320": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_shopping_world-model_guard_on.json"
+    ],
+    "330": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_shopping_world-model_guard_on.json"
+    ],
+    "332": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_recovery_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_recovery_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_recovery_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_recovery_shopping_world-model_guard_on.json",
+      "data/reports/webarena_p0_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_shopping_world-model_guard_on.json"
+    ],
+    "339": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_gitlab_world-model_guard_on.json"
+    ],
+    "343": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_gitlab_world-model_guard_on.json"
+    ],
+    "350": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_gitlab_world-model_guard_on.json"
+    ],
+    "358": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_shopping_world-model_guard_on.json"
+    ],
+    "360": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_shopping_world-model_guard_on.json"
+    ],
+    "384": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_shopping_world-model_guard_on.json"
+    ],
+    "385": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_shopping_world-model_guard_on.json"
+    ],
+    "389": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_gitlab_world-model_guard_on.json"
+    ],
+    "394": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_gitlab_world-model_guard_on.json"
+    ],
+    "402": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_reddit_world-model_guard_on.json"
+    ],
+    "405": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_reddit_world-model_guard_on.json"
+    ],
+    "408": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_reddit_world-model_guard_on.json"
+    ],
+    "409": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_reddit_world-model_guard_on.json"
+    ],
+    "410": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_reddit_world-model_guard_on.json"
+    ],
+    "431": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_shopping_world-model_guard_on.json"
+    ],
+    "437": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_shopping_world-model_guard_on.json"
+    ],
+    "438": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_shopping_world-model_guard_on.json"
+    ],
+    "440": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_shopping_world-model_guard_on.json"
+    ],
+    "444": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_gitlab_world-model_guard_on.json"
+    ],
+    "446": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_gitlab_world-model_guard_on.json"
+    ],
+    "450": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_gitlab_world-model_guard_on.json"
+    ],
+    "480": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_gitlab_world-model_guard_on.json"
+    ],
+    "519": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_shopping_world-model_guard_on.json"
+    ],
+    "530": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_shopping_world-model_guard_on.json"
+    ],
+    "570": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_gitlab_world-model_guard_on.json"
+    ],
+    "574": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_shopping_world-model_guard_on.json"
+    ],
+    "575": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_shopping_world-model_guard_on.json"
+    ],
+    "576": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_gitlab_world-model_guard_on.json"
+    ],
+    "578": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_gitlab_world-model_guard_on.json"
+    ],
+    "579": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_gitlab_world-model_guard_on.json"
+    ],
+    "582": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_reddit_world-model_guard_on.json"
+    ],
+    "584": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_reddit_world-model_guard_on.json"
+    ],
+    "591": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_gitlab_world-model_guard_on.json"
+    ],
+    "595": [
+      "configs/webarena_formal_reddit.json",
+      "configs/webarena_multisite_eval.json",
+      "configs/webarena_reddit_pilot.json",
+      "configs/webarena_reddit_single_pilot.json",
+      "configs/webarena_three_site_pilot.json",
+      "data/reports/webarena_formal_reddit_reactive.json",
+      "data/reports/webarena_formal_reddit_reactive_pre_fix.json",
+      "data/reports/webarena_formal_reddit_world-model.json",
+      "data/reports/webarena_online_evaluation_w4.json",
+      "data/reports/webarena_phase4_three_site_pilot.json",
+      "data/reports/webarena_reddit_w4.json"
+    ],
+    "596": [
+      "configs/webarena_formal_reddit.json",
+      "configs/webarena_multisite_eval.json",
+      "configs/webarena_reddit_pilot.json",
+      "configs/webarena_three_site_pilot.json",
+      "data/reports/webarena_formal_reddit_reactive.json",
+      "data/reports/webarena_formal_reddit_reactive_pre_fix.json",
+      "data/reports/webarena_formal_reddit_world-model.json",
+      "data/reports/webarena_online_evaluation_w4.json",
+      "data/reports/webarena_phase4_three_site_pilot.json",
+      "data/reports/webarena_reddit_w4.json"
+    ],
+    "597": [
+      "configs/webarena_formal_reddit.json",
+      "configs/webarena_multisite_eval.json",
+      "configs/webarena_reddit_pilot.json",
+      "configs/webarena_three_site_pilot.json",
+      "data/reports/webarena_formal_reddit_reactive.json",
+      "data/reports/webarena_formal_reddit_reactive_pre_fix.json",
+      "data/reports/webarena_formal_reddit_world-model.json",
+      "data/reports/webarena_online_evaluation_w4.json",
+      "data/reports/webarena_phase4_three_site_pilot.json",
+      "data/reports/webarena_reddit_w4.json"
+    ],
+    "600": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_reddit_world-model_guard_on.json"
+    ],
+    "604": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_reddit_world-model_guard_on.json"
+    ],
+    "605": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_reddit_world-model_guard_on.json"
+    ],
+    "608": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_reddit_world-model_guard_on.json"
+    ],
+    "611": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_reddit_world-model_guard_on.json"
+    ],
+    "614": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_reddit_world-model_guard_on.json"
+    ],
+    "617": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_reddit_world-model_guard_on.json"
+    ],
+    "618": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_reddit_world-model_guard_on.json"
+    ],
+    "626": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_reddit_world-model_guard_on.json"
+    ],
+    "627": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_reddit_world-model_guard_on.json"
+    ],
+    "630": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_reddit_world-model_guard_on.json"
+    ],
+    "634": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_reddit_world-model_guard_on.json"
+    ],
+    "637": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_reddit_world-model_guard_on.json"
+    ],
+    "640": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_reddit_world-model_guard_on.json"
+    ],
+    "644": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_reddit_world-model_guard_on.json"
+    ],
+    "645": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_reddit_world-model_guard_on.json"
+    ],
+    "658": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_gitlab_world-model_guard_on.json"
+    ],
+    "660": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_gitlab_world-model_guard_on.json"
+    ],
+    "676": [
+      "configs/webarena_three_site_pilot.json",
+      "data/reports/webarena_phase4_three_site_pilot.json"
+    ],
+    "677": [
+      "configs/webarena_three_site_pilot.json",
+      "data/reports/webarena_phase4_three_site_pilot.json"
+    ],
+    "693": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_shopping_world-model_guard_on.json"
+    ],
+    "716": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_reddit_world-model_guard_on.json"
+    ],
+    "720": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_reddit_world-model_guard_on.json"
+    ],
+    "723": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_recovery_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_recovery_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_recovery_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_recovery_reddit_world-model_guard_on.json",
+      "data/reports/webarena_p0_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_reddit_world-model_guard_on.json"
+    ],
+    "724": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_reddit_world-model_guard_on.json"
+    ],
+    "730": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_reddit_world-model_guard_on.json"
+    ],
+    "731": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_reddit_world-model_guard_on.json"
+    ],
+    "742": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_gitlab_world-model_guard_on.json"
+    ],
+    "746": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_gitlab_world-model_guard_on.json"
+    ],
+    "787": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_gitlab_world-model_guard_on.json"
+    ],
+    "795": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_recovery_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_recovery_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_recovery_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_recovery_shopping_world-model_guard_on.json",
+      "data/reports/webarena_p0_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_shopping_world-model_guard_on.json"
+    ],
+    "799": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_gitlab_world-model_guard_on.json"
+    ],
+    "803": [
+      "data/reports/webarena_p0_2x2_analysis.json",
+      "data/reports/webarena_p0_candidate_fix_replay.json",
+      "data/reports/webarena_p0_failure_diagnosis.json",
+      "data/reports/webarena_p0_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_gitlab_world-model_guard_on.json"
+    ]
+  },
+  "source": {
+    "task_count": 812,
+    "task_source_sha256": "7b50386fd69163dbc05d615d834df4c6ed2c35596e97a1b10d17451c02537652",
+    "source_wheel_sha256": "9ebee3b4371502c4f0f7e727a72e5846235d6750d420db9a3b8a168107654feb"
+  },
+  "gate": "Demonstrate non-zero online SR before freezing round-2 holdout.",
+  "freeze_sha256": "4a169276494101c55f1129bc8cb0685abc7abfd55e857bbe35ec04bac72da6c0"
+}

@@ -1,0 +1,120 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-08-12T18:13:39.685171+00:00",
+  "benchmark": "Classic WebArena frozen three-site subset on WebArena Verified container images",
+  "fixed_task_ids": [
+    44,
+    45,
+    258
+  ],
+  "task_sites": {
+    "44": "gitlab",
+    "45": "gitlab",
+    "258": "gitlab"
+  },
+  "required_sites": [
+    "gitlab"
+  ],
+  "fixed_seeds": [
+    0
+  ],
+  "budgets": {
+    "reactive_steps": 12,
+    "world_model_steps": 12,
+    "evaluator_smoke_steps": 1
+  },
+  "agent_metrics": {
+    "episodes": 3,
+    "successes": 3,
+    "success_rate": 1.0,
+    "action_execution_rate": 0.8333333333333334,
+    "average_steps": 2.0,
+    "average_latency_seconds": 14.645818535000066
+  },
+  "world_model_agent_metrics": null,
+  "per_site_metrics": {
+    "reactive": {
+      "gitlab": {
+        "episodes": 3,
+        "successes": 3,
+        "success_rate": 1.0,
+        "action_execution_rate": 0.8333333333333334,
+        "average_steps": 2.0,
+        "average_latency_seconds": 14.645818535000066
+      }
+    }
+  },
+  "paired_online_comparison": null,
+  "evaluator_integrity_metrics": null,
+  "agent_success_rate_excludes_answer_injection": true,
+  "scope_limit": "GitLab partition of the frozen 9-task formal subset; not a standalone benchmark claim.",
+  "results": {
+    "reactive": [
+      {
+        "env_id": "browsergym/webarena.44",
+        "seed": 0,
+        "success": true,
+        "terminated": true,
+        "truncated": false,
+        "steps": 2,
+        "total_reward": 1.0,
+        "last_action_error": "",
+        "trajectory_path": "data/trajectories_webarena_formal_evidence/gitlab/reactive/task44_seed0.jsonl",
+        "final_state_id": "786db746ce859e1a",
+        "elapsed_seconds": 18.442807901999913,
+        "attempted_actions": 2,
+        "action_execution_successes": 1,
+        "episode_attempts": 1,
+        "mode": "reactive",
+        "task_id": 44,
+        "site": "gitlab",
+        "uses_expected_answer": false,
+        "trajectory_sha256": "828480eee593d75529de2d8a3c8c1387a14d84fc488c28598236c1405d5a8f1b"
+      },
+      {
+        "env_id": "browsergym/webarena.45",
+        "seed": 0,
+        "success": true,
+        "terminated": true,
+        "truncated": false,
+        "steps": 3,
+        "total_reward": 1.0,
+        "last_action_error": "",
+        "trajectory_path": "data/trajectories_webarena_formal_evidence/gitlab/reactive/task45_seed0.jsonl",
+        "final_state_id": "aa6836c8f0f37209",
+        "elapsed_seconds": 15.840096361000178,
+        "attempted_actions": 3,
+        "action_execution_successes": 3,
+        "episode_attempts": 1,
+        "mode": "reactive",
+        "task_id": 45,
+        "site": "gitlab",
+        "uses_expected_answer": false,
+        "trajectory_sha256": "972709e70f0606b504a36458678f12edece69a46409329d4494361c09f7007f2"
+      },
+      {
+        "env_id": "browsergym/webarena.258",
+        "seed": 0,
+        "success": true,
+        "terminated": true,
+        "truncated": false,
+        "steps": 1,
+        "total_reward": 1.0,
+        "last_action_error": "TimeoutError: Locator.click: Timeout 500ms exceeded.\nCall log:\nwaiting for get_by_test_id(\"264\")\n  -   locator resolved to <a bid=\"264\" href=\"/explore\" data-placement=\"right\"…>Explore</a>\n  - attempting click action\n  -   waiting for element to be visible, enabled and stable\n  -   element is visible, enabled and stable\n  -   scrolling into view if needed\n  -   done scrolling\n  -   performing click action\n",
+        "trajectory_path": "data/trajectories_webarena_formal_evidence/gitlab/reactive/task258_seed0.jsonl",
+        "final_state_id": "39849b4f581bc510",
+        "elapsed_seconds": 9.654551342000104,
+        "attempted_actions": 1,
+        "action_execution_successes": 1,
+        "episode_attempts": 1,
+        "mode": "reactive",
+        "task_id": 258,
+        "site": "gitlab",
+        "uses_expected_answer": false,
+        "trajectory_sha256": "572e14d4998a01ef08106694c41550dfa9a9dc03bca2f29f7e34ae5ec087a0aa"
+      }
+    ]
+  },
+  "failures": [],
+  "trajectories_archived_in_workspace": true
+}

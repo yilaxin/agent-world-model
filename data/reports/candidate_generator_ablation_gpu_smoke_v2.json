@@ -1,0 +1,141 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-08-08T12:39:02.144758+00:00",
+  "device": "cuda",
+  "model_id": "Qwen/Qwen2.5-3B-Instruct",
+  "provider": "local_transformers",
+  "credential_required": false,
+  "held_out_examples_requested": 5,
+  "held_out_examples_matched": 5,
+  "metrics": {
+    "rules": {
+      "examples_attempted": 5,
+      "generation_successes": 5,
+      "generation_failures": 0,
+      "strict_json_success_rate": 1.0,
+      "candidate_schema_valid_rate": 1.0,
+      "recorded_action_recall_at_k": 1.0,
+      "average_candidate_count": 3.4,
+      "average_type_entropy": 0.15468219627096316,
+      "latency_ms_mean": 1.9400522112846375
+    },
+    "local_llm": {
+      "examples_attempted": 5,
+      "generation_successes": 0,
+      "generation_failures": 5,
+      "strict_json_success_rate": 0.0,
+      "candidate_schema_valid_rate": 0.0,
+      "recorded_action_recall_at_k": 0.0,
+      "average_candidate_count": 0.0,
+      "average_type_entropy": 0.0,
+      "latency_ms_mean": 0.0
+    }
+  },
+  "interpretation_limits": [
+    "This ablation evaluates candidate-set validity and recorded-action recall, not live task success.",
+    "The selected local model is text-only; VLM image grounding remains untested."
+  ],
+  "rows": {
+    "rules": [
+      {
+        "example_id": "6061b0fc16d83a813c99",
+        "generated": true,
+        "candidate_count": 6,
+        "valid": 6,
+        "source_covered": true,
+        "entropy": 0.355245321275764,
+        "latency_ms": 4.141747951507568,
+        "actions": [
+          "click(\"12\", \"left\")",
+          "click(\"13\", \"left\")",
+          "click(\"18\", \"left\")",
+          "click(\"21\", \"left\")",
+          "scroll(0, -600)",
+          "scroll(0, 600)"
+        ]
+      },
+      {
+        "example_id": "7da1a64bd6905360261e",
+        "generated": true,
+        "candidate_count": 5,
+        "valid": 5,
+        "source_covered": true,
+        "entropy": 0.4181656600790517,
+        "latency_ms": 2.592986449599266,
+        "actions": [
+          "click(\"19\", \"left\")",
+          "click(\"12\", \"left\")",
+          "click(\"17\", \"left\")",
+          "scroll(0, -600)",
+          "scroll(0, 600)"
+        ]
+      },
+      {
+        "example_id": "f62835d55c3bbe31ac21",
+        "generated": true,
+        "candidate_count": 2,
+        "valid": 2,
+        "source_covered": true,
+        "entropy": -0.0,
+        "latency_ms": 1.0201260447502136,
+        "actions": [
+          "scroll(0, 600)",
+          "scroll(0, -600)"
+        ]
+      },
+      {
+        "example_id": "a7a9a64c1489c0a6581a",
+        "generated": true,
+        "candidate_count": 2,
+        "valid": 2,
+        "source_covered": true,
+        "entropy": -0.0,
+        "latency_ms": 0.9670257568359375,
+        "actions": [
+          "scroll(0, 600)",
+          "scroll(0, -600)"
+        ]
+      },
+      {
+        "example_id": "04da6ea1adecffa1e69f",
+        "generated": true,
+        "candidate_count": 2,
+        "valid": 2,
+        "source_covered": true,
+        "entropy": -0.0,
+        "latency_ms": 0.9783748537302017,
+        "actions": [
+          "scroll(0, 600)",
+          "scroll(0, -600)"
+        ]
+      }
+    ],
+    "local_llm": [
+      {
+        "example_id": "6061b0fc16d83a813c99",
+        "generated": false,
+        "error": "ValueError('each candidate needs a string action')"
+      },
+      {
+        "example_id": "7da1a64bd6905360261e",
+        "generated": false,
+        "error": "ValueError('each candidate needs a string action')"
+      },
+      {
+        "example_id": "f62835d55c3bbe31ac21",
+        "generated": false,
+        "error": "ValueError('invalid candidate \\'click(\"adipiscing.\", \"left\")\\': target element is not visible in the current AXTree')"
+      },
+      {
+        "example_id": "a7a9a64c1489c0a6581a",
+        "generated": false,
+        "error": "ValueError('invalid candidate \\'click(\"adipiscing.\", \"left\")\\': target element is not visible in the current AXTree')"
+      },
+      {
+        "example_id": "04da6ea1adecffa1e69f",
+        "generated": false,
+        "error": "ValueError('invalid candidate \\'click(\"adipiscing.\", \"left\")\\': target element is not visible in the current AXTree')"
+      }
+    ]
+  }
+}

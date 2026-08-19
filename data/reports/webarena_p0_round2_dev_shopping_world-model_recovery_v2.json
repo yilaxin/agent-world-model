@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-08-14T10:28:07.777780+00:00",
+  "purpose": "development-only recovery of no-answer fuzzy evaluator initialization",
+  "validation_adapter": "No-answer validation returns score=0, done=false; submitted answers use the official evaluator.",
+  "uses_reference_answers": false,
+  "mode": "world-model",
+  "freeze_sha256": "477627118f5d5da55810beadfc42f61c36149623d594ea5a8fb612b9b2872153",
+  "release_fingerprint_sha256": "fe52d922a891ca9464b2691781b2f3d4594eecf3eaed82ff315d849b34118a24",
+  "remote_agent_health": {
+    "status": "ok",
+    "device": "cuda",
+    "navigation_guard": "on",
+    "semantic_goal_priority": false,
+    "release_fingerprint_sha256": "fe52d922a891ca9464b2691781b2f3d4594eecf3eaed82ff315d849b34118a24",
+    "authentication_required": false
+  },
+  "results": [
+    {
+      "env_id": "browsergym/webarena.225",
+      "seed": 0,
+      "success": false,
+      "terminated": false,
+      "truncated": false,
+      "steps": 12,
+      "total_reward": 0.0,
+      "last_action_error": "",
+      "trajectory_path": "/home/filp/agent_world_model/data/trajectories_webarena_round2_dev/shopping/world-model_recovery_v2/20260814T102656Z_browsergym_webarena.225_seed0_5c81714d.jsonl",
+      "final_state_id": "0ccbbe13586ec67d",
+      "elapsed_seconds": 41.52702139499888,
+      "attempted_actions": 12,
+      "action_execution_successes": 12,
+      "episode_attempts": 1,
+      "task_id": 225,
+      "mode": "world-model",
+      "site": "shopping"
+    },
+    {
+      "env_id": "browsergym/webarena.334",
+      "seed": 0,
+      "success": false,
+      "terminated": false,
+      "truncated": false,
+      "steps": 12,
+      "total_reward": 0.0,
+      "last_action_error": "",
+      "trajectory_path": "/home/filp/agent_world_model/data/trajectories_webarena_round2_dev/shopping/world-model_recovery_v2/20260814T102736Z_browsergym_webarena.334_seed0_52a5b9ce.jsonl",
+      "final_state_id": "9dd7c2d9edb3e60e",
+      "elapsed_seconds": 39.2454229190007,
+      "attempted_actions": 12,
+      "action_execution_successes": 12,
+      "episode_attempts": 1,
+      "task_id": 334,
+      "mode": "world-model",
+      "site": "shopping"
+    }
+  ],
+  "failures": []
+}

@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "benchmark": "Classic WebArena P0 round-3 development split",
+  "frozen_at_utc": "2026-08-15T05:24:18.569731+00:00",
+  "selection_salt": "p0-round3-development-v1",
+  "required_sites": [
+    "shopping"
+  ],
+  "task_ids": [
+    657,
+    118,
+    516,
+    689,
+    188,
+    313,
+    690,
+    160,
+    189,
+    286
+  ],
+  "task_sites": {
+    "657": "shopping",
+    "118": "shopping",
+    "516": "shopping",
+    "689": "shopping",
+    "188": "shopping",
+    "313": "shopping",
+    "690": "shopping",
+    "160": "shopping",
+    "189": "shopping",
+    "286": "shopping"
+  },
+  "seeds": [
+    0
+  ],
+  "reactive_step_budget": 12,
+  "world_model_step_budget": 12,
+  "episode_max_attempts": 3,
+  "evaluator_smoke_step_budget": 1,
+  "evaluator_smoke_answers": {},
+  "task_feedback_allowed": true,
+  "eligible_for_final_claim": false,
+  "source": {
+    "task_count": 812,
+    "task_source_sha256": "7b50386fd69163dbc05d615d834df4c6ed2c35596e97a1b10d17451c02537652",
+    "source_wheel_sha256": "9ebee3b4371502c4f0f7e727a72e5846235d6750d420db9a3b8a168107654feb"
+  },
+  "scope_limit": "Round-3 shopping development tasks; policy iteration is allowed and results are not eligible for the final holdout claim.",
+  "freeze_sha256": "3119e5aaa32a05ba98b3bd83243861fdbdb765a99218cd7233003f8587972465",
+  "release_fingerprint_sha256": "f12e304eacf9b150d786b31143231b463dcac49f32ad4b3e85f59567a6a4f947"
+}

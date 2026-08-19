@@ -1,0 +1,7 @@
+# Install a CUDA build matching the GPU server from https://pytorch.org/get-started/
+torch>=2.1
+
+# Existing phase-one runtime dependencies.
+gymnasium>=1.0
+browsergym-core
+browsergym-miniwob

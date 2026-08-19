@@ -1,0 +1,6 @@
+# Local, credential-free candidate generator used on the RTX 4090 server.
+# transformers 4.45.x remains compatible with the server's torch 2.1.2 image.
+transformers==4.45.2
+tokenizers==0.20.3
+accelerate==1.14.0
+sentencepiece==0.2.2

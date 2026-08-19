@@ -1,0 +1,106 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-08-18T11:08:09.645704+00:00",
+  "phase": 3,
+  "evaluation": "observed_contiguous_horizon_1_to_3",
+  "dataset": "data/phase2_p2/test.jsonl",
+  "model_source": "artifacts/phase3/world_model_direct_residual_dynamics.pt",
+  "delta_baseline_source": "artifacts/phase3/learned_delta_baseline.pt",
+  "device": "cuda",
+  "coverage": {
+    "by_horizon": {
+      "1": {
+        "window_count": 1943,
+        "task_count": 30,
+        "terminal_ending_count": 375,
+        "success_ending_count": 200,
+        "severe_failure_ending_count": 175,
+        "invalid_action_window_count": 335
+      },
+      "2": {
+        "window_count": 619,
+        "task_count": 30,
+        "terminal_ending_count": 62,
+        "success_ending_count": 36,
+        "severe_failure_ending_count": 26,
+        "invalid_action_window_count": 1
+      },
+      "3": {
+        "window_count": 329,
+        "task_count": 29,
+        "terminal_ending_count": 32,
+        "success_ending_count": 11,
+        "severe_failure_ending_count": 21,
+        "invalid_action_window_count": 0
+      }
+    },
+    "total_window_count": 2891,
+    "long_horizon_window_count": 948,
+    "long_horizon_terminal_count": 94,
+    "long_horizon_severe_failure_count": 47,
+    "quality_gates": {
+      "h2_windows_ge_100": true,
+      "h3_windows_ge_100": true,
+      "long_horizon_terminal_ge_25": true,
+      "long_horizon_severe_failure_ge_10": true
+    }
+  },
+  "metrics": {
+    "1": {
+      "window_count": 1943,
+      "latent_mse": 3.665470200839584e-05,
+      "latent_cosine_similarity": 0.9906035726731792,
+      "persistence_baseline_mse": 9.480884053238473e-05,
+      "mse_improvement_over_persistence": 0.6133830790191411,
+      "terminal_brier": 0.005361059676770131,
+      "severe_failure_brier": 0.019803121083943973,
+      "progress_mae": 0.08994604144208913,
+      "learned_delta_baseline_mse": 2.9985156188608052e-05,
+      "latent_mse_not_worse_than_learned_delta": false,
+      "latent_mse_not_worse_than_persistence": true
+    },
+    "2": {
+      "window_count": 619,
+      "latent_mse": 5.521755534934905e-05,
+      "latent_cosine_similarity": 0.9860097314313848,
+      "persistence_baseline_mse": 0.00010966488306811153,
+      "mse_improvement_over_persistence": 0.49648826675852015,
+      "terminal_brier": 0.01029113604866072,
+      "severe_failure_brier": 0.006150483436543424,
+      "progress_mae": 0.062286365943319905,
+      "learned_delta_baseline_mse": 4.725174694715939e-05,
+      "latent_mse_not_worse_than_learned_delta": false,
+      "latent_mse_not_worse_than_persistence": true
+    },
+    "3": {
+      "window_count": 329,
+      "latent_mse": 7.96944263278541e-05,
+      "latent_cosine_similarity": 0.9796546800882983,
+      "persistence_baseline_mse": 0.00020754997702910794,
+      "mse_improvement_over_persistence": 0.6160229576094951,
+      "terminal_brier": 0.016044320601935894,
+      "severe_failure_brier": 0.01872751418518572,
+      "progress_mae": 0.05484296716342303,
+      "learned_delta_baseline_mse": 6.702882119442811e-05,
+      "latent_mse_not_worse_than_learned_delta": false,
+      "latent_mse_not_worse_than_persistence": true
+    }
+  },
+  "acceptance": {
+    "passed": true,
+    "gates": {
+      "h2_window_count": true,
+      "h3_window_count": true,
+      "long_horizon_terminal_coverage": true,
+      "long_horizon_severe_failure_coverage": true,
+      "h3_mse_ratio_bounded": true,
+      "h2_not_worse_than_persistence": true,
+      "h3_not_worse_than_persistence": true
+    }
+  },
+  "interpretation_limits": [
+    "Every evaluated sequence uses observed consecutive actions and observed final states.",
+    "This measures rollout drift on logged behavior; it does not substitute for live WebArena task success.",
+    "Horizon is capped at three steps to match the proposal and reduce compounding error."
+  ]
+}

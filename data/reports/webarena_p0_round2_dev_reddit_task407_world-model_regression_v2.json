@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-08-14T07:24:42.285547+00:00",
+  "benchmark": "Classic WebArena P0 round-2 development regression",
+  "fixed_task_ids": [
+    407
+  ],
+  "task_sites": {
+    "407": "reddit"
+  },
+  "required_sites": [
+    "reddit"
+  ],
+  "fixed_seeds": [
+    0
+  ],
+  "navigation_guard": "on",
+  "remote_agent_health": {
+    "status": "ok",
+    "device": "cuda",
+    "navigation_guard": "on",
+    "semantic_goal_priority": false,
+    "release_fingerprint_sha256": "fe52d922a891ca9464b2691781b2f3d4594eecf3eaed82ff315d849b34118a24",
+    "authentication_required": false
+  },
+  "freeze_sha256": "a0630455b8a2c1659a6395aff347b10bc3a89f78aff2705b360e388e069c143d",
+  "budgets": {
+    "reactive_steps": 12,
+    "world_model_steps": 12,
+    "evaluator_smoke_steps": 1
+  },
+  "agent_metrics": null,
+  "world_model_agent_metrics": {
+    "episodes": 1,
+    "successes": 1,
+    "success_rate": 1.0,
+    "action_execution_rate": 1.0,
+    "average_steps": 6.0,
+    "average_latency_seconds": 80.59210813499976
+  },
+  "per_site_metrics": {
+    "world-model": {
+      "reddit": {
+        "episodes": 1,
+        "successes": 1,
+        "success_rate": 1.0,
+        "action_execution_rate": 1.0,
+        "average_steps": 6.0,
+        "average_latency_seconds": 80.59210813499976
+      }
+    }
+  },
+  "paired_online_comparison": null,
+  "evaluator_integrity_metrics": null,
+  "agent_success_rate_excludes_answer_injection": true,
+  "scope_limit": "Single-task development regression for the model-degradation fix; not eligible for any holdout claim.",
+  "results": {
+    "world-model": [
+      {
+        "env_id": "browsergym/webarena.407",
+        "seed": 0,
+        "success": true,
+        "terminated": true,
+        "truncated": false,
+        "steps": 6,
+        "total_reward": 1.0,
+        "last_action_error": "",
+        "trajectory_path": "/home/filp/agent_world_model/data/trajectories_webarena_round2_dev/reddit/task407_world-model_regression_v2/world-model/20260814T072400Z_browsergym_webarena.407_seed0_638c6a9c.jsonl",
+        "final_state_id": "18ddb981e2462902",
+        "elapsed_seconds": 80.59210813499976,
+        "attempted_actions": 6,
+        "action_execution_successes": 6,
+        "episode_attempts": 2,
+        "mode": "world-model",
+        "task_id": 407,
+        "site": "reddit",
+        "uses_expected_answer": false
+      }
+    ]
+  },
+  "failures": []
+}

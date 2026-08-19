@@ -1,0 +1,264 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-08-08T12:49:25.310694+00:00",
+  "split": "test",
+  "device": "cuda",
+  "metrics": {
+    "loss": {
+      "total": -0.19587769193781746,
+      "reconstruction": 0.00021374695158253113,
+      "dynamics": 0.005403187332881821,
+      "uncertainty": -4.7970924907260475,
+      "state_delta": 0.013328550058455827,
+      "task_signal": 0.003445979626121698,
+      "risk": 0.017452202721162595,
+      "progress": 0.004914461451537338,
+      "reward": 0.005101905188995361
+    },
+    "progress": {
+      "mae": 0.06118803210118537,
+      "mse": 0.023672489945757498,
+      "rmse": 0.15385866873776563
+    },
+    "reward": {
+      "mae": 0.061993239221192195,
+      "mse": 0.024116373296361744,
+      "rmse": 0.15529447284550002
+    },
+    "state_delta": {
+      "per_label": {
+        "url_changed": {
+          "accuracy": 1.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "auroc": 0.0,
+          "auprc": 0.0,
+          "brier": 2.6207604470861504e-08,
+          "ece": 8.362126481898989e-05,
+          "support_positive": 0.0,
+          "support_negative": 515.0
+        },
+        "title_changed": {
+          "accuracy": 1.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "auroc": 0.0,
+          "auprc": 0.0,
+          "brier": 3.2832533180873503e-08,
+          "ece": 8.718391607023645e-05,
+          "support_positive": 0.0,
+          "support_negative": 515.0
+        },
+        "axtree_changed": {
+          "accuracy": 0.9883495145631068,
+          "precision": 0.9841897233201581,
+          "recall": 0.9920318725099602,
+          "f1": 0.988095238095238,
+          "auroc": 0.9993586261016539,
+          "auprc": 0.999299174473592,
+          "brier": 0.010445996094011386,
+          "ece": 0.009185955376590837,
+          "support_positive": 251.0,
+          "support_negative": 264.0
+        },
+        "dom_changed": {
+          "accuracy": 0.9864077669902913,
+          "precision": 0.9810126582278481,
+          "recall": 0.9748427672955975,
+          "f1": 0.9779179810725552,
+          "auroc": 0.9990106706239842,
+          "auprc": 0.9978866188630791,
+          "brier": 0.009898355164908583,
+          "ece": 0.009988354019987013,
+          "support_positive": 159.0,
+          "support_negative": 356.0
+        },
+        "target_available": {
+          "accuracy": 1.0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "auroc": 1.0,
+          "auprc": 1.0,
+          "brier": 2.814478463194336e-06,
+          "ece": 0.0006043983561229768,
+          "support_positive": 301.0,
+          "support_negative": 214.0
+        }
+      },
+      "macro_f1": 0.5932026438335587,
+      "macro_f1_supported": 0.9886710730559312,
+      "macro_auroc_supported": 0.9994564322418794,
+      "macro_auprc_supported": 0.9990619311122236,
+      "macro_ece": 0.003989902586718011,
+      "macro_brier": 0.004069444955504162,
+      "supported_label_count": 3
+    },
+    "task_signal": {
+      "per_label": {
+        "invalid_action": {
+          "accuracy": 0.9980582524271845,
+          "precision": 1.0,
+          "recall": 0.9583333333333334,
+          "f1": 0.9787234042553191,
+          "auroc": 0.9997029871011541,
+          "auprc": 0.9967948717948718,
+          "brier": 0.0036083821516533425,
+          "ece": 0.025605007936924835,
+          "support_positive": 24.0,
+          "support_negative": 491.0
+        },
+        "terminal": {
+          "accuracy": 0.9902912621359223,
+          "precision": 0.9901960784313726,
+          "recall": 0.9619047619047619,
+          "f1": 0.9758454106280193,
+          "auroc": 0.999732868757259,
+          "auprc": 0.9987601670824023,
+          "brier": 0.009183889722575023,
+          "ece": 0.033209416485567876,
+          "support_positive": 105.0,
+          "support_negative": 410.0
+        }
+      },
+      "macro_f1": 0.9772844074416692,
+      "macro_f1_supported": 0.9772844074416692,
+      "macro_auroc_supported": 0.9997179279292066,
+      "macro_auprc_supported": 0.9977775194386371,
+      "macro_ece": 0.029407212211246356,
+      "macro_brier": 0.006396135937114183,
+      "supported_label_count": 2
+    },
+    "risk": {
+      "per_label": {
+        "success": {
+          "accuracy": 0.9766990291262136,
+          "precision": 0.9452054794520548,
+          "recall": 0.8961038961038961,
+          "f1": 0.9199999999999999,
+          "auroc": 0.9900521852576647,
+          "auprc": 0.9410167146071742,
+          "brier": 0.022861205401176813,
+          "ece": 0.024170989447213416,
+          "support_positive": 77.0,
+          "support_negative": 438.0
+        },
+        "stalled": {
+          "accuracy": 0.9902912621359223,
+          "precision": 0.9921568627450981,
+          "recall": 0.98828125,
+          "f1": 0.990215264187867,
+          "auroc": 0.9995098334942085,
+          "auprc": 0.9995391718537256,
+          "brier": 0.009966527035611027,
+          "ece": 0.03050172277590605,
+          "support_positive": 256.0,
+          "support_negative": 259.0
+        },
+        "goal_deviation": {
+          "accuracy": 0.9980582524271845,
+          "precision": 1.0,
+          "recall": 0.9583333333333334,
+          "f1": 0.9787234042553191,
+          "auroc": 0.9997029871011541,
+          "auprc": 0.9967948717948718,
+          "brier": 0.0038882612666089208,
+          "ece": 0.02611946339687351,
+          "support_positive": 24.0,
+          "support_negative": 491.0
+        },
+        "severe_failure": {
+          "accuracy": 0.9728155339805825,
+          "precision": 0.7692307692307693,
+          "recall": 0.7142857142857143,
+          "f1": 0.7407407407407408,
+          "auroc": 0.9850396010560282,
+          "auprc": 0.76352596282595,
+          "brier": 0.020349180634117708,
+          "ece": 0.02555318947155842,
+          "support_positive": 28.0,
+          "support_negative": 487.0
+        }
+      },
+      "macro_f1": 0.9074198522959818,
+      "macro_f1_supported": 0.9074198522959818,
+      "macro_auroc_supported": 0.9935761517272639,
+      "macro_auprc_supported": 0.9252191802704304,
+      "macro_ece": 0.026586341272887847,
+      "macro_brier": 0.014266293584378618,
+      "supported_label_count": 4
+    },
+    "latent": {
+      "mse": 0.005890972616370808,
+      "cosine_similarity": 0.9763326617120539
+    },
+    "example_count": 515
+  },
+  "acceptance": {
+    "passed": true,
+    "checks": {
+      "state_delta.macro_f1_supported": {
+        "actual": 0.9886710730559312,
+        "operator": ">=",
+        "target": 0.6,
+        "passed": true
+      },
+      "task_signal.macro_f1_supported": {
+        "actual": 0.9772844074416692,
+        "operator": ">=",
+        "target": 0.6,
+        "passed": true
+      },
+      "risk.macro_f1_supported": {
+        "actual": 0.9074198522959818,
+        "operator": ">=",
+        "target": 0.5,
+        "passed": true
+      },
+      "risk.macro_auroc_supported": {
+        "actual": 0.9935761517272639,
+        "operator": ">=",
+        "target": 0.7,
+        "passed": true
+      },
+      "latent.cosine_similarity": {
+        "actual": 0.9763326617120539,
+        "operator": ">=",
+        "target": 0.6,
+        "passed": true
+      },
+      "progress.mae": {
+        "actual": 0.06118803210118537,
+        "operator": "<=",
+        "target": 0.25,
+        "passed": true
+      },
+      "reward.mae": {
+        "actual": 0.061993239221192195,
+        "operator": "<=",
+        "target": 0.25,
+        "passed": true
+      },
+      "state_delta.macro_ece": {
+        "actual": 0.003989902586718011,
+        "operator": "<=",
+        "target": 0.15,
+        "passed": true
+      },
+      "task_signal.macro_ece": {
+        "actual": 0.029407212211246356,
+        "operator": "<=",
+        "target": 0.15,
+        "passed": true
+      },
+      "risk.macro_ece": {
+        "actual": 0.026586341272887847,
+        "operator": "<=",
+        "target": 0.15,
+        "passed": true
+      }
+    }
+  }
+}

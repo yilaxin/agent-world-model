@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-08-08T15:01:57.816110+00:00",
+  "experiment": "proposal_33_multiseed_ensemble",
+  "selection_split": "validation",
+  "members": [
+    {
+      "tag": "risk_balanced_b",
+      "seed": 101,
+      "checkpoint": "artifacts/phase2/multiseed/world_model_risk_balanced_b_seed101.pt",
+      "selection_score": 0.8117994273677199
+    },
+    {
+      "tag": "base_a",
+      "seed": 17,
+      "checkpoint": "artifacts/phase2/multiseed/world_model_base_a_seed17.pt",
+      "selection_score": 0.8058238770822655
+    },
+    {
+      "tag": "base_b",
+      "seed": 42,
+      "checkpoint": "artifacts/phase2/multiseed/world_model_base_b_seed42.pt",
+      "selection_score": 0.8057559238105255
+    }
+  ],
+  "temperatures": {
+    "state_delta": [
+      0.5,
+      0.5,
+      1.350000023841858,
+      1.399999976158142,
+      0.5
+    ],
+    "task_signal": [
+      0.5,
+      0.550000011920929
+    ],
+    "risk": [
+      0.7250000238418579,
+      0.5,
+      0.5,
+      0.625
+    ]
+  },
+  "champion_single_checkpoint": "artifacts/phase2/multiseed/world_model_risk_balanced_b_seed101.pt"
+}

@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-08-10T09:39:59.195139+00:00",
+  "review_csv": "data/human_review/phase2_review_queue_evidence_reviewed.csv",
+  "source_file_count": 9530,
+  "source_transition_count": 13348,
+  "output": "data/trajectories_evidence_reviewed/approved.jsonl",
+  "approved_rows": 500,
+  "human_approved_rows": 0,
+  "evidence_approved_rows": 500,
+  "pending_or_rejected_rows": 0,
+  "matched_records": 500
+}

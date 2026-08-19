@@ -1,0 +1,900 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-08-08T12:44:17.935008+00:00",
+  "device": "cuda",
+  "model_id": "Qwen/Qwen2.5-3B-Instruct",
+  "provider": "local_transformers",
+  "credential_required": false,
+  "held_out_examples_requested": 30,
+  "held_out_examples_matched": 30,
+  "metrics": {
+    "rules": {
+      "examples_attempted": 30,
+      "generation_successes": 30,
+      "generation_failures": 0,
+      "strict_json_success_rate": 1.0,
+      "candidate_schema_valid_rate": 1.0,
+      "recorded_action_recall_at_k": 1.0,
+      "average_candidate_count": 4.533333333333333,
+      "average_type_entropy": 0.3358636708579167,
+      "latency_ms_mean": 1.715276048829158
+    },
+    "local_llm": {
+      "examples_attempted": 30,
+      "generation_successes": 30,
+      "generation_failures": 0,
+      "strict_json_success_rate": 1.0,
+      "candidate_schema_valid_rate": 1.0,
+      "recorded_action_recall_at_k": 0.7666666666666667,
+      "average_candidate_count": 2.0,
+      "average_type_entropy": 0.13333333333333333,
+      "latency_ms_mean": 273.7558441236615
+    }
+  },
+  "interpretation_limits": [
+    "This ablation evaluates candidate-set validity and recorded-action recall, not live task success.",
+    "The selected local model is text-only; VLM image grounding remains untested."
+  ],
+  "rows": {
+    "rules": [
+      {
+        "example_id": "6061b0fc16d83a813c99",
+        "generated": true,
+        "candidate_count": 6,
+        "valid": 6,
+        "source_covered": true,
+        "entropy": 0.355245321275764,
+        "latency_ms": 3.600052557885647,
+        "actions": [
+          "click(\"12\", \"left\")",
+          "click(\"13\", \"left\")",
+          "click(\"18\", \"left\")",
+          "click(\"21\", \"left\")",
+          "scroll(0, -600)",
+          "scroll(0, 600)"
+        ]
+      },
+      {
+        "example_id": "7da1a64bd6905360261e",
+        "generated": true,
+        "candidate_count": 5,
+        "valid": 5,
+        "source_covered": true,
+        "entropy": 0.4181656600790517,
+        "latency_ms": 2.550991252064705,
+        "actions": [
+          "click(\"19\", \"left\")",
+          "click(\"12\", \"left\")",
+          "click(\"17\", \"left\")",
+          "scroll(0, -600)",
+          "scroll(0, 600)"
+        ]
+      },
+      {
+        "example_id": "e63efbbdae59094e98f9",
+        "generated": true,
+        "candidate_count": 2,
+        "valid": 2,
+        "source_covered": true,
+        "entropy": -0.0,
+        "latency_ms": 0.9544221684336662,
+        "actions": [
+          "scroll(0, 600)",
+          "scroll(0, -600)"
+        ]
+      },
+      {
+        "example_id": "ec2637327f4cdedf9837",
+        "generated": true,
+        "candidate_count": 2,
+        "valid": 2,
+        "source_covered": true,
+        "entropy": -0.0,
+        "latency_ms": 0.936528667807579,
+        "actions": [
+          "scroll(0, 600)",
+          "scroll(0, -600)"
+        ]
+      },
+      {
+        "example_id": "1374929403771571fd21",
+        "generated": true,
+        "candidate_count": 2,
+        "valid": 2,
+        "source_covered": true,
+        "entropy": -0.0,
+        "latency_ms": 0.6510354578495026,
+        "actions": [
+          "scroll(0, 600)",
+          "scroll(0, -600)"
+        ]
+      },
+      {
+        "example_id": "133fe5d8d94142d0f207",
+        "generated": true,
+        "candidate_count": 2,
+        "valid": 2,
+        "source_covered": true,
+        "entropy": -0.0,
+        "latency_ms": 0.6525218486785889,
+        "actions": [
+          "scroll(0, 600)",
+          "scroll(0, -600)"
+        ]
+      },
+      {
+        "example_id": "42d7655367e020fee1a0",
+        "generated": true,
+        "candidate_count": 2,
+        "valid": 2,
+        "source_covered": true,
+        "entropy": -0.0,
+        "latency_ms": 0.5726516246795654,
+        "actions": [
+          "scroll(0, 600)",
+          "scroll(0, -600)"
+        ]
+      },
+      {
+        "example_id": "5a3fa265fdc7649cb0d5",
+        "generated": true,
+        "candidate_count": 2,
+        "valid": 2,
+        "source_covered": true,
+        "entropy": -0.0,
+        "latency_ms": 0.578099861741066,
+        "actions": [
+          "scroll(0, 600)",
+          "scroll(0, -600)"
+        ]
+      },
+      {
+        "example_id": "28d166b5f96592064675",
+        "generated": true,
+        "candidate_count": 6,
+        "valid": 6,
+        "source_covered": true,
+        "entropy": 0.355245321275764,
+        "latency_ms": 3.049788996577263,
+        "actions": [
+          "click(\"18\", \"left\")",
+          "click(\"27\", \"left\")",
+          "click(\"21\", \"left\")",
+          "click(\"24\", \"left\")",
+          "scroll(0, -600)",
+          "scroll(0, 600)"
+        ]
+      },
+      {
+        "example_id": "f188255a9d6e3932b6d8",
+        "generated": true,
+        "candidate_count": 6,
+        "valid": 6,
+        "source_covered": true,
+        "entropy": 0.355245321275764,
+        "latency_ms": 2.2515077143907547,
+        "actions": [
+          "click(\"18\", \"left\")",
+          "click(\"27\", \"left\")",
+          "click(\"21\", \"left\")",
+          "click(\"24\", \"left\")",
+          "scroll(0, -600)",
+          "scroll(0, 600)"
+        ]
+      },
+      {
+        "example_id": "0c97ac6d15d5e81dcfa1",
+        "generated": true,
+        "candidate_count": 6,
+        "valid": 6,
+        "source_covered": true,
+        "entropy": 0.355245321275764,
+        "latency_ms": 1.897299662232399,
+        "actions": [
+          "click(\"18\", \"left\")",
+          "click(\"27\", \"left\")",
+          "click(\"21\", \"left\")",
+          "click(\"24\", \"left\")",
+          "scroll(0, -600)",
+          "scroll(0, 600)"
+        ]
+      },
+      {
+        "example_id": "e28e4dcfa761f32d67ea",
+        "generated": true,
+        "candidate_count": 7,
+        "valid": 7,
+        "source_covered": true,
+        "entropy": 0.30744974986419643,
+        "latency_ms": 2.44765542447567,
+        "actions": [
+          "click(\"24\", \"left\")",
+          "click(\"30\", \"left\")",
+          "click(\"18\", \"left\")",
+          "click(\"21\", \"left\")",
+          "click(\"27\", \"left\")",
+          "scroll(0, -600)",
+          "scroll(0, 600)"
+        ]
+      },
+      {
+        "example_id": "18fe59497a78d9ba5948",
+        "generated": true,
+        "candidate_count": 7,
+        "valid": 7,
+        "source_covered": true,
+        "entropy": 0.30744974986419643,
+        "latency_ms": 2.4496736004948616,
+        "actions": [
+          "click(\"24\", \"left\")",
+          "click(\"30\", \"left\")",
+          "click(\"18\", \"left\")",
+          "click(\"21\", \"left\")",
+          "click(\"27\", \"left\")",
+          "scroll(0, -600)",
+          "scroll(0, 600)"
+        ]
+      },
+      {
+        "example_id": "e6bb1552b94bc3136357",
+        "generated": true,
+        "candidate_count": 8,
+        "valid": 8,
+        "source_covered": true,
+        "entropy": 0.2704260414863776,
+        "latency_ms": 2.544386312365532,
+        "actions": [
+          "click(\"21\", \"left\")",
+          "click(\"33\", \"left\")",
+          "click(\"18\", \"left\")",
+          "click(\"24\", \"left\")",
+          "click(\"27\", \"left\")",
+          "click(\"30\", \"left\")",
+          "scroll(0, -600)",
+          "scroll(0, 600)"
+        ]
+      },
+      {
+        "example_id": "f9ea9dd5fd2008ef2608",
+        "generated": true,
+        "candidate_count": 8,
+        "valid": 8,
+        "source_covered": true,
+        "entropy": 0.2704260414863776,
+        "latency_ms": 3.324461169540882,
+        "actions": [
+          "click(\"21\", \"left\")",
+          "click(\"33\", \"left\")",
+          "click(\"18\", \"left\")",
+          "click(\"24\", \"left\")",
+          "click(\"27\", \"left\")",
+          "click(\"30\", \"left\")",
+          "scroll(0, -600)",
+          "scroll(0, 600)"
+        ]
+      },
+      {
+        "example_id": "860fd26dd0d93b1a8d50",
+        "generated": true,
+        "candidate_count": 3,
+        "valid": 3,
+        "source_covered": true,
+        "entropy": 0.5793801642856949,
+        "latency_ms": 1.1680498719215393,
+        "actions": [
+          "click(\"13\", \"left\")",
+          "scroll(0, -600)",
+          "scroll(0, 600)"
+        ]
+      },
+      {
+        "example_id": "ffa44f7ac6e4364253d1",
+        "generated": true,
+        "candidate_count": 4,
+        "valid": 4,
+        "source_covered": true,
+        "entropy": 0.5,
+        "latency_ms": 1.3225004076957703,
+        "actions": [
+          "click(\"13\", \"left\")",
+          "click(\"14\", \"left\")",
+          "scroll(0, -600)",
+          "scroll(0, 600)"
+        ]
+      },
+      {
+        "example_id": "738605459ed4b1cdddc5",
+        "generated": true,
+        "candidate_count": 4,
+        "valid": 4,
+        "source_covered": true,
+        "entropy": 0.5,
+        "latency_ms": 1.1816481128335,
+        "actions": [
+          "click(\"13\", \"left\")",
+          "click(\"14\", \"left\")",
+          "scroll(0, -600)",
+          "scroll(0, 600)"
+        ]
+      },
+      {
+        "example_id": "12cd61b7b1d8cb9e24cb",
+        "generated": true,
+        "candidate_count": 5,
+        "valid": 5,
+        "source_covered": true,
+        "entropy": 0.4181656600790517,
+        "latency_ms": 2.087627537548542,
+        "actions": [
+          "click(\"16\", \"left\")",
+          "click(\"19\", \"left\")",
+          "click(\"22\", \"left\")",
+          "scroll(0, -600)",
+          "scroll(0, 600)"
+        ]
+      },
+      {
+        "example_id": "6ce2857d5d63fff4f1c8",
+        "generated": true,
+        "candidate_count": 5,
+        "valid": 5,
+        "source_covered": true,
+        "entropy": 0.4181656600790517,
+        "latency_ms": 1.7382297664880753,
+        "actions": [
+          "click(\"16\", \"left\")",
+          "click(\"19\", \"left\")",
+          "click(\"22\", \"left\")",
+          "scroll(0, -600)",
+          "scroll(0, 600)"
+        ]
+      },
+      {
+        "example_id": "c4f00d21b1332d3ae1c5",
+        "generated": true,
+        "candidate_count": 5,
+        "valid": 5,
+        "source_covered": true,
+        "entropy": 0.4181656600790517,
+        "latency_ms": 1.9472865387797356,
+        "actions": [
+          "click(\"16\", \"left\")",
+          "click(\"19\", \"left\")",
+          "click(\"22\", \"left\")",
+          "scroll(0, -600)",
+          "scroll(0, 600)"
+        ]
+      },
+      {
+        "example_id": "b50bc949a5ceb4f177c9",
+        "generated": true,
+        "candidate_count": 5,
+        "valid": 5,
+        "source_covered": true,
+        "entropy": 0.4181656600790517,
+        "latency_ms": 1.452331431210041,
+        "actions": [
+          "click(\"33\", \"left\")",
+          "click(\"16\", \"left\")",
+          "click(\"24\", \"left\")",
+          "scroll(0, -600)",
+          "scroll(0, 600)"
+        ]
+      },
+      {
+        "example_id": "91a8472ebf7c7eefe5e6",
+        "generated": true,
+        "candidate_count": 5,
+        "valid": 5,
+        "source_covered": true,
+        "entropy": 0.4181656600790517,
+        "latency_ms": 1.800263300538063,
+        "actions": [
+          "click(\"33\", \"left\")",
+          "click(\"16\", \"left\")",
+          "click(\"24\", \"left\")",
+          "scroll(0, -600)",
+          "scroll(0, 600)"
+        ]
+      },
+      {
+        "example_id": "70cb6b7f627e5fede84b",
+        "generated": true,
+        "candidate_count": 5,
+        "valid": 5,
+        "source_covered": true,
+        "entropy": 0.4181656600790517,
+        "latency_ms": 2.0480267703533173,
+        "actions": [
+          "click(\"33\", \"left\")",
+          "click(\"16\", \"left\")",
+          "click(\"24\", \"left\")",
+          "scroll(0, -600)",
+          "scroll(0, 600)"
+        ]
+      },
+      {
+        "example_id": "faf7a96cf496ace17ecd",
+        "generated": true,
+        "candidate_count": 3,
+        "valid": 3,
+        "source_covered": true,
+        "entropy": 0.5793801642856949,
+        "latency_ms": 1.0476922616362572,
+        "actions": [
+          "click(\"20\", \"left\")",
+          "scroll(0, -600)",
+          "scroll(0, 600)"
+        ]
+      },
+      {
+        "example_id": "fd27a847bf18c743c8c6",
+        "generated": true,
+        "candidate_count": 3,
+        "valid": 3,
+        "source_covered": true,
+        "entropy": 0.5793801642856949,
+        "latency_ms": 1.0592704638838768,
+        "actions": [
+          "click(\"20\", \"left\")",
+          "scroll(0, -600)",
+          "scroll(0, 600)"
+        ]
+      },
+      {
+        "example_id": "47b81f5ca013a1154261",
+        "generated": true,
+        "candidate_count": 3,
+        "valid": 3,
+        "source_covered": true,
+        "entropy": 0.5793801642856949,
+        "latency_ms": 1.0565435513854027,
+        "actions": [
+          "click(\"20\", \"left\")",
+          "scroll(0, -600)",
+          "scroll(0, 600)"
+        ]
+      },
+      {
+        "example_id": "0d7419b94e863c03fa50",
+        "generated": true,
+        "candidate_count": 5,
+        "valid": 5,
+        "source_covered": true,
+        "entropy": 0.4181656600790517,
+        "latency_ms": 1.6296152025461197,
+        "actions": [
+          "click(\"28\", \"left\")",
+          "click(\"20\", \"left\")",
+          "click(\"27\", \"left\")",
+          "scroll(0, -600)",
+          "scroll(0, 600)"
+        ]
+      },
+      {
+        "example_id": "903f3b7ccd7455057dab",
+        "generated": true,
+        "candidate_count": 5,
+        "valid": 5,
+        "source_covered": true,
+        "entropy": 0.4181656600790517,
+        "latency_ms": 1.7330506816506386,
+        "actions": [
+          "click(\"28\", \"left\")",
+          "click(\"20\", \"left\")",
+          "click(\"27\", \"left\")",
+          "scroll(0, -600)",
+          "scroll(0, 600)"
+        ]
+      },
+      {
+        "example_id": "fbbdfdbeaffffc26886c",
+        "generated": true,
+        "candidate_count": 5,
+        "valid": 5,
+        "source_covered": true,
+        "entropy": 0.4181656600790517,
+        "latency_ms": 1.725069247186184,
+        "actions": [
+          "click(\"28\", \"left\")",
+          "click(\"20\", \"left\")",
+          "click(\"27\", \"left\")",
+          "scroll(0, -600)",
+          "scroll(0, 600)"
+        ]
+      }
+    ],
+    "local_llm": [
+      {
+        "example_id": "6061b0fc16d83a813c99",
+        "generated": true,
+        "candidate_count": 2,
+        "valid": 2,
+        "source_covered": true,
+        "entropy": -0.0,
+        "latency_ms": 1143.1965306401253,
+        "actions": [
+          "click(\"12\", \"left\")",
+          "click(\"13\", \"left\")"
+        ]
+      },
+      {
+        "example_id": "7da1a64bd6905360261e",
+        "generated": true,
+        "candidate_count": 2,
+        "valid": 2,
+        "source_covered": true,
+        "entropy": -0.0,
+        "latency_ms": 331.29045832902193,
+        "actions": [
+          "click(\"19\", \"left\")",
+          "click(\"12\", \"left\")"
+        ]
+      },
+      {
+        "example_id": "e63efbbdae59094e98f9",
+        "generated": true,
+        "candidate_count": 2,
+        "valid": 2,
+        "source_covered": true,
+        "entropy": -0.0,
+        "latency_ms": 324.11989104002714,
+        "actions": [
+          "scroll(0, 600)",
+          "scroll(0, -600)"
+        ]
+      },
+      {
+        "example_id": "ec2637327f4cdedf9837",
+        "generated": true,
+        "candidate_count": 2,
+        "valid": 2,
+        "source_covered": true,
+        "entropy": -0.0,
+        "latency_ms": 273.60755018889904,
+        "actions": [
+          "scroll(0, 600)",
+          "scroll(0, -600)"
+        ]
+      },
+      {
+        "example_id": "1374929403771571fd21",
+        "generated": true,
+        "candidate_count": 2,
+        "valid": 2,
+        "source_covered": true,
+        "entropy": -0.0,
+        "latency_ms": 224.56040605902672,
+        "actions": [
+          "scroll(0, 600)",
+          "scroll(0, -600)"
+        ]
+      },
+      {
+        "example_id": "133fe5d8d94142d0f207",
+        "generated": true,
+        "candidate_count": 2,
+        "valid": 2,
+        "source_covered": true,
+        "entropy": -0.0,
+        "latency_ms": 224.21431634575129,
+        "actions": [
+          "scroll(0, 600)",
+          "scroll(0, -600)"
+        ]
+      },
+      {
+        "example_id": "42d7655367e020fee1a0",
+        "generated": true,
+        "candidate_count": 2,
+        "valid": 2,
+        "source_covered": true,
+        "entropy": -0.0,
+        "latency_ms": 222.86835499107838,
+        "actions": [
+          "scroll(0, 600)",
+          "scroll(0, -600)"
+        ]
+      },
+      {
+        "example_id": "5a3fa265fdc7649cb0d5",
+        "generated": true,
+        "candidate_count": 2,
+        "valid": 2,
+        "source_covered": true,
+        "entropy": -0.0,
+        "latency_ms": 252.13715434074402,
+        "actions": [
+          "scroll(0, 600)",
+          "scroll(0, -600)"
+        ]
+      },
+      {
+        "example_id": "28d166b5f96592064675",
+        "generated": true,
+        "candidate_count": 2,
+        "valid": 2,
+        "source_covered": true,
+        "entropy": -0.0,
+        "latency_ms": 256.74024131149054,
+        "actions": [
+          "click(\"18\", \"left\")",
+          "click(\"27\", \"left\")"
+        ]
+      },
+      {
+        "example_id": "f188255a9d6e3932b6d8",
+        "generated": true,
+        "candidate_count": 2,
+        "valid": 2,
+        "source_covered": false,
+        "entropy": -0.0,
+        "latency_ms": 240.98653066903353,
+        "actions": [
+          "click(\"18\", \"left\")",
+          "click(\"27\", \"left\")"
+        ]
+      },
+      {
+        "example_id": "0c97ac6d15d5e81dcfa1",
+        "generated": true,
+        "candidate_count": 2,
+        "valid": 2,
+        "source_covered": true,
+        "entropy": -0.0,
+        "latency_ms": 223.23876339942217,
+        "actions": [
+          "click(\"18\", \"left\")",
+          "click(\"27\", \"left\")"
+        ]
+      },
+      {
+        "example_id": "e28e4dcfa761f32d67ea",
+        "generated": true,
+        "candidate_count": 2,
+        "valid": 2,
+        "source_covered": true,
+        "entropy": -0.0,
+        "latency_ms": 235.0262776017189,
+        "actions": [
+          "click(\"24\", \"left\")",
+          "click(\"30\", \"left\")"
+        ]
+      },
+      {
+        "example_id": "18fe59497a78d9ba5948",
+        "generated": true,
+        "candidate_count": 2,
+        "valid": 2,
+        "source_covered": true,
+        "entropy": -0.0,
+        "latency_ms": 236.7560127750039,
+        "actions": [
+          "click(\"24\", \"left\")",
+          "click(\"30\", \"left\")"
+        ]
+      },
+      {
+        "example_id": "e6bb1552b94bc3136357",
+        "generated": true,
+        "candidate_count": 2,
+        "valid": 2,
+        "source_covered": true,
+        "entropy": -0.0,
+        "latency_ms": 253.37824039161205,
+        "actions": [
+          "click(\"21\", \"left\")",
+          "click(\"33\", \"left\")"
+        ]
+      },
+      {
+        "example_id": "f9ea9dd5fd2008ef2608",
+        "generated": true,
+        "candidate_count": 2,
+        "valid": 2,
+        "source_covered": true,
+        "entropy": -0.0,
+        "latency_ms": 241.59066379070282,
+        "actions": [
+          "click(\"21\", \"left\")",
+          "click(\"33\", \"left\")"
+        ]
+      },
+      {
+        "example_id": "860fd26dd0d93b1a8d50",
+        "generated": true,
+        "candidate_count": 2,
+        "valid": 2,
+        "source_covered": true,
+        "entropy": 1.0,
+        "latency_ms": 233.02445653825998,
+        "actions": [
+          "click(\"13\", \"left\")",
+          "scroll(0, -600)"
+        ]
+      },
+      {
+        "example_id": "ffa44f7ac6e4364253d1",
+        "generated": true,
+        "candidate_count": 2,
+        "valid": 2,
+        "source_covered": false,
+        "entropy": -0.0,
+        "latency_ms": 231.97436891496181,
+        "actions": [
+          "click(\"13\", \"left\")",
+          "click(\"14\", \"left\")"
+        ]
+      },
+      {
+        "example_id": "738605459ed4b1cdddc5",
+        "generated": true,
+        "candidate_count": 2,
+        "valid": 2,
+        "source_covered": true,
+        "entropy": -0.0,
+        "latency_ms": 241.279361769557,
+        "actions": [
+          "click(\"13\", \"left\")",
+          "click(\"14\", \"left\")"
+        ]
+      },
+      {
+        "example_id": "12cd61b7b1d8cb9e24cb",
+        "generated": true,
+        "candidate_count": 2,
+        "valid": 2,
+        "source_covered": true,
+        "entropy": -0.0,
+        "latency_ms": 260.9169576317072,
+        "actions": [
+          "click(\"16\", \"left\")",
+          "click(\"19\", \"left\")"
+        ]
+      },
+      {
+        "example_id": "6ce2857d5d63fff4f1c8",
+        "generated": true,
+        "candidate_count": 2,
+        "valid": 2,
+        "source_covered": false,
+        "entropy": -0.0,
+        "latency_ms": 242.50541254878044,
+        "actions": [
+          "click(\"16\", \"left\")",
+          "click(\"19\", \"left\")"
+        ]
+      },
+      {
+        "example_id": "c4f00d21b1332d3ae1c5",
+        "generated": true,
+        "candidate_count": 2,
+        "valid": 2,
+        "source_covered": false,
+        "entropy": -0.0,
+        "latency_ms": 238.9648761600256,
+        "actions": [
+          "click(\"16\", \"left\")",
+          "click(\"19\", \"left\")"
+        ]
+      },
+      {
+        "example_id": "b50bc949a5ceb4f177c9",
+        "generated": true,
+        "candidate_count": 2,
+        "valid": 2,
+        "source_covered": true,
+        "entropy": -0.0,
+        "latency_ms": 232.44444746524096,
+        "actions": [
+          "click(\"33\", \"left\")",
+          "click(\"16\", \"left\")"
+        ]
+      },
+      {
+        "example_id": "91a8472ebf7c7eefe5e6",
+        "generated": true,
+        "candidate_count": 2,
+        "valid": 2,
+        "source_covered": false,
+        "entropy": -0.0,
+        "latency_ms": 246.7681271955371,
+        "actions": [
+          "click(\"33\", \"left\")",
+          "click(\"16\", \"left\")"
+        ]
+      },
+      {
+        "example_id": "70cb6b7f627e5fede84b",
+        "generated": true,
+        "candidate_count": 2,
+        "valid": 2,
+        "source_covered": true,
+        "entropy": -0.0,
+        "latency_ms": 230.8655083179474,
+        "actions": [
+          "click(\"33\", \"left\")",
+          "click(\"16\", \"left\")"
+        ]
+      },
+      {
+        "example_id": "faf7a96cf496ace17ecd",
+        "generated": true,
+        "candidate_count": 2,
+        "valid": 2,
+        "source_covered": true,
+        "entropy": 1.0,
+        "latency_ms": 225.74166394770145,
+        "actions": [
+          "click(\"20\", \"left\")",
+          "scroll(0, -600)"
+        ]
+      },
+      {
+        "example_id": "fd27a847bf18c743c8c6",
+        "generated": true,
+        "candidate_count": 2,
+        "valid": 2,
+        "source_covered": true,
+        "entropy": 1.0,
+        "latency_ms": 225.24911351501942,
+        "actions": [
+          "click(\"20\", \"left\")",
+          "scroll(0, -600)"
+        ]
+      },
+      {
+        "example_id": "47b81f5ca013a1154261",
+        "generated": true,
+        "candidate_count": 2,
+        "valid": 2,
+        "source_covered": true,
+        "entropy": 1.0,
+        "latency_ms": 221.4974407106638,
+        "actions": [
+          "click(\"20\", \"left\")",
+          "scroll(0, -600)"
+        ]
+      },
+      {
+        "example_id": "0d7419b94e863c03fa50",
+        "generated": true,
+        "candidate_count": 2,
+        "valid": 2,
+        "source_covered": true,
+        "entropy": -0.0,
+        "latency_ms": 230.2695531398058,
+        "actions": [
+          "click(\"28\", \"left\")",
+          "click(\"20\", \"left\")"
+        ]
+      },
+      {
+        "example_id": "903f3b7ccd7455057dab",
+        "generated": true,
+        "candidate_count": 2,
+        "valid": 2,
+        "source_covered": false,
+        "entropy": -0.0,
+        "latency_ms": 240.9822978079319,
+        "actions": [
+          "click(\"28\", \"left\")",
+          "click(\"20\", \"left\")"
+        ]
+      },
+      {
+        "example_id": "fbbdfdbeaffffc26886c",
+        "generated": true,
+        "candidate_count": 2,
+        "valid": 2,
+        "source_covered": false,
+        "entropy": -0.0,
+        "latency_ms": 226.48034617304802,
+        "actions": [
+          "click(\"28\", \"left\")",
+          "click(\"20\", \"left\")"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-08-12T03:36:31.923756+00:00",
+  "platform": "androidworld_api33_whpx_local",
+  "tasks": [
+    "open_messages"
+  ],
+  "agents": [
+    "phase3"
+  ],
+  "max_steps": 8,
+  "episodes_per_task": 1,
+  "summary": {
+    "phase3": {
+      "success_rate": 1.0,
+      "avg_steps": 8,
+      "action_execution_rate": 1.0,
+      "per_task": {
+        "open_messages": {
+          "episodes": 1,
+          "success_rate": 1.0,
+          "avg_steps": 8,
+          "action_execution_rate": 1.0,
+          "invalid_actions_total": 0,
+          "semantic_overrides_total": 8,
+          "sequence_steps_total": 0,
+          "sparse_states_total": 3,
+          "recoveries_total": 1
+        }
+      }
+    }
+  },
+  "episodes": [
+    {
+      "task": "open_messages",
+      "agent": "phase3",
+      "episode": 1,
+      "goal": "Open the Messages app.",
+      "success": 1.0,
+      "steps": 8,
+      "actions": 8,
+      "invalid_actions": 0,
+      "semantic_overrides": 8,
+      "sequence_steps": 0,
+      "sparse_states": 3,
+      "recoveries": 1,
+      "terminal": false,
+      "duration_sec": 66.50092267990112,
+      "trajectory_file": "C:\\Users\\卢政坤\\OneDrive\\ドキュメント\\大创 2\\implementation\\agent_world_model\\data\\trajectories_androidworld\\phase3_open_messages_ep1.jsonl"
+    }
+  ],
+  "trajectory_dir": "C:\\Users\\卢政坤\\OneDrive\\ドキュメント\\大创 2\\implementation\\agent_world_model\\data\\trajectories_androidworld",
+  "trajectory_files": 41,
+  "notes": [
+    "Success is read from Android system settings (wifi_on) via ADB; no LLM judge.",
+    "Phase-three planner uses the local CPU ensemble and structure aligner."
+  ]
+}

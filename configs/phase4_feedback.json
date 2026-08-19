@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "data": {
+    "directory": "data/phase2_p2"
+  },
+  "baseline_ensemble": "artifacts/phase2/world_model_ensemble_p2.json",
+  "feedback": {
+    "regret": 1.0,
+    "rank_flip": 1.0,
+    "stall": 0.75,
+    "struct_error": 0.75,
+    "uniform_fraction": 0.25,
+    "maximum_weight": 4.0
+  },
+  "training": {
+    "epochs": 12,
+    "batch_size": 96,
+    "learning_rate": 0.0001,
+    "weight_decay": 0.0001,
+    "gradient_clip": 1.0,
+    "patience": 4,
+    "num_workers": 0,
+    "device": "cuda",
+    "amp": true,
+    "focal_gamma": 1.5,
+    "pairwise_rank_weight": 0.7,
+    "pairwise_batch_size": 64,
+    "pairwise_minimum_utility_gap": 0.05
+  },
+  "loss_weights": {
+    "reconstruction": 1.0,
+    "dynamics": 1.0,
+    "uncertainty": 0.1,
+    "state_delta": 0.75,
+    "task_signal": 1.2,
+    "risk": 1.5,
+    "progress": 1.0,
+    "reward": 0.5
+  },
+  "variants": [
+    {"name": "uniform", "strategy": "uniform"},
+    {"name": "prediction_error", "strategy": "prediction_error"},
+    {"name": "priority", "strategy": "priority"},
+    {"name": "priority_no_regret", "strategy": "priority", "omit": ["regret"]},
+    {"name": "priority_no_rank_flip", "strategy": "priority", "omit": ["rank_flip"]},
+    {"name": "priority_no_stall", "strategy": "priority", "omit": ["stall"]},
+    {"name": "priority_no_struct_error", "strategy": "priority", "omit": ["struct_error"]}
+  ],
+  "release": {
+    "pairwise_accuracy_tolerance": 0.0,
+    "decision_regret_tolerance": 0.0,
+    "latent_mse_relative_tolerance": 0.05,
+    "risk_ece_absolute_tolerance": 0.02
+  },
+  "outputs": {
+    "directory": "artifacts/phase4",
+    "feedback_pool": "data/phase4/feedback_pool_train.jsonl",
+    "report": "data/reports/phase4_feedback_experiment_gpu.json",
+    "selected_manifest": "artifacts/phase4/world_model_ensemble_w4.json"
+  }
+}

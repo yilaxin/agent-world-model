@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "phase": 4,
+  "variant": "priority_conservative_release",
+  "selection_split": "validation",
+  "w4_fraction": 0.5,
+  "members": [
+    {
+      "source": "w3",
+      "seed": 29,
+      "checkpoint": "artifacts/phase2/p2_multiseed/world_model_rank_balanced_a_seed29.pt"
+    },
+    {
+      "source": "w3",
+      "seed": 73,
+      "checkpoint": "artifacts/phase2/p2_multiseed/world_model_rank_regularized_seed73.pt"
+    },
+    {
+      "source": "w3",
+      "seed": 17,
+      "checkpoint": "artifacts/phase2/p2_multiseed/world_model_rank_base_a_seed17.pt"
+    },
+    {
+      "source": "w4_priority",
+      "seed": 29,
+      "checkpoint": "artifacts/phase4/priority/member_seed29.pt"
+    },
+    {
+      "source": "w4_priority",
+      "seed": 73,
+      "checkpoint": "artifacts/phase4/priority/member_seed73.pt"
+    },
+    {
+      "source": "w4_priority",
+      "seed": 17,
+      "checkpoint": "artifacts/phase4/priority/member_seed17.pt"
+    }
+  ],
+  "member_weights": [
+    0.10000000149011612,
+    0.4000000059604645,
+    0.0,
+    0.0,
+    0.44999998807907104,
+    0.05000000074505806
+  ],
+  "temperatures": {
+    "state_delta": [
+      0.5,
+      0.5,
+      1.149999976158142,
+      1.1749999523162842,
+      0.5
+    ],
+    "task_signal": [
+      0.5,
+      0.550000011920929
+    ],
+    "risk": [
+      0.5,
+      0.5,
+      0.5,
+      0.699999988079071
+    ]
+  }
+}

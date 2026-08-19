@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-08-08T15:20:34.015205+00:00",
+  "benchmark": "WebArena Verified Reddit-only retrieval subset",
+  "fixed_task_ids": [
+    27,
+    28,
+    29,
+    30,
+    31
+  ],
+  "fixed_seeds": [
+    0
+  ],
+  "budgets": {
+    "reactive_steps": 6,
+    "evaluator_smoke_steps": 1
+  },
+  "agent_metrics": null,
+  "world_model_agent_metrics": {
+    "episodes": 5,
+    "successes": 0,
+    "success_rate": 0.0,
+    "action_execution_rate": 1.0,
+    "average_steps": 6.0,
+    "average_latency_seconds": 22.680046463996405
+  },
+  "evaluator_integrity_metrics": null,
+  "agent_success_rate_excludes_answer_injection": true,
+  "scope_limit": "Reddit-only retrieval subset; not the full multi-site WebArena benchmark.",
+  "results": {
+    "phase3": [
+      {
+        "env_id": "browsergym/webarena.27",
+        "seed": 0,
+        "success": false,
+        "terminated": false,
+        "truncated": false,
+        "steps": 6,
+        "total_reward": 0.0,
+        "last_action_error": "",
+        "trajectory_path": "/home/filp/agent_world_model/data/trajectories_webarena_eval/phase3/20260808T151851Z_browsergym_webarena.27_seed0_7a12b820.jsonl",
+        "final_state_id": "d452798ff729b4d6",
+        "elapsed_seconds": 25.94187897699885,
+        "attempted_actions": 6,
+        "action_execution_successes": 6,
+        "mode": "phase3",
+        "task_id": 27,
+        "uses_expected_answer": false
+      },
+      {
+        "env_id": "browsergym/webarena.28",
+        "seed": 0,
+        "success": false,
+        "terminated": false,
+        "truncated": false,
+        "steps": 6,
+        "total_reward": 0.0,
+        "last_action_error": "",
+        "trajectory_path": "/home/filp/agent_world_model/data/trajectories_webarena_eval/phase3/20260808T151914Z_browsergym_webarena.28_seed0_a413a5c4.jsonl",
+        "final_state_id": "2b21cb08459359cd",
+        "elapsed_seconds": 21.013835027988534,
+        "attempted_actions": 6,
+        "action_execution_successes": 6,
+        "mode": "phase3",
+        "task_id": 28,
+        "uses_expected_answer": false
+      },
+      {
+        "env_id": "browsergym/webarena.29",
+        "seed": 0,
+        "success": false,
+        "terminated": false,
+        "truncated": false,
+        "steps": 6,
+        "total_reward": 0.0,
+        "last_action_error": "",
+        "trajectory_path": "/home/filp/agent_world_model/data/trajectories_webarena_eval/phase3/20260808T151935Z_browsergym_webarena.29_seed0_162ee2f4.jsonl",
+        "final_state_id": "f3047e85c0e4aadd",
+        "elapsed_seconds": 22.012549164996017,
+        "attempted_actions": 6,
+        "action_execution_successes": 6,
+        "mode": "phase3",
+        "task_id": 29,
+        "uses_expected_answer": false
+      },
+      {
+        "env_id": "browsergym/webarena.30",
+        "seed": 0,
+        "success": false,
+        "terminated": false,
+        "truncated": false,
+        "steps": 6,
+        "total_reward": 0.0,
+        "last_action_error": "",
+        "trajectory_path": "/home/filp/agent_world_model/data/trajectories_webarena_eval/phase3/20260808T151957Z_browsergym_webarena.30_seed0_e2fe62e1.jsonl",
+        "final_state_id": "805896166ba2800c",
+        "elapsed_seconds": 22.109593728993786,
+        "attempted_actions": 6,
+        "action_execution_successes": 6,
+        "mode": "phase3",
+        "task_id": 30,
+        "uses_expected_answer": false
+      },
+      {
+        "env_id": "browsergym/webarena.31",
+        "seed": 0,
+        "success": false,
+        "terminated": false,
+        "truncated": false,
+        "steps": 6,
+        "total_reward": 0.0,
+        "last_action_error": "",
+        "trajectory_path": "/home/filp/agent_world_model/data/trajectories_webarena_eval/phase3/20260808T152019Z_browsergym_webarena.31_seed0_0787c4de.jsonl",
+        "final_state_id": "b17270d25e2ce356",
+        "elapsed_seconds": 22.322375421004836,
+        "attempted_actions": 6,
+        "action_execution_successes": 6,
+        "mode": "phase3",
+        "task_id": 31,
+        "uses_expected_answer": false
+      }
+    ]
+  },
+  "failures": []
+}

@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "data": {
+    "directory": "data/phase2",
+    "formal_minimum_transitions": 500,
+    "target_transitions": 3000,
+    "split_unit": "episode"
+  },
+  "model": {
+    "state_dim": 512,
+    "action_dim": 128,
+    "latent_dim": 192,
+    "action_latent_dim": 64,
+    "hidden_dim": 256,
+    "state_delta_dim": 5,
+    "task_signal_dim": 2,
+    "risk_dim": 4,
+    "dropout": 0.1
+  },
+  "training": {
+    "epochs": 50,
+    "batch_size": 64,
+    "learning_rate": 0.0003,
+    "weight_decay": 0.0001,
+    "gradient_clip": 1.0,
+    "patience": 8,
+    "num_workers": 0,
+    "seed": 42,
+    "device": "auto",
+    "amp": true,
+    "focal_gamma": 2.0
+  },
+  "loss_weights": {
+    "reconstruction": 1.0,
+    "dynamics": 1.0,
+    "uncertainty": 0.05,
+    "state_delta": 0.75,
+    "task_signal": 1.0,
+    "risk": 1.0,
+    "progress": 1.0,
+    "reward": 0.5
+  },
+  "acceptance_thresholds": {
+    "state_delta.macro_f1_supported": {"op": ">=", "value": 0.6},
+    "task_signal.macro_f1_supported": {"op": ">=", "value": 0.6},
+    "risk.macro_f1_supported": {"op": ">=", "value": 0.5},
+    "risk.macro_auroc_supported": {"op": ">=", "value": 0.7},
+    "latent.cosine_similarity": {"op": ">=", "value": 0.6},
+    "progress.mae": {"op": "<=", "value": 0.25},
+    "reward.mae": {"op": "<=", "value": 0.25},
+    "state_delta.macro_ece": {"op": "<=", "value": 0.15},
+    "task_signal.macro_ece": {"op": "<=", "value": 0.15},
+    "risk.macro_ece": {"op": "<=", "value": 0.15}
+  },
+  "outputs": {
+    "checkpoint": "artifacts/phase2/world_model_best.pt",
+    "training_report": "data/reports/phase2_training_latest.json",
+    "evaluation_report": "data/reports/phase2_evaluation_{split}.json"
+  }
+}

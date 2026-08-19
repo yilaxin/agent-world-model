@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-08-10T09:55:49.895803+00:00",
+  "source_file_count": 9530,
+  "source_transition_count": 13348,
+  "reviewed_record_count": 500,
+  "replaced_transition_count": 500,
+  "output_transition_count": 13348,
+  "transition_count_preserved": true,
+  "output": "/root/autodl-tmp/agent_world_model_phase23_latest/data/trajectories_phase2_evidence_view/all.jsonl",
+  "label_source_counts": {
+    "heuristic": 12848,
+    "evidence_verified": 500
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "benchmark": "WebArena Verified three-site pilot",
+  "required_sites": ["reddit", "shopping", "shopping_admin"],
+  "task_ids": [595, 596, 597, 274, 275, 276, 157, 676, 677],
+  "task_sites": {
+    "595": "reddit",
+    "596": "reddit",
+    "597": "reddit",
+    "274": "shopping",
+    "275": "shopping",
+    "276": "shopping",
+    "157": "shopping_admin",
+    "676": "shopping_admin",
+    "677": "shopping_admin"
+  },
+  "seeds": [0],
+  "reactive_step_budget": 12,
+  "world_model_step_budget": 12,
+  "evaluator_smoke_step_budget": 1,
+  "evaluator_smoke_answers": {},
+  "scope_limit": "Nine-task environment and policy pilot; the frozen four-site report is the formal online result."
+}

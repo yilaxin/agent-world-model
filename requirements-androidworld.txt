@@ -1,0 +1,1 @@
+git+https://github.com/google-research/android_world.git@3e50888527ef9f29b9157ecd537e408008bb1c85

@@ -1,0 +1,5 @@
+[
+  "click(\"12\", \"left\")",
+  "scroll(0, 600)",
+  "click(\"phase2-missing-target\", \"left\")"
+]

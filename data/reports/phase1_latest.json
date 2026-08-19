@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-08-06T01:01:35.970098+00:00",
+  "config": {
+    "schema_version": 1,
+    "baseline_name": "reactive_rules_v1",
+    "state_encoder": {
+      "name": "structured_text_feature_hash_v1",
+      "dimensions": 512,
+      "recent_action_count": 5,
+      "mode": "cpu_only"
+    },
+    "runtime": {
+      "headless": true,
+      "store_screenshot_pixels": false
+    },
+    "tasks": {
+      "miniwob": {
+        "env_id": "browsergym/miniwob.click-test",
+        "seed": 0,
+        "max_steps": 3
+      },
+      "webarena": {
+        "env_id": "browsergym/webarena.27",
+        "seed": 0,
+        "max_steps": 2,
+        "direct_answer": "0",
+        "evaluator": "official WebArena task evaluator"
+      }
+    }
+  },
+  "results": [
+    {
+      "env_id": "browsergym/miniwob.click-test",
+      "seed": 0,
+      "success": true,
+      "terminated": true,
+      "truncated": false,
+      "steps": 1,
+      "total_reward": 1.0,
+      "last_action_error": "",
+      "trajectory_path": "/home/filp/agent_world_model/data/trajectories/20260806T010124Z_browsergym_miniwob.click-test_seed0_80bb562b.jsonl",
+      "final_state_id": "4d0d8e02bb97e047"
+    },
+    {
+      "env_id": "browsergym/webarena.27",
+      "seed": 0,
+      "success": true,
+      "terminated": true,
+      "truncated": false,
+      "steps": 1,
+      "total_reward": 1.0,
+      "last_action_error": "",
+      "trajectory_path": "/home/filp/agent_world_model/data/trajectories/20260806T010135Z_browsergym_webarena.27_seed0_2bb8f6e6.jsonl",
+      "final_state_id": "cb6e697d7d13a19e"
+    }
+  ],
+  "all_passed": true
+}

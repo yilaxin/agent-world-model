@@ -1,0 +1,1395 @@
+{
+  "schema_version": 2,
+  "benchmark": "Classic WebArena P0 unseen 2x2 holdout",
+  "frozen_at_utc": "2026-08-13T08:47:08.537751+00:00",
+  "frozen_before_any_holdout_episode": true,
+  "task_feedback_used": false,
+  "sites": [
+    "gitlab",
+    "reddit",
+    "shopping"
+  ],
+  "tasks_per_site": 30,
+  "total_unique_tasks": 90,
+  "seeds": [
+    0
+  ],
+  "step_budget_per_episode": 12,
+  "cells": [
+    "reactive_guard_off",
+    "reactive_guard_on",
+    "w4_guard_off",
+    "w4_guard_on"
+  ],
+  "total_planned_episodes": 360,
+  "selection_salt": "p0-holdout-v1",
+  "selected_task_ids_by_site": {
+    "gitlab": [
+      579,
+      570,
+      578,
+      446,
+      343,
+      104,
+      394,
+      304,
+      787,
+      576,
+      799,
+      742,
+      179,
+      450,
+      746,
+      660,
+      480,
+      444,
+      316,
+      171,
+      389,
+      173,
+      134,
+      339,
+      658,
+      102,
+      205,
+      591,
+      350,
+      803
+    ],
+    "reddit": [
+      731,
+      68,
+      617,
+      724,
+      637,
+      608,
+      627,
+      402,
+      408,
+      630,
+      618,
+      645,
+      640,
+      730,
+      611,
+      582,
+      626,
+      405,
+      723,
+      605,
+      644,
+      600,
+      720,
+      716,
+      604,
+      614,
+      410,
+      584,
+      634,
+      409
+    ],
+    "shopping": [
+      23,
+      320,
+      530,
+      574,
+      693,
+      358,
+      384,
+      440,
+      575,
+      431,
+      21,
+      795,
+      332,
+      437,
+      158,
+      519,
+      150,
+      301,
+      300,
+      239,
+      126,
+      144,
+      47,
+      385,
+      164,
+      330,
+      438,
+      24,
+      360,
+      240
+    ]
+  },
+  "task_audit": {
+    "579": {
+      "site": "gitlab",
+      "task_record_sha256": "c834a6b9f307f3fe6396cd72a125236ea2c09fe47ce7d7ba5a751da79e050113",
+      "intent_template_id": 351,
+      "eval_types": [
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "570": {
+      "site": "gitlab",
+      "task_record_sha256": "d4a34f1d8e927f0076d3c3df9d96a85983bc9e06533f70a1498843361bcc7257",
+      "intent_template_id": 293,
+      "eval_types": [
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "578": {
+      "site": "gitlab",
+      "task_record_sha256": "084e678637bd4432e475170dfa86c9a73b532744d7ece2038cd9971b733bb9f3",
+      "intent_template_id": 351,
+      "eval_types": [
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "446": {
+      "site": "gitlab",
+      "task_record_sha256": "11cef465a937b5d29c636d29cae4b001fd00cd222a82788f057b4271a384a27a",
+      "intent_template_id": 999,
+      "eval_types": [
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "343": {
+      "site": "gitlab",
+      "task_record_sha256": "48b2daef5b22a2538cd57f98c6922c3dd8a37f27111e0a922babaed0baf3469a",
+      "intent_template_id": 299,
+      "eval_types": [
+        "url_match"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "104": {
+      "site": "gitlab",
+      "task_record_sha256": "c5a8a2e2ffca184a82c405fdb05aaccffa8c921d0d3b5fa60940fd50b3bc05f2",
+      "intent_template_id": 349,
+      "eval_types": [
+        "url_match"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "394": {
+      "site": "gitlab",
+      "task_record_sha256": "dd42558d5504d3483808754d75199678af6c417bfe4785457155de99c6212852",
+      "intent_template_id": 352,
+      "eval_types": [
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "304": {
+      "site": "gitlab",
+      "task_record_sha256": "b8f458b2aa2947d9cb4c927002a2e08882f41e934b2c08d35ea0d5add5aab71b",
+      "intent_template_id": 321,
+      "eval_types": [
+        "string_match"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "787": {
+      "site": "gitlab",
+      "task_record_sha256": "8bf2c2448017e3ec66cf219f086afd3da65a8e464fd8b277458abb21f6124944",
+      "intent_template_id": 316,
+      "eval_types": [
+        "string_match"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "576": {
+      "site": "gitlab",
+      "task_record_sha256": "ebd1ca33e305cf541141d79540b56ed69450637d925a9a73a9cdd817b6da0317",
+      "intent_template_id": 351,
+      "eval_types": [
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "799": {
+      "site": "gitlab",
+      "task_record_sha256": "80e90abe3b7e1ad7f0c24d3304eac7ee7df40349ea7e75c25d2a4280ed28fe76",
+      "intent_template_id": 600,
+      "eval_types": [
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "742": {
+      "site": "gitlab",
+      "task_record_sha256": "a97c1081112b06f776a334b1f713fc4abf76a172445b844fdeecc59a3c5e5f9b",
+      "intent_template_id": 332,
+      "eval_types": [
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "179": {
+      "site": "gitlab",
+      "task_record_sha256": "a2d18f8a2c6ce3e94c9aa9364234505f54cd8c94b035d0acff273426bd388dee",
+      "intent_template_id": 500,
+      "eval_types": [
+        "string_match",
+        "url_match"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "450": {
+      "site": "gitlab",
+      "task_record_sha256": "c3acdf3ec0eaf46a1050b447f31aeddbe0b0828ccec3fe5dadc7d41763c32e81",
+      "intent_template_id": 331,
+      "eval_types": [
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "746": {
+      "site": "gitlab",
+      "task_record_sha256": "651c9df3c22eeb2c5686b36507534bcae297124ec5afbf60d4e810767b274d85",
+      "intent_template_id": 332,
+      "eval_types": [
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "660": {
+      "site": "gitlab",
+      "task_record_sha256": "c5f071308f5a052098dc43be3881ad2b8350694a4d9683f7fd6ce741e419283c",
+      "intent_template_id": 327,
+      "eval_types": [
+        "url_match",
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "480": {
+      "site": "gitlab",
+      "task_record_sha256": "76e99324fd194789115aee8e665a35ffbfa9d11292ac47ff8033a2d15d20c1db",
+      "intent_template_id": 293,
+      "eval_types": [
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "444": {
+      "site": "gitlab",
+      "task_record_sha256": "a90e214dd82071c347ed9ec7d887b71d2d4760f11b5706e4931184985637c4ac",
+      "intent_template_id": 308,
+      "eval_types": [
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "316": {
+      "site": "gitlab",
+      "task_record_sha256": "02b753c233f7575466697bf1910b58484bab1718f70d0bfc83c6dad55b3a629e",
+      "intent_template_id": 324,
+      "eval_types": [
+        "string_match"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "171": {
+      "site": "gitlab",
+      "task_record_sha256": "69b96f56147f887154af0c6913893fb17aa7fcc99d1c4c60346683b3a26f6dfa",
+      "intent_template_id": 289,
+      "eval_types": [
+        "string_match"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "389": {
+      "site": "gitlab",
+      "task_record_sha256": "fff15a03c5e01c2de6a2a40a396c43a8e10a984b282b7f8b96de72bbe1ddefb1",
+      "intent_template_id": 348,
+      "eval_types": [
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "173": {
+      "site": "gitlab",
+      "task_record_sha256": "41433c83099ea6d6c244f2cd2264930e09cd6be6519d864098e21a11f86fc549",
+      "intent_template_id": 310,
+      "eval_types": [
+        "string_match",
+        "url_match"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "134": {
+      "site": "gitlab",
+      "task_record_sha256": "4ab35490da403ff7f7570ec23de7249041b914acd501ee2e6805aa0dc0920345",
+      "intent_template_id": 322,
+      "eval_types": [
+        "string_match"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "339": {
+      "site": "gitlab",
+      "task_record_sha256": "27385f8636a91a428b51cf5e699da34b80a4d0e8fee8a64056cfa56c90098c54",
+      "intent_template_id": 299,
+      "eval_types": [
+        "url_match"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "658": {
+      "site": "gitlab",
+      "task_record_sha256": "63bb5a460e26ae88687b527478fa3c446a8d3c998b5db84a7a31e532c662602b",
+      "intent_template_id": 327,
+      "eval_types": [
+        "url_match",
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "102": {
+      "site": "gitlab",
+      "task_record_sha256": "48ce5b3353ed657731a6a6a1c14ef6575c8dedd0442f1660c737e4b0e4ef9c62",
+      "intent_template_id": 349,
+      "eval_types": [
+        "url_match"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "205": {
+      "site": "gitlab",
+      "task_record_sha256": "b50b1f403a5f3e029401a00a33cb2afbc4f82b80dff57383fde0f9f476b89423",
+      "intent_template_id": 320,
+      "eval_types": [
+        "string_match"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "591": {
+      "site": "gitlab",
+      "task_record_sha256": "68599d06c89cc61e3c1a30f590db22460c7586927566ad61779be931113c9365",
+      "intent_template_id": 339,
+      "eval_types": [
+        "url_match",
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "350": {
+      "site": "gitlab",
+      "task_record_sha256": "134815a0a04532a8d25cb07a2295ee8d51588f2430c225bb82493dcb75112e07",
+      "intent_template_id": 298,
+      "eval_types": [
+        "string_match"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "803": {
+      "site": "gitlab",
+      "task_record_sha256": "c6a245d2eb5324ce962fe1806d2dacebb60fbbf67fcf637bf55f3ba892e4930c",
+      "intent_template_id": 600,
+      "eval_types": [
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "731": {
+      "site": "reddit",
+      "task_record_sha256": "281728096379306cce443a53317dc6a81d9f5660b16f89f112d4d83f233a47dd",
+      "intent_template_id": 27,
+      "eval_types": [
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "68": {
+      "site": "reddit",
+      "task_record_sha256": "033ea5596373d2a14df3598d277ddb52331e776f14546e12a69ac84cf0900f24",
+      "intent_template_id": 17,
+      "eval_types": [
+        "string_match"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "617": {
+      "site": "reddit",
+      "task_record_sha256": "6f177913623e31838cd523d3df9a5645b9d7efb50e151b50e416da2e0fc8f781",
+      "intent_template_id": 11,
+      "eval_types": [
+        "url_match",
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "724": {
+      "site": "reddit",
+      "task_record_sha256": "8bd70577c7379dc4a8def849c48a8cff26fc838e2c016d88b7084c6187a7614d",
+      "intent_template_id": 25,
+      "eval_types": [
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "637": {
+      "site": "reddit",
+      "task_record_sha256": "a5ac2a574ad195864157240764d6d5c8a3d4b2fc773179230e9245fa50a8be70",
+      "intent_template_id": 6100,
+      "eval_types": [
+        "url_match",
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "608": {
+      "site": "reddit",
+      "task_record_sha256": "ae53e1cdbfadbbb0e768931dc0e5bb4fd59154ddff1731718c57b37852b9c980",
+      "intent_template_id": 5,
+      "eval_types": [
+        "url_match",
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "627": {
+      "site": "reddit",
+      "task_record_sha256": "78dff980d146fd44095a758131b3dca123765ab4982d89184d07e94cfcea634c",
+      "intent_template_id": 13,
+      "eval_types": [
+        "url_match",
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "402": {
+      "site": "reddit",
+      "task_record_sha256": "f44a47d42b08704a4cc2f1a12f42e2eec35e5d0496d0227f83502414eba1ce6f",
+      "intent_template_id": 6,
+      "eval_types": [
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "408": {
+      "site": "reddit",
+      "task_record_sha256": "5f4c2cb80c936a3334c42292636caa8849e866c22472903e6209f809a1fe4c7d",
+      "intent_template_id": 22,
+      "eval_types": [
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "630": {
+      "site": "reddit",
+      "task_record_sha256": "4a43eb2b9f448734fc3647621465aa66ae91ebc697d854ebab2ed93e98ca3340",
+      "intent_template_id": 15,
+      "eval_types": [
+        "url_match",
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "618": {
+      "site": "reddit",
+      "task_record_sha256": "d81488df6f0fe49bce0d145eb9715e23444653cbcfc947b440139fc6b9e459b6",
+      "intent_template_id": 11,
+      "eval_types": [
+        "url_match",
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "645": {
+      "site": "reddit",
+      "task_record_sha256": "30e47b4936f288647eeb6c2752671588012ecee596e9ee16c4ca77a70c92eed3",
+      "intent_template_id": 19,
+      "eval_types": [
+        "url_match",
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "640": {
+      "site": "reddit",
+      "task_record_sha256": "5215fb55b8ce03b4c73d559dce579658cfe4c8d9671a4a57c0a112726f696158",
+      "intent_template_id": 16,
+      "eval_types": [
+        "url_match",
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "730": {
+      "site": "reddit",
+      "task_record_sha256": "2e6a5b0b198636a415c5b4acf45cebb1d60b4d536c9ed7473fa6c529e365e739",
+      "intent_template_id": 1510,
+      "eval_types": [
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "611": {
+      "site": "reddit",
+      "task_record_sha256": "86d0ae01ea484477c75587c98a02477d624f59826910744ec8c94ac7f1c62f85",
+      "intent_template_id": 9,
+      "eval_types": [
+        "url_match",
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "582": {
+      "site": "reddit",
+      "task_record_sha256": "11065bfed65d3276a9791cfa216b375c01186bfee8c23e52af50fbd6a4e9606b",
+      "intent_template_id": 7,
+      "eval_types": [
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "626": {
+      "site": "reddit",
+      "task_record_sha256": "f1e6cbc3611ea036058c7da331d9263c2111ab145d2702903617c73468f62c8b",
+      "intent_template_id": 13,
+      "eval_types": [
+        "url_match",
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "405": {
+      "site": "reddit",
+      "task_record_sha256": "793d7d2290bbf98ca963ef4691259a7095ff9265e7aef2f432ac1d4006f8c0e4",
+      "intent_template_id": 22,
+      "eval_types": [
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "723": {
+      "site": "reddit",
+      "task_record_sha256": "78f0e76f8fe0cebea92577afc984773c63be0c7ac461fa7b583d1911c35bf1c4",
+      "intent_template_id": 25,
+      "eval_types": [
+        "string_match"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "605": {
+      "site": "reddit",
+      "task_record_sha256": "3231227f2a707888021d54310a9a5678be188a0d12e631ccb61b41c044cfee2b",
+      "intent_template_id": 5,
+      "eval_types": [
+        "url_match",
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "644": {
+      "site": "reddit",
+      "task_record_sha256": "14a2982b4d8b086b6b14dd26eb3708d0e6d80072db0e8b68f3b88e20b5c894dd",
+      "intent_template_id": 16,
+      "eval_types": [
+        "url_match",
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "600": {
+      "site": "reddit",
+      "task_record_sha256": "f49908f9d48b05b6250bada08e493fe65f20e106b076c4346e81552c00695880",
+      "intent_template_id": 3765,
+      "eval_types": [
+        "url_match",
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "720": {
+      "site": "reddit",
+      "task_record_sha256": "4c73ab142cba41a82853eb8a2f0726f8b173779336b65fa45478d9b1323add13",
+      "intent_template_id": 25,
+      "eval_types": [
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "716": {
+      "site": "reddit",
+      "task_record_sha256": "f74748cbdaaddfaa9fc3a98b75ea60253a58b6d9ebec4d513630400ed282bcd6",
+      "intent_template_id": 24,
+      "eval_types": [
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "604": {
+      "site": "reddit",
+      "task_record_sha256": "289373f187a4f7d640553f969d703672d081882ae96a918018c71b3bdf0d62dd",
+      "intent_template_id": 3765,
+      "eval_types": [
+        "url_match",
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "614": {
+      "site": "reddit",
+      "task_record_sha256": "e1d3558238d666a495623e5b45efb66c79cfc8b95cddbd17ad641733b0bef037",
+      "intent_template_id": 9,
+      "eval_types": [
+        "url_match",
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "410": {
+      "site": "reddit",
+      "task_record_sha256": "6b61ea4fb3b582bacdfd767ed04f8a95457481dfdf20c669077aeb5624bc0257",
+      "intent_template_id": 23,
+      "eval_types": [
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "584": {
+      "site": "reddit",
+      "task_record_sha256": "61e3aa69d4a5219ee247dee0b6654c162c2ec56614cbd1c6b63b2de4925f372c",
+      "intent_template_id": 7,
+      "eval_types": [
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "634": {
+      "site": "reddit",
+      "task_record_sha256": "e6a3a92d838bd973978de0e18cb68a4c0e9aced38fcf94d2793ce85329f41dae",
+      "intent_template_id": 15,
+      "eval_types": [
+        "url_match",
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "409": {
+      "site": "reddit",
+      "task_record_sha256": "a1a430b9550ae557731080bf250a160f48f16e47c2ebbe04c73abec4af93e9d3",
+      "intent_template_id": 23,
+      "eval_types": [
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "23": {
+      "site": "shopping",
+      "task_record_sha256": "d9e92b673263b215c64fe3a31fa2b96afe66cf93c634c003d20d012757efb5da",
+      "intent_template_id": 222,
+      "eval_types": [
+        "string_match"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "320": {
+      "site": "shopping",
+      "task_record_sha256": "8665873e1c22674331d17d44a71a38ac42298e4d6f793214340ad3a26efba859",
+      "intent_template_id": 160,
+      "eval_types": [
+        "string_match"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "530": {
+      "site": "shopping",
+      "task_record_sha256": "afed3c6a586624078e096446d81fbca90aa48dc55fa2bf50496b909314c5d37f",
+      "intent_template_id": 154,
+      "eval_types": [
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "574": {
+      "site": "shopping",
+      "task_record_sha256": "514adb378b0191fca556a144952ed2e7b91b21948e7a35643215991b708fdd18",
+      "intent_template_id": 165,
+      "eval_types": [
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "693": {
+      "site": "shopping",
+      "task_record_sha256": "6c26d16de24b6efcd6a5b0fd9453dbd63fc8b715f44fdcb2bd4b7dd3239b7800",
+      "intent_template_id": 163,
+      "eval_types": [
+        "url_match",
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "358": {
+      "site": "shopping",
+      "task_record_sha256": "05b172cc48431ad41afa6cab00de5a7a8b0600870507c1603832b900e3813074",
+      "intent_template_id": 206,
+      "eval_types": [
+        "string_match"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "384": {
+      "site": "shopping",
+      "task_record_sha256": "daf40d4f21b01d3914f4437703864f327ec52a22a188f8963ddeb833703c5858",
+      "intent_template_id": 666,
+      "eval_types": [
+        "string_match"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "440": {
+      "site": "shopping",
+      "task_record_sha256": "c1e0c83ed6e73f8ae32575f4443a1d5f86031712362ec96920d16e1e0e04daab",
+      "intent_template_id": 156,
+      "eval_types": [
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "575": {
+      "site": "shopping",
+      "task_record_sha256": "b058dba4dd6924c0ab495aba54de5f0519b4b96ae266863be1ec99e50cae5a9c",
+      "intent_template_id": 165,
+      "eval_types": [
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "431": {
+      "site": "shopping",
+      "task_record_sha256": "0418d4b2a1ab11dcc60b4639377307c742b128ab9e8704791c86e2156e6df7e9",
+      "intent_template_id": 145,
+      "eval_types": [
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "21": {
+      "site": "shopping",
+      "task_record_sha256": "1c114b77bac5f429e22ef78d2445de55a6360ba142d1a6192b8001715b423492",
+      "intent_template_id": 222,
+      "eval_types": [
+        "string_match"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "795": {
+      "site": "shopping",
+      "task_record_sha256": "2dbf333e5392f45a47445002e4fd8c43dd9f3d4ead2fb12626828591a2cee53a",
+      "intent_template_id": 191,
+      "eval_types": [
+        "string_match"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "332": {
+      "site": "shopping",
+      "task_record_sha256": "e86ea97f4626211bd9173a4caaf86865a3fa4d10dafa566f2a9fd65ecca2f24d",
+      "intent_template_id": 147,
+      "eval_types": [
+        "string_match"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "437": {
+      "site": "shopping",
+      "task_record_sha256": "fc0a99b9c2be3e816c817a03d42c18b56f793f724cbe4d97869b44ace41cf51b",
+      "intent_template_id": 156,
+      "eval_types": [
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "158": {
+      "site": "shopping",
+      "task_record_sha256": "f27d484640ca8ca041d38b78c43ddce34a0473df36c828f77cd6f73c2e5f2da5",
+      "intent_template_id": 171,
+      "eval_types": [
+        "url_match"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "519": {
+      "site": "shopping",
+      "task_record_sha256": "415919681d02b58cf0474af462dcde3ddb685f507a460f4794c4ad5b3b1d9061",
+      "intent_template_id": 196,
+      "eval_types": [
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "150": {
+      "site": "shopping",
+      "task_record_sha256": "9f53c90f0075af67e1a71f520037e264a4436fa0ba41229a8565151a5942448a",
+      "intent_template_id": 155,
+      "eval_types": [
+        "string_match"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "301": {
+      "site": "shopping",
+      "task_record_sha256": "9e83f9bfdce111822fbfa8a6e40333d9d80ebd088be7dfcf73a9135dc5c2f0fd",
+      "intent_template_id": 180,
+      "eval_types": [
+        "string_match"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "300": {
+      "site": "shopping",
+      "task_record_sha256": "aaf0bdd1e73a336f5792745ec476e903ae0c1ed6dca996a8dceaa7cdf6a211e3",
+      "intent_template_id": 180,
+      "eval_types": [
+        "url_match"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "239": {
+      "site": "shopping",
+      "task_record_sha256": "ea5e1977988a0256a57b78e8b91c5d0ecff67ecc783014cab29e97c7abfe7f0b",
+      "intent_template_id": 138,
+      "eval_types": [
+        "url_match"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "126": {
+      "site": "shopping",
+      "task_record_sha256": "273c501213876117baa3ccc7ea218677d889120ec72b38905712478f913021e2",
+      "intent_template_id": 159,
+      "eval_types": [
+        "string_match"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "144": {
+      "site": "shopping",
+      "task_record_sha256": "12694080193615eb297dba2e828f2879d1450d8636ac60f10b3d9985ab7a52aa",
+      "intent_template_id": 162,
+      "eval_types": [
+        "string_match"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "47": {
+      "site": "shopping",
+      "task_record_sha256": "d6b8677bf9a4c42f62b2ce7722aee200f08faae3d84231fd9182cd73aaf48324",
+      "intent_template_id": 197,
+      "eval_types": [
+        "string_match"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "385": {
+      "site": "shopping",
+      "task_record_sha256": "22a5599d6776ff407fd4473f95dd3de18e9917c07a5f58659b3ebe7255677c0b",
+      "intent_template_id": 666,
+      "eval_types": [
+        "string_match"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "164": {
+      "site": "shopping",
+      "task_record_sha256": "5e313391c05832c1f6cb1a228420bd86a27b658654ef839226365a159e070a12",
+      "intent_template_id": 136,
+      "eval_types": [
+        "string_match"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "330": {
+      "site": "shopping",
+      "task_record_sha256": "9d6625f9427e438696d8399bdcff06f30dd5945626d5cb5810ddfcafe7f87704",
+      "intent_template_id": 147,
+      "eval_types": [
+        "string_match"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "438": {
+      "site": "shopping",
+      "task_record_sha256": "624661c076a9d22f9f2d44267c07bfe529ace430e751eb35db3ed4b28d1f9056",
+      "intent_template_id": 156,
+      "eval_types": [
+        "program_html"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "24": {
+      "site": "shopping",
+      "task_record_sha256": "feb9ade59568f784de2cc227805199c3e1e52fa66d1201ca1e2409a31dad6953",
+      "intent_template_id": 222,
+      "eval_types": [
+        "string_match"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "360": {
+      "site": "shopping",
+      "task_record_sha256": "4554d37e51b18e1de33ea0bf962b885b24f744c5ddf1d1c5c7339997c69fb406",
+      "intent_template_id": 206,
+      "eval_types": [
+        "string_match"
+      ],
+      "require_login": true,
+      "require_reset": false
+    },
+    "240": {
+      "site": "shopping",
+      "task_record_sha256": "9240708bc5bbfd941ec2b3ed69c5ce1aca10c3774dabcdcb1ee042d502ebade9",
+      "intent_template_id": 138,
+      "eval_types": [
+        "url_match"
+      ],
+      "require_login": true,
+      "require_reset": false
+    }
+  },
+  "historical_excluded_task_ids": [
+    27,
+    28,
+    29,
+    30,
+    31,
+    44,
+    45,
+    157,
+    258,
+    274,
+    275,
+    276,
+    595,
+    596,
+    597,
+    676,
+    677
+  ],
+  "historical_exclusion_evidence": {
+    "27": [
+      "configs/webarena_reddit_eval.json",
+      "data/reports/webarena_online_evaluation_latest.json",
+      "data/reports/webarena_phase3_online_evaluation_gpu.json",
+      "data/trajectories_webarena_eval/phase3/20260808T151851Z_browsergym_webarena.27_seed0_7a12b820.jsonl"
+    ],
+    "28": [
+      "configs/webarena_reddit_eval.json",
+      "data/reports/webarena_online_evaluation_latest.json",
+      "data/reports/webarena_phase3_online_evaluation_gpu.json",
+      "data/trajectories_webarena_eval/phase3/20260808T151914Z_browsergym_webarena.28_seed0_a413a5c4.jsonl"
+    ],
+    "29": [
+      "configs/webarena_reddit_eval.json",
+      "data/reports/webarena_online_evaluation_latest.json",
+      "data/reports/webarena_phase3_online_evaluation_gpu.json",
+      "data/trajectories_webarena_eval/phase3/20260808T151935Z_browsergym_webarena.29_seed0_162ee2f4.jsonl"
+    ],
+    "30": [
+      "configs/webarena_reddit_eval.json",
+      "data/reports/webarena_online_evaluation_latest.json",
+      "data/reports/webarena_phase3_online_evaluation_gpu.json",
+      "data/trajectories_webarena_eval/phase3/20260808T151957Z_browsergym_webarena.30_seed0_e2fe62e1.jsonl"
+    ],
+    "31": [
+      "configs/webarena_reddit_eval.json",
+      "data/reports/webarena_online_evaluation_latest.json",
+      "data/reports/webarena_phase3_online_evaluation_gpu.json",
+      "data/trajectories_webarena_eval/phase3/20260808T152019Z_browsergym_webarena.31_seed0_0787c4de.jsonl"
+    ],
+    "44": [
+      "configs/webarena_formal_gitlab.json",
+      "configs/webarena_multisite_eval.json",
+      "data/reports/webarena_formal_gitlab_reactive.json",
+      "data/reports/webarena_formal_gitlab_reactive_post_fix_v1.json",
+      "data/reports/webarena_formal_gitlab_reactive_pre_fix.json",
+      "data/reports/webarena_formal_gitlab_world-model.json",
+      "data/reports/webarena_formal_gitlab_world-model_post_fix_v1.json",
+      "data/reports/webarena_formal_gitlab_world-model_pre_fix.json",
+      "data/reports/webarena_online_evaluation_w4.json"
+    ],
+    "45": [
+      "configs/webarena_formal_gitlab.json",
+      "configs/webarena_multisite_eval.json",
+      "data/reports/webarena_formal_gitlab_reactive.json",
+      "data/reports/webarena_formal_gitlab_reactive_post_fix_v1.json",
+      "data/reports/webarena_formal_gitlab_reactive_pre_fix.json",
+      "data/reports/webarena_formal_gitlab_world-model.json",
+      "data/reports/webarena_formal_gitlab_world-model_post_fix_v1.json",
+      "data/reports/webarena_formal_gitlab_world-model_pre_fix.json",
+      "data/reports/webarena_online_evaluation_w4.json"
+    ],
+    "157": [
+      "configs/webarena_three_site_pilot.json",
+      "data/reports/webarena_phase4_three_site_pilot.json"
+    ],
+    "258": [
+      "configs/webarena_formal_gitlab.json",
+      "configs/webarena_multisite_eval.json",
+      "data/reports/webarena_formal_gitlab_reactive.json",
+      "data/reports/webarena_formal_gitlab_reactive_post_fix_v1.json",
+      "data/reports/webarena_formal_gitlab_reactive_pre_fix.json",
+      "data/reports/webarena_formal_gitlab_world-model.json",
+      "data/reports/webarena_formal_gitlab_world-model_post_fix_v1.json",
+      "data/reports/webarena_formal_gitlab_world-model_pre_fix.json",
+      "data/reports/webarena_online_evaluation_w4.json"
+    ],
+    "274": [
+      "configs/webarena_formal_shopping.json",
+      "configs/webarena_multisite_eval.json",
+      "configs/webarena_shopping_pilot.json",
+      "configs/webarena_three_site_pilot.json",
+      "data/reports/webarena_formal_shopping_reactive.json",
+      "data/reports/webarena_formal_shopping_world-model.json",
+      "data/reports/webarena_online_evaluation_w4.json",
+      "data/reports/webarena_phase4_three_site_pilot.json",
+      "data/reports/webarena_shopping_guarded.json"
+    ],
+    "275": [
+      "configs/webarena_formal_shopping.json",
+      "configs/webarena_multisite_eval.json",
+      "configs/webarena_shopping_pilot.json",
+      "configs/webarena_three_site_pilot.json",
+      "data/reports/webarena_formal_shopping_reactive.json",
+      "data/reports/webarena_formal_shopping_world-model.json",
+      "data/reports/webarena_online_evaluation_w4.json",
+      "data/reports/webarena_phase4_three_site_pilot.json",
+      "data/reports/webarena_shopping_guarded.json"
+    ],
+    "276": [
+      "configs/webarena_formal_shopping.json",
+      "configs/webarena_multisite_eval.json",
+      "configs/webarena_shopping_pilot.json",
+      "configs/webarena_three_site_pilot.json",
+      "data/reports/webarena_formal_shopping_reactive.json",
+      "data/reports/webarena_formal_shopping_world-model.json",
+      "data/reports/webarena_online_evaluation_w4.json",
+      "data/reports/webarena_phase4_three_site_pilot.json",
+      "data/reports/webarena_shopping_guarded.json"
+    ],
+    "595": [
+      "configs/webarena_formal_reddit.json",
+      "configs/webarena_multisite_eval.json",
+      "configs/webarena_reddit_pilot.json",
+      "configs/webarena_reddit_single_pilot.json",
+      "configs/webarena_three_site_pilot.json",
+      "data/reports/webarena_formal_reddit_reactive.json",
+      "data/reports/webarena_formal_reddit_reactive_pre_fix.json",
+      "data/reports/webarena_formal_reddit_world-model.json",
+      "data/reports/webarena_online_evaluation_w4.json",
+      "data/reports/webarena_phase4_three_site_pilot.json",
+      "data/reports/webarena_reddit_w4.json"
+    ],
+    "596": [
+      "configs/webarena_formal_reddit.json",
+      "configs/webarena_multisite_eval.json",
+      "configs/webarena_reddit_pilot.json",
+      "configs/webarena_three_site_pilot.json",
+      "data/reports/webarena_formal_reddit_reactive.json",
+      "data/reports/webarena_formal_reddit_reactive_pre_fix.json",
+      "data/reports/webarena_formal_reddit_world-model.json",
+      "data/reports/webarena_online_evaluation_w4.json",
+      "data/reports/webarena_phase4_three_site_pilot.json",
+      "data/reports/webarena_reddit_w4.json"
+    ],
+    "597": [
+      "configs/webarena_formal_reddit.json",
+      "configs/webarena_multisite_eval.json",
+      "configs/webarena_reddit_pilot.json",
+      "configs/webarena_three_site_pilot.json",
+      "data/reports/webarena_formal_reddit_reactive.json",
+      "data/reports/webarena_formal_reddit_reactive_pre_fix.json",
+      "data/reports/webarena_formal_reddit_world-model.json",
+      "data/reports/webarena_online_evaluation_w4.json",
+      "data/reports/webarena_phase4_three_site_pilot.json",
+      "data/reports/webarena_reddit_w4.json"
+    ],
+    "676": [
+      "configs/webarena_three_site_pilot.json",
+      "data/reports/webarena_phase4_three_site_pilot.json"
+    ],
+    "677": [
+      "configs/webarena_three_site_pilot.json",
+      "data/reports/webarena_phase4_three_site_pilot.json"
+    ]
+  },
+  "source": {
+    "browsergym_webarena_version": "0.14.3",
+    "libwebarena_version": "0.0.4",
+    "webarena_verified_version": "1.2.3",
+    "task_count": 812,
+    "task_source_sha256": "7b50386fd69163dbc05d615d834df4c6ed2c35596e97a1b10d17451c02537652",
+    "source_wheel_sha256": "9ebee3b4371502c4f0f7e727a72e5846235d6750d420db9a3b8a168107654feb"
+  },
+  "release": {
+    "sha256": "427049583ec231a5f6c49450cd2da51da36ea255ae42ccb1770a9a027b956652",
+    "files": [
+      {
+        "path": "agent_world_model/__init__.py",
+        "bytes": 1793,
+        "sha256": "f240c27da3e4b55ada259207b84d8fdf9a8a2aecb3e8605e12158252e044fc18"
+      },
+      {
+        "path": "agent_world_model/baseline.py",
+        "bytes": 5124,
+        "sha256": "89256ab526dfedb9fbf042ac1a70d10a9febda655d7f2a395a79ef10d83a2876"
+      },
+      {
+        "path": "agent_world_model/encoder.py",
+        "bytes": 5897,
+        "sha256": "cc8ec71cff583f146f3d422e11c7caffa6a75d031d1cf1c322cc51a5a6f3d835"
+      },
+      {
+        "path": "agent_world_model/experiment_stats.py",
+        "bytes": 2389,
+        "sha256": "d27429859a4ae1d35c4d2a3abe9391d95601e242b79001f8a3c09a0b14303dde"
+      },
+      {
+        "path": "agent_world_model/phase2_dataset.py",
+        "bytes": 13256,
+        "sha256": "b65fc573966743c3c92ff769205392c8b37b69f288c7390d3706f6c004064a32"
+      },
+      {
+        "path": "agent_world_model/phase2_ensemble.py",
+        "bytes": 15695,
+        "sha256": "4cbd5876e0619dff7ca465f17ff781608b6e8bf523bfdbed72ee4e0724568b18"
+      },
+      {
+        "path": "agent_world_model/phase2_losses.py",
+        "bytes": 4227,
+        "sha256": "cb01729c4cf4f1c97134eceaae45652c40c45913237876dffbe505a401f36303"
+      },
+      {
+        "path": "agent_world_model/phase2_metrics.py",
+        "bytes": 9764,
+        "sha256": "e63ecee641b2fe8ecd9f4db34457cf37e9e709f4221a013a78607d5a043f177b"
+      },
+      {
+        "path": "agent_world_model/phase2_schema.py",
+        "bytes": 14714,
+        "sha256": "2483b5b6beb7714e91488a2c200cd4a214eee8553db7b108127f18b295bc2644"
+      },
+      {
+        "path": "agent_world_model/phase2_training.py",
+        "bytes": 23649,
+        "sha256": "5c2b328cf3745fb26026e58d8447721ff6b0253f952a8231e6ba817313876754"
+      },
+      {
+        "path": "agent_world_model/phase3_agent.py",
+        "bytes": 14037,
+        "sha256": "040d504ba357ebd9fc09517629172b3179be7d1fb78fb2cb3d6e4b2a18b8181a"
+      },
+      {
+        "path": "agent_world_model/phase3_candidates.py",
+        "bytes": 22055,
+        "sha256": "04b01c594cfcdf38805f4bf687460bcbecd408c5ff221097540373acae5188be"
+      },
+      {
+        "path": "agent_world_model/phase3_planning.py",
+        "bytes": 16318,
+        "sha256": "b0897f3853299d86b34d5f0f1d7428c1cfc89a22f24b2751fccafec72838b813"
+      },
+      {
+        "path": "agent_world_model/reactive_agent.py",
+        "bytes": 20799,
+        "sha256": "70510d533535ed31906535e2770238b61fccb1f89a89f3122770b9007bd3521a"
+      },
+      {
+        "path": "agent_world_model/release_fingerprint.py",
+        "bytes": 2901,
+        "sha256": "d0945cbd5b64b1a18de4069f9275e29867c0762cecd5aeb6fd3c1e3cc9dd583b"
+      },
+      {
+        "path": "agent_world_model/remote_agent.py",
+        "bytes": 2277,
+        "sha256": "848f1e28b8705d40aa7216232e0eba672b96f7317b2e84175d348b66d940e91d"
+      },
+      {
+        "path": "agent_world_model/state.py",
+        "bytes": 11809,
+        "sha256": "3550958452da5ff2b8eae69ad87d922c929adae7913d223f6fe57b291c57a56e"
+      },
+      {
+        "path": "agent_world_model/structure_alignment.py",
+        "bytes": 6322,
+        "sha256": "915b0d4676ee1af9772f55ed6a64c691bfc83fe101230524029cdb48cbe37785"
+      },
+      {
+        "path": "agent_world_model/trajectory.py",
+        "bytes": 8025,
+        "sha256": "d721bdb2715b5eb90e81989b8d775be2bfbb23b9aa0ef2a4662cdce73b9fb89f"
+      },
+      {
+        "path": "agent_world_model/world_model.py",
+        "bytes": 6616,
+        "sha256": "643ec791d42d857c0d5b9b4a6adad87a188955f8e23a47ab8e18a66bc6b94c6b"
+      },
+      {
+        "path": "artifacts/phase2/p2_multiseed/world_model_rank_balanced_a_seed29.pt",
+        "bytes": 5533698,
+        "sha256": "bcd0ae6738c308edf67bb00b29d909bc8426a27fddf5f81fa56c7f610bf64f3a"
+      },
+      {
+        "path": "artifacts/phase2/p2_multiseed/world_model_rank_base_a_seed17.pt",
+        "bytes": 5533426,
+        "sha256": "19618056007572ad84099794ace489f5906d4301f158678a20527599f6feb000"
+      },
+      {
+        "path": "artifacts/phase2/p2_multiseed/world_model_rank_regularized_seed73.pt",
+        "bytes": 5533750,
+        "sha256": "adbce45480a6c783e49b2d9ac8666d8fbdb529b3cc0e016ddb38780091209f0b"
+      },
+      {
+        "path": "artifacts/phase3/structure_aligner_best.pt",
+        "bytes": 3480,
+        "sha256": "9959d67826d12f2c898247c91c5f688073c625e13c386b74ec383fd4f0d751ef"
+      },
+      {
+        "path": "artifacts/phase4/priority/member_seed17.pt",
+        "bytes": 5532478,
+        "sha256": "cdc21e44ad8bfebdfb91c8cdd4c0c3ceae55a4756c3ae36c233413d3cb74adfd"
+      },
+      {
+        "path": "artifacts/phase4/priority/member_seed29.pt",
+        "bytes": 5532478,
+        "sha256": "c37c2a58c0571edb858fd15f687168eb12020978709b352eadef591d824dce18"
+      },
+      {
+        "path": "artifacts/phase4/priority/member_seed73.pt",
+        "bytes": 5532478,
+        "sha256": "ffbbcf1f3b81c6f7624b8204276396555b9f34c2ecc01691dd36a404066f47f9"
+      },
+      {
+        "path": "artifacts/phase4/world_model_ensemble_w4.json",
+        "bytes": 1388,
+        "sha256": "3822be90e35cb1a4d3c5d6247b6fdaf821623fe86825ee567aaca0e55045075c"
+      },
+      {
+        "path": "configs/phase3_planner.json",
+        "bytes": 1960,
+        "sha256": "1c7b80b05daf168cdec9683663836f264c12af8b44afa0e0451f1c5f37acebe7"
+      },
+      {
+        "path": "scripts/evaluate_webarena_online.py",
+        "bytes": 13639,
+        "sha256": "9c231158aa8d9bab31a393f67cf3a8d2b7c82afbc42e2b0a788a7e444de4de5d"
+      },
+      {
+        "path": "scripts/serve_phase3_inference.py",
+        "bytes": 5527,
+        "sha256": "813cc72fbe77881e97278c71b8a1a5b1c1221723c419dc0f5c54b3f110120a1c"
+      }
+    ]
+  },
+  "site_config_paths": {
+    "gitlab": "configs/webarena_p0_holdout_gitlab_frozen.json",
+    "reddit": "configs/webarena_p0_holdout_reddit_frozen.json",
+    "shopping": "configs/webarena_p0_holdout_shopping_frozen.json"
+  },
+  "site_config_freeze_sha256": {
+    "gitlab": "6d4828096e93375407c15a4c21b250b3e1c4982130786f14ee330c94a6149562",
+    "reddit": "e4b6c2dc2c12397e2c6c4da4bc91f27a8a2524060c2960a979ac898abbab1d46",
+    "shopping": "9e7813b93a834ce95af7ed437afdd1166d09c6d2989f87d5216d0e4d0951e474"
+  },
+  "claim_rule": "Relative SR +10% may be declared only from this frozen holdout, with absolute percentage-point and relative changes both reported.",
+  "post_freeze_rule": "No task replacement, task-feedback repair, policy tuning, guard change, weight change, or budget change after this timestamp.",
+  "freeze_sha256": "cfd7547da262a9a678f43925c301e5acb3cd54efffa753a0bdd46e290288d9fb"
+}

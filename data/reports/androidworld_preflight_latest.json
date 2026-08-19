@@ -1,0 +1,66 @@
+{
+  "schema_version": 2,
+  "generated_at_utc": "2026-08-11T11:42:10.228303+00:00",
+  "checks": {
+    "platform": "Windows-11-10.0.26200-SP0",
+    "python_version": "3.12.13",
+    "adb_executable": "C:\\AndroidSdk\\platform-tools\\adb.exe",
+    "adb_connect_result": "",
+    "connected_devices": [
+      {
+        "serial": "emulator-5554",
+        "state": "device",
+        "product": "sdk_gphone64_x86_64",
+        "model": "sdk_gphone64_x86_64",
+        "device": "emu64x",
+        "transport_id": "7"
+      }
+    ],
+    "ready_device_count": 1,
+    "selected_device": {
+      "serial": "emulator-5554",
+      "state": "device",
+      "product": "sdk_gphone64_x86_64",
+      "model": "sdk_gphone64_x86_64",
+      "device": "emu64x",
+      "transport_id": "7"
+    },
+    "selected_device_properties": {
+      "api_level": "33",
+      "model": "sdk_gphone64_x86_64",
+      "abi": "x86_64",
+      "boot_completed": "1",
+      "is_emulator": "1"
+    },
+    "emulator_host_bridge_route": {
+      "returncode": 0,
+      "output": "10.0.2.2 dev wlan0 table wlan0 src 10.0.2.16 uid 0 \n    cache"
+    },
+    "expected_api_level": 33,
+    "api_level_compatible": true,
+    "boot_completed": true,
+    "emulator_executable": null,
+    "ANDROID_HOME": null,
+    "ANDROID_SDK_ROOT": null,
+    "android_world_package": true,
+    "android_world_version": "0.1.0",
+    "grpc_package": true,
+    "grpc_host": "127.0.0.1",
+    "grpc_port": 8554,
+    "grpc_forwarding_reachable": true,
+    "docker_executable": null,
+    "kvm_available": null,
+    "emulator_acceleration_probe": null
+  },
+  "adb_error": "",
+  "adapter_implemented": true,
+  "software_stack_ready": true,
+  "runtime_ready": true,
+  "native_accelerated_emulator_possible": false,
+  "recommended_architecture": "native_androidworld_runtime",
+  "blockers": [],
+  "next_actions": [
+    "Run scripts/androidworld_smoke.py --perform-emulator-setup once, then rerun without that flag."
+  ],
+  "official_setup": "https://github.com/google-research/android_world#installation"
+}

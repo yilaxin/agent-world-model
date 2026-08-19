@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "phase": 4,
+  "variant": "priority",
+  "selection_split": "validation",
+  "members": [
+    {
+      "seed": 29,
+      "checkpoint": "artifacts/phase4/priority/member_seed29.pt"
+    },
+    {
+      "seed": 73,
+      "checkpoint": "artifacts/phase4/priority/member_seed73.pt"
+    },
+    {
+      "seed": 17,
+      "checkpoint": "artifacts/phase4/priority/member_seed17.pt"
+    }
+  ],
+  "temperatures": {
+    "state_delta": [
+      0.5,
+      0.5,
+      1.125,
+      1.225000023841858,
+      0.5
+    ],
+    "task_signal": [
+      0.5,
+      0.550000011920929
+    ],
+    "risk": [
+      0.5249999761581421,
+      0.5,
+      0.5,
+      0.75
+    ]
+  },
+  "member_weights": [
+    0.0,
+    0.8999999761581421,
+    0.10000000149011612
+  ]
+}
