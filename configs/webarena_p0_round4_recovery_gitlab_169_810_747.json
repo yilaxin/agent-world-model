@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "benchmark": "Classic WebArena P0 round-4 environment-failure recovery",
+  "required_sites": [
+    "gitlab"
+  ],
+  "task_ids": [
+    169,
+    810,
+    747
+  ],
+  "task_sites": {
+    "169": "gitlab",
+    "810": "gitlab",
+    "747": "gitlab"
+  },
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "reactive_step_budget": 12,
+  "world_model_step_budget": 12,
+  "episode_max_attempts": 3,
+  "evaluator_smoke_step_budget": 1,
+  "evaluator_smoke_answers": {},
+  "release_fingerprint_sha256": "7e34a1e3c74252e8c3ab6ff6b29e2e40eda934e58d27a589c2e528d37c117f32",
+  "task_feedback_used": false,
+  "eligible_for_final_claim": true,
+  "scope_limit": "Recovery of environment-failed round-4 gitlab episodes (tasks [169, 810, 747], seeds [0, 1, 2]); same frozen policy and budgets.",
+  "freeze_sha256": "04d1672ae3a7d87a507508711ee63142ad080ee8920bba39e74291c056252e1d"
+}
