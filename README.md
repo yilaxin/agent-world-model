@@ -24,6 +24,7 @@
 - [WebArena P0 验收 PDF](output/pdf/WebArena_P0未见任务2x2验收报告_2026-08-14.pdf)
 - [第三轮补充报告 PDF](output/pdf/大创第三轮补充报告_2026-08-16.pdf)
 - [项目完整总结与结题评估 PDF](output/pdf/大创项目完整总结与结题评估_2026-08-15.pdf)
+- [WebArena 失败归因（动作级，W1 基线策略工作的输入）](WEBARENA_FAILURE_ATTRIBUTION.md)
 - `data/reports/phase4_feedback_experiment_gpu.json`
 - `data/reports/webarena_online_evaluation_w4.json`
 - `data/reports/webarena_p0_round3_2x2_analysis.json`
