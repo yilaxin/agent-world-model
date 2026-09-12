@@ -309,6 +309,11 @@ def parse_report_name(path: Path) -> tuple[str, str, str, str]:
     if match:
         version, site, mode = match.groups()
         return f"r3dev-v{version}" if version else "r3dev", site, mode, "off"
+    match = re.match(r"webarena_w1_workingset_([a-z]+)_(reactive|world-model)$", stem)
+    if match:
+        site, mode = match.groups()
+        # The W1 working set always runs with the navigation guard on.
+        return "w1-workingset", site, mode, "on"
     match = re.match(r"webarena_p0_(round\d+)_holdout_([a-z]+)_(.+?)_guard_(on|off)$", stem)
     if match:
         round_name, site, mode, guard = match.groups()

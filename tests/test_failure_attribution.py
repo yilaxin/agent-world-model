@@ -65,6 +65,10 @@ def test_parse_report_name_handles_development_reports() -> None:
     assert versioned == ("round3dev-v2", "shopping", "world-model", "off")
     shipped = module.parse_report_name(Path("webarena_r3dev_v7_gitlab_reactive.json"))
     assert shipped == ("r3dev-v7", "gitlab", "reactive", "off")
+    workingset = module.parse_report_name(
+        Path("webarena_w1_workingset_shopping_reactive.json")
+    )
+    assert workingset == ("w1-workingset", "shopping", "reactive", "on")
 
 
 def test_expected_fragments_ignores_project_names_inside_words() -> None:

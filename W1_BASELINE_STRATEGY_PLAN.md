@@ -33,9 +33,26 @@ Round-4 的结果是严格零效应：W4 − Reactive = 0.00 个百分点，95% 
 | 数据集 | 现状（reactive） |
 |---|---|
 | Round-3 dev（v7，seed 0，28 题） | GitLab 0/9、Reddit 1/10、Shopping 4/9 = **17.9%** |
+| W1 工作集（40 题 × 3 seed，2026-09-12 实测） | GitLab 0/69、Shopping 3/51 = **2.5%** |
 | Round-4 冻结 holdout（240 episodes/策略） | GitLab 0–2/120、Shopping 9/120 = **4.2%** |
 
-Shopping 上 dev 44% 对 holdout 7.5%，差了近 6 倍。**只盯 dev 会被系统性误导**，所以"用 dev 调、用 holdout 判"这条纪律必须写成硬规则。
+Shopping 上 dev 44% 对 holdout 7.5%，差了近 6 倍；工作集实测 2.5% 更接近 holdout 量级。**只盯 dev 会被系统性误导**，所以"用 dev 冒烟、用工作集判、用 holdout 声称"这条三层纪律必须写成硬规则。
+
+### W1 基线归因（2026-09-12，工作集 120 条）
+
+| 主类型 | 条数 | 占比（117 条失败） |
+|---|---:|---:|
+| 循环/停滞 | 42 | 36% |
+| 预算耗尽 | 38 | 33% |
+| 流程路径错误 | 23 | 20% |
+| 目标理解偏差 | 6 | 5% |
+| 缺显式终止 | 3 | 3% |
+| 表单/搜索流程不完整 | 3 | 3% |
+| 动作执行失败 | 2 | 2% |
+| 成功 | 3 | — |
+
+完整证据：`WEBARENA_W1_BASELINE_ATTRIBUTION.md`、`data/reports/webarena_w1_baseline_attribution.json`。
+每次改动后以这份 JSON 为 `--baseline` 运行差分工具，目标类型必须下降 ≥ 40%。
 
 ---
 
