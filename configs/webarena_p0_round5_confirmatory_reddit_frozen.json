@@ -1,0 +1,437 @@
+{
+  "schema_version": 1,
+  "benchmark": "Classic WebArena P0 round-5 confirmatory (reddit)",
+  "frozen_at_utc": "2026-09-12T05:47:07+00:00",
+  "selection_salt": "p0-round5-confirmatory-v1",
+  "required_sites": [
+    "reddit"
+  ],
+  "task_ids": [
+    66,
+    69,
+    399,
+    400,
+    403,
+    406,
+    580,
+    581,
+    598,
+    599,
+    601,
+    603,
+    606,
+    607,
+    609,
+    610,
+    615,
+    616,
+    619,
+    620,
+    622,
+    623,
+    624,
+    633,
+    635,
+    636,
+    638,
+    639,
+    641,
+    642,
+    643,
+    646,
+    647,
+    649,
+    651,
+    652,
+    714,
+    715,
+    717,
+    718,
+    719,
+    727,
+    728,
+    729,
+    732,
+    734,
+    735
+  ],
+  "task_sites": {
+    "66": "reddit",
+    "69": "reddit",
+    "399": "reddit",
+    "400": "reddit",
+    "403": "reddit",
+    "406": "reddit",
+    "580": "reddit",
+    "581": "reddit",
+    "598": "reddit",
+    "599": "reddit",
+    "601": "reddit",
+    "603": "reddit",
+    "606": "reddit",
+    "607": "reddit",
+    "609": "reddit",
+    "610": "reddit",
+    "615": "reddit",
+    "616": "reddit",
+    "619": "reddit",
+    "620": "reddit",
+    "622": "reddit",
+    "623": "reddit",
+    "624": "reddit",
+    "633": "reddit",
+    "635": "reddit",
+    "636": "reddit",
+    "638": "reddit",
+    "639": "reddit",
+    "641": "reddit",
+    "642": "reddit",
+    "643": "reddit",
+    "646": "reddit",
+    "647": "reddit",
+    "649": "reddit",
+    "651": "reddit",
+    "652": "reddit",
+    "714": "reddit",
+    "715": "reddit",
+    "717": "reddit",
+    "718": "reddit",
+    "719": "reddit",
+    "727": "reddit",
+    "728": "reddit",
+    "729": "reddit",
+    "732": "reddit",
+    "734": "reddit",
+    "735": "reddit"
+  },
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "reactive_step_budget": 12,
+  "world_model_step_budget": 12,
+  "episode_max_attempts": 3,
+  "task_feedback_used": false,
+  "post_freeze_policy_changes_allowed": false,
+  "eligible_for_final_claim": true,
+  "evaluator_smoke_step_budget": 1,
+  "evaluator_smoke_answers": {},
+  "release_fingerprint_sha256": "7e34a1e3c74252e8c3ab6ff6b29e2e40eda934e58d27a589c2e528d37c117f32",
+  "arms": {
+    "reactive": {
+      "mode": "reactive",
+      "navigation_guard": "on"
+    },
+    "world_model": {
+      "mode": "world-model",
+      "navigation_guard": "on"
+    }
+  },
+  "task_evidence": {
+    "66": [
+      "data/reports/webarena_p0_round3_holdout_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_reddit_world-model_guard_on.json"
+    ],
+    "69": [
+      "data/reports/webarena_p0_round2_holdout_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_on_transport_recovery.json"
+    ],
+    "399": [
+      "data/reports/webarena_p0_round2_holdout_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_on_transport_recovery.json"
+    ],
+    "400": [
+      "data/reports/webarena_p0_round3_holdout_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_reddit_world-model_guard_on.json"
+    ],
+    "403": [
+      "data/reports/webarena_p0_round3_holdout_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_reddit_world-model_guard_on.json"
+    ],
+    "406": [
+      "data/reports/webarena_p0_round3_holdout_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_reddit_world-model_guard_on.json"
+    ],
+    "580": [
+      "data/reports/webarena_p0_round2_holdout_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_on_transport_recovery.json"
+    ],
+    "581": [
+      "data/reports/webarena_p0_round3_holdout_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_reddit_world-model_guard_on.json"
+    ],
+    "598": [
+      "data/reports/webarena_p0_round2_holdout_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_on_transport_recovery.json"
+    ],
+    "599": [
+      "data/reports/webarena_p0_round3_holdout_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_reddit_world-model_guard_on.json"
+    ],
+    "601": [
+      "data/reports/webarena_p0_round2_holdout_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_on_transport_recovery.json"
+    ],
+    "603": [
+      "data/reports/webarena_p0_round3_holdout_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_reddit_world-model_guard_on.json"
+    ],
+    "606": [
+      "data/reports/webarena_p0_round3_holdout_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_reddit_world-model_guard_on.json"
+    ],
+    "607": [
+      "data/reports/webarena_p0_round3_holdout_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_reddit_world-model_guard_on.json"
+    ],
+    "609": [
+      "data/reports/webarena_p0_round3_holdout_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_reddit_world-model_guard_on.json"
+    ],
+    "610": [
+      "data/reports/webarena_p0_round3_holdout_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_reddit_world-model_guard_on.json"
+    ],
+    "615": [
+      "data/reports/webarena_p0_round3_holdout_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_reddit_world-model_guard_on.json"
+    ],
+    "616": [
+      "data/reports/webarena_p0_round2_holdout_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_on_transport_recovery.json"
+    ],
+    "619": [
+      "data/reports/webarena_p0_round2_holdout_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_on_transport_recovery.json"
+    ],
+    "620": [
+      "data/reports/webarena_p0_round2_holdout_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_on.json"
+    ],
+    "622": [
+      "data/reports/webarena_p0_round2_holdout_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_on_transport_recovery.json"
+    ],
+    "623": [
+      "data/reports/webarena_p0_round3_holdout_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_reddit_world-model_guard_on.json"
+    ],
+    "624": [
+      "data/reports/webarena_p0_round2_holdout_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_on_transport_recovery.json"
+    ],
+    "633": [
+      "data/reports/webarena_p0_round2_holdout_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_on_transport_recovery.json"
+    ],
+    "635": [
+      "data/reports/webarena_p0_round2_holdout_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_on.json"
+    ],
+    "636": [
+      "data/reports/webarena_p0_round3_holdout_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_reddit_world-model_guard_on.json"
+    ],
+    "638": [
+      "data/reports/webarena_p0_round2_holdout_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_on_transport_recovery.json"
+    ],
+    "639": [
+      "data/reports/webarena_p0_round3_holdout_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_reddit_world-model_guard_on.json"
+    ],
+    "641": [
+      "data/reports/webarena_p0_round2_holdout_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_on.json"
+    ],
+    "642": [
+      "data/reports/webarena_p0_round2_holdout_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_on.json"
+    ],
+    "643": [
+      "data/reports/webarena_p0_round2_holdout_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_on.json"
+    ],
+    "646": [
+      "data/reports/webarena_p0_round3_holdout_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_reddit_world-model_guard_on.json"
+    ],
+    "647": [
+      "data/reports/webarena_p0_round2_holdout_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_on_transport_recovery.json"
+    ],
+    "649": [
+      "data/reports/webarena_p0_round2_holdout_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_on_transport_recovery.json"
+    ],
+    "651": [
+      "data/reports/webarena_p0_round3_holdout_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_reddit_world-model_guard_on.json"
+    ],
+    "652": [
+      "data/reports/webarena_p0_round2_holdout_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_on_transport_recovery.json"
+    ],
+    "714": [
+      "data/reports/webarena_p0_round2_holdout_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_on.json"
+    ],
+    "715": [
+      "data/reports/webarena_p0_round2_holdout_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_on_transport_recovery.json"
+    ],
+    "717": [
+      "data/reports/webarena_p0_round2_holdout_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_on.json"
+    ],
+    "718": [
+      "data/reports/webarena_p0_round2_holdout_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_on_transport_recovery.json"
+    ],
+    "719": [
+      "data/reports/webarena_p0_round2_holdout_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_on_transport_recovery.json"
+    ],
+    "727": [
+      "data/reports/webarena_p0_round2_holdout_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_on.json"
+    ],
+    "728": [
+      "data/reports/webarena_p0_round2_holdout_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_on_transport_recovery.json"
+    ],
+    "729": [
+      "data/reports/webarena_p0_round2_holdout_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_on_transport_recovery.json"
+    ],
+    "732": [
+      "data/reports/webarena_p0_round2_holdout_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_on.json"
+    ],
+    "734": [
+      "data/reports/webarena_p0_round2_holdout_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_reddit_world-model_guard_on.json"
+    ],
+    "735": [
+      "data/reports/webarena_p0_round3_holdout_reddit_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_reddit_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_reddit_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_reddit_world-model_guard_on.json"
+    ]
+  },
+  "selection_rule": "Every non-fuzzy task frozen as holdout in rounds 2-4 for this site. The rule is exhaustive, so no task was chosen after seeing results.",
+  "scope_limit": "Re-used frozen holdout tasks; not a never-seen set. Paired comparison is valid because both arms are re-run on the same tasks and seeds.",
+  "freeze_sha256": "7023b1f8091973d5b37aeecb7e7ad6a29f17e971688d31a56cc9c2282bb305f0"
+}

@@ -1,0 +1,826 @@
+{
+  "schema_version": 1,
+  "benchmark": "Classic WebArena P0 round-5 confirmatory (gitlab)",
+  "frozen_at_utc": "2026-09-12T05:47:07+00:00",
+  "selection_salt": "p0-round5-confirmatory-v1",
+  "required_sites": [
+    "gitlab"
+  ],
+  "task_ids": [
+    46,
+    103,
+    105,
+    135,
+    136,
+    156,
+    169,
+    178,
+    180,
+    181,
+    182,
+    206,
+    207,
+    259,
+    293,
+    295,
+    296,
+    297,
+    305,
+    306,
+    307,
+    309,
+    310,
+    311,
+    312,
+    314,
+    341,
+    357,
+    390,
+    391,
+    392,
+    393,
+    395,
+    396,
+    397,
+    411,
+    414,
+    416,
+    418,
+    420,
+    421,
+    422,
+    443,
+    447,
+    448,
+    451,
+    452,
+    475,
+    477,
+    478,
+    479,
+    481,
+    482,
+    483,
+    485,
+    522,
+    523,
+    524,
+    525,
+    526,
+    527,
+    533,
+    534,
+    536,
+    537,
+    569,
+    577,
+    590,
+    592,
+    594,
+    661,
+    662,
+    663,
+    664,
+    665,
+    666,
+    667,
+    668,
+    669,
+    670,
+    745,
+    747,
+    748,
+    750,
+    753,
+    755,
+    785,
+    786,
+    800,
+    801,
+    802,
+    804,
+    805,
+    806,
+    807,
+    808,
+    810,
+    811
+  ],
+  "task_sites": {
+    "46": "gitlab",
+    "103": "gitlab",
+    "105": "gitlab",
+    "135": "gitlab",
+    "136": "gitlab",
+    "156": "gitlab",
+    "169": "gitlab",
+    "178": "gitlab",
+    "180": "gitlab",
+    "181": "gitlab",
+    "182": "gitlab",
+    "206": "gitlab",
+    "207": "gitlab",
+    "259": "gitlab",
+    "293": "gitlab",
+    "295": "gitlab",
+    "296": "gitlab",
+    "297": "gitlab",
+    "305": "gitlab",
+    "306": "gitlab",
+    "307": "gitlab",
+    "309": "gitlab",
+    "310": "gitlab",
+    "311": "gitlab",
+    "312": "gitlab",
+    "314": "gitlab",
+    "341": "gitlab",
+    "357": "gitlab",
+    "390": "gitlab",
+    "391": "gitlab",
+    "392": "gitlab",
+    "393": "gitlab",
+    "395": "gitlab",
+    "396": "gitlab",
+    "397": "gitlab",
+    "411": "gitlab",
+    "414": "gitlab",
+    "416": "gitlab",
+    "418": "gitlab",
+    "420": "gitlab",
+    "421": "gitlab",
+    "422": "gitlab",
+    "443": "gitlab",
+    "447": "gitlab",
+    "448": "gitlab",
+    "451": "gitlab",
+    "452": "gitlab",
+    "475": "gitlab",
+    "477": "gitlab",
+    "478": "gitlab",
+    "479": "gitlab",
+    "481": "gitlab",
+    "482": "gitlab",
+    "483": "gitlab",
+    "485": "gitlab",
+    "522": "gitlab",
+    "523": "gitlab",
+    "524": "gitlab",
+    "525": "gitlab",
+    "526": "gitlab",
+    "527": "gitlab",
+    "533": "gitlab",
+    "534": "gitlab",
+    "536": "gitlab",
+    "537": "gitlab",
+    "569": "gitlab",
+    "577": "gitlab",
+    "590": "gitlab",
+    "592": "gitlab",
+    "594": "gitlab",
+    "661": "gitlab",
+    "662": "gitlab",
+    "663": "gitlab",
+    "664": "gitlab",
+    "665": "gitlab",
+    "666": "gitlab",
+    "667": "gitlab",
+    "668": "gitlab",
+    "669": "gitlab",
+    "670": "gitlab",
+    "745": "gitlab",
+    "747": "gitlab",
+    "748": "gitlab",
+    "750": "gitlab",
+    "753": "gitlab",
+    "755": "gitlab",
+    "785": "gitlab",
+    "786": "gitlab",
+    "800": "gitlab",
+    "801": "gitlab",
+    "802": "gitlab",
+    "804": "gitlab",
+    "805": "gitlab",
+    "806": "gitlab",
+    "807": "gitlab",
+    "808": "gitlab",
+    "810": "gitlab",
+    "811": "gitlab"
+  },
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "reactive_step_budget": 12,
+  "world_model_step_budget": 12,
+  "episode_max_attempts": 3,
+  "task_feedback_used": false,
+  "post_freeze_policy_changes_allowed": false,
+  "eligible_for_final_claim": true,
+  "evaluator_smoke_step_budget": 1,
+  "evaluator_smoke_answers": {},
+  "release_fingerprint_sha256": "7e34a1e3c74252e8c3ab6ff6b29e2e40eda934e58d27a589c2e528d37c117f32",
+  "arms": {
+    "reactive": {
+      "mode": "reactive",
+      "navigation_guard": "on"
+    },
+    "world_model": {
+      "mode": "world-model",
+      "navigation_guard": "on"
+    }
+  },
+  "task_evidence": {
+    "46": [
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "103": [
+      "data/reports/webarena_p0_round3_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "105": [
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "135": [
+      "data/reports/webarena_p0_round2_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "136": [
+      "data/reports/webarena_p0_round2_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "156": [
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "169": [
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "178": [
+      "data/reports/webarena_p0_round2_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "180": [
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "181": [
+      "data/reports/webarena_p0_round2_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "182": [
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "206": [
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "207": [
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "259": [
+      "data/reports/webarena_p0_round3_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "293": [
+      "data/reports/webarena_p0_round2_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "295": [
+      "data/reports/webarena_p0_round3_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "296": [
+      "data/reports/webarena_p0_round3_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "297": [
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "305": [
+      "data/reports/webarena_p0_round3_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "306": [
+      "data/reports/webarena_p0_round2_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "307": [
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "309": [
+      "data/reports/webarena_p0_round3_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "310": [
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "311": [
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "312": [
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "314": [
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "341": [
+      "data/reports/webarena_p0_round2_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "357": [
+      "data/reports/webarena_p0_round2_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "390": [
+      "data/reports/webarena_p0_round3_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "391": [
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "392": [
+      "data/reports/webarena_p0_round2_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "393": [
+      "data/reports/webarena_p0_round3_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "395": [
+      "data/reports/webarena_p0_round3_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "396": [
+      "data/reports/webarena_p0_round3_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "397": [
+      "data/reports/webarena_p0_round2_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "411": [
+      "data/reports/webarena_p0_round2_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "414": [
+      "data/reports/webarena_p0_round3_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "416": [
+      "data/reports/webarena_p0_round2_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "418": [
+      "data/reports/webarena_p0_round2_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "420": [
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "421": [
+      "data/reports/webarena_p0_round3_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "422": [
+      "data/reports/webarena_p0_round2_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "443": [
+      "data/reports/webarena_p0_round3_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "447": [
+      "data/reports/webarena_p0_round3_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "448": [
+      "data/reports/webarena_p0_round2_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "451": [
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "452": [
+      "data/reports/webarena_p0_round3_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "475": [
+      "data/reports/webarena_p0_round3_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "477": [
+      "data/reports/webarena_p0_round2_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "478": [
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "479": [
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "481": [
+      "data/reports/webarena_p0_round2_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "482": [
+      "data/reports/webarena_p0_round3_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "483": [
+      "data/reports/webarena_p0_round3_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "485": [
+      "data/reports/webarena_p0_round2_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "522": [
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "523": [
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "524": [
+      "data/reports/webarena_p0_round2_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "525": [
+      "data/reports/webarena_p0_round3_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "526": [
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "527": [
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "533": [
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "534": [
+      "data/reports/webarena_p0_round3_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "536": [
+      "data/reports/webarena_p0_round3_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "537": [
+      "data/reports/webarena_p0_round2_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "569": [
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "577": [
+      "data/reports/webarena_p0_round3_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "590": [
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "592": [
+      "data/reports/webarena_p0_round3_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "594": [
+      "data/reports/webarena_p0_round3_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "661": [
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "662": [
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "663": [
+      "data/reports/webarena_p0_round2_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "664": [
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "665": [
+      "data/reports/webarena_p0_round2_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "666": [
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "667": [
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "668": [
+      "data/reports/webarena_p0_round3_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "669": [
+      "data/reports/webarena_p0_round2_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "670": [
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "745": [
+      "data/reports/webarena_p0_round3_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "747": [
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "748": [
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "750": [
+      "data/reports/webarena_p0_round3_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "753": [
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "755": [
+      "data/reports/webarena_p0_round2_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "785": [
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "786": [
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "800": [
+      "data/reports/webarena_p0_round2_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "801": [
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "802": [
+      "data/reports/webarena_p0_round2_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "804": [
+      "data/reports/webarena_p0_round2_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "805": [
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "806": [
+      "data/reports/webarena_p0_round3_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "807": [
+      "data/reports/webarena_p0_round3_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "808": [
+      "data/reports/webarena_p0_round3_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "810": [
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_gitlab_world-model_guard_on.json"
+    ],
+    "811": [
+      "data/reports/webarena_p0_round2_holdout_gitlab_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_gitlab_world-model_guard_on.json"
+    ]
+  },
+  "selection_rule": "Every non-fuzzy task frozen as holdout in rounds 2-4 for this site. The rule is exhaustive, so no task was chosen after seeing results.",
+  "scope_limit": "Re-used frozen holdout tasks; not a never-seen set. Paired comparison is valid because both arms are re-run on the same tasks and seeds.",
+  "freeze_sha256": "61e2fa4f1bc037e9f32bc1c09927b3d9e0000b74b4ea1aa3d4c4f7c399f80d4c"
+}
