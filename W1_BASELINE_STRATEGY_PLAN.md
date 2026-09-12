@@ -100,20 +100,31 @@ python3 scripts/attribute_webarena_failures.py \
   --output-markdown WEBARENA_DEV_FAILURE_ATTRIBUTION.md \
   --output-html WEBARENA_DEV_FAILURE_ATTRIBUTION.html
 
-# 3) 与上一版对比：看 categories 与 by_site 的迁移，而不是只看成功率
+# 3) 与上一版做配对差分（这一步出 PASS/FAIL 结论）
+python3 scripts/diff_failure_attribution.py \
+  --baseline data/reports/webarena_dev_failure_attribution.json \
+  --candidate data/reports/webarena_dev_failure_attribution_v8.json \
+  --target loop_stall \
+  --output-markdown W1_DIFF_latest.md \
+  --output-json data/reports/webarena_dev_diff_latest.json
 ```
 
-注意：新一版的报告要另存为 `webarena_r3dev_v8_*.json` 形式并同步进 `--report-glob`，否则会与 v7 混在一起。输出参数必须用 `/mnt/c/...` 的 POSIX 路径。
+差分工具按 `(site, mode, guard, task_id, seed)` 做配对，输出迁移矩阵（fixed / regressed / recategorised / unchanged）、各类型条数变化、以及门禁判定，不参与配对的 episode 会单独计数，避免任务集变化把结果做花。
+
+注意：新一版的报告要另存为 `webarena_r3dev_v8_*.json` 形式并同步进 `--report-glob`，否则会与 v7 混在一起；上一版的归因 JSON 要保留一份作为 `--baseline`。输出参数必须用 `/mnt/c/...` 的 POSIX 路径。
 
 ---
 
 ## 六、每个模块的完成定义（DoD）
 
 1. 代码改动 + 对应单测通过（`pytest tests/ -q`）。
-2. dev 归因中该主类型条数下降 ≥ 40%，且其他主类型条数上升不超过 10%。
-3. G-W1-1 配对成功率不下降。
-4. 不引入新的 `action_execution` 或 `element_location` 失败。
-5. `P0_W1_PROGRESS.md` 追加一条记录：日期、模块、改动摘要、政策指纹、dev 归因前后对比。
+2. `diff_failure_attribution.py` 判定 **PASS**，即同时满足：
+   - 目标类型条数下降 ≥ 40%；
+   - 其他类型涨幅 ≤ 10%，且 baseline 为 0 的新类型不得新增超过 1 条；
+   - 配对成功数不下降；
+   - 没有 `evaluator_environment` 失败。
+3. 回退样本（`regressed_examples`）逐条确认：是环境抖动还是真实回退；真实回退必须修掉。
+4. `P0_W1_PROGRESS.md` 追加一条记录：日期、模块、改动摘要、政策指纹、差分报告结论与关键数字。
 
 ---
 
