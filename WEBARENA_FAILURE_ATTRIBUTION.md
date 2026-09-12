@@ -1,8 +1,8 @@
 # WebArena 失败归因（动作级）
 
-生成时间：2026-09-11T17:14:11+00:00
+生成时间：2026-09-12T01:56:18+00:00
 
-覆盖 episode 1325 条，其中失败 1286 条。分类由可观测轨迹字段推导：执行动作、decision 候选元数据、动作错误、访问 URL、是否提交答案。
+覆盖 episode 1565 条，其中失败 1508 条。分类由可观测轨迹字段推导：执行动作、decision 候选元数据、动作错误、访问 URL、是否提交答案。
 
 复现（在 WSL 中，轨迹与报告位于评测仓库）：
 
@@ -20,28 +20,28 @@ python3 scripts/attribute_webarena_failures.py \
 
 | 类型 | 说明 | 归属模块 | 数量 | 占比 |
 |---|---|---|---:|---:|
-| `loop_stall` | 循环/停滞 | 循环恢复（loop recovery） | 384 | 29.9% |
-| `wrong_route` | 流程路径错误 | 站点流程知识（进入目标页面/流程） | 277 | 21.5% |
-| `budget_exhausted` | 预算耗尽 | 候选优先级与探索效率 | 258 | 20.1% |
-| `candidate_missing` | 候选缺失/语义失配 | 候选生成（候选集合未包含目标元素） | 161 | 12.5% |
-| `missing_termination` | 缺显式终止 | 终止策略（观察态已满足但未提交答案） | 76 | 5.9% |
-| `form_or_search_incomplete` | 表单/搜索流程不完整 | 表单与搜索模块（构造查询、提交、校验） | 60 | 4.7% |
-| `action_execution` | 动作执行失败 | 动作执行鲁棒性（超时、重试、等待策略） | 50 | 3.9% |
-| `task_understanding` | 目标理解偏差 | 任务解析与子目标分解 | 11 | 0.9% |
-| `element_location` | 元素定位失败 | 候选生成与元素定位（AXTree/DOM 剪枝、grounding） | 9 | 0.7% |
+| `loop_stall` | 循环/停滞 | 循环恢复（loop recovery） | 408 | 27.1% |
+| `wrong_route` | 流程路径错误 | 站点流程知识（进入目标页面/流程） | 353 | 23.4% |
+| `budget_exhausted` | 预算耗尽 | 候选优先级与探索效率 | 299 | 19.8% |
+| `candidate_missing` | 候选缺失/语义失配 | 候选生成（候选集合未包含目标元素） | 227 | 15.1% |
+| `missing_termination` | 缺显式终止 | 终止策略（观察态已满足但未提交答案） | 83 | 5.5% |
+| `form_or_search_incomplete` | 表单/搜索流程不完整 | 表单与搜索模块（构造查询、提交、校验） | 66 | 4.4% |
+| `action_execution` | 动作执行失败 | 动作执行鲁棒性（超时、重试、等待策略） | 51 | 3.4% |
+| `task_understanding` | 目标理解偏差 | 任务解析与子目标分解 | 12 | 0.8% |
+| `element_location` | 元素定位失败 | 候选生成与元素定位（AXTree/DOM 剪枝、grounding） | 9 | 0.6% |
 
 ## 模块工作量排序（按失败条数）
 
 | 模块 | 失败条数 |
 |---|---:|
-| 循环恢复（loop recovery） | 384 |
-| 站点流程知识（进入目标页面/流程） | 277 |
-| 候选优先级与探索效率 | 258 |
-| 候选生成（候选集合未包含目标元素） | 161 |
-| 终止策略（观察态已满足但未提交答案） | 76 |
-| 表单与搜索模块（构造查询、提交、校验） | 60 |
-| 动作执行鲁棒性（超时、重试、等待策略） | 50 |
-| 任务解析与子目标分解 | 11 |
+| 循环恢复（loop recovery） | 408 |
+| 站点流程知识（进入目标页面/流程） | 353 |
+| 候选优先级与探索效率 | 299 |
+| 候选生成（候选集合未包含目标元素） | 227 |
+| 终止策略（观察态已满足但未提交答案） | 83 |
+| 表单与搜索模块（构造查询、提交、校验） | 66 |
+| 动作执行鲁棒性（超时、重试、等待策略） | 51 |
+| 任务解析与子目标分解 | 12 |
 | 候选生成与元素定位（AXTree/DOM 剪枝、grounding） | 9 |
 
 ## 各单元格成功率
@@ -78,6 +78,8 @@ python3 scripts/attribute_webarena_failures.py \
 | round4/gitlab/world-model/guard_on | 2/120 | 1.7% |
 | round4/shopping/reactive/guard_off | 9/120 | 7.5% |
 | round4/shopping/reactive/guard_on | 9/120 | 7.5% |
+| round4/shopping/world-model/guard_off | 9/120 | 7.5% |
+| round4/shopping/world-model/guard_on | 9/120 | 7.5% |
 
 ## 分站点失败类型分布
 
@@ -85,7 +87,7 @@ python3 scripts/attribute_webarena_failures.py \
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | gitlab | 207 | 9 | 43 | 47 | 48 | 142 | 92 | 104 | 11 | 0 | 703 |
 | reddit | 77 | 0 | 4 | 0 | 2 | 6 | 41 | 38 | 0 | 0 | 168 |
-| shopping | 100 | 0 | 3 | 29 | 10 | 129 | 28 | 116 | 0 | 0 | 415 |
+| shopping | 124 | 0 | 4 | 36 | 16 | 205 | 94 | 157 | 1 | 0 | 637 |
 
 ## 分轮次失败类型分布
 
@@ -93,7 +95,7 @@ python3 scripts/attribute_webarena_failures.py \
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | round2 | 96 | 0 | 8 | 7 | 12 | 55 | 54 | 52 | 4 | 0 | 288 |
 | round3 | 87 | 0 | 11 | 15 | 10 | 60 | 49 | 68 | 0 | 0 | 300 |
-| round4 | 201 | 9 | 31 | 54 | 38 | 162 | 58 | 138 | 7 | 0 | 698 |
+| round4 | 225 | 9 | 32 | 61 | 44 | 238 | 124 | 179 | 8 | 0 | 920 |
 
 ## 主类型 × 次级信号重叠
 
@@ -101,15 +103,15 @@ python3 scripts/attribute_webarena_failures.py \
 
 | 主类型 | 失败条数 | 候选语义失配 | 存在重复动作 | 目标需要输入但从未输入 | 有动作报错 |
 |---|---:|---:|---:|---:|---:|
-| 循环/停滞 (`loop_stall`) | 384 | 9 (2%) | 378 (98%) | 125 (33%) | 51 (13%) |
+| 循环/停滞 (`loop_stall`) | 408 | 12 (3%) | 402 (99%) | 130 (32%) | 52 (13%) |
 | 元素定位失败 (`element_location`) | 9 | 0 (0%) | 9 (100%) | 0 (0%) | 9 (100%) |
-| 动作执行失败 (`action_execution`) | 50 | 12 (24%) | 15 (30%) | 30 (60%) | 50 (100%) |
-| 缺显式终止 (`missing_termination`) | 76 | 6 (8%) | 39 (51%) | 0 (0%) | 34 (45%) |
-| 表单/搜索流程不完整 (`form_or_search_incomplete`) | 60 | 3 (5%) | 6 (10%) | 60 (100%) | 26 (43%) |
-| 流程路径错误 (`wrong_route`) | 277 | 83 (30%) | 95 (34%) | 151 (55%) | 60 (22%) |
-| 候选缺失/语义失配 (`candidate_missing`) | 161 | 161 (100%) | 16 (10%) | 72 (45%) | 60 (37%) |
-| 预算耗尽 (`budget_exhausted`) | 258 | 0 (0%) | 74 (29%) | 123 (48%) | 120 (47%) |
-| 目标理解偏差 (`task_understanding`) | 11 | 0 (0%) | 0 (0%) | 0 (0%) | 0 (0%) |
+| 动作执行失败 (`action_execution`) | 51 | 13 (25%) | 15 (29%) | 30 (59%) | 51 (100%) |
+| 缺显式终止 (`missing_termination`) | 83 | 6 (7%) | 40 (48%) | 0 (0%) | 36 (43%) |
+| 表单/搜索流程不完整 (`form_or_search_incomplete`) | 66 | 3 (5%) | 9 (14%) | 66 (100%) | 27 (41%) |
+| 流程路径错误 (`wrong_route`) | 353 | 124 (35%) | 121 (34%) | 170 (48%) | 72 (20%) |
+| 候选缺失/语义失配 (`candidate_missing`) | 227 | 227 (100%) | 26 (11%) | 92 (41%) | 71 (31%) |
+| 预算耗尽 (`budget_exhausted`) | 299 | 0 (0%) | 80 (27%) | 136 (45%) | 125 (42%) |
+| 目标理解偏差 (`task_understanding`) | 12 | 0 (0%) | 0 (0%) | 0 (0%) | 1 (8%) |
 
 ## 失败时高频点击的元素（每条约取前 3 个高频目标统计）
 
@@ -118,36 +120,36 @@ python3 scripts/attribute_webarena_failures.py \
 - `Merge requests` × 112
 - `Help` × 102
 - `D` × 90
+- `Image` × 73
+- `\ue622 Cell Phones & Accessories` × 72
+- `My Account` × 71
+- `My Wish List` × 68
+- `\ue622 Grocery & Gourmet Food` × 64
+- `\ue622 Patio, Lawn & Garden` × 56
 - `Commits` × 53
 - `To-Do List` × 49
 - `A` × 42
 - `E` × 41
-- `Image` × 40
-- `\ue622 Grocery & Gourmet Food` × 37
+- `My Downloadable Products` × 38
+- `\ue622 Video Games` × 35
 - `Commits feed` × 31
+- `Details` × 31
+- `\ue622 Office Products` × 31
 - `2,320 Commits` × 30
+- `Reviews (12)` × 29
 - `Create new...` × 26
+- `Home` × 26
+- `Food & Beverage Gifts( 1086 item )` × 25
 - `Byte Blaze` × 24
 - `Repository` × 24
-- `Name` × 24
-- `Food & Beverage Gifts( 1086 item )` × 23
-- `Submissions` × 19
-- `My Wish List` × 18
-- `Search query` × 16
-- `My Account` × 16
-- `Packages and registries` × 15
-- `Details` × 15
-- `a11yproject.com` × 14
-- `Issues` × 13
-- `Reviews (12)` × 13
 
 ### 分站点高频误点元素
 
 - **gitlab**：`Merge requests`×112、`Help`×102、`D`×90、`Commits`×53、`To-Do List`×49、`A`×42、`E`×41、`Commits feed`×31、`2,320 Commits`×30、`Create new...`×26、`Byte Blaze`×24、`Repository`×24
 - **reddit**：`Submissions`×19、`Search query`×16、`Post`×10、`Filter on: Featured`×9、`Upvote`×9、`Downvote`×8、`Comments`×8、`Apprehensive-Rest470`×7、`books`×6、`Bans`×6、`RunDNA`×5、`DIY`×5
-- **shopping**：`Image`×40、`\ue622 Grocery & Gourmet Food`×37、`Food & Beverage Gifts( 1086 item )`×23、`My Wish List`×18、`My Account`×16、`Details`×15、`Reviews (12)`×13、`Home`×12、`\ue622 Office Products`×10、`My Orders`×9、`My Downloadable Products`×8、`\ue622 Cell Phones & Accessories`×6
+- **shopping**：`Image`×73、`\ue622 Cell Phones & Accessories`×72、`My Account`×71、`My Wish List`×68、`\ue622 Grocery & Gourmet Food`×64、`\ue622 Patio, Lawn & Garden`×56、`My Downloadable Products`×38、`\ue622 Video Games`×35、`Details`×31、`\ue622 Office Products`×31、`Reviews (12)`×29、`Home`×26
 
-## 循环/停滞（`loop_stall`，384 条）
+## 循环/停滞（`loop_stall`，408 条）
 
 归属模块：循环恢复（loop recovery）
 
@@ -237,7 +239,7 @@ python3 scripts/attribute_webarena_failures.py \
   - 动作类型：{'click': 9, 'scroll': 3}
   - 轨迹：/home/filp/agent_world_model/data/trajectories_webarena_p0_round4_holdout/gitlab/reactive_guard_on/reactive/20260830T170057Z_browsergym_webarena.206_seed0_b5ae3d7e.jsonl
 
-## 动作执行失败（`action_execution`，50 条）
+## 动作执行失败（`action_execution`，51 条）
 
 归属模块：动作执行鲁棒性（超时、重试、等待策略）
 
@@ -286,7 +288,7 @@ python3 scripts/attribute_webarena_failures.py \
   - 动作类型：{'click': 12}
   - 轨迹：/home/filp/agent_world_model/data/trajectories_webarena_p0_round2_holdout/reddit/world-model_guard_on/world-model/20260814T132457Z_browsergym_webarena.642_seed0_aa1df1e2.jsonl
 
-## 缺显式终止（`missing_termination`，76 条）
+## 缺显式终止（`missing_termination`，83 条）
 
 归属模块：终止策略（观察态已满足但未提交答案）
 
@@ -343,7 +345,7 @@ python3 scripts/attribute_webarena_failures.py \
   - 高频点击：['Issue actions', 'A', 'Add LICENSE', 'To-Do List', 'Issue #1', 'Close issue']
   - 轨迹：/home/filp/agent_world_model/data/trajectories_webarena_p0_round3_holdout/gitlab/world-model_guard_off/world-model/20260815T124549Z_browsergym_webarena.447_seed0_c9b6db3b.jsonl
 
-## 表单/搜索流程不完整（`form_or_search_incomplete`，60 条）
+## 表单/搜索流程不完整（`form_or_search_incomplete`，66 条）
 
 归属模块：表单与搜索模块（构造查询、提交、校验）
 
@@ -409,7 +411,7 @@ python3 scripts/attribute_webarena_failures.py \
   - 高频点击：['Help', 'To-Do List', 'New group', 'A', 'Add LICENSE', 'Group']
   - 轨迹：/home/filp/agent_world_model/data/trajectories_webarena_p0_round2_holdout/gitlab/world-model_guard_on/world-model/20260814T191622Z_browsergym_webarena.800_seed0_d7a33088.jsonl
 
-## 流程路径错误（`wrong_route`，277 条）
+## 流程路径错误（`wrong_route`，353 条）
 
 归属模块：站点流程知识（进入目标页面/流程）
 
@@ -470,7 +472,7 @@ python3 scripts/attribute_webarena_failures.py \
   - 动作类型：{'click': 12}
   - 轨迹：/home/filp/agent_world_model/data/trajectories_webarena_p0_round2_holdout/gitlab/reactive_guard_off/reactive/20260814T140510Z_browsergym_webarena.804_seed0_dcd42e4b.jsonl
 
-## 候选缺失/语义失配（`candidate_missing`，161 条）
+## 候选缺失/语义失配（`candidate_missing`，227 条）
 
 归属模块：候选生成（候选集合未包含目标元素）
 
@@ -539,7 +541,7 @@ python3 scripts/attribute_webarena_failures.py \
   - 高频点击：['Help', 'D', 'Clone', 'Merge requests', 'Byte Blaze', 'Edit profile']
   - 轨迹：/home/filp/agent_world_model/data/trajectories_webarena_p0_round2_holdout/gitlab/world-model_guard_off/world-model/20260814T184458Z_browsergym_webarena.293_seed0_82da44a7.jsonl
 
-## 预算耗尽（`budget_exhausted`，258 条）
+## 预算耗尽（`budget_exhausted`，299 条）
 
 归属模块：候选优先级与探索效率
 
@@ -592,7 +594,7 @@ python3 scripts/attribute_webarena_failures.py \
   - 动作类型：{'click': 12}
   - 轨迹：/home/filp/agent_world_model/data/trajectories_webarena_p0_round2_holdout/gitlab/reactive_guard_on/reactive/20260814T141338Z_browsergym_webarena.422_seed0_ab3044f3.jsonl
 
-## 目标理解偏差（`task_understanding`，11 条）
+## 目标理解偏差（`task_understanding`，12 条）
 
 归属模块：任务解析与子目标分解
 
