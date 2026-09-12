@@ -573,5 +573,159 @@ class ReactiveAgentTests(unittest.TestCase):
         )
 
 
+def tracked_state(
+    goal: str,
+    axtree: str,
+    state_id: str,
+    url: str = "http://demo.local/page",
+    last_action: str = "",
+) -> dict:
+    return {
+        "goal": goal,
+        "url": url,
+        "axtree": {"text": axtree},
+        "state_id": state_id,
+        "last_action": last_action,
+    }
+
+
+class LoopRecoveryTests(unittest.TestCase):
+    """M1: repeated actions that do not change the page state must be abandoned."""
+
+    def setUp(self) -> None:
+        self.agent = ReactiveAgent()
+        self.two_controls = (
+            "RootWebArea 'Demo'\n"
+            "  [7] button 'Submit', clickable\n"
+            "  [9] button 'Submit form', clickable"
+        )
+        self.one_control = "RootWebArea 'Demo'\n  [7] button 'Submit', clickable"
+
+    def test_unchanged_state_skips_the_control_that_did_nothing(self) -> None:
+        first = self.agent.decide(
+            tracked_state("Click the Submit button.", self.two_controls, "s1")
+        )
+        self.assertEqual(first.action_type, "click")
+
+        second = self.agent.decide(
+            tracked_state(
+                "Click the Submit button.",
+                self.two_controls,
+                "s1",
+                last_action=first.action,
+            ),
+            (first.action,),
+        )
+        self.assertEqual(second.action_type, "click")
+        self.assertNotEqual(second.action, first.action)
+
+    def test_ban_survives_past_the_five_action_history_window(self) -> None:
+        first = self.agent.decide(
+            tracked_state("Click the Submit button.", self.two_controls, "s1")
+        )
+        self.assertEqual(first.target_bid, "7")
+        # The state did not change, so bid 7 is remembered as ineffective.
+        self.agent.decide(
+            tracked_state(
+                "Click the Submit button.",
+                self.two_controls,
+                "s1",
+                last_action=first.action,
+            ),
+            (first.action,),
+        )
+        self.assertIn("7", self.agent._banned_bids)
+        # Six unrelated actions push bid 7 out of the inner policy's 5-action
+        # penalty window; the episode-scoped ban must still apply.
+        filler = tuple(f'click("{100 + index}", "left")' for index in range(6))
+        decision = self.agent.decide(
+            tracked_state(
+                "Click the Submit button.",
+                self.two_controls,
+                "s1",
+                last_action=filler[-1],
+            ),
+            filler,
+        )
+        self.assertEqual(decision.target_bid, "9")
+
+    def test_stall_without_alternative_escalates_to_scroll(self) -> None:
+        first = self.agent.decide(
+            tracked_state("Click the Submit button.", self.one_control, "s1")
+        )
+        self.assertEqual(first.action_type, "click")
+        history = [first.action]
+        actions = []
+        for _ in range(2):
+            decision = self.agent.decide(
+                tracked_state(
+                    "Click the Submit button.",
+                    self.one_control,
+                    "s1",
+                    last_action=history[-1],
+                ),
+                tuple(history),
+            )
+            actions.append(decision)
+            history.append(decision.action)
+        self.assertEqual(actions[-1].action_type, "scroll")
+        self.assertEqual(actions[-1].action, "scroll(0, 600)")
+
+    def test_state_change_clears_the_ban(self) -> None:
+        first = self.agent.decide(
+            tracked_state("Click the Submit button.", self.two_controls, "s1")
+        )
+        self.agent.decide(
+            tracked_state(
+                "Click the Submit button.",
+                self.two_controls,
+                "s1",
+                last_action=first.action,
+            ),
+            (first.action,),
+        )
+        after_progress = self.agent.decide(
+            tracked_state("Click the Submit button.", self.two_controls, "s2"),
+            (first.action, 'click("9", "left")'),
+        )
+        self.assertEqual(self.agent._ineffective_streak, 0)
+        self.assertEqual(self.agent._banned_bids, set())
+        self.assertEqual(after_progress.action_type, "click")
+
+    def test_new_episode_resets_the_memory(self) -> None:
+        first = self.agent.decide(
+            tracked_state("Click the Submit button.", self.two_controls, "s1")
+        )
+        self.agent.decide(
+            tracked_state(
+                "Click the Submit button.",
+                self.two_controls,
+                "s1",
+                last_action=first.action,
+            ),
+            (first.action,),
+        )
+        self.assertTrue(self.agent._banned_bids)
+        fresh = self.agent.decide(
+            tracked_state("Click the Submit button.", self.two_controls, "other")
+        )
+        self.assertEqual(self.agent._ineffective_streak, 0)
+        self.assertEqual(self.agent._banned_bids, set())
+        self.assertEqual(fresh.action_type, "click")
+
+    def test_guard_flow_is_not_overridden_by_stall_recovery(self) -> None:
+        guarded = {
+            "goal": "Check out my todos",
+            "url": "http://gitlab.local/dashboard/todos",
+            "axtree": {"text": "RootWebArea 'Todos · GitLab'"},
+            "state_id": "guard-state",
+            "last_action": 'click("11", "left")',
+        }
+        first = self.agent.decide(dict(guarded, state_id="guard-state-0"))
+        self.assertTrue(first.navigation_guard_applied)
+        second = self.agent.decide(dict(guarded), (first.action,))
+        self.assertEqual(second.action, first.action)
+
+
 if __name__ == "__main__":
     unittest.main()

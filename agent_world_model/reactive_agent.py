@@ -5,7 +5,7 @@ from __future__ import annotations
 import json
 import re
 from dataclasses import asdict, dataclass
-from typing import TYPE_CHECKING, Any, Mapping, Sequence
+from typing import TYPE_CHECKING, Any, Collection, Mapping, Sequence
 
 if TYPE_CHECKING:
     from .state import StateSnapshot
@@ -209,11 +209,14 @@ def _best_element(
     goal: str,
     allowed_roles: set[str],
     history: Sequence[str],
+    exclude_bids: Collection[str] = (),
 ) -> ElementRef | None:
+    banned = set(exclude_bids)
     candidates = [
         element
         for element in elements
         if element.role in allowed_roles
+        and element.bid not in banned
         and "disabled" not in element.raw_line.lower()
         and not goal_conflicts_with_control(goal, element.name)
     ]
@@ -474,10 +477,69 @@ class ReactiveAgent:
     and a stable trajectory producer before any learned world model is added.
     """
 
-    policy_name = "reactive_rules_v1"
+    policy_name = "reactive_rules_v2"
 
     def __init__(self, *, navigation_guard: bool = True) -> None:
         self.navigation_guard = bool(navigation_guard)
+        self._reset_episode_memory()
+
+    # ------------------------------------------------------------------
+    # M1 loop recovery: make "the action did nothing" observable and act on it
+    # ------------------------------------------------------------------
+    def _reset_episode_memory(self) -> None:
+        self._last_state_id: str | None = None
+        self._ineffective_streak = 0
+        self._banned_bids: set[str] = set()
+        self._banned_actions: set[str] = set()
+        self._visited_urls: list[str] = []
+        self._scrolled_since_stall = False
+
+    def _register_ineffective(self, action: str) -> None:
+        """Record an action that left the observable page state unchanged."""
+        if not action:
+            return
+        self._ineffective_streak += 1
+        self._banned_actions.add(action)
+        match = re.match(
+            r"(?:click|fill|select_option|hover)\(\s*[\"']?([^\"',)]+)", action
+        )
+        if match:
+            self._banned_bids.add(match.group(1).strip())
+
+    def _stall_recovery(self) -> ActionDecision | None:
+        """Escalating recovery once repeated actions stop changing the page."""
+        if self._ineffective_streak < 2:
+            return None
+        if not self._scrolled_since_stall:
+            self._scrolled_since_stall = True
+            return ActionDecision(
+                action="scroll(0, 600)",
+                action_type="scroll",
+                rationale=(
+                    f"{self._ineffective_streak} consecutive actions left the page state "
+                    "unchanged; reveal content that has not been tried yet."
+                ),
+                confidence=0.6,
+            )
+        if len(set(self._visited_urls)) > 1:
+            return ActionDecision(
+                action="go_back()",
+                action_type="back",
+                rationale=(
+                    f"{self._ineffective_streak} consecutive actions left the page state "
+                    "unchanged; return to the previous page and re-plan."
+                ),
+                confidence=0.55,
+            )
+        return ActionDecision(
+            action="scroll(0, -600)",
+            action_type="scroll",
+            rationale=(
+                f"{self._ineffective_streak} consecutive actions left the page state "
+                "unchanged; revisit earlier content on this page."
+            ),
+            confidence=0.5,
+        )
 
     @staticmethod
     def _completion_decision(
@@ -1098,6 +1160,93 @@ class ReactiveAgent:
         return None
 
     def decide(
+        self,
+        state: StateSnapshot | Mapping[str, Any],
+        recent_actions: Sequence[str] = (),
+        *,
+        direct_answer: str | None = None,
+    ) -> ActionDecision:
+        """Choose an action, then suppress repeats that already did nothing.
+
+        The wrapped ``_decide_inner`` keeps the original rule set.  This layer
+        only adds observable-state feedback: when the page state did not change
+        after an action, that action (and its target) is remembered, the next
+        decision is steered to a different element, and a stall escalates into
+        scroll / go-back recovery.  Decisions produced by the deliberate site
+        flows (high confidence or navigation-guard driven) are never overridden.
+        """
+        if not recent_actions:
+            # run_baseline_episode reuses one agent across episodes, so the
+            # first decision of an episode is the reset signal.
+            self._reset_episode_memory()
+
+        current_state_id = str(_snapshot_value(state, "state_id") or "")
+        current_url = str(_snapshot_value(state, "url") or "")
+        if current_url and current_url not in self._visited_urls:
+            self._visited_urls.append(current_url)
+            del self._visited_urls[:-12]
+
+        if self._last_state_id is not None and current_state_id:
+            if current_state_id == self._last_state_id:
+                previous_action = str(_snapshot_value(state, "last_action") or "")
+                if not previous_action and recent_actions:
+                    previous_action = str(recent_actions[-1])
+                self._register_ineffective(previous_action)
+            else:
+                self._ineffective_streak = 0
+                self._scrolled_since_stall = False
+                self._banned_bids.clear()
+                self._banned_actions.clear()
+        if current_state_id:
+            self._last_state_id = current_state_id
+
+        decision = self._decide_inner(
+            state,
+            recent_actions,
+            direct_answer=direct_answer,
+        )
+        if direct_answer is not None:
+            return decision
+        if decision.confidence > 0.9 or decision.navigation_guard_applied:
+            # Keep the curated site flows intact.
+            return decision
+
+        if (
+            decision.action_type == "click"
+            and decision.target_bid
+            and decision.target_bid in self._banned_bids
+        ):
+            goal = str(_snapshot_value(state, "goal") or "")
+            elements = parse_elements(_axtree_text(state))
+            alternative = _best_element(
+                elements,
+                goal=goal,
+                allowed_roles=_CLICK_ROLES,
+                history=recent_actions,
+                exclude_bids=self._banned_bids,
+            )
+            if alternative is not None:
+                return ActionDecision(
+                    action=f"click({_json_arg(alternative.bid)}, \"left\")",
+                    action_type="click",
+                    rationale=(
+                        "Skip controls whose click already left the page state "
+                        "unchanged and try the next-best visible control."
+                    ),
+                    target_bid=alternative.bid,
+                    target_name=alternative.name,
+                    confidence=0.6,
+                )
+            recovery = self._stall_recovery()
+            if recovery is not None:
+                return recovery
+        elif self._ineffective_streak >= 3:
+            recovery = self._stall_recovery()
+            if recovery is not None:
+                return recovery
+        return decision
+
+    def _decide_inner(
         self,
         state: StateSnapshot | Mapping[str, Any],
         recent_actions: Sequence[str] = (),
