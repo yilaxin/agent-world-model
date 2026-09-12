@@ -297,6 +297,18 @@ def cell_label(round_name: str, site: str, mode: str, guard: str) -> str:
 def parse_report_name(path: Path) -> tuple[str, str, str, str]:
     """Derive (round, site, mode, guard) from an official report file name."""
     stem = path.stem
+    match = re.match(
+        r"webarena_p0_(round\d+)_dev(?:_v(\d+))?_([a-z]+)_(reactive|world-model)$", stem
+    )
+    if match:
+        round_name, version, site, mode = match.groups()
+        label = round_name + "dev" + (f"-v{version}" if version else "")
+        # Development reports carry no navigation-guard dimension.
+        return label, site, mode, "off"
+    match = re.match(r"webarena_r3dev(?:_v(\d+))?_([a-z]+)_(reactive|world-model)$", stem)
+    if match:
+        version, site, mode = match.groups()
+        return f"r3dev-v{version}" if version else "r3dev", site, mode, "off"
     match = re.match(r"webarena_p0_(round\d+)_holdout_([a-z]+)_(.+?)_guard_(on|off)$", stem)
     if match:
         round_name, site, mode, guard = match.groups()

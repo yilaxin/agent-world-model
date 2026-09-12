@@ -26,6 +26,7 @@
 - [第三轮补充报告 PDF](output/pdf/大创第三轮补充报告_2026-08-16.pdf)
 - [项目完整总结与结题评估 PDF](output/pdf/大创项目完整总结与结题评估_2026-08-15.pdf)
 - [WebArena 失败归因（动作级，W1 基线策略工作的输入）](WEBARENA_FAILURE_ATTRIBUTION.md)
+- [W1 基线策略阶段目标与验收（含功效计算与 G-W1 门禁）](W1_BASELINE_STRATEGY_PLAN.md)
 - [WebArena P0 第四轮验收状态](P0_ROUND4_STATUS.md)
 - `data/reports/phase4_feedback_experiment_gpu.json`
 - `data/reports/webarena_online_evaluation_w4.json`

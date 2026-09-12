@@ -55,6 +55,18 @@ def test_parse_report_name_handles_round_and_site_shapes() -> None:
     assert round1 == ("round1", "shopping", "reactive", "on")
 
 
+def test_parse_report_name_handles_development_reports() -> None:
+    module = load_module()
+    plain = module.parse_report_name(Path("webarena_p0_round3_dev_gitlab_reactive.json"))
+    assert plain == ("round3dev", "gitlab", "reactive", "off")
+    versioned = module.parse_report_name(
+        Path("webarena_p0_round3_dev_v2_shopping_world-model.json")
+    )
+    assert versioned == ("round3dev-v2", "shopping", "world-model", "off")
+    shipped = module.parse_report_name(Path("webarena_r3dev_v7_gitlab_reactive.json"))
+    assert shipped == ("r3dev-v7", "gitlab", "reactive", "off")
+
+
 def test_expected_fragments_ignores_project_names_inside_words() -> None:
     module = load_module()
     commit_goal = "How many commits did Eric and Kilian make to a11yproject on 1/3/2023?"
