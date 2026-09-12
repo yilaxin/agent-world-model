@@ -175,14 +175,18 @@ def main() -> int:
         paired[site] = site_paired
         paired[site]["excluded_from_pairing_task_ids"] = excluded_from_pairing[site]
 
-    common_all: set[tuple[str, int]] | None = None
+    # Pooled statistics combine the paired units of every site, so the common
+    # task set has to be computed *within* each site first. Intersecting task
+    # ids across sites would always be empty: GitLab and Shopping are frozen
+    # with disjoint task pools.
+    common_all: set[tuple[str, int]] = set()
     for site in SITES:
-        site_tasks: set[tuple[str, int]] = set()
+        site_common: set[int] | None = None
         for cell in CELL_SPECS:
-            for task in cells[site][cell]:
-                site_tasks.add((site, task))
-        common_all = site_tasks if common_all is None else (common_all & site_tasks)
-    common_all = common_all or set()
+            cell_tasks = set(cells[site][cell])
+            site_common = cell_tasks if site_common is None else (site_common & cell_tasks)
+        for task in site_common or set():
+            common_all.add((site, task))
 
     pool_left = {cell: {} for cell in CELL_SPECS}
     for site in SITES:

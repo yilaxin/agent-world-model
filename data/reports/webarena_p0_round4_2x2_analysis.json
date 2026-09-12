@@ -1,0 +1,263 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-09-12T01:54:55.225482+00:00",
+  "benchmark": "Classic WebArena P0 round-4 unseen paired holdout",
+  "manifest": "configs/webarena_p0_round4_holdout_frozen.json",
+  "manifest_sha256": "08540f37e47fa313bc8ff9a5dd340ffc4ca80a7573b867c1d0618a0c5de9ea9f",
+  "freeze_sha256": "6082307e650afa7a4249d29053ad28b508bcbd3eb294357f123d814397f2ed5e",
+  "sites": [
+    "gitlab",
+    "shopping"
+  ],
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "cell_metrics": {
+    "gitlab/reactive_guard_off": {
+      "episodes": 120,
+      "successes": 0,
+      "success_rate": 0.0,
+      "success_rate_95ci_wilson": [
+        0.0,
+        0.031019166418703486
+      ],
+      "excluded_episodes": 0,
+      "excluded_task_seeds": []
+    },
+    "gitlab/reactive_guard_on": {
+      "episodes": 120,
+      "successes": 2,
+      "success_rate": 0.016666666666666666,
+      "success_rate_95ci_wilson": [
+        0.004582564565921141,
+        0.0587359629721589
+      ],
+      "excluded_episodes": 0,
+      "excluded_task_seeds": []
+    },
+    "gitlab/w4_guard_off": {
+      "episodes": 120,
+      "successes": 0,
+      "success_rate": 0.0,
+      "success_rate_95ci_wilson": [
+        0.0,
+        0.031019166418703486
+      ],
+      "excluded_episodes": 0,
+      "excluded_task_seeds": []
+    },
+    "gitlab/w4_guard_on": {
+      "episodes": 120,
+      "successes": 2,
+      "success_rate": 0.016666666666666666,
+      "success_rate_95ci_wilson": [
+        0.004582564565921141,
+        0.0587359629721589
+      ],
+      "excluded_episodes": 0,
+      "excluded_task_seeds": []
+    },
+    "shopping/reactive_guard_off": {
+      "episodes": 120,
+      "successes": 9,
+      "success_rate": 0.075,
+      "success_rate_95ci_wilson": [
+        0.03995711539596028,
+        0.1364091760599377
+      ],
+      "excluded_episodes": 0,
+      "excluded_task_seeds": []
+    },
+    "shopping/reactive_guard_on": {
+      "episodes": 120,
+      "successes": 9,
+      "success_rate": 0.075,
+      "success_rate_95ci_wilson": [
+        0.03995711539596028,
+        0.1364091760599377
+      ],
+      "excluded_episodes": 0,
+      "excluded_task_seeds": []
+    },
+    "shopping/w4_guard_off": {
+      "episodes": 120,
+      "successes": 9,
+      "success_rate": 0.075,
+      "success_rate_95ci_wilson": [
+        0.03995711539596028,
+        0.1364091760599377
+      ],
+      "excluded_episodes": 0,
+      "excluded_task_seeds": []
+    },
+    "shopping/w4_guard_on": {
+      "episodes": 120,
+      "successes": 9,
+      "success_rate": 0.075,
+      "success_rate_95ci_wilson": [
+        0.03995711539596028,
+        0.1364091760599377
+      ],
+      "excluded_episodes": 0,
+      "excluded_task_seeds": []
+    }
+  },
+  "exclusions": {
+    "gitlab/reactive_guard_off": [],
+    "gitlab/reactive_guard_on": [],
+    "gitlab/w4_guard_off": [],
+    "gitlab/w4_guard_on": [],
+    "shopping/reactive_guard_off": [],
+    "shopping/reactive_guard_on": [],
+    "shopping/w4_guard_off": [],
+    "shopping/w4_guard_on": []
+  },
+  "exclusion_note": "Episodes recorded as evaluator/environment failures (e.g. page navigation timeouts or missing external API keys) are excluded from success-rate denominators and are not counted as agent capability failures.",
+  "paired_per_site": {
+    "gitlab": {
+      "w4_minus_reactive_guard_off": {
+        "paired_units": 120,
+        "mean_improvement_points": 0.0,
+        "mean_improvement_95ci_points": [
+          0.0,
+          0.0
+        ]
+      },
+      "w4_minus_reactive_guard_on": {
+        "paired_units": 120,
+        "mean_improvement_points": 0.0,
+        "mean_improvement_95ci_points": [
+          0.0,
+          0.0
+        ]
+      },
+      "guard_effect_reactive": {
+        "paired_units": 120,
+        "mean_improvement_points": 1.6666666666666667,
+        "mean_improvement_95ci_points": [
+          0.0,
+          1.6666666666666667
+        ]
+      },
+      "guard_effect_w4": {
+        "paired_units": 120,
+        "mean_improvement_points": 1.6666666666666667,
+        "mean_improvement_95ci_points": [
+          0.0,
+          1.6666666666666667
+        ]
+      },
+      "interaction_did": {
+        "paired_units": 120,
+        "mean_improvement_points": 1.6666666666666667,
+        "mean_improvement_95ci_points": [
+          0.0,
+          1.6666666666666667
+        ]
+      },
+      "relative_sr_w4_guard_on_vs_reactive_guard_on": {
+        "reactive_success_rate": 0.016666666666666666,
+        "w4_success_rate": 0.016666666666666666,
+        "absolute_improvement_points": 0.0,
+        "relative_improvement": 0.0
+      },
+      "excluded_from_pairing_task_ids": []
+    },
+    "shopping": {
+      "w4_minus_reactive_guard_off": {
+        "paired_units": 120,
+        "mean_improvement_points": 0.0,
+        "mean_improvement_95ci_points": [
+          0.0,
+          0.0
+        ]
+      },
+      "w4_minus_reactive_guard_on": {
+        "paired_units": 120,
+        "mean_improvement_points": 0.0,
+        "mean_improvement_95ci_points": [
+          0.0,
+          0.0
+        ]
+      },
+      "guard_effect_reactive": {
+        "paired_units": 120,
+        "mean_improvement_points": 0.0,
+        "mean_improvement_95ci_points": [
+          0.0,
+          0.0
+        ]
+      },
+      "guard_effect_w4": {
+        "paired_units": 120,
+        "mean_improvement_points": 0.0,
+        "mean_improvement_95ci_points": [
+          0.0,
+          0.0
+        ]
+      },
+      "interaction_did": {
+        "paired_units": 120,
+        "mean_improvement_points": 0.0,
+        "mean_improvement_95ci_points": [
+          0.0,
+          0.0
+        ]
+      },
+      "relative_sr_w4_guard_on_vs_reactive_guard_on": {
+        "reactive_success_rate": 0.075,
+        "w4_success_rate": 0.075,
+        "absolute_improvement_points": 0.0,
+        "relative_improvement": 0.0
+      },
+      "excluded_from_pairing_task_ids": []
+    }
+  },
+  "paired_task_count_note": "Pairing uses the intersection of tasks judged in all four cells per site; tasks with any missing seed are excluded and listed.",
+  "paired_pooled": {
+    "w4_minus_reactive_guard_off": {
+      "paired_units": 240,
+      "mean_improvement_points": 0.0,
+      "mean_improvement_95ci_points": [
+        0.0,
+        0.0
+      ]
+    },
+    "w4_minus_reactive_guard_on": {
+      "paired_units": 240,
+      "mean_improvement_points": 0.0,
+      "mean_improvement_95ci_points": [
+        0.0,
+        0.0
+      ]
+    },
+    "guard_effect_reactive": {
+      "paired_units": 240,
+      "mean_improvement_points": 0.8333333333333334,
+      "mean_improvement_95ci_points": [
+        0.0,
+        0.8333333333333334
+      ]
+    },
+    "guard_effect_w4": {
+      "paired_units": 240,
+      "mean_improvement_points": 0.8333333333333334,
+      "mean_improvement_95ci_points": [
+        0.0,
+        0.8333333333333334
+      ]
+    },
+    "interaction_did": {
+      "paired_units": 240,
+      "mean_improvement_points": 0.8333333333333334,
+      "mean_improvement_95ci_points": [
+        0.0,
+        0.8333333333333334
+      ]
+    }
+  },
+  "scope_limit": "Two-site (GitLab/Shopping) 80-task holdout with seeds 0/1/2; Reddit was excluded because its locally judgeable pool is exhausted. Not the full 812-task benchmark.",
+  "claim_rule": "Report absolute pp, relative SR, and paired CI; claim +10% only if established on this frozen holdout."
+}
