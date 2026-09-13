@@ -81,15 +81,18 @@ class ActionConditionedWorldModel(nn.Module):
             nn.GELU(),
             nn.Linear(cfg.hidden_dim, cfg.state_dim),
         )
-        # A direct state/action residual head matches the learned-delta
-        # baseline while retaining the shared recurrent heads for planning.
-        self.direct_residual_head = nn.Sequential(
-            nn.Linear(cfg.state_dim + cfg.action_dim, cfg.hidden_dim),
-            nn.SiLU(),
-            nn.Linear(cfg.hidden_dim, cfg.hidden_dim),
-            nn.SiLU(),
-            nn.Linear(cfg.hidden_dim, cfg.state_dim),
-        )
+        if cfg.direct_residual_dynamics:
+            # A direct state/action residual head matches the learned-delta
+            # baseline while retaining the shared recurrent heads for planning.
+            # It is built only when enabled so legacy checkpoints trained
+            # without this head keep loading with strict state_dict semantics.
+            self.direct_residual_head = nn.Sequential(
+                nn.Linear(cfg.state_dim + cfg.action_dim, cfg.hidden_dim),
+                nn.SiLU(),
+                nn.Linear(cfg.hidden_dim, cfg.hidden_dim),
+                nn.SiLU(),
+                nn.Linear(cfg.hidden_dim, cfg.state_dim),
+            )
         head_input = cfg.hidden_dim + cfg.latent_dim
         self.shared_head = nn.Sequential(
             nn.LayerNorm(head_input),

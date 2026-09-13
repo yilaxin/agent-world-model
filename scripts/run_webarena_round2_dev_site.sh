@@ -56,7 +56,8 @@ args=(
   --report "$report"
 )
 if [[ "$mode" == "world-model" ]]; then
-  args+=(--remote-agent-url http://localhost:18761)
+  remote_url="${ROUND2_REMOTE_URL:-http://localhost:18761}"
+  args+=(--remote-agent-url "$remote_url")
 fi
 "${args[@]}"
 echo "ROUND2_DEV_COMPLETE site=$site mode=$mode"

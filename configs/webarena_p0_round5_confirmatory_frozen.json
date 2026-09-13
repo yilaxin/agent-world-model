@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "benchmark": "Classic WebArena P0 round-5 confirmatory holdout (3 sites, paired 2-arm)",
+  "frozen_at_utc": "2026-09-12T05:47:07+00:00",
+  "selection_salt": "p0-round5-confirmatory-v1",
+  "repo_commit": "c471007f1887bcd2cef440c9906aa7be8ee06979",
+  "sites": [
+    "gitlab",
+    "shopping",
+    "reddit"
+  ],
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "arms": [
+    "reactive",
+    "world-model"
+  ],
+  "navigation_guard": "on",
+  "step_budget": 12,
+  "tasks_per_site": {
+    "gitlab": 98,
+    "shopping": 91,
+    "reddit": 47
+  },
+  "site_configs": {
+    "gitlab": "configs/webarena_p0_round5_confirmatory_gitlab_frozen.json",
+    "shopping": "configs/webarena_p0_round5_confirmatory_shopping_frozen.json",
+    "reddit": "configs/webarena_p0_round5_confirmatory_reddit_frozen.json"
+  },
+  "site_freeze_sha256": {
+    "gitlab": "61e2fa4f1bc037e9f32bc1c09927b3d9e0000b74b4ea1aa3d4c4f7c399f80d4c",
+    "shopping": "c6de5e15f6426df1627058a49144a62a64bbb37eac76468354383851b6d97d7c",
+    "reddit": "7023b1f8091973d5b37aeecb7e7ad6a29f17e971688d31a56cc9c2282bb305f0"
+  },
+  "paired_units_total": 708,
+  "paired_units_gitlab_shopping": 567,
+  "preregistered_analysis": {
+    "primary_endpoint": "paired task success (binary, per task x seed)",
+    "test": "exact McNemar, one-sided, alpha 0.05, pre-registered direction (world-model >= reactive)",
+    "target_effect": ">= +10% relative success rate vs reactive",
+    "power_target": 0.8,
+    "strata": "site; sensitivity analysis excluding reddit is reported",
+    "secondary_endpoints": [
+      "absolute percentage-point difference with 95% CI",
+      "action-level failure attribution deltas",
+      "unseen-only (40 task) direction check"
+    ],
+    "power_at_units": {
+      "baseline_12pct": 0.6256,
+      "baseline_20pct": 0.8497,
+      "baseline_30pct": 0.9578,
+      "baseline_40pct": 0.9889
+    }
+  },
+  "disclosures": [
+    "Tasks re-used from rounds 2-4 frozen holdouts; they are not never-seen.",
+    "v5-v7 strategy work was motivated by failure diagnoses on round-2/3 holdout trajectories (soft leak).",
+    "Only 40 non-fuzzy tasks remain unused anywhere; they are reported as a secondary direction check."
+  ],
+  "scope_limit": "Confirmatory paired holdout over re-used frozen tasks. Establishes the policy comparison, not an unseen-task generalization claim.",
+  "freeze_sha256": "b083bf57373bd13a92dceb52cf43d22908d1fddff32d44c1367617e45ffe222d"
+}

@@ -270,6 +270,7 @@ class ReactiveAgentTests(unittest.TestCase):
             state(
                 "Add a laundry detergent to my wish list.",
                 "[55] combobox 'Search', clickable\n[58] button 'Search', clickable",
+                "http://localhost:7770/",
             )
         )
         self.assertEqual(initial.action, 'fill("55", "laundry detergent")')
@@ -277,7 +278,7 @@ class ReactiveAgentTests(unittest.TestCase):
             state(
                 "Add a laundry detergent to my wish list.",
                 "[55] combobox 'Search', clickable",
-                "http://shopping.local/",
+                "http://localhost:7770/",
             ),
             (initial.action,),
         )
@@ -290,7 +291,7 @@ class ReactiveAgentTests(unittest.TestCase):
                 "RootWebArea 'Laundry Detergent'\n"
                 "  [90] button 'Add to Wish List', clickable\n"
                 "  [91] button 'Add to Cart', clickable",
-                "http://shopping.local/laundry-detergent.html",
+                "http://localhost:7770/laundry-detergent.html",
             )
         )
         self.assertEqual(decision.action, 'click("90", "left")')
@@ -301,11 +302,181 @@ class ReactiveAgentTests(unittest.TestCase):
                 "Add a laundry detergent to my wish list.",
                 "RootWebArea 'My Wish List'\n"
                 "  [200] link 'Laundry Detergent', clickable",
-                "http://shopping.local/wishlist/",
+                "http://localhost:7770/wishlist/",
             )
         )
         self.assertEqual(decision.action_type, "answer")
         self.assertEqual(decision.action, 'send_msg_to_user("Done")')
+
+    def test_shopping_product_flow_ignored_off_shopping_host(self) -> None:
+        decision = self.agent.decide(
+            state(
+                "Who else have access to my repo, show me their usernames",
+                "[55] combobox 'Search', clickable",
+                "http://localhost:8023/dashboard/projects",
+            )
+        )
+        self.assertNotEqual(decision.action_type, "input")
+
+    def test_shopping_contact_us_navigates_to_contact_page(self) -> None:
+        decision = self.agent.decide(
+            state(
+                'Fill the "contact us" form in the site for a refund on the speaker.',
+                "RootWebArea 'One Stop Market'\n"
+                "  [90] link 'Contact Us', clickable",
+                "http://localhost:7770/",
+            )
+        )
+        self.assertEqual(decision.action, 'click("90", "left")')
+
+    def test_shopping_contact_scrolls_to_reveal_footer(self) -> None:
+        decision = self.agent.decide(
+            state(
+                "Draft an email to the shop owner via their contact us function "
+                "for a coupon",
+                "RootWebArea 'One Stop Market'\n"
+                "  [386] combobox 'Search', clickable",
+                "http://localhost:7770/",
+            )
+        )
+        self.assertEqual(decision.action_type, "scroll")
+
+    def test_shopping_contact_coupon_fills_and_submits_message(self) -> None:
+        page = state(
+            "Draft an email to the shop owner via their contact us function for a "
+            "coupon as I am a loyal customer",
+            "RootWebArea 'Contact Us'\n"
+            "  [40] textbox 'Name', clickable\n"
+            "  [50] textbox 'Email', clickable\n"
+            "  [60] textarea 'Comment', clickable\n"
+            "  [70] button 'Submit', clickable",
+            "http://localhost:7770/contact/",
+        )
+        first = self.agent.decide(page)
+        self.assertEqual(
+            first.action,
+            'fill("60", "I am a loyal customer and I would like a coupon.")',
+        )
+        second = self.agent.decide(page, (first.action,))
+        self.assertEqual(second.action, 'click("70", "left")')
+
+    def test_shopping_contact_refund_composes_message(self) -> None:
+        page = state(
+            'Fill the "contact us" form in the site for a refund on the speaker '
+            "I bought, stating that it broke after just three days of use. "
+            "Also, ensure to include the order number #148 and the product SKU. "
+            "Don't submit yet, I will check.",
+            "RootWebArea 'Contact Us'\n"
+            "  [40] textbox 'Name', clickable\n"
+            "  [50] textbox 'Email', clickable\n"
+            "  [60] textarea 'Comment', clickable\n"
+            "  [70] button 'Submit', clickable",
+            "http://localhost:7770/contact/",
+        )
+        decision = self.agent.decide(page)
+        self.assertEqual(
+            decision.action,
+            'fill("60", "It broke after just three days of use. '
+            'I bought a speaker. Order number #148.")',
+        )
+
+    def test_shopping_order_total_opens_account_then_orders(self) -> None:
+        first = self.agent.decide(
+            state(
+                "Tell me the total cost of my latest cancelled order?",
+                "RootWebArea 'Home'\n  [221] link 'My Account', clickable",
+                "http://localhost:7770/",
+            )
+        )
+        self.assertEqual(first.action, 'click("221", "left")')
+        second = self.agent.decide(
+            state(
+                "Tell me the total cost of my latest cancelled order?",
+                "RootWebArea 'My Account'\n  [1599] link 'My Orders', clickable",
+                "http://localhost:7770/customer/account/",
+            ),
+            (first.action,),
+        )
+        self.assertEqual(second.action, 'click("1599", "left")')
+
+    def test_shopping_orders_table_answers_cancelled_total(self) -> None:
+        page = (
+            "RootWebArea 'My Orders'\n"
+            "  [1503] table 'Orders'\n"
+            "  [1507] columnheader 'Order #'\n"
+            "  [1508] columnheader 'Date'\n"
+            "  [1509] columnheader 'Order Total'\n"
+            "  [1510] columnheader 'Status'\n"
+            "  [1511] columnheader 'Action'\n"
+            "  [1514] gridcell '000000170'\n"
+            "  [1515] gridcell '5/17/23'\n"
+            "  [1516] gridcell '$365.42'\n"
+            "  [1518] gridcell 'Canceled'\n"
+            "  [1519] gridcell 'View OrderReorder'\n"
+            "  [1525] gridcell '000000189'\n"
+            "  [1526] gridcell '5/2/23'\n"
+            "  [1527] gridcell '$754.99'\n"
+            "  [1529] gridcell 'Pending'\n"
+            "  [1530] gridcell 'View OrderReorder'"
+        )
+        decision = self.agent.decide(
+            state(
+                "Tell me the total cost of my latest cancelled order?",
+                page,
+                "http://localhost:7770/sales/order/history/",
+            )
+        )
+        self.assertEqual(decision.action_type, "answer")
+        self.assertEqual(decision.action, 'send_msg_to_user("$365.42")')
+
+    def test_reddit_reply_fills_and_submits_comment(self) -> None:
+        thread = state(
+            'Reply to the post with my comment "I am a big fan of the bookorg"',
+            "RootWebArea 'Post'\n"
+            "  [300] textbox 'Add a comment', clickable\n"
+            "  [310] button 'Comment', clickable",
+            "http://localhost:9999/f/books/12345",
+        )
+        first = self.agent.decide(thread)
+        self.assertEqual(first.action, 'fill("300", "I am a big fan of the bookorg")')
+        second = self.agent.decide(thread, (first.action,))
+        self.assertEqual(second.action, 'keyboard_press("Enter")')
+
+    def test_reddit_reply_enter_loop_guard(self) -> None:
+        thread = state(
+            'Reply to the post with my comment "Nice"',
+            "RootWebArea 'Post'\n"
+            "  [300] textbox 'Add a comment', clickable\n"
+            "  [310] button 'Comment', clickable",
+            "http://localhost:9999/f/books/12345",
+        )
+        decision = self.agent.decide(
+            thread,
+            ('fill("300", "Nice")', 'keyboard_press("Enter")'),
+        )
+        self.assertNotEqual(decision.action, 'keyboard_press("Enter")')
+
+    def test_reddit_reply_opens_thread_before_commenting(self) -> None:
+        decision = self.agent.decide(
+            state(
+                'Reply to the post with my comment "Nice"',
+                "RootWebArea 'books'\n  [163] link '184 comments', clickable",
+                "http://localhost:9999/f/books",
+            )
+        )
+        self.assertEqual(decision.action, 'click("163", "left")')
+
+    def test_reddit_review_uses_quoted_text_after_with(self) -> None:
+        thread = state(
+            'Post a review of my recent reading "Love story" in the r/books '
+            'with my review "I loved every chapter"',
+            "RootWebArea 'Post'\n"
+            "  [300] textbox 'Add a comment', clickable\n"
+            "  [310] button 'Comment', clickable",
+            "http://localhost:9999/f/books/12345",
+        )
+        first = self.agent.decide(thread)
+        self.assertEqual(first.action, 'fill("300", "I loved every chapter")')
 
     def test_subscribe_only_goal_terminates_after_unsubscribe_visible(self) -> None:
         decision = self.agent.decide(
@@ -400,6 +571,160 @@ class ReactiveAgentTests(unittest.TestCase):
             ),
             "books",
         )
+
+
+def tracked_state(
+    goal: str,
+    axtree: str,
+    state_id: str,
+    url: str = "http://demo.local/page",
+    last_action: str = "",
+) -> dict:
+    return {
+        "goal": goal,
+        "url": url,
+        "axtree": {"text": axtree},
+        "state_id": state_id,
+        "last_action": last_action,
+    }
+
+
+class LoopRecoveryTests(unittest.TestCase):
+    """M1: repeated actions that do not change the page state must be abandoned."""
+
+    def setUp(self) -> None:
+        self.agent = ReactiveAgent()
+        self.two_controls = (
+            "RootWebArea 'Demo'\n"
+            "  [7] button 'Submit', clickable\n"
+            "  [9] button 'Submit form', clickable"
+        )
+        self.one_control = "RootWebArea 'Demo'\n  [7] button 'Submit', clickable"
+
+    def test_unchanged_state_skips_the_control_that_did_nothing(self) -> None:
+        first = self.agent.decide(
+            tracked_state("Click the Submit button.", self.two_controls, "s1")
+        )
+        self.assertEqual(first.action_type, "click")
+
+        second = self.agent.decide(
+            tracked_state(
+                "Click the Submit button.",
+                self.two_controls,
+                "s1",
+                last_action=first.action,
+            ),
+            (first.action,),
+        )
+        self.assertEqual(second.action_type, "click")
+        self.assertNotEqual(second.action, first.action)
+
+    def test_ban_survives_past_the_five_action_history_window(self) -> None:
+        first = self.agent.decide(
+            tracked_state("Click the Submit button.", self.two_controls, "s1")
+        )
+        self.assertEqual(first.target_bid, "7")
+        # The state did not change, so bid 7 is remembered as ineffective.
+        self.agent.decide(
+            tracked_state(
+                "Click the Submit button.",
+                self.two_controls,
+                "s1",
+                last_action=first.action,
+            ),
+            (first.action,),
+        )
+        self.assertIn("7", self.agent._banned_bids)
+        # Six unrelated actions push bid 7 out of the inner policy's 5-action
+        # penalty window; the episode-scoped ban must still apply.
+        filler = tuple(f'click("{100 + index}", "left")' for index in range(6))
+        decision = self.agent.decide(
+            tracked_state(
+                "Click the Submit button.",
+                self.two_controls,
+                "s1",
+                last_action=filler[-1],
+            ),
+            filler,
+        )
+        self.assertEqual(decision.target_bid, "9")
+
+    def test_stall_without_alternative_escalates_to_scroll(self) -> None:
+        first = self.agent.decide(
+            tracked_state("Click the Submit button.", self.one_control, "s1")
+        )
+        self.assertEqual(first.action_type, "click")
+        history = [first.action]
+        actions = []
+        for _ in range(2):
+            decision = self.agent.decide(
+                tracked_state(
+                    "Click the Submit button.",
+                    self.one_control,
+                    "s1",
+                    last_action=history[-1],
+                ),
+                tuple(history),
+            )
+            actions.append(decision)
+            history.append(decision.action)
+        self.assertEqual(actions[-1].action_type, "scroll")
+        self.assertEqual(actions[-1].action, "scroll(0, 600)")
+
+    def test_state_change_clears_the_ban(self) -> None:
+        first = self.agent.decide(
+            tracked_state("Click the Submit button.", self.two_controls, "s1")
+        )
+        self.agent.decide(
+            tracked_state(
+                "Click the Submit button.",
+                self.two_controls,
+                "s1",
+                last_action=first.action,
+            ),
+            (first.action,),
+        )
+        after_progress = self.agent.decide(
+            tracked_state("Click the Submit button.", self.two_controls, "s2"),
+            (first.action, 'click("9", "left")'),
+        )
+        self.assertEqual(self.agent._ineffective_streak, 0)
+        self.assertEqual(self.agent._banned_bids, set())
+        self.assertEqual(after_progress.action_type, "click")
+
+    def test_new_episode_resets_the_memory(self) -> None:
+        first = self.agent.decide(
+            tracked_state("Click the Submit button.", self.two_controls, "s1")
+        )
+        self.agent.decide(
+            tracked_state(
+                "Click the Submit button.",
+                self.two_controls,
+                "s1",
+                last_action=first.action,
+            ),
+            (first.action,),
+        )
+        self.assertTrue(self.agent._banned_bids)
+        fresh = self.agent.decide(
+            tracked_state("Click the Submit button.", self.two_controls, "other")
+        )
+        self.assertEqual(self.agent._ineffective_streak, 0)
+        self.assertEqual(self.agent._banned_bids, set())
+        self.assertEqual(fresh.action_type, "click")
+
+    def test_guard_flow_is_not_overridden_by_stall_recovery(self) -> None:
+        guarded = {
+            "goal": "Check out my todos",
+            "url": "http://gitlab.local/dashboard/todos",
+            "axtree": {"text": "RootWebArea 'Todos · GitLab'"},
+            "state_id": "guard-state",
+            "last_action": 'click("11", "left")',
+        }
+        first = self.agent.decide(dict(guarded, state_id="guard-state-0"))
+        self.assertTrue(first.navigation_guard_applied)
+        second = self.agent.decide(dict(guarded), (first.action,))
+        self.assertEqual(second.action, first.action)
 
 
 if __name__ == "__main__":

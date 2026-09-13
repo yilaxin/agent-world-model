@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "benchmark": "Round-3 dev reddit direct-residual online regression (dr)",
+  "frozen_at_utc": "2026-08-15T05:24:18.569731+00:00",
+  "selection_salt": "p0-round3-development-v1",
+  "required_sites": [
+    "reddit"
+  ],
+  "task_ids": [
+    722,
+    404,
+    621,
+    650,
+    628,
+    602,
+    631,
+    632,
+    613,
+    401
+  ],
+  "task_sites": {
+    "722": "reddit",
+    "404": "reddit",
+    "621": "reddit",
+    "650": "reddit",
+    "628": "reddit",
+    "602": "reddit",
+    "631": "reddit",
+    "632": "reddit",
+    "613": "reddit",
+    "401": "reddit"
+  },
+  "seeds": [
+    0
+  ],
+  "reactive_step_budget": 12,
+  "world_model_step_budget": 12,
+  "episode_max_attempts": 3,
+  "evaluator_smoke_step_budget": 1,
+  "evaluator_smoke_answers": {},
+  "task_feedback_allowed": true,
+  "eligible_for_final_claim": false,
+  "source": {
+    "task_count": 812,
+    "task_source_sha256": "7b50386fd69163dbc05d615d834df4c6ed2c35596e97a1b10d17451c02537652",
+    "source_wheel_sha256": "9ebee3b4371502c4f0f7e727a72e5846235d6750d420db9a3b8a168107654feb"
+  },
+  "scope_limit": "Round-3 reddit development tasks; policy iteration is allowed and results are not eligible for the final holdout claim.",
+  "release_fingerprint_sha256": "5a23310a6ccb5fc9cfffb9759837a22165deee4cd173b942f64cf4e28dc42134",
+  "freeze_sha256": "78b267820e22b01986275ab3d89a1f6a207aedabcdf254be9314342af5f212ca"
+}
