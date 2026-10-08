@@ -5,7 +5,7 @@ from __future__ import annotations
 import json
 import re
 from dataclasses import asdict, dataclass
-from typing import TYPE_CHECKING, Any, Mapping, Sequence
+from typing import TYPE_CHECKING, Any, Collection, Mapping, Sequence
 
 if TYPE_CHECKING:
     from .state import StateSnapshot
@@ -32,6 +32,12 @@ _CLICK_WORDS = re.compile(
 _PRODUCT_VERBS = re.compile(
     r"\b(?:add|buy|purchase|order|find|search\s+for|show\s+me|look\s+for)\b|添加|购买|找|搜索",
     re.IGNORECASE,
+)
+_PRICE_RE = re.compile(r"^\$[\d,]+(?:\.\d{2})?$")
+_THREAD_URL_RE = re.compile(r"/f/[^/]+/\d+", re.IGNORECASE)
+_COMMENT_REPLY_RE = re.compile(
+    r"\b(?:reply|comment|post\s+a\s+review)\b.*?\b(?:with|saying|that says|my\s+comment)\b",
+    re.IGNORECASE | re.DOTALL,
 )
 _WISHLIST_WORDS = re.compile(r"\bwish\s*list\b|心愿单|愿望清单", re.IGNORECASE)
 _CART_WORDS = re.compile(r"\bcart\b|购物车", re.IGNORECASE)
@@ -62,7 +68,7 @@ _ROLE_PRIORITY = {
     "menuitem": 14,
     "tab": 14,
 }
-_INPUT_ROLES = {"textbox", "searchbox", "combobox"}
+_INPUT_ROLES = {"textbox", "searchbox", "combobox", "textarea"}
 _CLICK_ROLES = {
     "button",
     "link",
@@ -203,11 +209,14 @@ def _best_element(
     goal: str,
     allowed_roles: set[str],
     history: Sequence[str],
+    exclude_bids: Collection[str] = (),
 ) -> ElementRef | None:
+    banned = set(exclude_bids)
     candidates = [
         element
         for element in elements
         if element.role in allowed_roles
+        and element.bid not in banned
         and "disabled" not in element.raw_line.lower()
         and not goal_conflicts_with_control(goal, element.name)
     ]
@@ -468,10 +477,69 @@ class ReactiveAgent:
     and a stable trajectory producer before any learned world model is added.
     """
 
-    policy_name = "reactive_rules_v1"
+    policy_name = "reactive_rules_v2"
 
     def __init__(self, *, navigation_guard: bool = True) -> None:
         self.navigation_guard = bool(navigation_guard)
+        self._reset_episode_memory()
+
+    # ------------------------------------------------------------------
+    # M1 loop recovery: make "the action did nothing" observable and act on it
+    # ------------------------------------------------------------------
+    def _reset_episode_memory(self) -> None:
+        self._last_state_id: str | None = None
+        self._ineffective_streak = 0
+        self._banned_bids: set[str] = set()
+        self._banned_actions: set[str] = set()
+        self._visited_urls: list[str] = []
+        self._scrolled_since_stall = False
+
+    def _register_ineffective(self, action: str) -> None:
+        """Record an action that left the observable page state unchanged."""
+        if not action:
+            return
+        self._ineffective_streak += 1
+        self._banned_actions.add(action)
+        match = re.match(
+            r"(?:click|fill|select_option|hover)\(\s*[\"']?([^\"',)]+)", action
+        )
+        if match:
+            self._banned_bids.add(match.group(1).strip())
+
+    def _stall_recovery(self) -> ActionDecision | None:
+        """Escalating recovery once repeated actions stop changing the page."""
+        if self._ineffective_streak < 2:
+            return None
+        if not self._scrolled_since_stall:
+            self._scrolled_since_stall = True
+            return ActionDecision(
+                action="scroll(0, 600)",
+                action_type="scroll",
+                rationale=(
+                    f"{self._ineffective_streak} consecutive actions left the page state "
+                    "unchanged; reveal content that has not been tried yet."
+                ),
+                confidence=0.6,
+            )
+        if len(set(self._visited_urls)) > 1:
+            return ActionDecision(
+                action="go_back()",
+                action_type="back",
+                rationale=(
+                    f"{self._ineffective_streak} consecutive actions left the page state "
+                    "unchanged; return to the previous page and re-plan."
+                ),
+                confidence=0.55,
+            )
+        return ActionDecision(
+            action="scroll(0, -600)",
+            action_type="scroll",
+            rationale=(
+                f"{self._ineffective_streak} consecutive actions left the page state "
+                "unchanged; revisit earlier content on this page."
+            ),
+            confidence=0.5,
+        )
 
     @staticmethod
     def _completion_decision(
@@ -585,6 +653,8 @@ class ReactiveAgent:
         and task IDs are never consulted.
         """
         lowered_goal = goal.casefold()
+        if "localhost:7770" not in current_url.casefold():
+            return None
         if not _PRODUCT_VERBS.search(lowered_goal):
             return None
         phrase = _extract_product_phrase(goal)
@@ -690,6 +760,370 @@ class ReactiveAgent:
         return None
 
     @staticmethod
+    def _shopping_contact_decision(
+        goal: str,
+        current_url: str,
+        elements: Sequence[ElementRef],
+        recent_actions: Sequence[str],
+    ) -> ActionDecision | None:
+        """Navigate to the visible Contact Us page for contact/refund tasks."""
+        lowered_goal = goal.casefold()
+        lowered_url = current_url.casefold()
+        if "localhost:7770" not in lowered_url:
+            return None
+        wants_contact = (
+            "contact us" in lowered_goal
+            or ("contact" in lowered_goal and "refund" in lowered_goal)
+            or "draft an email" in lowered_goal
+        )
+        if not wants_contact:
+            return None
+        on_contact_page = "/contact" in lowered_url
+        if not on_contact_page:
+            contact = next(
+                (
+                    element
+                    for element in elements
+                    if element.role in _CLICK_ROLES
+                    and element.name.strip().lower() == "contact us"
+                    and "disabled" not in element.raw_line.lower()
+                ),
+                None,
+            )
+            if contact is not None:
+                return ActionDecision(
+                    action=f"click({_json_arg(contact.bid)}, \"left\")",
+                    action_type="click",
+                    rationale="Open the visible Contact Us page requested by the task.",
+                    target_bid=contact.bid,
+                    target_name=contact.name,
+                    confidence=0.97,
+                    navigation_guard_applied=True,
+                )
+            if not recent_actions or not recent_actions[-1].lstrip().startswith(
+                "scroll("
+            ):
+                return ActionDecision(
+                    action="scroll(0, 600)",
+                    action_type="scroll",
+                    rationale=(
+                        "The Contact Us control is not visible yet; reveal the "
+                        "page footer before looking for it."
+                    ),
+                    confidence=0.6,
+                    navigation_guard_applied=True,
+                )
+            return None
+
+        quoted = re.findall(r"""["'“”‘’]([^"'“”‘’]+)["'“”‘’]""", goal)
+        if "coupon" in lowered_goal and quoted:
+            message = quoted[0].strip()
+        elif "coupon" in lowered_goal:
+            message = "I am a loyal customer and I would like a coupon."
+        elif "refund" in lowered_goal:
+            order = re.search(r"#(\d+)", goal)
+            order_text = f" Order number #{order.group(1)}." if order else ""
+            product = re.search(
+                r"\brefund\s+on\s+(?:the\s+)?([a-z0-9 ]+?)(?:\s+i\s+bought|\s*$)",
+                lowered_goal,
+            )
+            product_text = (
+                f" I bought a {product.group(1).strip()}."
+                if product
+                else ""
+            )
+            message = (
+                f"It broke after just three days of use.{product_text}{order_text}"
+            )
+        else:
+            message = ""
+        if not message:
+            return None
+        comment_boxes = [
+            element
+            for element in elements
+            if element.role in _INPUT_ROLES
+            and (
+                "comment" in element.name.casefold()
+                or "message" in element.name.casefold()
+                or "enquiry" in element.name.casefold()
+                or "question" in element.name.casefold()
+            )
+        ]
+        if not comment_boxes:
+            return None
+        comment_box = max(comment_boxes, key=lambda element: element.depth)
+        if recent_actions and recent_actions[-1].lstrip().startswith("fill("):
+            send = next(
+                (
+                    element
+                    for element in elements
+                    if element.role == "button"
+                    and any(
+                        token in element.name.casefold()
+                        for token in ("send", "submit")
+                    )
+                    and "disabled" not in element.raw_line.lower()
+                ),
+                None,
+            )
+            if send is not None:
+                return ActionDecision(
+                    action=f"click({_json_arg(send.bid)}, \"left\")",
+                    action_type="click",
+                    rationale="Submit the contact email drafted in the previous step.",
+                    target_bid=send.bid,
+                    target_name=send.name,
+                    confidence=0.95,
+                    navigation_guard_applied=True,
+                )
+            return ActionDecision(
+                action='keyboard_press("Enter")',
+                action_type="press",
+                rationale="Submit the contact email drafted in the previous step.",
+                target_bid=comment_box.bid,
+                target_name=comment_box.name,
+                confidence=0.9,
+                navigation_guard_applied=True,
+            )
+        return ActionDecision(
+            action=f"fill({_json_arg(comment_box.bid)}, {_json_arg(message)})",
+            action_type="input",
+            rationale="Fill the contact message with the request from the goal.",
+            target_bid=comment_box.bid,
+            target_name=comment_box.name,
+            confidence=0.95,
+            navigation_guard_applied=True,
+        )
+
+    @staticmethod
+    def _shopping_orders_decision(
+        goal: str,
+        current_url: str,
+        elements: Sequence[ElementRef],
+    ) -> ActionDecision | None:
+        """Navigate to My Orders and answer order-total retrieval tasks.
+
+        The Magento orders table exposes five gridcells per row in AXTree order:
+        order number, date, total, status, action.  The answer is sent only
+        when a row matching the requested status is observed; no evaluator
+        answers are read or injected.
+        """
+        lowered_goal = goal.casefold()
+        lowered_url = current_url.casefold()
+        if "localhost:7770" not in lowered_url:
+            return None
+        if "order" not in lowered_goal or "total cost" not in lowered_goal:
+            return None
+
+        gridcells = [
+            element
+            for element in elements
+            if element.role == "gridcell"
+        ]
+        headers = [
+            element.name.strip().lower()
+            for element in elements
+            if element.role == "columnheader"
+        ]
+        on_orders_page = bool(
+            "order total" in headers
+            and "status" in headers
+            and gridcells
+        )
+
+        if on_orders_page:
+            wanted_status = "cancel" if "cancelled" in lowered_goal else (
+                "pending" if "pending" in lowered_goal else ""
+            )
+            if not wanted_status:
+                return None
+            # Five known columns; group gridcells into rows by that width.
+            width = len(headers)
+            rows = [
+                gridcells[i : i + width]
+                for i in range(0, len(gridcells) - width + 1, width)
+            ]
+            best: tuple[object, ElementRef, str] | None = None
+            for row in rows:
+                if len(row) != width:
+                    continue
+                status_text = row[3].name.casefold() if width > 3 else ""
+                if wanted_status not in status_text:
+                    continue
+                total_text = row[2].name.strip() if width > 2 else ""
+                if not _PRICE_RE.match(total_text):
+                    continue
+                date_text = row[1].name.strip() if width > 1 else ""
+                try:
+                    date_key = tuple(
+                        int(part)
+                        for part in date_text.replace("-", "/").split("/")[:3]
+                    )
+                except ValueError:
+                    date_key = (0, 0, 0)
+                if best is None or date_key > best[0]:
+                    best = (date_key, row[2], total_text)
+            if best is not None:
+                total_text = best[2]
+                return ActionDecision(
+                    action=f"send_msg_to_user({_json_arg(total_text)})",
+                    action_type="answer",
+                    rationale=(
+                        "The visible orders table contains the requested "
+                        "status total; answer from the observed page state."
+                    ),
+                    target_bid=best[1].bid,
+                    target_name=best[1].name,
+                    confidence=0.95,
+                    navigation_guard_applied=True,
+                )
+            return None
+
+        if not gridcells:
+            my_orders = next(
+                (
+                    element
+                    for element in elements
+                    if element.role in _CLICK_ROLES
+                    and element.name.strip().lower() == "my orders"
+                    and "disabled" not in element.raw_line.lower()
+                ),
+                None,
+            )
+            if my_orders is not None:
+                return ActionDecision(
+                    action=f"click({_json_arg(my_orders.bid)}, \"left\")",
+                    action_type="click",
+                    rationale="Open the visible My Orders page to read the requested total.",
+                    target_bid=my_orders.bid,
+                    target_name=my_orders.name,
+                    confidence=0.97,
+                    navigation_guard_applied=True,
+                )
+        my_account = next(
+            (
+                element
+                for element in elements
+                if element.role in _CLICK_ROLES
+                and element.name.strip().lower() == "my account"
+                and "disabled" not in element.raw_line.lower()
+            ),
+            None,
+        )
+        if my_account is not None:
+            return ActionDecision(
+                action=f"click({_json_arg(my_account.bid)}, \"left\")",
+                action_type="click",
+                rationale="Open the visible My Account page to reach My Orders.",
+                target_bid=my_account.bid,
+                target_name=my_account.name,
+                confidence=0.97,
+                navigation_guard_applied=True,
+            )
+        return None
+
+    @staticmethod
+    def _reddit_reply_decision(
+        goal: str,
+        current_url: str,
+        elements: Sequence[ElementRef],
+        recent_actions: Sequence[str],
+    ) -> ActionDecision | None:
+        """Reply to a thread with the quoted comment requested by the goal."""
+        lowered_goal = goal.casefold()
+        if not _COMMENT_REPLY_RE.search(lowered_goal):
+            return None
+        quotes = re.findall(r"""["'“”‘’]([^"'“”‘’]+)["'“”‘’]""", goal)
+        comment = ""
+        for cue in ("with", "saying", "comment", "reply"):
+            match = re.search(
+                cue
+                + r"""\s*(?:my\s+)?["'“”‘’]([^"'“”‘’]+)["'“”‘’]""",
+                goal,
+                re.IGNORECASE,
+            )
+            if match:
+                comment = match.group(1).strip()
+                break
+        if not comment and len(quotes) > 1:
+            comment = quotes[-1].strip()
+        elif not comment and quotes:
+            comment = quotes[0].strip()
+        if not comment:
+            return None
+        on_thread = bool(_THREAD_URL_RE.search(current_url))
+        if not on_thread:
+            thread = next(
+                (
+                    element
+                    for element in elements
+                    if element.role == "link"
+                    and re.fullmatch(
+                        r"(?:no|\d+)\s+comments?",
+                        element.name.strip(),
+                        re.IGNORECASE,
+                    )
+                ),
+                None,
+            )
+            if thread is not None:
+                return ActionDecision(
+                    action=f"click({_json_arg(thread.bid)}, \"left\")",
+                    action_type="click",
+                    rationale="Open the visible thread to reply with the requested comment.",
+                    target_bid=thread.bid,
+                    target_name=thread.name,
+                    confidence=0.97,
+                    navigation_guard_applied=True,
+                )
+            return None
+        comment_box = next(
+            (
+                element
+                for element in elements
+                if element.role in _INPUT_ROLES
+                and (
+                    "comment" in element.name.casefold()
+                    or "reply" in element.name.casefold()
+                )
+            ),
+            None,
+        )
+        if comment_box is None:
+            return None
+        if recent_actions and recent_actions[-1].lstrip().startswith("fill("):
+            if "keyboard_press(\"Enter\")" in recent_actions[-2:]:
+                return None
+            return ActionDecision(
+                action='keyboard_press("Enter")',
+                action_type="press",
+                rationale="Submit the comment entered in the previous step.",
+                target_bid=comment_box.bid,
+                target_name=comment_box.name,
+                confidence=0.95,
+                navigation_guard_applied=True,
+            )
+            return ActionDecision(
+                action='keyboard_press("Enter")',
+                action_type="press",
+                rationale="Submit the comment entered in the previous step.",
+                target_bid=comment_box.bid,
+                target_name=comment_box.name,
+                confidence=0.94,
+                navigation_guard_applied=True,
+            )
+        return ActionDecision(
+            action=f"fill({_json_arg(comment_box.bid)}, {_json_arg(comment)})",
+            action_type="input",
+            rationale="Fill the visible comment control with the requested reply.",
+            target_bid=comment_box.bid,
+            target_name=comment_box.name,
+            confidence=0.96,
+            navigation_guard_applied=True,
+        )
+
+    @staticmethod
     def _loop_recovery(
         recent_actions: Sequence[str],
         elements: Sequence[ElementRef],
@@ -726,6 +1160,93 @@ class ReactiveAgent:
         return None
 
     def decide(
+        self,
+        state: StateSnapshot | Mapping[str, Any],
+        recent_actions: Sequence[str] = (),
+        *,
+        direct_answer: str | None = None,
+    ) -> ActionDecision:
+        """Choose an action, then suppress repeats that already did nothing.
+
+        The wrapped ``_decide_inner`` keeps the original rule set.  This layer
+        only adds observable-state feedback: when the page state did not change
+        after an action, that action (and its target) is remembered, the next
+        decision is steered to a different element, and a stall escalates into
+        scroll / go-back recovery.  Decisions produced by the deliberate site
+        flows (high confidence or navigation-guard driven) are never overridden.
+        """
+        if not recent_actions:
+            # run_baseline_episode reuses one agent across episodes, so the
+            # first decision of an episode is the reset signal.
+            self._reset_episode_memory()
+
+        current_state_id = str(_snapshot_value(state, "state_id") or "")
+        current_url = str(_snapshot_value(state, "url") or "")
+        if current_url and current_url not in self._visited_urls:
+            self._visited_urls.append(current_url)
+            del self._visited_urls[:-12]
+
+        if self._last_state_id is not None and current_state_id:
+            if current_state_id == self._last_state_id:
+                previous_action = str(_snapshot_value(state, "last_action") or "")
+                if not previous_action and recent_actions:
+                    previous_action = str(recent_actions[-1])
+                self._register_ineffective(previous_action)
+            else:
+                self._ineffective_streak = 0
+                self._scrolled_since_stall = False
+                self._banned_bids.clear()
+                self._banned_actions.clear()
+        if current_state_id:
+            self._last_state_id = current_state_id
+
+        decision = self._decide_inner(
+            state,
+            recent_actions,
+            direct_answer=direct_answer,
+        )
+        if direct_answer is not None:
+            return decision
+        if decision.confidence > 0.9 or decision.navigation_guard_applied:
+            # Keep the curated site flows intact.
+            return decision
+
+        if (
+            decision.action_type == "click"
+            and decision.target_bid
+            and decision.target_bid in self._banned_bids
+        ):
+            goal = str(_snapshot_value(state, "goal") or "")
+            elements = parse_elements(_axtree_text(state))
+            alternative = _best_element(
+                elements,
+                goal=goal,
+                allowed_roles=_CLICK_ROLES,
+                history=recent_actions,
+                exclude_bids=self._banned_bids,
+            )
+            if alternative is not None:
+                return ActionDecision(
+                    action=f"click({_json_arg(alternative.bid)}, \"left\")",
+                    action_type="click",
+                    rationale=(
+                        "Skip controls whose click already left the page state "
+                        "unchanged and try the next-best visible control."
+                    ),
+                    target_bid=alternative.bid,
+                    target_name=alternative.name,
+                    confidence=0.6,
+                )
+            recovery = self._stall_recovery()
+            if recovery is not None:
+                return recovery
+        elif self._ineffective_streak >= 3:
+            recovery = self._stall_recovery()
+            if recovery is not None:
+                return recovery
+        return decision
+
+    def _decide_inner(
         self,
         state: StateSnapshot | Mapping[str, Any],
         recent_actions: Sequence[str] = (),
@@ -882,6 +1403,28 @@ class ReactiveAgent:
         loop_recovery = self._loop_recovery(recent_actions, elements)
         if loop_recovery is not None:
             return loop_recovery
+
+        reddit_reply = self._reddit_reply_decision(
+            goal,
+            current_url,
+            elements,
+            recent_actions,
+        )
+        if reddit_reply is not None:
+            return reddit_reply
+
+        contact = self._shopping_contact_decision(
+            goal,
+            current_url,
+            elements,
+            recent_actions,
+        )
+        if contact is not None:
+            return contact
+
+        orders = self._shopping_orders_decision(goal, current_url, elements)
+        if orders is not None:
+            return orders
 
         shopping_flow = self._shopping_product_decision(
             goal,

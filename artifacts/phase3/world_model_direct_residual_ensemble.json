@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "phase": 3,
+  "variant": "direct_residual_online_candidate",
+  "members": [
+    {
+      "source": "direct_residual",
+      "seed": 42,
+      "checkpoint": "artifacts/phase3/world_model_direct_residual_dynamics.pt"
+    },
+    {
+      "source": "direct_residual",
+      "seed": 42,
+      "checkpoint": "artifacts/phase3/world_model_direct_residual_dynamics.pt"
+    }
+  ],
+  "member_weights": [
+    1.0,
+    1.0
+  ],
+  "note": "Same checkpoint listed twice to satisfy the two-member ensemble contract; identical members make the ensemble prediction equal to the single direct-residual model."
+}

@@ -1,0 +1,770 @@
+{
+  "schema_version": 1,
+  "benchmark": "Classic WebArena P0 round-5 confirmatory (shopping)",
+  "frozen_at_utc": "2026-09-12T05:47:07+00:00",
+  "selection_salt": "p0-round5-confirmatory-v1",
+  "required_sites": [
+    "shopping"
+  ],
+  "task_ids": [
+    25,
+    26,
+    125,
+    142,
+    143,
+    145,
+    146,
+    147,
+    148,
+    149,
+    159,
+    161,
+    162,
+    163,
+    165,
+    167,
+    190,
+    226,
+    228,
+    229,
+    230,
+    231,
+    232,
+    238,
+    241,
+    242,
+    260,
+    261,
+    262,
+    264,
+    269,
+    270,
+    271,
+    273,
+    277,
+    278,
+    281,
+    282,
+    283,
+    285,
+    298,
+    319,
+    322,
+    323,
+    325,
+    326,
+    327,
+    328,
+    329,
+    331,
+    333,
+    352,
+    353,
+    354,
+    355,
+    362,
+    386,
+    387,
+    388,
+    432,
+    433,
+    435,
+    436,
+    439,
+    465,
+    466,
+    506,
+    507,
+    508,
+    509,
+    510,
+    511,
+    513,
+    514,
+    515,
+    517,
+    521,
+    528,
+    531,
+    532,
+    571,
+    572,
+    585,
+    587,
+    588,
+    589,
+    653,
+    654,
+    655,
+    691,
+    692
+  ],
+  "task_sites": {
+    "25": "shopping",
+    "26": "shopping",
+    "125": "shopping",
+    "142": "shopping",
+    "143": "shopping",
+    "145": "shopping",
+    "146": "shopping",
+    "147": "shopping",
+    "148": "shopping",
+    "149": "shopping",
+    "159": "shopping",
+    "161": "shopping",
+    "162": "shopping",
+    "163": "shopping",
+    "165": "shopping",
+    "167": "shopping",
+    "190": "shopping",
+    "226": "shopping",
+    "228": "shopping",
+    "229": "shopping",
+    "230": "shopping",
+    "231": "shopping",
+    "232": "shopping",
+    "238": "shopping",
+    "241": "shopping",
+    "242": "shopping",
+    "260": "shopping",
+    "261": "shopping",
+    "262": "shopping",
+    "264": "shopping",
+    "269": "shopping",
+    "270": "shopping",
+    "271": "shopping",
+    "273": "shopping",
+    "277": "shopping",
+    "278": "shopping",
+    "281": "shopping",
+    "282": "shopping",
+    "283": "shopping",
+    "285": "shopping",
+    "298": "shopping",
+    "319": "shopping",
+    "322": "shopping",
+    "323": "shopping",
+    "325": "shopping",
+    "326": "shopping",
+    "327": "shopping",
+    "328": "shopping",
+    "329": "shopping",
+    "331": "shopping",
+    "333": "shopping",
+    "352": "shopping",
+    "353": "shopping",
+    "354": "shopping",
+    "355": "shopping",
+    "362": "shopping",
+    "386": "shopping",
+    "387": "shopping",
+    "388": "shopping",
+    "432": "shopping",
+    "433": "shopping",
+    "435": "shopping",
+    "436": "shopping",
+    "439": "shopping",
+    "465": "shopping",
+    "466": "shopping",
+    "506": "shopping",
+    "507": "shopping",
+    "508": "shopping",
+    "509": "shopping",
+    "510": "shopping",
+    "511": "shopping",
+    "513": "shopping",
+    "514": "shopping",
+    "515": "shopping",
+    "517": "shopping",
+    "521": "shopping",
+    "528": "shopping",
+    "531": "shopping",
+    "532": "shopping",
+    "571": "shopping",
+    "572": "shopping",
+    "585": "shopping",
+    "587": "shopping",
+    "588": "shopping",
+    "589": "shopping",
+    "653": "shopping",
+    "654": "shopping",
+    "655": "shopping",
+    "691": "shopping",
+    "692": "shopping"
+  },
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "reactive_step_budget": 12,
+  "world_model_step_budget": 12,
+  "episode_max_attempts": 3,
+  "task_feedback_used": false,
+  "post_freeze_policy_changes_allowed": false,
+  "eligible_for_final_claim": true,
+  "evaluator_smoke_step_budget": 1,
+  "evaluator_smoke_answers": {},
+  "release_fingerprint_sha256": "7e34a1e3c74252e8c3ab6ff6b29e2e40eda934e58d27a589c2e528d37c117f32",
+  "arms": {
+    "reactive": {
+      "mode": "reactive",
+      "navigation_guard": "on"
+    },
+    "world_model": {
+      "mode": "world-model",
+      "navigation_guard": "on"
+    }
+  },
+  "task_evidence": {
+    "25": [
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_on.json"
+    ],
+    "26": [
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_on.json"
+    ],
+    "125": [
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_on.json"
+    ],
+    "142": [
+      "data/reports/webarena_p0_round3_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_world-model_guard_on.json"
+    ],
+    "143": [
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_on.json"
+    ],
+    "145": [
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_on.json"
+    ],
+    "146": [
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_on.json"
+    ],
+    "147": [
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_on.json"
+    ],
+    "148": [
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_on.json"
+    ],
+    "149": [
+      "data/reports/webarena_p0_round2_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_shopping_world-model_guard_on.json"
+    ],
+    "159": [
+      "data/reports/webarena_p0_round3_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_world-model_guard_on.json"
+    ],
+    "161": [
+      "data/reports/webarena_p0_round3_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_world-model_guard_on.json"
+    ],
+    "162": [
+      "data/reports/webarena_p0_round2_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_shopping_world-model_guard_on.json"
+    ],
+    "163": [
+      "data/reports/webarena_p0_round2_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_shopping_world-model_guard_on.json"
+    ],
+    "165": [
+      "data/reports/webarena_p0_round2_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_shopping_world-model_guard_on.json"
+    ],
+    "167": [
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_on.json"
+    ],
+    "190": [
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_on.json"
+    ],
+    "226": [
+      "data/reports/webarena_p0_round3_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_world-model_guard_on.json"
+    ],
+    "228": [
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_on.json"
+    ],
+    "229": [
+      "data/reports/webarena_p0_round2_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_shopping_world-model_guard_on.json"
+    ],
+    "230": [
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_on.json"
+    ],
+    "231": [
+      "data/reports/webarena_p0_round3_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_world-model_guard_on.json"
+    ],
+    "232": [
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_on.json"
+    ],
+    "238": [
+      "data/reports/webarena_p0_round3_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_world-model_guard_on.json"
+    ],
+    "241": [
+      "data/reports/webarena_p0_round3_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_world-model_guard_on.json"
+    ],
+    "242": [
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_on.json"
+    ],
+    "260": [
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_on.json"
+    ],
+    "261": [
+      "data/reports/webarena_p0_round3_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_world-model_guard_on.json"
+    ],
+    "262": [
+      "data/reports/webarena_p0_round3_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_world-model_guard_on.json"
+    ],
+    "264": [
+      "data/reports/webarena_p0_round3_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_world-model_guard_on.json"
+    ],
+    "269": [
+      "data/reports/webarena_p0_round3_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_world-model_guard_on.json"
+    ],
+    "270": [
+      "data/reports/webarena_p0_round3_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_world-model_guard_on.json"
+    ],
+    "271": [
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_on.json"
+    ],
+    "273": [
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_on.json"
+    ],
+    "277": [
+      "data/reports/webarena_p0_round2_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_shopping_world-model_guard_on.json"
+    ],
+    "278": [
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_on.json"
+    ],
+    "281": [
+      "data/reports/webarena_p0_round2_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_shopping_world-model_guard_on.json"
+    ],
+    "282": [
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_on.json"
+    ],
+    "283": [
+      "data/reports/webarena_p0_round3_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_world-model_guard_on.json"
+    ],
+    "285": [
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_on.json"
+    ],
+    "298": [
+      "data/reports/webarena_p0_round3_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_world-model_guard_on.json"
+    ],
+    "319": [
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_on.json"
+    ],
+    "322": [
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_on.json"
+    ],
+    "323": [
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_on.json"
+    ],
+    "325": [
+      "data/reports/webarena_p0_round3_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_world-model_guard_on.json"
+    ],
+    "326": [
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_on.json"
+    ],
+    "327": [
+      "data/reports/webarena_p0_round3_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_world-model_guard_on.json"
+    ],
+    "328": [
+      "data/reports/webarena_p0_round2_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_shopping_world-model_guard_on.json"
+    ],
+    "329": [
+      "data/reports/webarena_p0_round2_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_shopping_world-model_guard_on.json"
+    ],
+    "331": [
+      "data/reports/webarena_p0_round3_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_world-model_guard_on.json"
+    ],
+    "333": [
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_on.json"
+    ],
+    "352": [
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_on.json"
+    ],
+    "353": [
+      "data/reports/webarena_p0_round3_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_world-model_guard_on.json"
+    ],
+    "354": [
+      "data/reports/webarena_p0_round3_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_world-model_guard_on.json"
+    ],
+    "355": [
+      "data/reports/webarena_p0_round3_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_world-model_guard_on.json"
+    ],
+    "362": [
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_on.json"
+    ],
+    "386": [
+      "data/reports/webarena_p0_round3_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_world-model_guard_on.json"
+    ],
+    "387": [
+      "data/reports/webarena_p0_round3_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_world-model_guard_on.json"
+    ],
+    "388": [
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_on.json"
+    ],
+    "432": [
+      "data/reports/webarena_p0_round3_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_world-model_guard_on.json"
+    ],
+    "433": [
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_on.json"
+    ],
+    "435": [
+      "data/reports/webarena_p0_round3_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_world-model_guard_on.json"
+    ],
+    "436": [
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_on.json"
+    ],
+    "439": [
+      "data/reports/webarena_p0_round2_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_shopping_world-model_guard_on.json"
+    ],
+    "465": [
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_on.json"
+    ],
+    "466": [
+      "data/reports/webarena_p0_round2_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_shopping_world-model_guard_on.json"
+    ],
+    "506": [
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_on.json"
+    ],
+    "507": [
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_on.json"
+    ],
+    "508": [
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_on.json"
+    ],
+    "509": [
+      "data/reports/webarena_p0_round3_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_world-model_guard_on.json"
+    ],
+    "510": [
+      "data/reports/webarena_p0_round2_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_shopping_world-model_guard_on.json"
+    ],
+    "511": [
+      "data/reports/webarena_p0_round2_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_shopping_world-model_guard_on.json"
+    ],
+    "513": [
+      "data/reports/webarena_p0_round2_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_shopping_world-model_guard_on.json"
+    ],
+    "514": [
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_on.json"
+    ],
+    "515": [
+      "data/reports/webarena_p0_round2_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_shopping_world-model_guard_on.json"
+    ],
+    "517": [
+      "data/reports/webarena_p0_round3_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_world-model_guard_on.json"
+    ],
+    "521": [
+      "data/reports/webarena_p0_round2_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_shopping_world-model_guard_on.json"
+    ],
+    "528": [
+      "data/reports/webarena_p0_round3_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_world-model_guard_on.json"
+    ],
+    "531": [
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_on.json"
+    ],
+    "532": [
+      "data/reports/webarena_p0_round2_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_shopping_world-model_guard_on.json"
+    ],
+    "571": [
+      "data/reports/webarena_p0_round2_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_shopping_world-model_guard_on.json"
+    ],
+    "572": [
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_on.json"
+    ],
+    "585": [
+      "data/reports/webarena_p0_round3_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_world-model_guard_on.json"
+    ],
+    "587": [
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_on.json"
+    ],
+    "588": [
+      "data/reports/webarena_p0_round2_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_shopping_world-model_guard_on.json"
+    ],
+    "589": [
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_on.json"
+    ],
+    "653": [
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round4_holdout_shopping_world-model_guard_on.json"
+    ],
+    "654": [
+      "data/reports/webarena_p0_round3_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_world-model_guard_on.json"
+    ],
+    "655": [
+      "data/reports/webarena_p0_round2_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_shopping_world-model_guard_on.json"
+    ],
+    "691": [
+      "data/reports/webarena_p0_round3_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round3_holdout_shopping_world-model_guard_on.json"
+    ],
+    "692": [
+      "data/reports/webarena_p0_round2_holdout_shopping_reactive_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_shopping_reactive_guard_on.json",
+      "data/reports/webarena_p0_round2_holdout_shopping_world-model_guard_off.json",
+      "data/reports/webarena_p0_round2_holdout_shopping_world-model_guard_on.json"
+    ]
+  },
+  "selection_rule": "Every non-fuzzy task frozen as holdout in rounds 2-4 for this site. The rule is exhaustive, so no task was chosen after seeing results.",
+  "scope_limit": "Re-used frozen holdout tasks; not a never-seen set. Paired comparison is valid because both arms are re-run on the same tasks and seeds.",
+  "freeze_sha256": "c6de5e15f6426df1627058a49144a62a64bbb37eac76468354383851b6d97d7c"
+}

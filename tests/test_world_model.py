@@ -74,6 +74,28 @@ class WorldModelTests(unittest.TestCase):
         expected = state + model.direct_residual_head(torch.cat([state, action], dim=-1))
         self.assertTrue(torch.allclose(outputs["predicted_next_state"], expected))
 
+    def test_legacy_config_has_no_direct_residual_head(self) -> None:
+        import torch
+
+        from agent_world_model.world_model import (
+            ActionConditionedWorldModel,
+            WorldModelConfig,
+        )
+
+        config = WorldModelConfig(
+            state_dim=16,
+            action_dim=8,
+            latent_dim=12,
+            action_latent_dim=4,
+            hidden_dim=20,
+        )
+        model = ActionConditionedWorldModel(config)
+        self.assertFalse(hasattr(model, "direct_residual_head"))
+        state = torch.randn(2, 16)
+        action = torch.randn(2, 8)
+        outputs = model(state, action)
+        self.assertEqual(outputs["predicted_next_state"].shape, (2, 16))
+
 
 if __name__ == "__main__":
     unittest.main()

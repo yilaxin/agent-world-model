@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "benchmark": "W1 baseline working set (shopping, seed 0/1/2)",
+  "frozen_at_utc": "2026-09-12T05:43:30+00:00",
+  "selection_salt": "w1-workingset-v1",
+  "required_sites": [
+    "shopping"
+  ],
+  "task_ids": [
+    124,
+    141,
+    192,
+    227,
+    279,
+    280,
+    284,
+    299,
+    324,
+    351,
+    467,
+    469,
+    518,
+    529,
+    573,
+    586,
+    656
+  ],
+  "task_sites": {
+    "124": "shopping",
+    "141": "shopping",
+    "192": "shopping",
+    "227": "shopping",
+    "279": "shopping",
+    "280": "shopping",
+    "284": "shopping",
+    "299": "shopping",
+    "324": "shopping",
+    "351": "shopping",
+    "467": "shopping",
+    "469": "shopping",
+    "518": "shopping",
+    "529": "shopping",
+    "573": "shopping",
+    "586": "shopping",
+    "656": "shopping"
+  },
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "reactive_step_budget": 12,
+  "world_model_step_budget": 12,
+  "episode_max_attempts": 3,
+  "task_feedback_allowed": true,
+  "eligible_for_final_claim": false,
+  "evaluator_smoke_step_budget": 1,
+  "evaluator_smoke_answers": {},
+  "release_fingerprint_sha256": "7e34a1e3c74252e8c3ab6ff6b29e2e40eda934e58d27a589c2e528d37c117f32",
+  "source": {
+    "task_count": 812,
+    "task_source": "test.raw.json"
+  },
+  "selection_rule": "All remaining eligible tasks: sites == [site], evaluator is not fuzzy_match, and the task id is absent from every config, report and trajectory already recorded in the project. The selection is forced by exhaustion, so no sampling freedom exists.",
+  "scope_limit": "Working set for W1 strategy iteration. Results steer development and are NOT eligible for the final +10% claim; the confirmatory set is configs/webarena_p0_round5_confirmatory_frozen.json.",
+  "freeze_sha256": "e13f846e04321c79e7d9506917ce07c69cb91c9df0ade76758b91f908ac41979"
+}
